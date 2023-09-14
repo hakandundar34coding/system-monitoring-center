@@ -2727,7 +2727,7 @@ def get_resolution_refresh_rate():
     return current_resolution, current_refresh_rate
 
 
-def monitor_resolution_refresh_rate_multiline_text(current_resolution, current_refresh_rate):
+def monitor_resolution_refresh_rate_multiple_text(current_resolution, current_refresh_rate):
     """
     Generate a multiline text for resolutions and refresh rates of multiple monitors.
     """
@@ -2739,7 +2739,7 @@ def monitor_resolution_refresh_rate_multiline_text(current_resolution, current_r
     for i, resolution in enumerate(current_resolution_list):
         resolution_refresh_rate_text = resolution_refresh_rate_text + resolution + " @" + current_refresh_rate_list[i]
         if i != len(current_resolution_list) - 1:
-            resolution_refresh_rate_text = resolution_refresh_rate_text + ",\n"
+            resolution_refresh_rate_text = resolution_refresh_rate_text + ", "
 
     return resolution_refresh_rate_text
 

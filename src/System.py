@@ -110,43 +110,43 @@ class System:
         grid.set_margin_end(6)
         viewport.set_child(grid)
 
+        # Grid (Hardware)
+        grid_hardware = Gtk.Grid()
+        grid_hardware.set_column_homogeneous(True)
+        grid_hardware.set_row_homogeneous(True)
+        grid_hardware.set_column_spacing(12)
+        grid_hardware.set_row_spacing(3)
+        grid.attach(grid_hardware, 0, 0, 2, 1)
+
+        # Grid Upper (Computer - Packages)
+        grid_computer_packages = Gtk.Grid()
+        grid_computer_packages.set_column_homogeneous(True)
+        #grid_computer_packages.set_row_homogeneous(True)
+        grid_computer_packages.set_column_spacing(12)
+        grid_computer_packages.set_row_spacing(3)
+        grid.attach(grid_computer_packages, 0, 1, 1, 1)
+
+        # Separator
+        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        separator.set_margin_top(5)
+        separator.set_margin_bottom(5)
+        separator.set_valign(Gtk.Align.CENTER)
+        grid_computer_packages.attach(separator, 0, 0, 1, 1)
+
         # Grid (Computer)
         grid_computer = Gtk.Grid()
-        #grid_computer.set_column_homogeneous(True)
-        #grid_computer.set_row_homogeneous(True)
+        grid_computer.set_column_homogeneous(True)
+        grid_computer.set_row_homogeneous(True)
         grid_computer.set_column_spacing(12)
         grid_computer.set_row_spacing(3)
-        grid.attach(grid_computer, 1, 0, 1, 5)
-
-        # Grid (Operating System (OS))
-        grid_operating_system = Gtk.Grid()
-        grid_operating_system.set_column_homogeneous(True)
-        grid_operating_system.set_row_homogeneous(True)
-        grid_operating_system.set_column_spacing(12)
-        grid_operating_system.set_row_spacing(3)
-        grid.attach(grid_operating_system, 0, 0, 1, 1)
+        grid_computer_packages.attach(grid_computer, 0, 1, 1, 1)
 
         # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         separator.set_margin_top(5)
         separator.set_margin_bottom(5)
         separator.set_valign(Gtk.Align.CENTER)
-        grid.attach(separator, 0, 1, 1, 1)
-
-        # Grid (Graphical User Interface (GUI))
-        grid_graphical_user_interface = Gtk.Grid()
-        grid_graphical_user_interface.set_column_homogeneous(True)
-        grid_graphical_user_interface.set_row_homogeneous(True)
-        grid_graphical_user_interface.set_column_spacing(12)
-        grid_graphical_user_interface.set_row_spacing(3)
-        grid.attach(grid_graphical_user_interface, 0, 2, 1, 1)
-
-        # Separator
-        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        separator.set_margin_top(5)
-        separator.set_margin_bottom(5)
-        separator.set_valign(Gtk.Align.CENTER)
-        grid.attach(separator, 0, 3, 1, 1)
+        grid_computer_packages.attach(separator, 0, 2, 1, 1)
 
         # Grid (Packages)
         grid_packages = Gtk.Grid()
@@ -154,115 +154,125 @@ class System:
         grid_packages.set_row_homogeneous(True)
         grid_packages.set_column_spacing(12)
         grid_packages.set_row_spacing(3)
-        grid.attach(grid_packages, 0, 4, 1, 1)
+        grid_computer_packages.attach(grid_packages, 0, 3, 1, 1)
+
+        # Grid Upper ((Operating System (OS) - Graphical User Interface (GUI))
+        grid_os_gui = Gtk.Grid()
+        grid_os_gui.set_column_homogeneous(True)
+        #grid_os_gui.set_row_homogeneous(True)
+        grid_os_gui.set_column_spacing(12)
+        grid_os_gui.set_row_spacing(3)
+        grid.attach(grid_os_gui, 1, 1, 1, 1)
+
+        # Separator
+        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        separator.set_margin_top(5)
+        separator.set_margin_bottom(5)
+        separator.set_valign(Gtk.Align.CENTER)
+        grid_os_gui.attach(separator, 0, 0, 1, 1)
+
+        # Grid (Operating System (OS))
+        grid_operating_system = Gtk.Grid()
+        grid_operating_system.set_column_homogeneous(True)
+        grid_operating_system.set_row_homogeneous(True)
+        grid_operating_system.set_column_spacing(12)
+        grid_operating_system.set_row_spacing(3)
+        grid_os_gui.attach(grid_operating_system, 0, 1, 1, 1)
+
+        # Separator
+        separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        separator.set_margin_top(5)
+        separator.set_margin_bottom(5)
+        separator.set_valign(Gtk.Align.CENTER)
+        grid_os_gui.attach(separator, 0, 2, 1, 1)
+
+        # Grid (Graphical User Interface (GUI))
+        grid_graphical_user_interface = Gtk.Grid()
+        grid_graphical_user_interface.set_column_homogeneous(True)
+        grid_graphical_user_interface.set_row_homogeneous(True)
+        grid_graphical_user_interface.set_column_spacing(12)
+        grid_graphical_user_interface.set_row_spacing(3)
+        grid_os_gui.attach(grid_graphical_user_interface, 0, 3, 1, 1)
 
 
         # Performance information labels
-        # Label - Title (Computer)
-        label = Common.title_label(_tr("Computer"))
-        grid_computer.attach(label, 2, 0, 2, 1)
-
-        # Separator (this separator is not attached to the parent Grid)
-        separator = Gtk.Separator(orientation=Gtk.Orientation.VERTICAL)
-        separator.set_margin_start(0)
-        separator.set_margin_end(0)
-        separator.set_valign(Gtk.Align.FILL)
-        grid_computer.attach(separator, 1, 0, 1, 14)
+        # Label - Title (Hardware)
+        label = Common.title_label(_tr("Hardware"))
+        grid_hardware.attach(label, 0, 0, 2, 1)
 
         # Label (CPU)
         label = Common.static_information_label(_tr("CPU") + ":")
-        grid_computer.attach(label, 2, 1, 1, 1)
+        grid_hardware.attach(label, 0, 1, 1, 1)
         # Label (CPU)
         self.cpu_vendor_model_label = Common.dynamic_information_label()
-        grid_computer.attach(self.cpu_vendor_model_label, 3, 1, 1, 1)
+        grid_hardware.attach(self.cpu_vendor_model_label, 1, 1, 3, 1)
 
-        # Label (Memory - RAM)
-        label = Common.static_information_label(_tr("Memory") + " - " + _tr("RAM") + ":")
-        grid_computer.attach(label, 2, 2, 1, 1)
-        # Label (Memory - RAM)
-        self.memory_ram_capacity_label = Common.dynamic_information_label()
-        grid_computer.attach(self.memory_ram_capacity_label, 3, 2, 1, 1)
-
-        # Label (Memory - Swap)
-        label = Common.static_information_label(_tr("Memory") + " - " + _tr("Swap") + ":")
-        grid_computer.attach(label, 2, 3, 1, 1)
-        # Label (Memory - Swap)
-        self.memory_swap_capacity_label = Common.dynamic_information_label()
-        grid_computer.attach(self.memory_swap_capacity_label, 3, 3, 1, 1)
-
-        # Label (Disk)
-        label = Common.static_information_label(_tr("Disk") + ":")
-        label.set_valign(Gtk.Align.START)
-        grid_computer.attach(label, 2, 4, 1, 1)
-        # Label (Disk)
-        self.disk_vendor_model_label = Common.dynamic_information_label()
-        self.disk_vendor_model_label.set_valign(Gtk.Align.START)
-        grid_computer.attach(self.disk_vendor_model_label, 3, 4, 1, 1)
-
-        # Label (Network)
-        label = Common.static_information_label(_tr("Network") + ":")
-        label.set_valign(Gtk.Align.START)
-        grid_computer.attach(label, 2, 5, 1, 1)
-        # Label (Network)
-        self.network_card_vendor_model_label = Common.dynamic_information_label()
-        self.network_card_vendor_model_label.set_valign(Gtk.Align.START)
-        grid_computer.attach(self.network_card_vendor_model_label, 3, 5, 1, 1)
+        # Label (Memory)
+        label = Common.static_information_label(_tr("Memory") + ":")
+        grid_hardware.attach(label, 0, 2, 1, 1)
+        # Label (Memory)
+        self.memory_capacity_label = Common.dynamic_information_label()
+        grid_hardware.attach(self.memory_capacity_label, 1, 2, 3, 1)
 
         # Label (GPU)
         label = Common.static_information_label(_tr("GPU") + ":")
-        grid_computer.attach(label, 2, 6, 1, 1)
+        grid_hardware.attach(label, 0, 3, 1, 1)
         # Label (GPU)
         self.gpu_vendor_model_label = Common.dynamic_information_label()
-        grid_computer.attach(self.gpu_vendor_model_label, 3, 6, 1, 1)
+        grid_hardware.attach(self.gpu_vendor_model_label, 1, 3, 3, 1)
+
+        # Label (Monitors)
+        label = Common.static_information_label(_tr("Monitors") + ":")
+        grid_hardware.attach(label, 0, 4, 1, 1)
+        # Label (Monitors)
+        self.monitors_label = Common.dynamic_information_label()
+        grid_hardware.attach(self.monitors_label, 1, 4, 3, 1)
+
+        # Label - Title (Computer)
+        label = Common.title_label(_tr("Computer"))
+        grid_computer.attach(label, 0, 0, 2, 1)
 
         # Label (Vendor)
         label = Common.static_information_label(_tr("Vendor") + ":")
-        grid_computer.attach(label, 2, 7, 1, 1)
+        grid_computer.attach(label, 0, 1, 1, 1)
         # Label (Vendor)
         self.vendor_label = Common.dynamic_information_label()
-        grid_computer.attach(self.vendor_label, 3, 7, 1, 1)
+        grid_computer.attach(self.vendor_label, 1, 1, 1, 1)
 
         # Label (Model)
         label = Common.static_information_label(_tr("Model") + ":")
-        grid_computer.attach(label, 2, 8, 1, 1)
+        grid_computer.attach(label, 0, 2, 1, 1)
         # Label (Model)
         self.model_label = Common.dynamic_information_label()
-        grid_computer.attach(self.model_label, 3, 8, 1, 1)
+        grid_computer.attach(self.model_label, 1, 2, 1, 1)
 
         # Label (Computer Type)
         label = Common.static_information_label(_tr("Computer Type") + ":")
-        grid_computer.attach(label, 2, 9, 1, 1)
+        grid_computer.attach(label, 0, 3, 1, 1)
         # Label (Computer Type)
         self.computer_type_label = Common.dynamic_information_label()
-        grid_computer.attach(self.computer_type_label, 3, 9, 1, 1)
+        grid_computer.attach(self.computer_type_label, 1, 3, 1, 1)
 
         # Label (Name)
         label = Common.static_information_label(_tr("Name") + ":")
-        grid_computer.attach(label, 2, 10, 1, 1)
+        grid_computer.attach(label, 0, 4, 1, 1)
         # Label (Name)
         self.computer_name_label = Common.dynamic_information_label()
-        grid_computer.attach(self.computer_name_label, 3, 10, 1, 1)
+        grid_computer.attach(self.computer_name_label, 1, 4, 1, 1)
 
         # Label (Architecture)
         label = Common.static_information_label(_tr("Architecture") + ":")
-        grid_computer.attach(label, 2, 11, 1, 1)
+        grid_computer.attach(label, 0, 5, 1, 1)
         # Label (Architecture)
         self.architecture_label = Common.dynamic_information_label()
-        grid_computer.attach(self.architecture_label, 3, 11, 1, 1)
+        grid_computer.attach(self.architecture_label, 1, 5, 1, 1)
 
         # Label (Number Of Monitors)
         label = Common.static_information_label(_tr("Number Of Monitors") + ":")
-        grid_computer.attach(label, 2, 12, 1, 1)
+        grid_computer.attach(label, 0, 6, 1, 1)
         # Label (Number Of Monitors)
         self.number_of_monitors_label = Common.dynamic_information_label()
-        grid_computer.attach(self.number_of_monitors_label, 3, 12, 1, 1)
-
-        # Label (Resolution)
-        label = Common.static_information_label(_tr("Resolution") + ":")
-        grid_computer.attach(label, 2, 13, 1, 1)
-        # Label (Resolution)
-        self.resolution_refresh_rate_label = Common.dynamic_information_label()
-        grid_computer.attach(self.resolution_refresh_rate_label, 3, 13, 1, 1)
+        grid_computer.attach(self.number_of_monitors_label, 1, 6, 1, 1)
 
         # Label - Title (Operating System (OS))
         label = Common.title_label(_tr("Operating System (OS)"))
@@ -468,18 +478,15 @@ class System:
         self.window_manager_label.set_label(window_manager)
         self.display_manager_label.set_label(current_display_manager)
         """self.cpu_vendor_model_label.set_label(cpu_model_name)
-        self.memory_ram_capacity_label.set_label(Libsysmon.data_unit_converter("data", "none", ram_total, performance_memory_data_unit, performance_memory_data_precision))
-        self.memory_swap_capacity_label.set_label(Libsysmon.data_unit_converter("data", "none", swap_total, 0, 1))
-        self.disk_vendor_model_label.set_label(',\n'.join(disk_device_model_name.split(" - ", 1)))
-        self.network_card_vendor_model_label.set_label(',\n'.join(network_card_device_model_name.split(" - ", 1)))
-        self.gpu_vendor_model_label.set_label(',\n'.join(gpu_device_model_name.split(" - ", 1)))"""
+        self.memory_capacity_label.set_label(Libsysmon.data_unit_converter("data", "none", ram_total, performance_memory_data_unit, performance_memory_data_precision))
+        self.gpu_vendor_model_label.set_label(',\n'.join(gpu_device_model_name.split(" - ", 1)))
+        self.monitors_label.set_label(current_resolution_refresh_rate)"""
         self.vendor_label.set_label(computer_vendor)
         self.model_label.set_label(computer_model)
         self.computer_type_label.set_label(computer_chassis_type)
         self.computer_name_label.set_label(host_name)
         self.architecture_label.set_label(cpu_architecture)
         self.number_of_monitors_label.set_label(f'{number_of_monitors}')
-        #self.resolution_refresh_rate_label.set_label(current_resolution_refresh_rate)
         #self.system_packages_label.set_label(f'{apt_or_rpm_or_pacman_or_apk_packages_count}')
         #self.flatpak_packages_label.set_label(f'{flatpak_packages_count}')
         self.gtk_version_label.set_label(current_gtk_version)
@@ -513,22 +520,9 @@ class System:
         memory_info = Libsysmon.get_memory_info()
         ram_total = memory_info["ram_total"]
         swap_total = memory_info["swap_total"]
-
-        # Get system disk vendor-model
-        selected_disk = Performance.system_disk_list[0]
-        disk_list = Performance.disk_list
-        disk_file_system_information = Libsysmon.get_disk_file_system_information(disk_list)
-        disk_file_system, disk_capacity, disk_used, disk_free, disk_usage_percentage, disk_mount_point, encrypted_disk_name  = Libsysmon.get_disk_file_system_capacity_used_free_used_percent_mount_point(disk_file_system_information, disk_list, selected_disk)
-        disk_type = Libsysmon.get_disk_type(selected_disk)
-        disk_parent_name = Libsysmon.get_disk_parent_name(selected_disk, disk_type, disk_list)
-        disk_device_model_name = Libsysmon.get_disk_device_model_name(selected_disk, disk_type, disk_parent_name)
-
-        # Get connected (or selected) network card vendor-model
-        if len(Performance.connected_network_card_list) != 0:
-            selected_network_card = Performance.connected_network_card_list[0]
-        else:
-            selected_network_card = Performance.selected_network_card
-        network_card_device_model_name = Libsysmon.get_network_card_device_model_name(selected_network_card)
+        ram_capacity_text = Libsysmon.data_unit_converter("data", "none", ram_total, performance_memory_data_unit, performance_memory_data_precision)
+        swap_capacity_text = Libsysmon.data_unit_converter("data", "none", swap_total, 0, 1)
+        memory_capacity_text = ram_capacity_text + " (" + _tr("RAM") + "),  " + swap_capacity_text + " (" + _tr("Swap Memory") + ")"
 
         # Get GPU (boot VGA) vendor-model
         try:
@@ -539,23 +533,17 @@ class System:
         except Exception:
             gpu_device_model_name = "-"
         current_resolution, current_refresh_rate = Libsysmon.get_resolution_refresh_rate()
-        current_resolution_refresh_rate = Libsysmon.monitor_resolution_refresh_rate_multiline_text(current_resolution, current_refresh_rate)
+        current_resolution_refresh_rate = Libsysmon.monitor_resolution_refresh_rate_multiple_text(current_resolution, current_refresh_rate)
 
         # Set multiple label text
         label_list = [self.cpu_vendor_model_label,
-                      self.memory_ram_capacity_label,
-                      self.memory_swap_capacity_label,
-                      self.disk_vendor_model_label,
-                      self.network_card_vendor_model_label,
+                      self.memory_capacity_label,
                       self.gpu_vendor_model_label,
-                      self.resolution_refresh_rate_label]
+                      self.monitors_label]
 
         label_data_list = [cpu_model_name,
-                           Libsysmon.data_unit_converter("data", "none", ram_total, performance_memory_data_unit, performance_memory_data_precision),
-                           Libsysmon.data_unit_converter("data", "none", swap_total, 0, 1),
-                           ',\n'.join(disk_device_model_name.split(" - ", 1)),
-                           ',\n'.join(network_card_device_model_name.split(" - ", 1)),
-                           ',\n'.join(gpu_device_model_name.split(" - ", 1)),
+                           memory_capacity_text,
+                           gpu_device_model_name,
                            current_resolution_refresh_rate]
 
         GLib.idle_add(self.set_multiple_label_text, label_list, label_data_list)
