@@ -115,7 +115,7 @@
 <details>
   <summary>Show</summary>
 
-  # Limitations
+  #### Limitations
 
   - GPU usage information availability depends on vendor/driver.
   - GPU load is not tracked if GPU tab is switched off (for lower CPU usage).
@@ -123,7 +123,7 @@
   - Non-Flatpak versions of the application has higher performance (start speed, CPU, RAM usage).
   - GTK4 (used for SMC v2) consumes about 2x RAM when compared to GTK3 (used for SMC v1).
 
-  # Known Issues
+  #### Known Issues
 
   - Expander/Collapser arrows do not work sometimes if processes are listes as tree (Processes tab).
     <a href="https://github.com/hakandundar34coding/system-monitoring-center/issues/206">Issue</a>
