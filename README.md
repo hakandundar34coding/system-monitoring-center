@@ -113,23 +113,23 @@
 
 ### Limitations and Known Issues:
 <details>
-    <summary>Show</summary>
+  <summary>Show</summary>
 
-    # Limitations
+  # Limitations
 
-    - GPU usage information availability depends on vendor/driver.
-    - GPU load is not tracked if GPU tab is switched off (for lower CPU usage).
-    - Virtual machines may not provide CPU min-max frequencies, sensors and RAM hardware information.
-    - Non-Flatpak versions of the application has higher performance (start speed, CPU, RAM usage).
-    - GTK4 (used for SMC v2) consumes about 2x RAM when compared to GTK3 (used for SMC v1).
+  - GPU usage information availability depends on vendor/driver.
+  - GPU load is not tracked if GPU tab is switched off (for lower CPU usage).
+  - Virtual machines may not provide CPU min-max frequencies, sensors and RAM hardware information.
+  - Non-Flatpak versions of the application has higher performance (start speed, CPU, RAM usage).
+  - GTK4 (used for SMC v2) consumes about 2x RAM when compared to GTK3 (used for SMC v1).
 
-    # Known Issues
+  # Known Issues
 
-    - Expander/Collapser arrows do not work sometimes if processes are listes as tree (Processes tab).
-      <a href="https://github.com/hakandundar34coding/system-monitoring-center/issues/206">Issue</a>
+  - Expander/Collapser arrows do not work sometimes if processes are listes as tree (Processes tab).
+    <a href="https://github.com/hakandundar34coding/system-monitoring-center/issues/206">Issue</a>
 
-    - Tab customization menus are not closed when clicked outside of the popover menu after using a dropdown menu on the popover menu.
-        - This is a GTK4 bug. These menus can be closed by using `Esc` key.
+  - Tab customization menus are not closed when clicked outside of the popover menu after using a dropdown menu on the popover menu.
+      - This is a GTK4 bug. These menus can be closed by using `Esc` key.
 
 </details>
 
