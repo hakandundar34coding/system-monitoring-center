@@ -111,25 +111,25 @@ class System:
         viewport.set_child(grid)
 
         # Grid (Hardware)
-        grid_hardware = Gtk.Grid()
-        grid_hardware.set_column_homogeneous(True)
-        grid_hardware.set_row_homogeneous(True)
-        grid_hardware.set_column_spacing(12)
-        grid_hardware.set_row_spacing(3)
-        grid.attach(grid_hardware, 0, 0, 2, 1)
+        self.grid_hardware = Gtk.Grid()
+        self.grid_hardware.set_column_homogeneous(True)
+        self.grid_hardware.set_row_homogeneous(True)
+        self.grid_hardware.set_column_spacing(12)
+        self.grid_hardware.set_row_spacing(2)
+        grid.attach(self.grid_hardware, 0, 0, 2, 1)
 
         # Grid Upper (Computer - Packages)
         grid_computer_packages = Gtk.Grid()
         grid_computer_packages.set_column_homogeneous(True)
         #grid_computer_packages.set_row_homogeneous(True)
         grid_computer_packages.set_column_spacing(12)
-        grid_computer_packages.set_row_spacing(3)
+        grid_computer_packages.set_row_spacing(2)
         grid.attach(grid_computer_packages, 0, 1, 1, 1)
 
         # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        separator.set_margin_top(5)
-        separator.set_margin_bottom(5)
+        separator.set_margin_top(4)
+        separator.set_margin_bottom(4)
         separator.set_valign(Gtk.Align.CENTER)
         grid_computer_packages.attach(separator, 0, 0, 1, 1)
 
@@ -138,13 +138,13 @@ class System:
         grid_computer.set_column_homogeneous(True)
         grid_computer.set_row_homogeneous(True)
         grid_computer.set_column_spacing(12)
-        grid_computer.set_row_spacing(3)
+        grid_computer.set_row_spacing(2)
         grid_computer_packages.attach(grid_computer, 0, 1, 1, 1)
 
         # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        separator.set_margin_top(5)
-        separator.set_margin_bottom(5)
+        separator.set_margin_top(4)
+        separator.set_margin_bottom(4)
         separator.set_valign(Gtk.Align.CENTER)
         grid_computer_packages.attach(separator, 0, 2, 1, 1)
 
@@ -153,7 +153,7 @@ class System:
         grid_packages.set_column_homogeneous(True)
         grid_packages.set_row_homogeneous(True)
         grid_packages.set_column_spacing(12)
-        grid_packages.set_row_spacing(3)
+        grid_packages.set_row_spacing(2)
         grid_computer_packages.attach(grid_packages, 0, 3, 1, 1)
 
         # Grid Upper ((Operating System (OS) - Graphical User Interface (GUI))
@@ -161,13 +161,13 @@ class System:
         grid_os_gui.set_column_homogeneous(True)
         #grid_os_gui.set_row_homogeneous(True)
         grid_os_gui.set_column_spacing(12)
-        grid_os_gui.set_row_spacing(3)
+        grid_os_gui.set_row_spacing(2)
         grid.attach(grid_os_gui, 1, 1, 1, 1)
 
         # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        separator.set_margin_top(5)
-        separator.set_margin_bottom(5)
+        separator.set_margin_top(4)
+        separator.set_margin_bottom(4)
         separator.set_valign(Gtk.Align.CENTER)
         grid_os_gui.attach(separator, 0, 0, 1, 1)
 
@@ -176,13 +176,13 @@ class System:
         grid_operating_system.set_column_homogeneous(True)
         grid_operating_system.set_row_homogeneous(True)
         grid_operating_system.set_column_spacing(12)
-        grid_operating_system.set_row_spacing(3)
+        grid_operating_system.set_row_spacing(2)
         grid_os_gui.attach(grid_operating_system, 0, 1, 1, 1)
 
         # Separator
         separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        separator.set_margin_top(5)
-        separator.set_margin_bottom(5)
+        separator.set_margin_top(4)
+        separator.set_margin_bottom(4)
         separator.set_valign(Gtk.Align.CENTER)
         grid_os_gui.attach(separator, 0, 2, 1, 1)
 
@@ -191,42 +191,47 @@ class System:
         grid_graphical_user_interface.set_column_homogeneous(True)
         grid_graphical_user_interface.set_row_homogeneous(True)
         grid_graphical_user_interface.set_column_spacing(12)
-        grid_graphical_user_interface.set_row_spacing(3)
+        grid_graphical_user_interface.set_row_spacing(2)
         grid_os_gui.attach(grid_graphical_user_interface, 0, 3, 1, 1)
 
 
         # Performance information labels
-        # Label - Title (Hardware)
+        """# Label - Title (Hardware)
         label = Common.title_label(_tr("Hardware"))
-        grid_hardware.attach(label, 0, 0, 2, 1)
+        self.grid_hardware.attach(label, 0, 0, 2, 1)"""
 
         # Label (CPU)
         label = Common.static_information_label(_tr("CPU") + ":")
-        grid_hardware.attach(label, 0, 1, 1, 1)
+        self.grid_hardware.attach(label, 0, 0, 1, 1)
         # Label (CPU)
         self.cpu_vendor_model_label = Common.dynamic_information_label()
-        grid_hardware.attach(self.cpu_vendor_model_label, 1, 1, 3, 1)
+        self.grid_hardware.attach(self.cpu_vendor_model_label, 1, 0, 3, 1)
 
         # Label (Memory)
         label = Common.static_information_label(_tr("Memory") + ":")
-        grid_hardware.attach(label, 0, 2, 1, 1)
+        self.grid_hardware.attach(label, 0, 1, 1, 1)
         # Label (Memory)
         self.memory_capacity_label = Common.dynamic_information_label()
-        grid_hardware.attach(self.memory_capacity_label, 1, 2, 3, 1)
+        self.grid_hardware.attach(self.memory_capacity_label, 1, 1, 3, 1)
 
         # Label (GPU)
         label = Common.static_information_label(_tr("GPU") + ":")
-        grid_hardware.attach(label, 0, 3, 1, 1)
+        self.grid_hardware.attach(label, 0, 2, 1, 1)
         # Label (GPU)
         self.gpu_vendor_model_label = Common.dynamic_information_label()
-        grid_hardware.attach(self.gpu_vendor_model_label, 1, 3, 3, 1)
+        self.grid_hardware.attach(self.gpu_vendor_model_label, 1, 2, 3, 1)
+
+        # Label (GPU (2))
+        self.gpu2_label = Common.static_information_label(_tr("GPU") + " (2)" + ":")
+        # Label (GPU (2))
+        self.gpu_vendor_model_label2 = Common.dynamic_information_label()
 
         # Label (Monitors)
         label = Common.static_information_label(_tr("Monitors") + ":")
-        grid_hardware.attach(label, 0, 4, 1, 1)
+        self.grid_hardware.attach(label, 0, 3, 1, 1)
         # Label (Monitors)
         self.monitors_label = Common.dynamic_information_label()
-        grid_hardware.attach(self.monitors_label, 1, 4, 3, 1)
+        self.grid_hardware.attach(self.monitors_label, 1, 3, 3, 1)
 
         # Label - Title (Computer)
         label = Common.title_label(_tr("Computer"))
@@ -322,47 +327,47 @@ class System:
 
         # Label - Title (Graphical User Interface (GUI))
         label = Common.title_label(_tr("Graphical User Interface (GUI)"))
-        grid_graphical_user_interface.attach(label, 0, 8, 2, 1)
+        grid_graphical_user_interface.attach(label, 0, 0, 2, 1)
 
         # Label (Desktop Environment)
         label = Common.static_information_label(_tr("Desktop Environment") + ":")
-        grid_graphical_user_interface.attach(label, 0, 9, 1, 1)
+        grid_graphical_user_interface.attach(label, 0, 1, 1, 1)
         # Label (Desktop Environment)
         self.desktop_environment_label = Common.dynamic_information_label()
-        grid_graphical_user_interface.attach(self.desktop_environment_label, 1, 9, 1, 1)
+        grid_graphical_user_interface.attach(self.desktop_environment_label, 1, 1, 1, 1)
 
         # Label (Windowing System)
         label = Common.static_information_label(_tr("Windowing System") + ":")
-        grid_graphical_user_interface.attach(label, 0, 10, 1, 1)
+        grid_graphical_user_interface.attach(label, 0, 2, 1, 1)
         # Label (Windowing System)
         self.windowing_system_label = Common.dynamic_information_label()
-        grid_graphical_user_interface.attach(self.windowing_system_label, 1, 10, 1, 1)
+        grid_graphical_user_interface.attach(self.windowing_system_label, 1, 2, 1, 1)
 
         # Label (Window Manager)
         label = Common.static_information_label(_tr("Window Manager") + ":")
-        grid_graphical_user_interface.attach(label, 0, 11, 1, 1)
+        grid_graphical_user_interface.attach(label, 0, 3, 1, 1)
         # Label (Window Manager)
         self.window_manager_label = Common.dynamic_information_label()
-        grid_graphical_user_interface.attach(self.window_manager_label, 1, 11, 1, 1)
+        grid_graphical_user_interface.attach(self.window_manager_label, 1, 3, 1, 1)
 
         # Label (Display Manager)
         label = Common.static_information_label(_tr("Display Manager") + ":")
-        grid_graphical_user_interface.attach(label, 0, 12, 1, 1)
+        grid_graphical_user_interface.attach(label, 0, 4, 1, 1)
         # Label (Display Manager)
         self.display_manager_label = Common.dynamic_information_label()
-        grid_graphical_user_interface.attach(self.display_manager_label, 1, 12, 1, 1)
+        grid_graphical_user_interface.attach(self.display_manager_label, 1, 4, 1, 1)
 
         # Label - Title (Packages)
         label = Common.title_label(_tr("Packages"))
-        grid_packages.attach(label, 2, 8, 2, 1)
+        grid_packages.attach(label, 0, 0, 2, 1)
 
         # Label (System)
         label = Common.static_information_label(_tr("System") + ":")
-        grid_packages.attach(label, 2, 9, 1, 1)
+        grid_packages.attach(label, 0, 1, 1, 1)
         # Grid (System)
         system_packages_grid = Gtk.Grid()
         system_packages_grid.set_column_spacing(2)
-        grid_packages.attach(system_packages_grid, 3, 9, 1, 1)
+        grid_packages.attach(system_packages_grid, 1, 1, 1, 1)
         # Label (System)
         self.system_packages_label = Common.dynamic_information_label()
         system_packages_grid.attach(self.system_packages_label, 0, 0, 1, 1)
@@ -374,11 +379,11 @@ class System:
         # Label (Flatpak)
         label = Common.static_information_label(_tr("Flatpak") + ":")
         label.set_tooltip_text(_tr("Number of installed Flatpak applications and runtimes"))
-        grid_packages.attach(label, 2, 10, 1, 1)
+        grid_packages.attach(label, 0, 2, 1, 1)
         # Grid (Flatpak)
         flatpak_packages_grid = Gtk.Grid()
         flatpak_packages_grid.set_column_spacing(2)
-        grid_packages.attach(flatpak_packages_grid, 3, 10, 1, 1)
+        grid_packages.attach(flatpak_packages_grid, 1, 2, 1, 1)
         # Label (Flatpak)
         self.flatpak_packages_label = Common.dynamic_information_label()
         flatpak_packages_grid.attach(self.flatpak_packages_label, 0, 0, 1, 1)
@@ -390,18 +395,18 @@ class System:
         # Label (GTK Version)
         label = Common.static_information_label(_tr("GTK Version") + ":")
         label.set_tooltip_text(_tr("Version for the currently running software"))
-        grid_packages.attach(label, 2, 11, 1, 1)
+        grid_packages.attach(label, 0, 3, 1, 1)
         # Label (GTK Version)
         self.gtk_version_label = Common.dynamic_information_label()
-        grid_packages.attach(self.gtk_version_label, 3, 11, 1, 1)
+        grid_packages.attach(self.gtk_version_label, 1, 3, 1, 1)
 
         # Label (Python Version)
         label = Common.static_information_label(_tr("Python Version") + ":")
         label.set_tooltip_text(_tr("Version for the currently running software"))
-        grid_packages.attach(label, 2, 12, 1, 1)
+        grid_packages.attach(label, 0, 4, 1, 1)
         # Label (Python Version)
         self.python_version_label = Common.dynamic_information_label()
-        grid_packages.attach(self.python_version_label, 3, 12, 1, 1)
+        grid_packages.attach(self.python_version_label, 1, 4, 1, 1)
 
 
     def on_refresh_button_clicked(self, widget):
@@ -522,7 +527,7 @@ class System:
         swap_total = memory_info["swap_total"]
         ram_capacity_text = Libsysmon.data_unit_converter("data", "none", ram_total, performance_memory_data_unit, performance_memory_data_precision)
         swap_capacity_text = Libsysmon.data_unit_converter("data", "none", swap_total, 0, 1)
-        memory_capacity_text = ram_capacity_text + " (" + _tr("RAM") + "),  " + swap_capacity_text + " (" + _tr("Swap Memory") + ")"
+        memory_capacity_text = ram_capacity_text + " (" + _tr("RAM") + ")  -  " + swap_capacity_text + " (" + _tr("Swap Memory") + ")"
 
         # Get GPU (boot VGA) vendor-model
         try:
@@ -545,6 +550,31 @@ class System:
                            memory_capacity_text,
                            gpu_device_model_name,
                            current_resolution_refresh_rate]
+
+        # Remove labels and Grid row of GPU (2) if they are added before.
+        widget_at_gpu2_label_position = self.grid_hardware.get_child_at(1, 3)
+        if widget_at_gpu2_label_position == self.gpu_vendor_model_label2:
+            self.grid_hardware.remove(self.gpu2_label)
+            self.grid_hardware.remove(self.gpu_vendor_model_label2)
+            self.grid_hardware.remove_row(3)
+
+        # Add labels, Grid row and get GPU vendor-model information for GPU (2).
+        if len(gpu_list) > 1:
+            self.grid_hardware.insert_row(3)
+            self.grid_hardware.attach(self.gpu2_label, 0, 3, 1, 1)
+            self.grid_hardware.attach(self.gpu_vendor_model_label2, 1, 3, 3, 1)
+            try:
+                # Get vendor-model information of another GPU (not boot VGA).
+                for i, gpu in enumerate(gpu_list):
+                    if i != selected_gpu_number:
+                        selected_gpu_number2 = i
+                # Get GPU vendor-model information
+                gpu_device_model_name2, device_vendor_id2 = Libsysmon.get_device_model_name_vendor_id(selected_gpu_number2, gpu_list, gpu_device_path_list, gpu_device_sub_path_list)
+            except Exception:
+                gpu_device_model_name2 = "-"
+            # Add label and label data into lists for showing information
+            label_list.insert(3, self.gpu_vendor_model_label2)
+            label_data_list.insert(3, gpu_device_model_name2)
 
         GLib.idle_add(self.set_multiple_label_text, label_list, label_data_list)
 
