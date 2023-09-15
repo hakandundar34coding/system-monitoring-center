@@ -111,9 +111,9 @@
 - Dependency [list](docs/dependencies.md).
 
 
-### Known Issues:
+### Limitations and Known Issues:
 <details>
-  <summary>Show</summary>
+    <summary>Show</summary>
 
     # Limitations
 
@@ -130,7 +130,6 @@
 
     - Tab customization menus are not closed when clicked outside of the popover menu after using a dropdown menu on the popover menu.
         - This is a GTK4 bug. These menus can be closed by using `Esc` key.
-
 
 </details>
 
