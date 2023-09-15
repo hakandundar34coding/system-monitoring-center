@@ -111,6 +111,7 @@
 <details>
   <summary><ins>Show</ins></summary>
 
+  ---
   #### Dependencies
 
   There is no need to install these dependencies for installing the application from Flatpak.
@@ -128,6 +129,7 @@
   - Optional dependencies:
       - `x11-xserver-utils` or `xorg-xrandr` (for more accurate screen resolution and refresh rate detection of System Monitoring Center v1.x.x)
       - `vcgencmd` (for physical RAM size, GPU frequency and video memory information on Raspberry Pi devices)
+  ---
 
 </details>
 
@@ -136,6 +138,7 @@
 <details>
   <summary><ins>Show</ins></summary>
 
+  ---
   #### Limitations
 
   - GPU usage information availability depends on vendor/driver.
@@ -151,6 +154,7 @@
 
   - Tab customization menus are not closed when clicked outside of the popover menu after using a dropdown menu on the popover menu.
       - This is a GTK4 bug. These menus can be closed by using `Esc` key.
+  ---
 
 </details>
 
