@@ -971,7 +971,7 @@ def get_application_name_image_dict():
         try:
             with open("/usr/share/applications/" + application, encoding="utf-8") as reader:
                 application_file_content = reader.read()
-        except PermissionError:
+        except Exception:
             continue
 
         # Do not include application name or icon name if any of them is not found in the .desktop file.
