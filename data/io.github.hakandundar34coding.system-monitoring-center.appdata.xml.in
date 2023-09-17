@@ -95,6 +95,13 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.22.1" date="2023-09-17">
+      <description>
+        <ul>
+          <li>Fix: Listing processes if .desktop files are broken link</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.22.0" date="2023-09-17">
       <description>
         <ul>

@@ -1,5 +1,8 @@
 # System Monitoring Center
 
+### v2.22.1 (17.09.2023)
+  * Fix: Listing processes if .desktop files are broken link
+
 ### v2.22.0 (17.09.2023)
   * New: CPU, memory, GPU hardware information (System tab)
   * Updated translations (pt_PT, tr, ru_RU)

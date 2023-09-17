@@ -1,3 +1,9 @@
+system-monitoring-center (2.22.1) unstable; urgency=medium
+
+  * Fix: Listing processes if .desktop files are broken link
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sun, 17 Sep 2023 15:20:00 +0300
+
 system-monitoring-center (2.22.0) unstable; urgency=medium
 
   * New: CPU, memory, GPU hardware information (System tab)
