@@ -1,5 +1,11 @@
 # System Monitoring Center
 
+### v2.22.0 (17.09.2023)
+  * New: CPU, memory, GPU hardware information (System tab)
+  * Updated translations (pt_PT, tr, ru_RU)
+  * Updated dependency versions (Flatpak)
+  * Minor improvements
+
 ### v2.21.2 (05.09.2023)
   * Updated translations
   * Minor improvements (performance, code, etc.)

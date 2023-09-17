@@ -95,6 +95,16 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.22.0" date="2023-09-17">
+      <description>
+        <ul>
+          <li>New: CPU, memory, GPU hardware information (System tab)</li>
+          <li>Updated translations (pt_PT, tr, ru_RU)</li>
+          <li>Updated dependency versions (Flatpak)</li>
+          <li>Minor improvements</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.21.2" date="2023-09-05">
       <description>
         <ul>
