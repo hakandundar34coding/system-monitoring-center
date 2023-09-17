@@ -227,7 +227,7 @@ class System:
         self.gpu_vendor_model_label2 = Common.dynamic_information_label()
 
         # Label (Monitors)
-        label = Common.static_information_label(_tr("Monitors") + ":")
+        label = Common.static_information_label(_tr("Resolution") + ":")
         self.grid_hardware.attach(label, 0, 3, 1, 1)
         # Label (Monitors)
         self.monitors_label = Common.dynamic_information_label()
