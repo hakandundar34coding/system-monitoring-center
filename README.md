@@ -146,6 +146,7 @@
   - Virtual machines may not provide CPU min-max frequencies, sensors and RAM hardware information.
   - Non-Flatpak versions of the application has higher performance (start speed, CPU, RAM usage).
   - GTK4 (used for SMC v2) consumes about 2x RAM when compared to GTK3 (used for SMC v1).
+  - Running SMC v1 after SMC v2 resets application settings
 
   #### Known Issues
 

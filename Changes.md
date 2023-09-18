@@ -1,5 +1,10 @@
 # System Monitoring Center
 
+### v1.43.11 (18.09.2023)
+  * Changed: Reset application settings newer than SMC v1
+  * Fix: Listing processes if SMC v2 settings are used
+  * Fix: Listing processes if .desktop files are broken link
+
 ### v2.22.1 (17.09.2023)
   * Fix: Listing processes if .desktop files are broken link
 
