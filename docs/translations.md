@@ -1,26 +1,41 @@
+# Status
+
+| Language Code  | Language               | Percentage |
+| -------------- | ---------------------- | ---------- |
+| cs             | Czech                  | 73%        |
+| de             | German                 | 75%        |
+| en             | English                | 100%       |
+| es             | Spanish                | 80%        |
+| fa             | Persian                | 73%        |
+| fr             | French                 | 80%        |
+| hu             | Hungarian              | 74%        |
+| pl             | Polish                 | 75%        |
+| pt_BR          | Portuguese (Brazilian) | 81%        |
+| pt_PT          | Portuguese (Portugal)  | 100%       |
+| ru_RU          | Russian                | 100%       |
+| tr             | Turkish                | 100%       |
+| zh_TW          | Chinese (Traditional)  | 79%        |
+
+
 # Notes For Translators:
 
 - A translation editor (for example: Poedit) may be used for translating the ```.po``` files.
 
-- Do not merge different information texts. For example: do not translate ```Connected - SSID``` 
-as ```Connected SSID```. The text contains two different information. 
-
 - Be careful about uppercase and lowercase letters.
 
+- Send only ```.po``` files.
 
-| Language Code  | Language               | Percentage |
-| -------------- | ---------------------- | ---------- |
-| cs             | Czech                  | 89%        |
-| de             | German                 | 92%        |
-| en             | English                | 100%       |
-| es             | Spanish                | 98%        |
-| fa             | Persian                | 89%        |
-| fr             | French                 | 98%        |
-| hu             | Hungarian              | 91%        |
-| pl             | Polish                 | 92%        |
-| pt_BR          | Portuguese (Brazilian) | 99%        |
-| pt_PT          | Portuguese (Portugal)  | 99%        |
-| ru_RU          | Russian                | 100%       |
-| tr             | Turkish                | 100%       |
-| zh_TW          | Chinese (Traditional)  | 97%        |
+
+# Details For Some Texts:
+
+- Boot VGA: Describes if a GPU is used during OS boot.
+
+- CPU Affinity: Describes CPU cores on which a process can be run.
+
+- Mass Storage: Describes unformatted state of a disk. Formatted and unformatted disk capacities are different.
+
+- For texts that are related to systemd services, see: https://man7.org/linux/man-pages/man1/systemctl.1.html
+  For example: Mask, Unmask, Enabled-Runtime, Unit File State, Sub-State, Static
+
+- Form Factor, Locator and Bank Locator texts are used for RAM memory hardware.
 

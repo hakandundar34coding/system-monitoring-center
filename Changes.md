@@ -5,6 +5,47 @@
   * Fix: Listing processes if SMC v2 settings are used
   * Fix: Listing processes if .desktop files are broken link
 
+### v2.22.1 (17.09.2023)
+  * Fix: Listing processes if .desktop files are broken link
+
+### v2.22.0 (17.09.2023)
+  * New: CPU, memory, GPU hardware information (System tab)
+  * Updated translations (pt_PT, tr, ru_RU)
+  * Updated dependency versions (Flatpak)
+  * Minor improvements
+
+### v2.21.2 (05.09.2023)
+  * Updated translations
+  * Minor improvements (performance, code, etc.)
+
+### v2.21.1 (13.08.2023)
+  * Minor improvements
+
+### v2.21.0 (12.08.2023)
+  * New: CPU cache options for core and socket (CPU tab)
+  * Improvements for CPU cache values (CPU tab)
+  * Improvements for showing processes using max CPU (CPU tab)
+  * Minor improvements (Summary tab)
+  * Updated translations
+
+### v2.20.2 (05.08.2023)
+  * Updated Russian translations
+  * Fix: GPU performance information for some old GPUs
+
+### v2.20.1 (04.08.2023)
+  * Removed unused code that prevents listing processes
+  * Fix: GPU performance information for some old GPUs
+
+### v2.20.0 (04.08.2023)
+  * New: Option for showing processes using max CPU (CPU tab)
+  * New: Process search option for name+cmdline+pid (Proceses)
+  * New: Option for searching processes by PID (Processes tab)
+  * Changed: Default process search option as name+cmdline+pid
+  * Updated Russian translations
+  * Updated dependency versions (Flatpak)
+  * Fix: Listing processes if sorting column is removed
+  * Fix: GPU performance information for some old GPUs
+
 ### v1.43.10 (02.08.2023)
   * Fix: Listing processes if sorting column is removed
 
