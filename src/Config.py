@@ -34,7 +34,8 @@ class Config:
         # This integer value is increased "1" in the new application release if resetting is wanted by the developer.
         # Code reads this value from the config file and compares with the value in the code.
         # All settings are reset if integer value of this value is bigger than the value in the config file.
-        # There is no action if integer value of this value is smaller than the value in the config file.
+        # All settings are also reset if integer value of this value is smaller than the value in the config file for preventing errors
+        # because of some of the new settings such as new columns for tabs with lists.
         self.reset_all_settings_with_new_release_value = 4
         self.config_variables = []
         self.config_values = []
@@ -71,6 +72,13 @@ class Config:
 
         # Reset user config data if relevant setting is changed by the developer
         if self.reset_all_settings_with_new_release < self.reset_all_settings_with_new_release_value:
+            self.config_default_reset_all_func()
+            self.config_save_func()
+
+        # Reset user config data if relevant setting value is smaller than the one in the config file
+        # because of some of the new settings such as new columns for tabs with lists.
+        # This value is "5" for v2.0.0 of the application.
+        if self.reset_all_settings_with_new_release > self.reset_all_settings_with_new_release_value:
             self.config_default_reset_all_func()
             self.config_save_func()
 
