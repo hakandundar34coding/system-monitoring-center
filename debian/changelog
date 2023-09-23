@@ -1,3 +1,9 @@
+system-monitoring-center (2.22.2) unstable; urgency=medium
+
+  * Fix: Blocking code when spinner is used on some systems
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Sat, 23 Sep 2023 10:45:00 +0300
+
 system-monitoring-center (2.22.1) unstable; urgency=medium
 
   * Fix: Listing processes if .desktop files are broken link

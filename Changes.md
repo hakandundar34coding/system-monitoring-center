@@ -1,5 +1,8 @@
 # System Monitoring Center
 
+### v2.22.2 (23.09.2023)
+  * Fix: Blocking code when spinner is used on some systems
+
 ### v1.43.11 (18.09.2023)
   * Changed: Reset application settings newer than SMC v1
   * Fix: Listing processes if SMC v2 settings are used

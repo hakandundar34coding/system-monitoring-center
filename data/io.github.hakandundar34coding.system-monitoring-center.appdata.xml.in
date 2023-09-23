@@ -95,6 +95,13 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.22.2" date="2023-09-23">
+      <description>
+        <ul>
+          <li>Fix: Blocking code when spinner is used on some systems</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.22.1" date="2023-09-17">
       <description>
         <ul>
