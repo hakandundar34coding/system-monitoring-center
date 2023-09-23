@@ -390,7 +390,7 @@ class System:
         flatpak_packages_grid.attach(self.flatpak_packages_label, 0, 0, 1, 1)
         # Spinner (Flatpak)
         self.flatpak_packages_spinner_label = Gtk.Spinner()
-        # Rest of the code is not run and infomation is not shown if Spinner is started on some systems with XFCE DE.
+        # Rest of the code is not run and infomation is not shown if Spinner is started on some systems with XFCE DE (GTK4 bug).
         #self.flatpak_packages_spinner_label.start()
         flatpak_packages_grid.attach(self.flatpak_packages_spinner_label, 1, 0, 1, 1)
 
