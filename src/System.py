@@ -372,9 +372,10 @@ class System:
         self.system_packages_label = Common.dynamic_information_label()
         system_packages_grid.attach(self.system_packages_label, 0, 0, 1, 1)
         # Spinner (System)
-        self.system_packages_spinner = Gtk.Spinner()
-        self.system_packages_spinner.start()
-        system_packages_grid.attach(self.system_packages_spinner, 1, 0, 1, 1)
+        self.system_packages_spinner_label = Common.static_information_label(_tr("Processing") + "...")
+        self.system_packages_spinner_label.set_margin_start(10)
+        #self.system_packages_spinner.start()
+        system_packages_grid.attach(self.system_packages_spinner_label, 1, 0, 1, 1)
 
         # Label (Flatpak)
         label = Common.static_information_label(_tr("Flatpak") + ":")
@@ -388,9 +389,10 @@ class System:
         self.flatpak_packages_label = Common.dynamic_information_label()
         flatpak_packages_grid.attach(self.flatpak_packages_label, 0, 0, 1, 1)
         # Spinner (Flatpak)
-        self.flatpak_packages_spinner = Gtk.Spinner()
-        self.flatpak_packages_spinner.start()
-        flatpak_packages_grid.attach(self.flatpak_packages_spinner, 1, 0, 1, 1)
+        self.flatpak_packages_spinner_label = Gtk.Spinner()
+        # Rest of the code is not run and infomation is not shown if Spinner is started on some systems with XFCE DE.
+        #self.flatpak_packages_spinner_label.start()
+        flatpak_packages_grid.attach(self.flatpak_packages_spinner_label, 1, 0, 1, 1)
 
         # Label (GTK Version)
         label = Common.static_information_label(_tr("GTK Version") + ":")
@@ -415,11 +417,11 @@ class System:
         """
 
         # Show and start spinner animation before running the function for getting information.
-        self.system_packages_spinner.set_visible(True)
-        self.system_packages_spinner.start()
+        self.system_packages_spinner_label.set_visible(True)
+        #self.system_packages_spinner_label.start()
 
-        self.flatpak_packages_spinner.set_visible(True)
-        self.flatpak_packages_spinner.start()
+        self.flatpak_packages_spinner_label.set_visible(True)
+        #self.flatpak_packages_spinner_label.start()
 
         self.loop_already_run = 0
 
@@ -582,13 +584,13 @@ class System:
     def apt_or_rpm_or_pacman_or_apk_packages_count_func(self):
         apt_or_rpm_or_pacman_or_apk_packages_count = Libsysmon.get_installed_apt_rpm_pacman_apk_packages()
         # Stop and hide spinner and set label text.
-        GLib.idle_add(Common.set_label_spinner, self.system_packages_label, self.system_packages_spinner, apt_or_rpm_or_pacman_or_apk_packages_count)
+        GLib.idle_add(Common.set_label_spinner, self.system_packages_label, self.system_packages_spinner_label, apt_or_rpm_or_pacman_or_apk_packages_count)
 
 
     def flatpak_packages_count_func(self):
         flatpak_packages_count = Libsysmon.get_installed_flatpak_packages()
         # Stop and hide spinner and set label text.
-        GLib.idle_add(Common.set_label_spinner, self.flatpak_packages_label, self.flatpak_packages_spinner, flatpak_packages_count)
+        GLib.idle_add(Common.set_label_spinner, self.flatpak_packages_label, self.flatpak_packages_spinner_label, flatpak_packages_count)
 
 
 System = System()

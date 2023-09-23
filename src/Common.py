@@ -918,13 +918,13 @@ def checkbutton(text, group_cb):
     return checkbutton
 
 
-def set_label_spinner(label, spinner, label_data):
+def set_label_spinner(label, spinner_label, label_data):
     """
     Stop and hide spinner and show set label text.
     """
 
-    spinner.stop()
-    spinner.set_visible(False)
+    #spinner_label.stop()
+    spinner_label.set_visible(False)
     label.set_label(f'{label_data}')
 
 
