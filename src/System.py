@@ -389,7 +389,8 @@ class System:
         self.flatpak_packages_label = Common.dynamic_information_label()
         flatpak_packages_grid.attach(self.flatpak_packages_label, 0, 0, 1, 1)
         # Spinner (Flatpak)
-        self.flatpak_packages_spinner_label = Gtk.Spinner()
+        self.flatpak_packages_spinner_label = Common.static_information_label(_tr("Processing") + "...")
+        self.flatpak_packages_spinner_label.set_margin_start(10)
         # Rest of the code is not run and infomation is not shown if Spinner is started on some systems with XFCE DE (GTK4 bug).
         #self.flatpak_packages_spinner_label.start()
         flatpak_packages_grid.attach(self.flatpak_packages_spinner_label, 1, 0, 1, 1)
