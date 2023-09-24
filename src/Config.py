@@ -199,6 +199,7 @@ class Config:
         self.show_processes_of_all_users = 1
         self.show_processes_as_tree = 0
         self.show_tree_lines = 0
+        self.show_multiple_processes_summation = 1
         self.processes_cpu_precision = 0
         self.processes_cpu_divide_by_core = 1
         self.processes_memory_data_precision = 1
@@ -335,6 +336,10 @@ class Config:
             self.processes_cpu_divide_by_core = int(config_values[config_variables.index("processes_cpu_divide_by_core")])
         else:
             pass
+        if "show_multiple_processes_summation" in config_variables:
+            self.show_multiple_processes_summation = int(config_values[config_variables.index("show_multiple_processes_summation")])
+        else:
+            pass
 
         self.users_treeview_columns_shown = [int(value) for value in config_values[config_variables.index("users_treeview_columns_shown")].strip("[]").split(", ")]
         self.users_data_row_sorting_column = int(config_values[config_variables.index("users_data_row_sorting_column")])
@@ -425,6 +430,7 @@ class Config:
         config_write_text = config_write_text + "show_processes_of_all_users = " + str(self.show_processes_of_all_users) + "\n"
         config_write_text = config_write_text + "show_processes_as_tree = " + str(self.show_processes_as_tree) + "\n"
         config_write_text = config_write_text + "show_tree_lines = " + str(self.show_tree_lines) + "\n"
+        config_write_text = config_write_text + "show_multiple_processes_summation = " + str(self.show_multiple_processes_summation) + "\n"
         config_write_text = config_write_text + "processes_cpu_precision = " + str(self.processes_cpu_precision) + "\n"
         config_write_text = config_write_text + "processes_cpu_divide_by_core = " + str(self.processes_cpu_divide_by_core) + "\n"
         config_write_text = config_write_text + "processes_memory_data_precision = " + str(self.processes_memory_data_precision) + "\n"

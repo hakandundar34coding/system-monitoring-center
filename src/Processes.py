@@ -1009,6 +1009,106 @@ class Processes:
         model, self.path_list = self.selection.get_selected_rows()
         self.get_pids_from_paths()
 
+        self.multiple_process_information_summation_gui()
+
+
+    def multiple_process_information_summation_gui(self):
+        """
+        Add/Remove Grid and labels for showing process information (CPU, memory, disk read speed, etc.)
+        if multiple processes are selected.
+        """
+
+        # Remove Grid and labels if selection is changed.
+        try:
+            if self.selected_process_pid_list != self.selected_process_pid_list_prev:
+                if self.tab_grid.get_child_at(0, 2) != None:
+                    self.tab_grid.remove(self.multiple_process_information_grid)
+                self.dynamic_information_column_label_dict = {}
+        except AttributeError:
+            self.dynamic_information_column_label_dict = {}
+
+        self.selected_process_pid_list_prev = self.selected_process_pid_list
+
+        if Config.show_multiple_processes_summation != 1:
+            return
+
+        # Prevent adding widgets if multiple processes are not selected.
+        selected_process_count = len(self.selected_process_pid_list)
+        if selected_process_count < 2:
+            return
+
+        # Grid
+        self.multiple_process_information_grid = Gtk.Grid()
+        self.multiple_process_information_grid.set_row_homogeneous(True)
+        self.multiple_process_information_grid.set_column_spacing(20)
+        self.tab_grid.attach(self.multiple_process_information_grid, 0, 2, 1, 1)
+
+        summable_column_number = 0
+
+        # Label (Processes ([COUNT]))
+        static_information_label = Gtk.Label()
+        self.multiple_process_information_grid.attach(static_information_label, summable_column_number, 0, 1, 1)
+        static_information_label.set_margin_end(20)
+        static_information_label.set_text(_tr("Processes") + ": " + str(selected_process_count))
+
+        # Label (Total:)
+        dynamic_information_label = Gtk.Label()
+        self.multiple_process_information_grid.attach(dynamic_information_label, summable_column_number, 1, 1, 1)
+        dynamic_information_label.set_halign(Gtk.Align.END)
+        dynamic_information_label.set_margin_end(20)
+        dynamic_information_label.set_text(_tr("Total") + ":")
+
+        # Labels (Column titles and column value summations)
+        for column_shown in self.treeview_columns_shown:
+            column_title = self.row_data_list[column_shown][1]
+            if column_title not in self.summable_column_dict:
+                continue
+
+            summable_column_number = summable_column_number + 1
+
+            # Label ([COLUMN TITLE])
+            static_information_label = Common.static_information_label(column_title)
+            self.multiple_process_information_grid.attach(static_information_label, summable_column_number, 0, 1, 1)
+
+            # Label ([COLUMN VALUE SUMMATION])
+            dynamic_information_label = Common.static_information_label("--")
+            self.multiple_process_information_grid.attach(dynamic_information_label, summable_column_number, 1, 1, 1)
+            self.dynamic_information_column_label_sub_dict = {"column_title": column_title, "label": dynamic_information_label}
+            self.dynamic_information_column_label_dict[column_shown] = self.dynamic_information_column_label_sub_dict
+
+        self.multiple_process_information_summation_set_values()
+
+
+    def multiple_process_information_summation_set_values(self):
+        """
+        Update labels for showing process information (CPU, memory, disk read speed, etc.)
+        if multiple processes are selected.
+        """
+
+        global processes_cpu_precision, processes_cpu_divide_by_core
+        global processes_memory_data_precision, processes_memory_data_unit
+        global processes_disk_data_precision, processes_disk_data_unit, processes_disk_speed_bit
+
+        for column_shown in sorted(list(self.dynamic_information_column_label_dict.keys())):
+            column_title = self.dynamic_information_column_label_dict[column_shown]["column_title"]
+            data_name = self.summable_column_dict[column_title]
+            label =  self.dynamic_information_column_label_dict[column_shown]["label"]
+
+            # Get process information summation
+            process_data_summation = 0
+            for pid in self.selected_process_pid_list:
+                row_data_dict = self.rows_data_dict[pid]
+                process_data = row_data_dict[data_name]
+                process_data_summation = process_data_summation + process_data
+
+            # Set label values
+            if data_name in ["cpu_usage"]:
+                label.set_text(f'{process_data_summation:.{processes_cpu_precision}f} %')
+            elif data_name in ["memory_rss", "memory_vms", "memory_shared", "read_data", "written_data", "memory"]:
+                label.set_text(f'{Libsysmon.data_unit_converter("data", "none", process_data_summation, processes_memory_data_unit, processes_memory_data_precision)}')
+            elif data_name in ["read_speed", "write_speed"]:
+                label.set_text(f'{Libsysmon.data_unit_converter("speed", processes_disk_speed_bit, process_data_summation, processes_disk_data_unit, processes_disk_data_precision)}/s')
+
 
     def on_treeview_pressed(self, event, count, x, y):
         """
@@ -1066,6 +1166,9 @@ class Processes:
                         self.selection.select_path(path)
                     self.path_list = list(self.path_list_prev)
                     self.get_pids_from_paths()
+
+        # Show multiple process summmation GUI again after reselecting (remembering) of multiple processes.
+        self.multiple_process_information_summation_gui()
 
         # Show right click menu if right clicked on a row
         if int(event.get_button()) == 3:
@@ -1135,6 +1238,11 @@ class Processes:
                              [22, _tr('Memory (RSS)') + " - " + _tr('Recursive'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_rss_recursive]],
                              [23, _tr('Memory') + " - " + _tr('Recursive'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_recursive]]
                              ]
+
+        self.summable_column_dict = {_tr('CPU'): "cpu_usage", _tr('Memory (RSS)'): "memory_rss", _tr('Memory (VMS)'): "memory_vms",
+                                     _tr('Memory (Shared)'): "memory_shared", _tr('Read Data'): "read_data",
+                                     _tr('Written Data'): "written_data", _tr('Read Speed'): "read_speed",
+                                     _tr('Write Speed'): "write_speed", _tr('Memory'): "memory"}
 
         # Define data unit conversion function objects in for lower CPU usage.
         global data_unit_converter
@@ -1230,17 +1338,17 @@ class Processes:
         else:
             cpu_usage_divide_by_cores = "no"
         detail_level = "medium"
-        rows_data_dict = Libsysmon.get_processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, detail_level, self.rows_data_dict_prev, self.system_boot_time, self.username_uid_dict)
-        self.rows_data_dict_prev = dict(rows_data_dict)
-        pid_list = rows_data_dict["pid_list"]
-        ppid_list = rows_data_dict["ppid_list"]
-        username_list = rows_data_dict["username_list"]
-        cmdline_list = rows_data_dict["cmdline_list"]
+        self.rows_data_dict = Libsysmon.get_processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, detail_level, self.rows_data_dict_prev, self.system_boot_time, self.username_uid_dict)
+        self.rows_data_dict_prev = dict(self.rows_data_dict)
+        pid_list = self.rows_data_dict["pid_list"]
+        ppid_list = self.rows_data_dict["ppid_list"]
+        username_list = self.rows_data_dict["username_list"]
+        cmdline_list = self.rows_data_dict["cmdline_list"]
 
         # Get and append process data
         tab_data_rows = []
         for pid in pid_list:
-            row_data_dict = rows_data_dict[pid]
+            row_data_dict = self.rows_data_dict[pid]
             process_name = row_data_dict["name"]
             ppid = row_data_dict["ppid"]
             # Get process image
@@ -1362,7 +1470,7 @@ class Processes:
             return
 
         deleted_rows, new_rows, updated_existing_row_index = Common.get_new_deleted_updated_rows(pid_list, self.pid_list_prev)
-        Common.update_treestore_rows(self, rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, pid_list, self.pid_list_prev, self.show_processes_as_tree, self.show_processes_of_all_users)
+        Common.update_treestore_rows(self, self.rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, pid_list, self.pid_list_prev, self.show_processes_as_tree, self.show_processes_of_all_users)
         Common.searchentry_update_placeholder_text(self, _tr("Processes"))
 
         # Expand all treeview rows (if treeview items are in tree structured, not list) if this is the first loop
@@ -1408,6 +1516,9 @@ class Processes:
             self.treeview.set_enable_tree_lines(True)
         else:
             self.treeview.set_enable_tree_lines(False)
+
+        # Update multiple process information summation labels
+        self.multiple_process_information_summation_set_values()
 
 
     def recursive_cpu_memory_usage(self, tab_data_rows, treeview_columns_shown, pid_list, ppid_list, cpu_usage_list, memory_rss_list, memory_list):
