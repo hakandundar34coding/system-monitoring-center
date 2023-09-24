@@ -1019,20 +1019,9 @@ class Processes:
         """
 
         # Remove Grid and labels if selection is changed.
-        try:
-            if self.selected_process_pid_list != self.selected_process_pid_list_prev:
-                if self.tab_grid.get_child_at(0, 2) != None:
-                    self.tab_grid.remove(self.multiple_process_information_grid)
-                self.dynamic_information_column_label_dict = {}
-        except AttributeError:
-            self.dynamic_information_column_label_dict = {}
-
-        # Remove Grid and labels if selection is not changed by user but signal is called for Selection.
-        # For example, a search may be performed.
         if self.tab_grid.get_child_at(0, 2) != None:
             self.tab_grid.remove(self.multiple_process_information_grid)
-
-        self.selected_process_pid_list_prev = self.selected_process_pid_list
+        self.dynamic_information_column_label_dict = {}
 
         if Config.show_multiple_processes_summation != 1:
             return
