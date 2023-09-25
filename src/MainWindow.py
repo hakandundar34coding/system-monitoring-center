@@ -131,6 +131,7 @@ class MainWindow():
         self.performance_summary_hb_grid.set_column_spacing(5)
         self.performance_summary_hb_grid.set_row_spacing(3)
         self.performance_summary_hb_grid.set_margin_start(6)
+        self.performance_summary_hb_grid.set_halign(Gtk.Align.START)
         self.performance_summary_hb_grid.set_valign(Gtk.Align.CENTER)
         self.window_headerbar.pack_start(self.performance_summary_hb_grid)
 

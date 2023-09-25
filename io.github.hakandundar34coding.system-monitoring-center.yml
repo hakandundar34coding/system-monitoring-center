@@ -1,6 +1,6 @@
 app-id: io.github.hakandundar34coding.system-monitoring-center
 runtime: org.gnome.Platform
-runtime-version: '44'
+runtime-version: '45'
 sdk: org.gnome.Sdk
 command: system-monitoring-center
 
@@ -56,5 +56,5 @@ modules:
     sources:
       - type: git
         url: https://github.com/hakandundar34coding/system-monitoring-center.git
-        commit: 32b28b89bf9749069e73bca6885a9e52edbab694
+        commit: 2797c7128a0acd1b315776e898142f43e66da7a0
 
