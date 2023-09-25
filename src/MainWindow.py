@@ -415,6 +415,9 @@ class MainWindow():
         # Run main tab function (It is also called when main tab togglebuttons are toggled).
         self.main_gui_tab_switch()
 
+        # Define actions and accelerators for main window.
+        Common.main_window_actions_and_accelerators(self)
+
 
     def main_menu_gui(self, val=None):
         """
@@ -1136,6 +1139,10 @@ class MainWindow():
             Processes.loop_func()
         elif Config.current_main_tab == 2:
             Users.loop_func()
+        elif Config.current_main_tab == 3:
+            Services.loop_func()
+        elif Config.current_main_tab == 4:
+            System.loop_func()
 
 
     def performance_summary_headerbar_loop(self):

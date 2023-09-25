@@ -829,6 +829,46 @@ def styled_information_scrolledwindow(text1, tooltip1, text2, tooltip2):
     return scrolledwindow, label1, label2
 
 
+def main_window_actions_and_accelerators(main_window_object):
+    """
+    Define actions and accelerators for main window.
+    """
+
+    MainWindow = main_window_object
+
+    # Prevent defining action and accelerator if they were defined before.
+    action = MainWindow.main_window.lookup_action("refresh_tab")
+    if action != None:
+        return
+
+    # Tab refresh action
+    action = Gio.SimpleAction.new("refresh_tab", None)
+    action.connect("activate", current_tab_refresh, main_window_object)
+    MainWindow.main_window.add_action(action)
+
+    # Accelerator for tab refresh action
+    application = MainWindow.main_window.get_application()
+    application.set_accels_for_action("win.refresh_tab", ["F5"])
+
+
+def current_tab_refresh(action, parameter, main_window_object):
+    """
+    Refreshes current tab. This function is called if "F5" button is pressed.
+    """
+
+    # Reset "loop_already_run" values of Services and System tab for refreshing them.
+    # These tabs are not refreshed on every main loop of the application if these values are "1".
+    if Config.current_main_tab == 3:
+        from .Services import Services
+        Services.loop_already_run = 0
+    elif Config.current_main_tab == 4:
+        from .System import System
+        System.loop_already_run = 0
+
+    MainWindow = main_window_object
+    MainWindow.main_gui_tab_loop()
+
+
 def searchentry(function):
     """
     Generate SearchEntry.
@@ -873,7 +913,7 @@ def searchentry_grab_focus(action, parameter):
     Sets focus for the SearchEntry. This function is called if "Ctrl+F" buttons are pressed.
     """
 
-    # Get SearchEntry for focusing. This function is called on veery tab.
+    # Get SearchEntry for focusing. This function is called on every tab.
     # Because the accelerator is defined for window for a simpler code.
     if Config.current_main_tab == 0 and Config.performance_tab_current_sub_tab == 6:
         from .Sensors import Sensors
