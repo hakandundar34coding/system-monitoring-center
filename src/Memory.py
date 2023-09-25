@@ -129,12 +129,19 @@ class Memory:
         self.ram_free_label = Common.dynamic_information_label()
         grid.attach(self.ram_free_label, 1, 1, 1, 1)
 
+        # Label (Cached)
+        label = Common.static_information_label(_tr("Cached") + ":")
+        grid.attach(label, 0, 2, 1, 1)
+        # Label (Cached)
+        self.ram_cached_label = Common.dynamic_information_label()
+        grid.attach(self.ram_cached_label, 1, 2, 1, 1)
+
         # Label (Hardware)
         label = Common.static_information_label(_tr("Hardware") + ":")
-        grid.attach(label, 0, 2, 1, 1)
+        grid.attach(label, 0, 3, 1, 1)
         # Label (Show...)
         self.ram_hardware_label = Common.clickable_label(_tr("Show..."), self.on_details_label_released)
-        grid.attach(self.ram_hardware_label, 1, 2, 1, 1)
+        grid.attach(self.ram_hardware_label, 1, 3, 1, 1)
 
         # Label - Title (Swap Memory)
         label = Common.title_label(_tr("Swap Memory"))
@@ -175,12 +182,19 @@ class Memory:
         self.swap_capacity_label = Common.dynamic_information_label()
         grid.attach(self.swap_capacity_label, 1, 1, 1, 1)
 
+        # Label (Cached)
+        label = Common.static_information_label(_tr("Cached") + ":")
+        grid.attach(label, 0, 2, 1, 1)
+        # Label (Cached)
+        self.swap_cached_label = Common.dynamic_information_label()
+        grid.attach(self.swap_cached_label, 1, 2, 1, 1)
+
         # Label (Details (swap))
         label = Common.static_information_label(_tr("Details") + ":")
-        grid.attach(label, 0, 2, 1, 1)
+        grid.attach(label, 0, 3, 1, 1)
         # Label (Show... (swap))
         self.swap_details_label = Common.clickable_label(_tr("Show..."), self.on_details_label_released)
-        grid.attach(self.swap_details_label, 1, 2, 1, 1)
+        grid.attach(self.swap_details_label, 1, 3, 1, 1)
 
 
     def on_details_label_released(self, event, count, x, y):
@@ -350,11 +364,14 @@ class Memory:
         ram_available = memory_info["ram_available"]
         ram_free = memory_info["ram_free"]
         ram_total = memory_info["ram_total"]
+        ram_cached = memory_info["ram_cached"]
 
         self.swap_usage_percent = Performance.swap_usage_percent
         swap_used = memory_info["swap_used"]
         swap_free = memory_info["swap_free"]
         swap_total = memory_info["swap_total"]
+        swap_cached = memory_info["swap_cached"]
+
 
         performance_memory_data_precision = Config.performance_memory_data_precision
         performance_memory_data_unit = Config.performance_memory_data_unit
@@ -369,10 +386,12 @@ class Memory:
         self.ram_available_label.set_label(Libsysmon.data_unit_converter("data", "none", ram_available, performance_memory_data_unit, performance_memory_data_precision))
         self.ram_capacity_label.set_label(Libsysmon.data_unit_converter("data", "none", ram_total, performance_memory_data_unit, performance_memory_data_precision))
         self.ram_free_label.set_label(Libsysmon.data_unit_converter("data", "none", ram_free, performance_memory_data_unit, performance_memory_data_precision))
+        self.ram_cached_label.set_label(Libsysmon.data_unit_converter("data", "none", ram_cached, performance_memory_data_unit, performance_memory_data_precision))
         self.swap_used_label.set_label(f'{Libsysmon.data_unit_converter("data", "none", swap_used, performance_memory_data_unit, performance_memory_data_precision)}  ( {self.swap_usage_percent[-1]:.0f}% )')
         self.swap_used_percent_label.set_label(f'{self.swap_usage_percent[-1]:.0f}%')
         self.swap_free_label.set_label(Libsysmon.data_unit_converter("data", "none", swap_free, performance_memory_data_unit, performance_memory_data_precision))
         self.swap_capacity_label.set_label(Libsysmon.data_unit_converter("data", "none", swap_total, performance_memory_data_unit, performance_memory_data_precision))
+        self.swap_cached_label.set_label(Libsysmon.data_unit_converter("data", "none", swap_cached, performance_memory_data_unit, performance_memory_data_precision))
 
 
 Memory = Memory()

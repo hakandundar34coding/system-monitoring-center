@@ -982,12 +982,14 @@ def get_memory_info():
     ram_total = int(proc_meminfo_output.split("MemTotal:", 1)[1].split("\n", 1)[0].split(" ")[-2].strip()) *1024
     ram_free = int(proc_meminfo_output.split("\nMemFree:", 1)[1].split("\n", 1)[0].split(" ")[-2].strip()) *1024
     ram_available = int(proc_meminfo_output.split("\nMemAvailable:", 1)[1].split("\n", 1)[0].split(" ")[-2].strip()) *1024
+    ram_cached = int(proc_meminfo_output.split("\nCached:", 1)[1].split("\n", 1)[0].split(" ")[-2].strip()) *1024
     ram_used = ram_total - ram_available
     ram_used_percent = ram_used / ram_total * 100
 
     # Get memory (swap) information
     swap_total = int(proc_meminfo_output.split("\nSwapTotal:", 1)[1].split("\n", 1)[0].split(" ")[-2].strip()) *1024
     swap_free = int(proc_meminfo_output.split("\nSwapFree:", 1)[1].split("\n", 1)[0].split(" ")[-2].strip()) *1024
+    swap_cached = int(proc_meminfo_output.split("\nSwapCached:", 1)[1].split("\n", 1)[0].split(" ")[-2].strip()) *1024
     # Calculate values if swap memory exists.
     if swap_free != 0:
         swap_used = swap_total - swap_free
@@ -997,9 +999,10 @@ def get_memory_info():
         swap_used = 0
         swap_used_percent = 0
 
-    memory_info = {"ram_total": ram_total, "ram_free": ram_free, "ram_available": ram_available,
-                    "ram_used": ram_used, "ram_used_percent": ram_used_percent, "swap_total": swap_total,
-                    "swap_free": swap_free, "swap_used": swap_used, "swap_used_percent": swap_used_percent}
+    memory_info = {"ram_total": ram_total, "ram_free": ram_free, "ram_available": ram_available, "ram_cached": ram_cached,
+                   "ram_used": ram_used, "ram_used_percent": ram_used_percent, "swap_total": swap_total,
+                   "swap_free": swap_free, "swap_used": swap_used, "swap_used_percent": swap_used_percent,
+                   "swap_cached": swap_cached}
 
     return memory_info
 
