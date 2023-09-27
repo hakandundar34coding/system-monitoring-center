@@ -860,23 +860,23 @@ def current_tab_refresh(action, parameter, main_window_object):
     # if refresh button is pressed for a long time.
     if Config.current_main_tab == 0:
         if Config.performance_tab_current_sub_tab in [0, 1, 2, 3, 4]:
-            time_difference = 0.25
+            tab_refresh_time_difference = 0.2
         elif Config.performance_tab_current_sub_tab in [5, 6]:
-            time_difference = 0.35
+            tab_refresh_time_difference = 0.35
     elif Config.current_main_tab in [1, 2]:
-        time_difference = 0.35
+        tab_refresh_time_difference = 0.35
     elif Config.current_main_tab in [3, 4]:
-        time_difference = 1
+        tab_refresh_time_difference = 1
 
     import time
-    current_time = time.time()
-    global previous_time
+    tab_refresh_time_current = time.time()
+    global tab_refresh_time_prev
     try:
-        if current_time - previous_time < time_difference:
+        if tab_refresh_time_current - tab_refresh_time_prev < tab_refresh_time_difference:
             return
     except NameError:
         pass
-    previous_time = current_time
+    tab_refresh_time_prev = tab_refresh_time_current
 
     # Reset "loop_already_run" values of Services and System tab for refreshing them.
     # These tabs are not refreshed on every main loop of the application if these values are "1".
