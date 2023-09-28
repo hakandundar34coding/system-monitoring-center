@@ -3,7 +3,9 @@
 import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('GLib', '2.0')
-from gi.repository import Gtk, GLib
+gi.require_version('Pango', '1.0')
+gi.require_version('PangoCairo', '1.0')
+from gi.repository import Gtk, GLib, Pango, PangoCairo
 import os
 import cairo
 import time
@@ -659,6 +661,10 @@ class Performance:
         network_upload_speed_text = f'{self.performance_data_unit_converter_func("speed", performance_network_speed_bit, self.network_send_speed[self.selected_network_card][-1], performance_network_data_unit, performance_network_data_precision)}/s'
 
 
+        # Get system font name
+        system_font = Gtk.Settings.get_default().props.gtk_font_name
+        system_font_name = system_font.split(" ", -1)[:-1]
+
         # Set antialiasing level as "BEST" in order to avoid low quality chart line because of the highlight effect (more than one line will be overlayed for this appearance).
         ctx.set_antialias(cairo.Antialias.BEST)
 
@@ -1239,14 +1245,31 @@ class Performance:
         ctx.stroke()
 
 
+        gauge_cpu_ram_label_text_size = gauge_outer_radius * 0.068
         # Draw "CPU" label on the upper-left side of the inner circle of the circular gauge.
+        label_text = _tr("CPU")
+        system_font_scaled = f'{system_font_name} {gauge_cpu_ram_label_text_size}'
+        if len(label_text) > 9:
+            system_font_scaled = f'{system_font_name} {gauge_indicator_text_size_smaller}'
+        layout = PangoCairo.create_layout(ctx)
+        font_desc = Pango.font_description_from_string(system_font_scaled)
+        layout.set_font_description(font_desc)
+        layout.set_text(label_text)
+        ink_extents, logical_extents = layout.get_pixel_extents()
+        text_start_x = logical_extents.width + logical_extents.x
+        text_start_y = logical_extents.height + logical_extents.y
+        ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), -gauge_cpu_ram_label_text_move - text_start_y+6)
+        ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
+        PangoCairo.show_layout(ctx, layout)
+
+        """# Draw "CPU" label on the upper-left side of the inner circle of the circular gauge.
         cpu_text = _tr("CPU")
         ctx.set_font_size(gauge_indicator_text_size)
         text_extends = ctx.text_extents(cpu_text)
         text_start_x = text_extends.width
         ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), -gauge_cpu_ram_label_text_move)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
-        ctx.show_text(cpu_text)
+        ctx.show_text(cpu_text)"""
 
         # Draw "RAM" label on the upper-right side of the inner circle of the circular gauge.
         ram_text = _tr("RAM")
