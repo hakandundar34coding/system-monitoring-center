@@ -111,6 +111,7 @@ class ProcessesMenu:
 
         # CheckButton (Hide kernel threads)
         self.hide_kernel_threads_cb = Common.checkbutton(_tr("Hide kernel threads"), None)
+        self.hide_kernel_threads_cb.set_margin_start(20)
         grid.attach(self.hide_kernel_threads_cb, 0, 2, 1, 1)
 
         # CheckButton (Show processes as tree)
@@ -547,8 +548,10 @@ class ProcessesMenu:
 
         if widget.get_active() == True:
             Config.show_processes_of_all_users = 1
+            self.hide_kernel_threads_cb.set_sensitive(True)
         if widget.get_active() == False:
             Config.show_processes_of_all_users = 0
+            self.hide_kernel_threads_cb.set_sensitive(False)
 
         Common.save_tab_settings(Processes)
 
@@ -684,8 +687,10 @@ class ProcessesMenu:
         # Set GUI objects on View tab
         if Config.show_processes_of_all_users == 1:
             self.show_processes_of_all_users_cb.set_active(True)
+            self.hide_kernel_threads_cb.set_sensitive(True)
         if Config.show_processes_of_all_users == 0:
             self.show_processes_of_all_users_cb.set_active(False)
+            self.hide_kernel_threads_cb.set_sensitive(False)
         if Config.hide_kernel_threads == 1:
             self.hide_kernel_threads_cb.set_active(True)
         if Config.hide_kernel_threads == 0:
