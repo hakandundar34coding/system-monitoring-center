@@ -197,6 +197,7 @@ class Config:
         """
 
         self.show_processes_of_all_users = 1
+        self.hide_kernel_threads = 0
         self.show_processes_as_tree = 0
         self.show_tree_lines = 0
         self.show_multiple_processes_summation = 1
@@ -318,6 +319,7 @@ class Config:
         self.selected_gpu = config_values[config_variables.index("selected_gpu")]
 
         self.show_processes_of_all_users = int(config_values[config_variables.index("show_processes_of_all_users")])
+        self.hide_kernel_threads = int(config_values[config_variables.index("hide_kernel_threads")])
         self.show_processes_as_tree = int(config_values[config_variables.index("show_processes_as_tree")])
         self.show_tree_lines = int(config_values[config_variables.index("show_tree_lines")])
         self.processes_cpu_precision = int(config_values[config_variables.index("processes_cpu_precision")])
@@ -428,6 +430,7 @@ class Config:
 
         config_write_text = config_write_text + "[Processes Tab]" + "\n"
         config_write_text = config_write_text + "show_processes_of_all_users = " + str(self.show_processes_of_all_users) + "\n"
+        config_write_text = config_write_text + "hide_kernel_threads = " + str(self.hide_kernel_threads) + "\n"
         config_write_text = config_write_text + "show_processes_as_tree = " + str(self.show_processes_as_tree) + "\n"
         config_write_text = config_write_text + "show_tree_lines = " + str(self.show_tree_lines) + "\n"
         config_write_text = config_write_text + "show_multiple_processes_summation = " + str(self.show_multiple_processes_summation) + "\n"
