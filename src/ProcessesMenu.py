@@ -109,20 +109,25 @@ class ProcessesMenu:
         self.show_processes_of_all_users_cb = Common.checkbutton(_tr("Show processes of all users"), None)
         grid.attach(self.show_processes_of_all_users_cb, 0, 1, 1, 1)
 
+        # CheckButton (Hide kernel threads)
+        self.hide_kernel_threads_cb = Common.checkbutton(_tr("Hide kernel threads"), None)
+        self.hide_kernel_threads_cb.set_margin_start(20)
+        grid.attach(self.hide_kernel_threads_cb, 0, 2, 1, 1)
+
         # CheckButton (Show processes as tree)
         self.show_processes_as_tree_cb = Common.checkbutton(_tr("Show processes as tree"), None)
-        grid.attach(self.show_processes_as_tree_cb, 0, 2, 1, 1)
+        grid.attach(self.show_processes_as_tree_cb, 0, 3, 1, 1)
 
         # CheckButton (Show tree lines)
         self.show_tree_lines_cb = Common.checkbutton(_tr("Show tree lines"), None)
         self.show_tree_lines_cb.set_margin_start(20)
-        grid.attach(self.show_tree_lines_cb, 0, 3, 1, 1)
+        grid.attach(self.show_tree_lines_cb, 0, 4, 1, 1)
 
         # Grid (Expand/Collapse all buttons)
         grid_buttons = Gtk.Grid()
         grid_buttons.set_margin_start(20)
         grid_buttons.add_css_class("linked")
-        grid.attach(grid_buttons, 0, 4, 1, 1)
+        grid.attach(grid_buttons, 0, 5, 1, 1)
 
         # Button (Expand all)
         self.expand_all_button = Gtk.Button()
@@ -413,6 +418,7 @@ class ProcessesMenu:
         """
 
         self.show_processes_of_all_users_cb.connect("toggled", self.on_show_processes_of_all_users_cb_toggled)
+        self.hide_kernel_threads_cb.connect("toggled", self.on_hide_kernel_threads_cb_toggled)
         self.show_processes_as_tree_cb.connect("toggled", self.on_show_processes_as_tree_cb_toggled)
         self.show_tree_lines_cb.connect("toggled", self.on_show_tree_lines_cb_toggled)
 
@@ -458,6 +464,7 @@ class ProcessesMenu:
         """
 
         self.show_processes_of_all_users_cb.disconnect_by_func(self.on_show_processes_of_all_users_cb_toggled)
+        self.hide_kernel_threads_cb.disconnect_by_func(self.on_hide_kernel_threads_cb_toggled)
         self.show_processes_as_tree_cb.disconnect_by_func(self.on_show_processes_as_tree_cb_toggled)
         self.show_tree_lines_cb.disconnect_by_func(self.on_show_tree_lines_cb_toggled)
 
@@ -541,8 +548,22 @@ class ProcessesMenu:
 
         if widget.get_active() == True:
             Config.show_processes_of_all_users = 1
+            self.hide_kernel_threads_cb.set_sensitive(True)
         if widget.get_active() == False:
             Config.show_processes_of_all_users = 0
+            self.hide_kernel_threads_cb.set_sensitive(False)
+
+        Common.save_tab_settings(Processes)
+
+    def on_hide_kernel_threads_cb_toggled(self, widget):
+        """
+        Hide kernel threads.
+        """
+
+        if widget.get_active() == True:
+            Config.hide_kernel_threads = 1
+        if widget.get_active() == False:
+            Config.hide_kernel_threads = 0
 
         Common.save_tab_settings(Processes)
 
@@ -666,8 +687,14 @@ class ProcessesMenu:
         # Set GUI objects on View tab
         if Config.show_processes_of_all_users == 1:
             self.show_processes_of_all_users_cb.set_active(True)
+            self.hide_kernel_threads_cb.set_sensitive(True)
         if Config.show_processes_of_all_users == 0:
             self.show_processes_of_all_users_cb.set_active(False)
+            self.hide_kernel_threads_cb.set_sensitive(False)
+        if Config.hide_kernel_threads == 1:
+            self.hide_kernel_threads_cb.set_active(True)
+        if Config.hide_kernel_threads == 0:
+            self.hide_kernel_threads_cb.set_active(False)
         if Config.show_processes_as_tree == 1:
             self.show_processes_as_tree_cb.set_active(True)
             self.show_tree_lines_cb.set_sensitive(True)

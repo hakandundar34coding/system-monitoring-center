@@ -481,7 +481,7 @@ def get_device_vendor_model(modalias_output):
     return device_vendor_name, device_model_name, device_vendor_id, device_model_id
 
 
-def get_processes_information(process_list=[], processes_of_user="all", cpu_usage_divide_by_cores="yes", detail_level="medium", processes_data_dict_prev={}, system_boot_time=0, username_uid_dict={}):
+def get_processes_information(process_list=[], processes_of_user="all", hide_kernel_threads=0, cpu_usage_divide_by_cores="yes", detail_level="medium", processes_data_dict_prev={}, system_boot_time=0, username_uid_dict={}):
     """
     Get process information of all/specified processes.
     """
@@ -585,8 +585,9 @@ def get_processes_information(process_list=[], processes_of_user="all", cpu_usag
         except KeyError:
             username = str(uid)
 
-        # Skip to next process information if process information of current user is wanted.
-        if processes_of_user == "current" and username != current_user_name:
+        # Skip to next process information if process information of current user is wanted
+        # or if we are hiding kernel threads
+        if (ppid == 2 and hide_kernel_threads == 1) or (processes_of_user == "current" and username != current_user_name):
             continue
 
         # Get process information from "/proc/[PID]/statm" file
@@ -4210,6 +4211,7 @@ def get_users_information(users_data_dict_prev={}, system_boot_time=0, username_
 
     process_list = []
     processes_of_user = "all"
+    hide_kernel_threads = 0
     cpu_usage_divide_by_cores = "yes"
     detail_level = "low"
 
@@ -4241,7 +4243,7 @@ def get_users_information(users_data_dict_prev={}, system_boot_time=0, username_
     disk_read_write_data = {}
 
     # Get process information fo getting logged in, CPU usage percentage, log in time and process count information.
-    processes_data_dict = get_processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, detail_level, processes_data_dict_prev, system_boot_time, username_uid_dict)
+    processes_data_dict = get_processes_information(process_list, processes_of_user, hide_kernel_threads, cpu_usage_divide_by_cores, detail_level, processes_data_dict_prev, system_boot_time, username_uid_dict)
     processes_data_dict_prev = dict(processes_data_dict)
 
     # Get user and user group information of all users

@@ -1300,6 +1300,7 @@ class Processes:
         self.data_column_order = Config.processes_data_column_order
         self.data_column_widths = Config.processes_data_column_widths
         self.show_processes_of_all_users = Config.show_processes_of_all_users
+        self.hide_kernel_threads = Config.hide_kernel_threads
         self.show_processes_as_tree = Config.show_processes_as_tree
         # For obtaining lower CPU usage
         treeview_columns_shown = self.treeview_columns_shown
@@ -1332,7 +1333,7 @@ class Processes:
         else:
             cpu_usage_divide_by_cores = "no"
         detail_level = "medium"
-        self.rows_data_dict = Libsysmon.get_processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, detail_level, self.rows_data_dict_prev, self.system_boot_time, self.username_uid_dict)
+        self.rows_data_dict = Libsysmon.get_processes_information(process_list, processes_of_user, self.hide_kernel_threads, cpu_usage_divide_by_cores, detail_level, self.rows_data_dict_prev, self.system_boot_time, self.username_uid_dict)
         self.rows_data_dict_prev = dict(self.rows_data_dict)
         pid_list = self.rows_data_dict["pid_list"]
         ppid_list = self.rows_data_dict["ppid_list"]

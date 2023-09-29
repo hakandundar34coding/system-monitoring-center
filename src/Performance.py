@@ -120,9 +120,10 @@ class Performance:
 
         process_list = []
         processes_of_user = "all"
+        hide_kernel_threads = 0
         cpu_usage_divide_by_cores = "yes"
         detail_level = "low"
-        rows_data_dict = Libsysmon.get_processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, detail_level, self.rows_data_dict_prev, self.system_boot_time, self.username_uid_dict)
+        rows_data_dict = Libsysmon.get_processes_information(process_list, processes_of_user, hide_kernel_threads, cpu_usage_divide_by_cores, detail_level, self.rows_data_dict_prev, self.system_boot_time, self.username_uid_dict)
         self.rows_data_dict_prev = dict(rows_data_dict)
         pid_list = rows_data_dict["pid_list"]
 

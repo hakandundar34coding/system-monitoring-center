@@ -871,12 +871,13 @@ class ProcessesDetails:
         processes_cpu_divide_by_core = Config.processes_cpu_divide_by_core
         process_list = [selected_process_pid]
         processes_of_user = "all"
+        hide_kernel_threads = 0
         if processes_cpu_divide_by_core == 1:
             cpu_usage_divide_by_cores = "yes"
         elif processes_cpu_divide_by_core == 0:
             cpu_usage_divide_by_cores = "no"
         detail_level = "high"
-        processes_data_dict = Libsysmon.get_processes_information(process_list, processes_of_user, cpu_usage_divide_by_cores, detail_level, self.processes_data_dict_prev, self.system_boot_time, self.username_uid_dict)
+        processes_data_dict = Libsysmon.get_processes_information(process_list, processes_of_user, hide_kernel_threads, cpu_usage_divide_by_cores, detail_level, self.processes_data_dict_prev, self.system_boot_time, self.username_uid_dict)
         self.processes_data_dict_prev = dict(processes_data_dict)
 
         return processes_data_dict
