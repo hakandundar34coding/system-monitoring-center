@@ -1,5 +1,13 @@
 # System Monitoring Center
 
+### v2.23.0 (29.09.2023)
+  * New: Process info. summation of multiple process selection
+  * New: Refresh action (main menu)
+  * New: F5 key shortcut for refreshing current tab
+  * New: RAM cached and swap cached values (Memory tab)
+  * Fix: Alignment of performance summary on headerbar
+  * Minor improvements (GUI, translations)
+
 ### v2.22.2 (23.09.2023)
   * Fix: Blocking code when spinner is used on some systems
 

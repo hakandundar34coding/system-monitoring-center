@@ -1,3 +1,14 @@
+system-monitoring-center (2.23.0) unstable; urgency=medium
+
+  * New: Process info. summation of multiple process selection
+  * New: Refresh action (main menu)
+  * New: F5 key shortcut for refreshing current tab
+  * New: RAM cached and swap cached values (Memory tab)
+  * Fix: Alignment of performance summary on headerbar
+  * Minor improvements (GUI, translations)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 29 Sep 2023 07:45:00 +0300
+
 system-monitoring-center (2.22.2) unstable; urgency=medium
 
   * Fix: Blocking code when spinner is used on some systems

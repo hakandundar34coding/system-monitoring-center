@@ -95,6 +95,18 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.23.0" date="2023-09-29">
+      <description>
+        <ul>
+          <li>New: Process info. summation of multiple process selection</li>
+          <li>New: Refresh action (main menu)</li>
+          <li>New: F5 key shortcut for refreshing current tab</li>
+          <li>New: RAM cached and swap cached values (Memory tab)</li>
+          <li>Fix: Alignment of performance summary on headerbar</li>
+          <li>Minor improvements (GUI, translations)</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.22.2" date="2023-09-23">
       <description>
         <ul>
