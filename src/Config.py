@@ -319,7 +319,6 @@ class Config:
         self.selected_gpu = config_values[config_variables.index("selected_gpu")]
 
         self.show_processes_of_all_users = int(config_values[config_variables.index("show_processes_of_all_users")])
-        self.hide_kernel_threads = int(config_values[config_variables.index("hide_kernel_threads")])
         self.show_processes_as_tree = int(config_values[config_variables.index("show_processes_as_tree")])
         self.show_tree_lines = int(config_values[config_variables.index("show_tree_lines")])
         self.processes_cpu_precision = int(config_values[config_variables.index("processes_cpu_precision")])
@@ -340,6 +339,10 @@ class Config:
             pass
         if "show_multiple_processes_summation" in config_variables:
             self.show_multiple_processes_summation = int(config_values[config_variables.index("show_multiple_processes_summation")])
+        else:
+            pass
+        if "hide_kernel_threads" in config_variables:
+            self.hide_kernel_threads = int(config_values[config_variables.index("hide_kernel_threads")])
         else:
             pass
 
