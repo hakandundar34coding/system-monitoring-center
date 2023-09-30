@@ -586,7 +586,7 @@ def get_processes_information(process_list=[], processes_of_user="all", hide_ker
             username = str(uid)
 
         # Skip to next process information if process information of current user is wanted
-        # or if we are hiding kernel threads
+        # or kernel threads are not wanted.
         if (ppid == 2 and hide_kernel_threads == 1) or (username != current_user_name and processes_of_user == "current"):
             continue
 
