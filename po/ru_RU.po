@@ -494,7 +494,7 @@ msgstr "Датчики"
 
 #: src/MainWindow.py:447
 msgid "Refresh"
-msgstr ""
+msgstr "Обновить (F5)"
 
 #: src/MainWindow.py:448 src/SettingsWindow.py:49
 msgid "General Settings"
@@ -531,7 +531,7 @@ msgstr "Доступно"
 
 #: src/Memory.py:133 src/Memory.py:186
 msgid "Cached"
-msgstr ""
+msgstr "Кэширован"
 
 #: src/Memory.py:140
 msgid "Hardware"
@@ -691,7 +691,7 @@ msgstr "Хотите немедленно завершить выполнени�
 
 #: src/Processes.py:1053
 msgid "Total"
-msgstr ""
+msgstr "Итог"
 
 #: src/Processes.py:1212 src/ProcessesDetails.py:137 src/ProcessesMenu.py:175
 #: src/Users.py:230 src/UsersDetails.py:36 src/UsersDetails.py:65
@@ -845,7 +845,7 @@ msgstr "Показывать процессы всех пользователе�
 
 #: src/ProcessesMenu.py:113
 msgid "Hide kernel threads"
-msgstr ""
+msgstr "Скрыть потоки ядра"
 
 #: src/ProcessesMenu.py:118
 msgid "Show processes as tree"
@@ -1238,7 +1238,7 @@ msgstr "Пакеты"
 
 #: src/System.py:375 src/System.py:392
 msgid "Processing"
-msgstr ""
+msgstr "Обработка"
 
 #: src/System.py:381
 msgid "Flatpak"
