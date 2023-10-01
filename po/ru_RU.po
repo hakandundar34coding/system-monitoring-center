@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-09-30 17:58+0300\n"
-"PO-Revision-Date: 2023-09-30 18:00+0300\n"
+"PO-Revision-Date: 2023-10-01 18:13+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -494,7 +494,7 @@ msgstr "Датчики"
 
 #: src/MainWindow.py:447
 msgid "Refresh"
-msgstr "Обновить (F5)"
+msgstr "Обновить"
 
 #: src/MainWindow.py:448 src/SettingsWindow.py:49
 msgid "General Settings"
