@@ -3293,7 +3293,7 @@ def gpu_encoder_decoder_load_amd_func():
     This is a 3rd party tool.
     """
 
-    command_list = ["amdgpu_top", "-J", "-n", "0"]
+    command_list = ["amdgpu_top", "-J", "-n", "1"]
     if get_environment_type() == "flatpak":
         command_list = ["flatpak-spawn", "--host"] + command_list
 
