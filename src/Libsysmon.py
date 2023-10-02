@@ -3293,7 +3293,7 @@ def gpu_encoder_decoder_load_amd_func():
     This is a 3rd party tool.
     """
 
-    command_list = ["amdgpu_top", "-J", "-n", "1"]
+    command_list = ["amdgpu_top", "-J", "-s", "100ms", "-n", "1"]
     if get_environment_type() == "flatpak":
         command_list = ["flatpak-spawn", "--host"] + command_list
 
@@ -3336,8 +3336,8 @@ def process_gpu_tool_output_amdgpu_top(gpu_pci_address, gpu_tool_output_amdgpu_t
                 gpu_encoder_load = f'{float(media_engine_load_value):.0f} %'
                 gpu_decoder_load = "-9999 %"
 
-    # A single video engine load is get for new AMD GPUs.
-    # Because AMD GPUs have a single engine (VCN) for video encoding and decoding after 2018.
+    # A single video engine load is get for some AMD GPUs.
+    # Because AMD GPUs have a single engine (VCN)4 for video encoding and decoding after 2022.
     # In this case, video engine load value is tracked by "gpu_encoder_load" variable.
     # "gpu_decoder_load" variable ise set as "-9999 %". Code using this function may recognize that
     # there is a single video engine load value.

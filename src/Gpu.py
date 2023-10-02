@@ -689,11 +689,8 @@ class Gpu:
 
     def update_video_encoder_decoder_load_graph_gui(self):
         """
-        A single video engine load is get for new AMD GPUs.
-        Because AMD GPUs have a single engine (VCN) for video encoding and decoding after 2018.
-        In this case, video engine load value is tracked by "gpu_encoder_load" variable.
-        "gpu_decoder_load" variable ise set as "-9999". Code using this function may recognize that
-        there is a single video engine load value.
+        A single video engine load is get for some AMD GPUs.
+        Some GUI widgets shown/hidden or their text is updated by checking if "-9999" added in "gpu_decoder_load_list".
         """
 
         if self.gpu_decoder_load_list[-1] == float(-9999):
