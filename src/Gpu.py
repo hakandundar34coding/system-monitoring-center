@@ -151,8 +151,8 @@ class Gpu:
         self.da_gpu_memory_encoder_decoder_load_grid.attach(grid, 1, 0, 1, 1)
 
         # Label (drawingarea upper-left)
-        label = Common.da_upper_lower_label(_tr("Video Encoder"), Gtk.Align.START)
-        grid.attach(label, 0, 0, 1, 1)
+        self.label_video_encoder_or_encoder_decoder_load = Common.da_upper_lower_label(_tr("Video Encoder"), Gtk.Align.START)
+        grid.attach(self.label_video_encoder_or_encoder_decoder_load, 0, 0, 1, 1)
 
         # Label (drawingarea upper-right)
         label = Common.da_upper_lower_label("100%", Gtk.Align.END)
@@ -173,26 +173,26 @@ class Gpu:
         """
 
         # Grid (drawingarea)
-        grid = Gtk.Grid()
-        grid.set_hexpand(True)
-        grid.set_vexpand(True)
-        self.da_gpu_memory_encoder_decoder_load_grid.attach(grid, 2, 0, 1, 1)
+        self.grid_video_decoder_load = Gtk.Grid()
+        self.grid_video_decoder_load.set_hexpand(True)
+        self.grid_video_decoder_load.set_vexpand(True)
+        self.da_gpu_memory_encoder_decoder_load_grid.attach(self.grid_video_decoder_load, 2, 0, 1, 1)
 
         # Label (drawingarea upper-left)
         label = Common.da_upper_lower_label(_tr("Video Decoder"), Gtk.Align.START)
-        grid.attach(label, 0, 0, 1, 1)
+        self.grid_video_decoder_load.attach(label, 0, 0, 1, 1)
 
         # Label (drawingarea upper-right)
         label = Common.da_upper_lower_label("100%", Gtk.Align.END)
-        grid.attach(label, 1, 0, 1, 1)
+        self.grid_video_decoder_load.attach(label, 1, 0, 1, 1)
 
         # DrawingArea
         self.da_gpu_decoder_load = Common.drawingarea(Performance.performance_line_charts_draw, "da_gpu_decoder_load")
-        grid.attach(self.da_gpu_decoder_load, 0, 2, 2, 1)
+        self.grid_video_decoder_load.attach(self.da_gpu_decoder_load, 0, 2, 2, 1)
 
         # Label (drawingarea lower-right)
         label = Common.da_upper_lower_label("0", Gtk.Align.END)
-        grid.attach(label, 0, 3, 2, 1)
+        self.grid_video_decoder_load.attach(label, 0, 3, 2, 1)
 
 
     def information_grid(self):
@@ -661,6 +661,9 @@ class Gpu:
         self.da_gpu_encoder_load.queue_draw()
         self.da_gpu_decoder_load.queue_draw()
 
+        # Update video encoder and decoder load graphs GUI
+        self.update_video_encoder_decoder_load_graph_gui()
+
         self.gpu_information_share_dict2 = dict(gpu_load_memory_frequency_power_dict)
 
         # Run "main_gui_device_selection_list" if selected device list is changed since the last loop.
@@ -683,6 +686,24 @@ class Gpu:
         self.power_usage_label.set_label(gpu_power_current + " / " + gpu_power_max)
         self.memory_frequency_label.set_label(f'{gpu_memory_current_frequency} / {gpu_memory_max_frequency}')
 
+
+    def update_video_encoder_decoder_load_graph_gui(self):
+        """
+        A single video engine load is get for new AMD GPUs.
+        Because AMD GPUs have a single engine (VCN) for video encoding and decoding after 2018.
+        In this case, video engine load value is tracked by "gpu_encoder_load" variable.
+        "gpu_decoder_load" variable ise set as "-9999". Code using this function may recognize that
+        there is a single video engine load value.
+        """
+
+        if self.gpu_decoder_load_list[-1] == float(-9999):
+            if self.grid_video_decoder_load.get_visible() == True:
+                self.grid_video_decoder_load.set_visible(False)
+                self.label_video_encoder_or_encoder_decoder_load.set_text(_tr("Video Encoder") + " + " + _tr("Video Decoder"))
+        elif self.gpu_decoder_load_list[-1] != float(-9999):
+            if self.grid_video_decoder_load.get_visible() == False:
+                self.grid_video_decoder_load.set_visible(True)
+                self.label_video_encoder_or_encoder_decoder_load.set_text(_tr("Video Encoder"))
 
 Gpu = Gpu()
 

@@ -599,6 +599,7 @@ def da_upper_lower_label(text, alignment):
     label = Gtk.Label()
     label.set_halign(alignment)
     label.add_css_class("dim-label")
+    label.set_ellipsize(Pango.EllipsizeMode.END)
     label.set_label(text)
 
     return label

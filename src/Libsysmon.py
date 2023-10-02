@@ -2830,6 +2830,18 @@ def get_gpu_load_memory_frequency_power(gpu_pci_address, device_vendor_id, selec
         # Update the GPU load value. Because it is not get in "get_gpu_load_memory_frequency_power_amd" function.
         gpu_load_memory_frequency_power_dict["gpu_load"] = gpu_load
 
+        # Get encoder/decoder engine load of AMD GPU by using "amdgpu_top" tool.
+        threading.Thread(target=gpu_encoder_decoder_load_amd_func, daemon=True).start()
+
+        global gpu_tool_output_amdgpu_top
+        try:
+            check_value = gpu_tool_output_amdgpu_top
+        except NameError:
+            gpu_tool_output_amdgpu_top = "-"
+
+        # Update encoder/decoder engine load values. Because they are not get in "get_gpu_load_memory_frequency_power_amd" function.
+        gpu_load_memory_frequency_power_dict = process_gpu_tool_output_amdgpu_top(gpu_pci_address, gpu_tool_output_amdgpu_top, gpu_load_memory_frequency_power_dict)
+
     # If selected GPU vendor is Broadcom (for RB-Pi ARM devices).
     elif device_vendor_id in ["Brcm"]:
         gpu_load_memory_frequency_power_dict = get_gpu_load_memory_frequency_power_broadcom_arm()
@@ -2840,14 +2852,14 @@ def get_gpu_load_memory_frequency_power(gpu_pci_address, device_vendor_id, selec
         # the main thread and GUI for a very small time which stops the GUI for a very small time.
         threading.Thread(target=gpu_load_nvidia_func, daemon=True).start()
 
-        global gpu_tool_output, nvidia_smi_encoder_decoder
+        global gpu_tool_output_nvidia_smi, nvidia_smi_encoder_decoder
         try:
-            check_value = gpu_tool_output
+            check_value = gpu_tool_output_nvidia_smi
         except NameError:
-            gpu_tool_output = "-"
+            gpu_tool_output_nvidia_smi = "-"
             nvidia_smi_encoder_decoder = 1
 
-        gpu_load_memory_frequency_power_dict = process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output, nvidia_smi_encoder_decoder)
+        gpu_load_memory_frequency_power_dict = process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output_nvidia_smi, nvidia_smi_encoder_decoder)
 
     # If selected GPU vendor is NVIDIA and selected GPU is used on an ARM system.
     elif device_vendor_id in ["v000010DE", "Nvidia"] and gpu_device_path.startswith("/sys/devices/") == True:
@@ -3275,6 +3287,66 @@ def gpu_load_amd_func(gpu_device_path, event):
         time.sleep(amd_gpu_load_read_frequency)
 
 
+def gpu_encoder_decoder_load_amd_func():
+    """
+    Get video encoder/decoder engine loads of AMD GPUs by using "amdgpu_top" tool.
+    This is a 3rd party tool.
+    """
+
+    command_list = ["amdgpu_top", "-J", "-n", "0"]
+    if get_environment_type() == "flatpak":
+        command_list = ["flatpak-spawn", "--host"] + command_list
+
+    global gpu_tool_output_amdgpu_top
+    try:
+        gpu_tool_output_amdgpu_top = (subprocess.check_output(command_list, shell=False)).decode().strip()
+        import json
+        gpu_tool_output_amdgpu_top = json.loads(gpu_tool_output_amdgpu_top)
+    # Prevent errors because "amdgpu_top" may not be installed on systems.
+    except Exception:
+        pass
+
+
+def process_gpu_tool_output_amdgpu_top(gpu_pci_address, gpu_tool_output_amdgpu_top, gpu_load_memory_frequency_power_dict):
+    """
+    Get values from command output if there was no error when running the command.
+    """
+
+    # Define initial values
+    gpu_encoder_load = "-"
+    gpu_decoder_load = "-"
+
+    not_supported_text = ["[Not Supported]", "[N/A]", "null", "Null", "NULL"]
+
+    if gpu_tool_output_amdgpu_top != "-":
+        all_gpus_information = gpu_tool_output_amdgpu_top["devices"]
+        for gpu_information in all_gpus_information:
+            if gpu_pci_address != gpu_information["Info"]["PCI"]:
+                continue
+            try:
+                media_engine_load = gpu_information["gpu_activity"]["MediaEngine"]
+                #media_engine_load_unit = media_engine_load["unit"]
+                media_engine_load_value = float(media_engine_load["value"])
+            except KeyError:
+                pass
+
+            if media_engine_load_value == 65535 or media_engine_load_value in not_supported_text:
+                pass
+            else:
+                gpu_encoder_load = f'{float(media_engine_load_value):.0f} %'
+                gpu_decoder_load = "-9999 %"
+
+    # A single video engine load is get for new AMD GPUs.
+    # Because AMD GPUs have a single engine (VCN) for video encoding and decoding after 2018.
+    # In this case, video engine load value is tracked by "gpu_encoder_load" variable.
+    # "gpu_decoder_load" variable ise set as "-9999 %". Code using this function may recognize that
+    # there is a single video engine load value.
+    gpu_load_memory_frequency_power_dict["gpu_encoder_load"] = gpu_encoder_load
+    gpu_load_memory_frequency_power_dict["gpu_decoder_load"] = gpu_decoder_load
+
+    return gpu_load_memory_frequency_power_dict
+
+
 def gpu_load_nvidia_func():
     """
     Get GPU load average for NVIDIA (PCI) GPUs.
@@ -3284,10 +3356,10 @@ def gpu_load_nvidia_func():
     if get_environment_type() == "flatpak":
         command_list = ["flatpak-spawn", "--host"] + command_list
 
-    global gpu_tool_output, nvidia_smi_encoder_decoder
+    global gpu_tool_output_nvidia_smi, nvidia_smi_encoder_decoder
     try:
         nvidia_smi_encoder_decoder = 1
-        gpu_tool_output = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
+        gpu_tool_output_nvidia_smi = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
     # Prevent errors because "nvidia-smi" may not be installed on some devices (such as N.Switch with NVIDIA Tegra GPU).
     except Exception:
         nvidia_smi_encoder_decoder = 0
@@ -3295,13 +3367,13 @@ def gpu_load_nvidia_func():
         if get_environment_type() == "flatpak":
             command_list = ["flatpak-spawn", "--host"] + command_list
         try:
-            gpu_tool_output = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
+            gpu_tool_output_nvidia_smi = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
         # Prevent errors because "nvidia-smi" may not be installed on some devices (such as N.Switch with NVIDIA Tegra GPU).
         except Exception:
             pass
 
 
-def process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output, nvidia_smi_encoder_decoder):
+def process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output_nvidia_smi, nvidia_smi_encoder_decoder):
     """
     Get values from command output if there was no error when running the command.
     """
@@ -3325,15 +3397,15 @@ def process_gpu_tool_output_nvidia(gpu_pci_address, gpu_tool_output, nvidia_smi_
 
     gpu_enforced_power_limit = "-"
 
-    if gpu_tool_output != "-":
+    if gpu_tool_output_nvidia_smi != "-":
 
         # Get line number of the selected GPU by using its PCI address.
-        for i, line in enumerate(gpu_tool_output):
+        for i, line in enumerate(gpu_tool_output_nvidia_smi):
             if gpu_pci_address in line or gpu_pci_address.upper() in line:
                 gpu_info_line_no = i
                 break
 
-        gpu_tool_output_for_selected_gpu = gpu_tool_output[gpu_info_line_no].split(",")
+        gpu_tool_output_for_selected_gpu = gpu_tool_output_nvidia_smi[gpu_info_line_no].split(",")
 
         if len(gpu_tool_output_for_selected_gpu) == 18:
             gpu_driver_version = gpu_tool_output_for_selected_gpu[2].strip()
