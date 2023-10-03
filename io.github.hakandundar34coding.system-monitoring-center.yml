@@ -35,8 +35,8 @@ modules:
       - --datarootdir=/app/share
     sources:
       - type: archive
-        url: https://github.com/vcrhonek/hwdata/archive/refs/tags/v0.374.tar.gz
-        sha256: 2a0988bf5e97e49159d7f02a5e02a719c8976d4ec883a8abb635149d221ceca0
+        url: https://github.com/vcrhonek/hwdata/archive/refs/tags/v0.375.tar.gz
+        sha256: 69ffbfe4801c12c2d66d51f98044beec35afa406b1baa619c57b25a9b62b43a0
 
   # For getting IPv4 and IPv6 addresses by using 'ip a show [network_card]' command
   - name: iproute2
