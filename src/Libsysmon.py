@@ -3290,7 +3290,9 @@ def gpu_load_amd_func(gpu_device_path, event):
 def gpu_encoder_decoder_load_amd_func():
     """
     Get video encoder/decoder engine loads of AMD GPUs by using "amdgpu_top" tool.
-    This is a 3rd party tool.
+    This is a 3rd party tool. GPU, video engine loads, etc. are get as intermittent data
+    if this tool is run repeatedly by using its single loop mode.
+    This tool uses its update interval for calculating these loads.
     """
 
     command_list = ["amdgpu_top", "-J", "-s", "100ms", "-n", "1"]
