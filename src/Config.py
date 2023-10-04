@@ -208,12 +208,15 @@ class Config:
         self.processes_disk_data_precision = 1
         self.processes_disk_data_unit = 0
         self.processes_disk_speed_bit = 0
+        self.processes_gpu_precision = 0
+        self.processes_gpu_memory_data_precision = 1
+        self.processes_gpu_memory_data_unit = 0
         self.warn_before_stopping_processes = 1
         self.processes_treeview_columns_shown = [0, 1, 2, 4, 5, 10, 11]
         self.processes_data_row_sorting_column = 0
         self.processes_data_row_sorting_order = 0
-        self.processes_data_column_order = [0, 1, 2, -1, 3, 4, -1, -1, -1, -1, 5, 6, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
-        self.processes_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+        self.processes_data_column_order = [0, 1, 2, -1, 3, 4, -1, -1, -1, -1, 5, 6, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+        self.processes_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 
 
     def config_default_users_func(self):
@@ -345,6 +348,18 @@ class Config:
             self.hide_kernel_threads = int(config_values[config_variables.index("hide_kernel_threads")])
         else:
             pass
+        if "processes_gpu_precision" in config_variables:
+            self.processes_gpu_precision = int(config_values[config_variables.index("processes_gpu_precision")])
+        else:
+            pass
+        if "processes_gpu_memory_data_precision" in config_variables:
+            self.processes_gpu_memory_data_precision = int(config_values[config_variables.index("processes_gpu_memory_data_precision")])
+        else:
+            pass
+        if "processes_gpu_memory_data_unit" in config_variables:
+            self.processes_gpu_memory_data_unit = int(config_values[config_variables.index("processes_gpu_memory_data_unit")])
+        else:
+            pass
 
         self.users_treeview_columns_shown = [int(value) for value in config_values[config_variables.index("users_treeview_columns_shown")].strip("[]").split(", ")]
         self.users_data_row_sorting_column = int(config_values[config_variables.index("users_data_row_sorting_column")])
@@ -444,6 +459,9 @@ class Config:
         config_write_text = config_write_text + "processes_disk_data_precision = " + str(self.processes_disk_data_precision) + "\n"
         config_write_text = config_write_text + "processes_disk_data_unit = " + str(self.processes_disk_data_unit) + "\n"
         config_write_text = config_write_text + "processes_disk_speed_bit = " + str(self.processes_disk_speed_bit) + "\n"
+        config_write_text = config_write_text + "processes_gpu_precision = " + str(self.processes_gpu_precision) + "\n"
+        config_write_text = config_write_text + "processes_gpu_memory_data_precision = " + str(self.processes_gpu_memory_data_precision) + "\n"
+        config_write_text = config_write_text + "processes_gpu_memory_data_unit = " + str(self.processes_gpu_memory_data_unit) + "\n"
         config_write_text = config_write_text + "warn_before_stopping_processes = " + str(self.warn_before_stopping_processes) + "\n"
         config_write_text = config_write_text + "processes_treeview_columns_shown = " + str(self.processes_treeview_columns_shown) + "\n"
         config_write_text = config_write_text + "processes_data_row_sorting_column = " + str(self.processes_data_row_sorting_column) + "\n"

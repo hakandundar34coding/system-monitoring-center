@@ -213,51 +213,59 @@ class ProcessesMenu:
 
         # CheckButton (Write Speed)
         self.write_speed_cb = Common.checkbutton(_tr("Write Speed"), None)
-        grid.attach(self.write_speed_cb, 1, 1, 1, 1)
+        grid.attach(self.write_speed_cb, 0, 13, 1, 1)
 
         # CheckButton (Priority)
         self.priority_cb = Common.checkbutton(_tr("Priority"), None)
-        grid.attach(self.priority_cb, 1, 2, 1, 1)
+        grid.attach(self.priority_cb, 1, 1, 1, 1)
 
         # CheckButton (Threads)
         self.threads_cb = Common.checkbutton(_tr("Threads"), None)
-        grid.attach(self.threads_cb, 1, 3, 1, 1)
+        grid.attach(self.threads_cb, 1, 2, 1, 1)
 
         # CheckButton (PPID)
         self.ppid_cb = Common.checkbutton(_tr("PPID"), None)
-        grid.attach(self.ppid_cb, 1, 4, 1, 1)
+        grid.attach(self.ppid_cb, 1, 3, 1, 1)
 
         # CheckButton (UID)
         self.uid_cb = Common.checkbutton(_tr("UID"), None)
-        grid.attach(self.uid_cb, 1, 5, 1, 1)
+        grid.attach(self.uid_cb, 1, 4, 1, 1)
 
         # CheckButton (GID)
         self.gid_cb = Common.checkbutton(_tr("GID"), None)
-        grid.attach(self.gid_cb, 1, 6, 1, 1)
+        grid.attach(self.gid_cb, 1, 5, 1, 1)
 
         # CheckButton (Start Time)
         self.start_time_cb = Common.checkbutton(_tr("Start Time"), None)
-        grid.attach(self.start_time_cb, 1, 7, 1, 1)
+        grid.attach(self.start_time_cb, 1, 6, 1, 1)
 
         # CheckButton (Command Line)
         self.commandline_cb = Common.checkbutton(_tr("Command Line"), None)
-        grid.attach(self.commandline_cb, 1, 8, 1, 1)
+        grid.attach(self.commandline_cb, 1, 7, 1, 1)
 
         # CheckButton (CPU Time)
         self.cpu_time_cb = Common.checkbutton(_tr("CPU Time"), None)
-        grid.attach(self.cpu_time_cb, 1, 9, 1, 1)
+        grid.attach(self.cpu_time_cb, 1, 8, 1, 1)
 
         # CheckButton (CPU - Recursive)
         self.cpu_recursive_cb = Common.checkbutton(_tr("CPU") + " - " + _tr("Recursive"), None)
-        grid.attach(self.cpu_recursive_cb, 1, 10, 1, 1)
+        grid.attach(self.cpu_recursive_cb, 1, 9, 1, 1)
 
         # CheckButton (Memory (RSS) - Recursive)
         self.memory_rss_recursive_cb = Common.checkbutton(_tr("Memory (RSS)") + " - " + _tr("Recursive"), None)
-        grid.attach(self.memory_rss_recursive_cb, 1, 11, 1, 1)
+        grid.attach(self.memory_rss_recursive_cb, 1, 10, 1, 1)
 
         # CheckButton (Memory - Recursive)
         self.memory_recursive_cb = Common.checkbutton(_tr("Memory") + " - " + _tr("Recursive"), None)
-        grid.attach(self.memory_recursive_cb, 1, 12, 1, 1)
+        grid.attach(self.memory_recursive_cb, 1, 11, 1, 1)
+
+        # CheckButton (GPU Usage)
+        self.gpu_usage_cb = Common.checkbutton(_tr("GPU Usage"), None)
+        grid.attach(self.gpu_usage_cb, 1, 12, 1, 1)
+
+        # CheckButton (GPU Memory)
+        self.gpu_memory_cb = Common.checkbutton(_tr("GPU Memory"), None)
+        grid.attach(self.gpu_memory_cb, 1, 13, 1, 1)
 
 
     def numbers_tab_gui(self):
@@ -446,6 +454,8 @@ class ProcessesMenu:
         self.cpu_recursive_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
         self.memory_rss_recursive_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
         self.memory_recursive_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
+        self.gpu_usage_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
+        self.gpu_memory_cb.connect("toggled", self.on_add_remove_checkbuttons_toggled)
 
         self.cpu_precision_dd.connect("notify::selected-item", self.on_selected_item_notify)
         self.memory_precision_dd.connect("notify::selected-item", self.on_selected_item_notify)
@@ -492,6 +502,8 @@ class ProcessesMenu:
         self.cpu_recursive_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
         self.memory_rss_recursive_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
         self.memory_recursive_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
+        self.gpu_usage_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
+        self.gpu_memory_cb.disconnect_by_func(self.on_add_remove_checkbuttons_toggled)
 
         self.cpu_precision_dd.disconnect_by_func(self.on_selected_item_notify)
         self.memory_precision_dd.disconnect_by_func(self.on_selected_item_notify)
@@ -807,6 +819,18 @@ class ProcessesMenu:
             self.memory_recursive_cb.set_active(True)
         else:
             self.memory_recursive_cb.set_active(False)
+        if 24 in Config.processes_treeview_columns_shown:
+            self.gpu_usage_cb.set_active(True)
+        else:
+            self.gpu_usage_cb.set_active(False)
+        if 25 in Config.processes_treeview_columns_shown:
+            self.gpu_memory_cb.set_active(True)
+        else:
+            self.gpu_memory_cb.set_active(False)
+
+
+
+
 
         # Set GUI objects on Numbers tab 
         # Set data unit checkbuttons.
@@ -885,6 +909,10 @@ class ProcessesMenu:
             Config.processes_treeview_columns_shown.append(22)
         if self.memory_recursive_cb.get_active() == True:
             Config.processes_treeview_columns_shown.append(23)
+        if self.gpu_usage_cb.get_active() == True:
+            Config.processes_treeview_columns_shown.append(24)
+        if self.gpu_memory_cb.get_active() == True:
+            Config.processes_treeview_columns_shown.append(25)
 
         # Apply changes immediately (without waiting update interval).
         Common.treeview_column_order_width_row_sorting(None, None, Processes)

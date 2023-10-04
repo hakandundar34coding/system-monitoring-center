@@ -3027,7 +3027,8 @@ def get_gpu_load_memory_frequency_power_broadcom_arm():
 
 def get_gpu_load_memory_frequency_power_nvidia_arm(gpu_device_path):
     """
-    Get GPU load, video memory, GPU frequency, power usage if GPU vendor is NVIDIA and it is used on an ARM system.
+    Get GPU load, video memory, GPU frequency, power usage if GPU vendor is NVIDIA and
+    it is used on an ARM system (NVIDIA Tegra GPUs).
     """
 
     # Define initial values
@@ -3318,7 +3319,7 @@ def process_gpu_tool_output_amdgpu_top(gpu_pci_address, gpu_tool_output_amdgpu_t
     gpu_encoder_load = "-"
     gpu_decoder_load = "-"
 
-    not_supported_text = ["[Not Supported]", "[N/A]", "null", "Null", "NULL"]
+    not_supported_text = ["[Not Supported]", "[N/A]", "null", "Null", "NULL", "None"]
 
     if gpu_tool_output_amdgpu_top != "-":
         all_gpus_information = gpu_tool_output_amdgpu_top["devices"]
@@ -3347,6 +3348,87 @@ def process_gpu_tool_output_amdgpu_top(gpu_pci_address, gpu_tool_output_amdgpu_t
     gpu_load_memory_frequency_power_dict["gpu_decoder_load"] = gpu_decoder_load
 
     return gpu_load_memory_frequency_power_dict
+
+
+def get_process_gpu_information():
+
+
+
+    gpu_process_information_dict = {}
+
+    # Get encoder/decoder engine load of AMD GPU by using "amdgpu_top" tool.
+    threading.Thread(target=gpu_process_information_amd_func, daemon=True).start()
+
+    global gpu_tool_process_output_amdgpu_top
+    try:
+        check_value = gpu_tool_process_output_amdgpu_top
+    except NameError:
+        gpu_tool_process_output_amdgpu_top = "-"
+
+    # Update encoder/decoder engine load values. Because they are not get in "get_gpu_load_memory_frequency_power_amd" function.
+    gpu_process_information_dict = process_gpu_tool_process_output_amdgpu_top(gpu_tool_process_output_amdgpu_top, gpu_process_information_dict)
+
+
+def gpu_process_information_amd_func():
+
+
+
+    command_list = ["amdgpu_top", "-J", "-s", "100ms", "-n", "1"]
+    if get_environment_type() == "flatpak":
+        command_list = ["flatpak-spawn", "--host"] + command_list
+
+    global gpu_tool_process_output_amdgpu_top
+    try:
+        gpu_tool_process_output_amdgpu_top = (subprocess.check_output(command_list, shell=False)).decode().strip()
+        import json
+        gpu_tool_process_output_amdgpu_top = json.loads(gpu_tool_process_output_amdgpu_top)
+    # Prevent errors because "amdgpu_top" may not be installed on systems.
+    except Exception:
+        pass
+
+
+
+def process_gpu_tool_process_output_amdgpu_top(gpu_tool_process_output_amdgpu_top, gpu_process_information_dict):
+    """
+    Get values from command output if there was no error when running the command.
+    """
+
+    not_supported_text = ["[Not Supported]", "[N/A]", "null", "Null", "NULL", "None", 65535]
+
+    if gpu_tool_process_output_amdgpu_top != "-":
+        all_gpus_information = gpu_tool_process_output_amdgpu_top["devices"]
+        for gpu_information in all_gpus_information:
+            all_processes_gpu_information = gpu_information["fdinfo"]
+            for pid in all_processes_gpu_information:
+                process_gpu_information = all_processes_gpu_information[pid]["usage"]
+                try:
+                    gpu_load_information = process_gpu_information["GFX"]
+                    #gpu_load_unit = gpu_load_information["unit"]
+                    gpu_usage = float(gpu_load_information["value"])
+                    gpu_memory_information = process_gpu_information["VRAM"]
+                    gpu_memory_unit = gpu_memory_information["unit"]
+                    gpu_memory = float(gpu_memory_information["value"]) 
+                    gpu_memory = get_memory_bytes_from_string(f'{gpu_memory} {gpu_memory_unit}')
+                except KeyError:
+                    pass
+
+                if gpu_usage in not_supported_text:
+                    gpu_usage = 0
+                if gpu_memory in not_supported_text:
+                    gpu_memory = 0
+
+                pid = int(pid)
+                if pid not in gpu_process_information_dict:
+                    gpu_process_information_dict[pid] = {"gpu_usage": gpu_usage, "gpu_memory": gpu_memory}
+                else:
+                    gpu_process_information_dict[pid]["gpu_usage"] = gpu_process_information_dict[pid]["gpu_usage"] + gpu_usage
+                    gpu_process_information_dict[pid]["gpu_memory"] = gpu_process_information_dict[pid]["gpu_memory"] + gpu_memory
+
+    return gpu_process_information_dict
+
+
+
+
 
 
 def gpu_load_nvidia_func():

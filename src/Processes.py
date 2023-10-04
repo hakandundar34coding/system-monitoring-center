@@ -1230,7 +1230,9 @@ class Processes:
                              [20, _tr('Memory'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory]],
                              [21, _tr('CPU') + " - " + _tr('Recursive'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent_recursive]],
                              [22, _tr('Memory (RSS)') + " - " + _tr('Recursive'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_rss_recursive]],
-                             [23, _tr('Memory') + " - " + _tr('Recursive'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_recursive]]
+                             [23, _tr('Memory') + " - " + _tr('Recursive'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_recursive]],
+                             [24, _tr('GPU'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_gpu_usage_percent]],
+                             [25, _tr('GPU Memory'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_gpu]]
                              ]
 
         self.summable_column_dict = {_tr('CPU'): "cpu_usage", _tr('Memory (RSS)'): "memory_rss", _tr('Memory (VMS)'): "memory_vms",
@@ -1285,6 +1287,7 @@ class Processes:
         global processes_cpu_precision, processes_cpu_divide_by_core
         global processes_memory_data_precision, processes_memory_data_unit
         global processes_disk_data_precision, processes_disk_data_unit, processes_disk_speed_bit
+        global processes_gpu_precision, processes_gpu_memory_data_precision, processes_gpu_memory_data_unit
         processes_cpu_precision = Config.processes_cpu_precision
         processes_cpu_divide_by_core = Config.processes_cpu_divide_by_core
         processes_memory_data_precision = Config.processes_memory_data_precision
@@ -1292,6 +1295,9 @@ class Processes:
         processes_disk_data_precision = Config.processes_disk_data_precision
         processes_disk_data_unit = Config.processes_disk_data_unit
         processes_disk_speed_bit = Config.processes_disk_speed_bit
+        processes_gpu_precision = Config.processes_gpu_precision
+        processes_gpu_memory_data_precision = Config.processes_gpu_memory_data_precision
+        processes_gpu_memory_data_unit = Config.processes_gpu_memory_data_unit
 
         # Define global variables and get treeview columns, sort column/order, column widths, etc.
         self.treeview_columns_shown = Config.processes_treeview_columns_shown
@@ -1320,6 +1326,8 @@ class Processes:
         cpu_usage_recursive_list = [0]
         memory_rss_recursive_list = [0]
         memory_recursive_list = [0]
+        gpu_usage_list = [0]
+        memory_gpu_list = [0]
 
         # Get process information
         global cmdline_list, application_image_dict
@@ -1339,6 +1347,11 @@ class Processes:
         ppid_list = self.rows_data_dict["ppid_list"]
         username_list = self.rows_data_dict["username_list"]
         cmdline_list = self.rows_data_dict["cmdline_list"]
+        if 24 in treeview_columns_shown or 25 in treeview_columns_shown:
+            try:
+                gpu_information_dict = Libsysmon.get_process_gpu_information()
+            except Exception:
+                gpu_information_dict = {}
 
         # Get and append process data
         tab_data_rows = []
@@ -1417,6 +1430,20 @@ class Processes:
                 memory_list.append(memory)
                 if 20 in treeview_columns_shown:
                     tab_data_row.append(memory)
+            if 24 in treeview_columns_shown:
+                try:
+                    gpu_usage = gpu_information_dict[pid]["gpu_usage"]
+                except Exception:
+                    gpu_usage = 0
+                tab_data_row.append(gpu_usage)
+                gpu_usage_list.append(gpu_usage)
+            if 25 in treeview_columns_shown:
+                try:
+                    gpu_memory = gpu_information_dict[pid]["gpu_memory"]
+                except Exception:
+                    gpu_memory = 0
+                tab_data_row.append(gpu_memory)
+                memory_gpu_list.append(gpu_memory)
 
             # Append process data into a list
             tab_data_rows.append(tab_data_row)
@@ -1434,7 +1461,9 @@ class Processes:
                                             disk_write_speed_list,
                                             cpu_usage_recursive_list,
                                             memory_rss_recursive_list,
-                                            memory_recursive_list
+                                            memory_recursive_list,
+                                            gpu_usage_list,
+                                            memory_gpu_list
                                             ]
 
         for cell_coloring_data_list in list_of_cell_coloring_data_lists:
@@ -1487,6 +1516,7 @@ class Processes:
         global max_value_cpu_usage_list, max_value_memory_rss_list, max_value_memory_vms_list, max_value_memory_shared_list, max_value_memory_list
         global max_value_disk_read_data_list, max_value_disk_write_data_list, max_value_disk_read_speed_list, max_value_disk_write_speed_list
         global max_value_cpu_usage_recursive_list, max_value_memory_rss_recursive_list, max_value_memory_recursive_list
+        global max_value_gpu_usage_list, max_value_memory_gpu_list
         max_value_cpu_usage_list = max(cpu_usage_list)
         max_value_memory_rss_list = max(memory_rss_list)
         max_value_memory_vms_list = max(memory_vms_list)
@@ -1499,6 +1529,8 @@ class Processes:
         max_value_cpu_usage_recursive_list = max(cpu_usage_recursive_list)
         max_value_memory_rss_recursive_list = max(memory_rss_recursive_list)
         max_value_memory_recursive_list = max(memory_recursive_list)
+        max_value_gpu_usage_list = max(gpu_usage_list)
+        max_value_memory_gpu_list = max(memory_gpu_list)
 
         # Show/Hide treeview expander arrows. If "child rows" are not used and there is no need for these expanders (they would be shown as empty spaces in this situation).
         if self.show_processes_as_tree == 1:
@@ -1684,6 +1716,16 @@ def cell_data_function_memory_recursive(tree_column, cell, tree_model, iter, dat
     value = tree_model.get(iter, data)[0]
     cell.set_property('text', data_unit_converter("data", "none", value, processes_memory_data_unit, processes_memory_data_precision))
     cell_backround_color(cell, value, max_value_memory_recursive_list)
+
+def cell_data_function_gpu_usage_percent(tree_column, cell, tree_model, iter, data):
+    value = tree_model.get(iter, data)[0]
+    cell.set_property('text', f'{value:.{processes_gpu_precision}f} %')
+    cell_backround_color(cell, value, max_value_gpu_usage_list)
+
+def cell_data_function_memory_gpu(tree_column, cell, tree_model, iter, data):
+    value = tree_model.get(iter, data)[0]
+    cell.set_property('text', data_unit_converter("data", "none", value, processes_gpu_memory_data_unit, processes_gpu_memory_data_precision))
+    cell_backround_color(cell, value, max_value_memory_gpu_list)
 
 def cell_backround_color(cell, value, max_value):
     color = Gdk.RGBA()
