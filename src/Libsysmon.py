@@ -3350,9 +3350,8 @@ def process_gpu_tool_output_amdgpu_top(gpu_pci_address, gpu_tool_output_amdgpu_t
     return gpu_load_memory_frequency_power_dict
 
 
+
 def get_process_gpu_information():
-
-
 
     gpu_process_information_dict = {}
 
@@ -3371,8 +3370,6 @@ def get_process_gpu_information():
 
 def gpu_process_information_amd_func():
 
-
-
     command_list = ["amdgpu_top", "-J", "-s", "100ms", "-n", "1"]
     if get_environment_type() == "flatpak":
         command_list = ["flatpak-spawn", "--host"] + command_list
@@ -3385,7 +3382,6 @@ def gpu_process_information_amd_func():
     # Prevent errors because "amdgpu_top" may not be installed on systems.
     except Exception:
         pass
-
 
 
 def process_gpu_tool_process_output_amdgpu_top(gpu_tool_process_output_amdgpu_top, gpu_process_information_dict):
@@ -3425,9 +3421,6 @@ def process_gpu_tool_process_output_amdgpu_top(gpu_tool_process_output_amdgpu_to
                     gpu_process_information_dict[pid]["gpu_memory"] = gpu_process_information_dict[pid]["gpu_memory"] + gpu_memory
 
     return gpu_process_information_dict
-
-
-
 
 
 
