@@ -430,9 +430,9 @@ class MainWindow():
 
         # Menu actions
         # "Refresh" action
-        action = Gio.SimpleAction.new("refresh", None)
-        action.connect("activate", Common.current_tab_refresh, self)
-        self.main_window.add_action(action)
+        # Get "Refresh" action and append it to main menu.
+        # This action and its accelerator were generated after main window is shown.
+        action = self.main_window.lookup_action("refresh_tab")
         # "General Settings" action
         action = Gio.SimpleAction.new("settings", None)
         action.connect("activate", self.on_main_menu_settings_button_clicked)
@@ -444,7 +444,7 @@ class MainWindow():
 
         # Menu model
         main_menu_model = Gio.Menu.new()
-        main_menu_model.append(_tr("Refresh"), "win.refresh")
+        main_menu_model.append(_tr("Refresh"), "win.refresh_tab")
         main_menu_model.append(_tr("General Settings"), "win.settings")
         main_menu_model.append(_tr("About"), "win.about")
 
