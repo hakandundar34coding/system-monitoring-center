@@ -278,6 +278,8 @@ class Users:
         treeview_columns_shown = self.treeview_columns_shown
         treeview_columns_shown = set(treeview_columns_shown)
 
+        Common.reset_tab_settings(self)
+
         # Get user information
         rows_data_dict = Libsysmon.get_users_information(self.rows_data_dict_prev, self.system_boot_time)
         self.rows_data_dict_prev = dict(rows_data_dict)

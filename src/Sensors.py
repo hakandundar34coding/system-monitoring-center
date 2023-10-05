@@ -148,6 +148,8 @@ class Sensors:
         treeview_columns_shown = self.treeview_columns_shown
         treeview_columns_shown = set(treeview_columns_shown)
 
+        Common.reset_tab_settings(self)
+
         rows_data_dict = Libsysmon.get_sensors_information()
         self.rows_data_dict_prev = dict(rows_data_dict)
         sensor_unique_id_list = rows_data_dict["sensor_unique_id_list"]
