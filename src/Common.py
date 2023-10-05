@@ -991,6 +991,27 @@ def set_label_spinner(label, spinner_label, label_data):
     label.set_label(f'{label_data}')
 
 
+def reset_tab_settings(TabObject):
+    """
+    Reset tab columns if a version of the application with less number of columns than the previous
+    one (which has new columns) is run in order to prevent errors and empty tab list.
+    """
+
+    if len(TabObject.row_data_list) < len(TabObject.data_column_order):
+
+        # Get treeview columns shown
+        if TabObject.name == "Sensors":
+            Config.config_default_performance_sensors_func()
+        elif TabObject.name == "Processes":
+            Config.config_default_processes_func()
+        elif TabObject.name == "Users":
+            Config.config_default_users_func()
+        elif TabObject.name == "Services":
+            Config.config_default_services_func()
+
+        save_tab_settings(TabObject)
+
+
 def treeview_add_remove_columns(TabObject):
     """
     Add/Remove treeview columns appropriate for user preferences.

@@ -1312,6 +1312,10 @@ class Processes:
         treeview_columns_shown = self.treeview_columns_shown
         treeview_columns_shown = set(treeview_columns_shown)
 
+        # Prevent errors and empty tab list if a version of the application with less number of columns
+        # than the previous one is run.
+        Common.reset_tab_settings(self)
+
         # Define lists for appending some performance data for calculating max values to determine cell background color.
         # "0" values are added for preventing errors if the lists are empty.
         cpu_usage_list = [0]
