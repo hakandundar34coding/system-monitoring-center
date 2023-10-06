@@ -1,5 +1,14 @@
 # System Monitoring Center
 
+### v2.24.0 (06.10.2023)
+  * New: Video encoding/decoding engine load for AMD GPUs
+  * New: GPU usage and GPU memory columns (AMD GPUs only)
+  * New: Option for hiding kernel threads (Processes tab)
+  * New: Show F5 shortcut of Refresh action (main menu)
+  * Updated dependency versions (Flatpak)
+  * Fix: Empty lists if old version of the application is run
+  * Minor improvements (performance, translations, etc.)
+
 ### v2.23.0 (29.09.2023)
   * New: Process info. summation of multiple process selection
   * New: Refresh action (main menu)

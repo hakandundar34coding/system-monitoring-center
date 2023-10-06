@@ -1,3 +1,15 @@
+system-monitoring-center (2.24.0) unstable; urgency=medium
+
+  * New: Video encoding/decoding engine load for AMD GPUs
+  * New: GPU usage and GPU memory columns (AMD GPUs only)
+  * New: Option for hiding kernel threads (Processes tab)
+  * New: Show F5 shortcut of Refresh action (main menu)
+  * Updated dependency versions (Flatpak)
+  * Fix: Empty lists if old version of the application is run
+  * Minor improvements (performance, translations, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Fri, 06 Oct 2023 07:15:00 +0300
+
 system-monitoring-center (2.23.0) unstable; urgency=medium
 
   * New: Process info. summation of multiple process selection
