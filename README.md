@@ -127,9 +127,11 @@
   - Following dependencies may be required on some systems:
       - `libcairo2-dev` (for systems with .deb packages)
       - `polkit` (for Arch Linux)
+
   - Optional dependencies:
-      - `x11-xserver-utils` or `xorg-xrandr` (for more accurate screen resolution and refresh rate detection of System Monitoring Center v1.x.x)
+      - `amdgpu_top>0.2.0 (not released yet)` (for video engine load on GPU tab and per-process GPU usage, GPU memory columns on Processes tab of System Monitoring Center v2.x.x)
       - `vcgencmd` (for physical RAM size, GPU frequency and video memory information on Raspberry Pi devices)
+      - `x11-xserver-utils` or `xorg-xrandr` (for more accurate screen resolution and refresh rate detection of System Monitoring Center v1.x.x)
   ---
 
 </details>

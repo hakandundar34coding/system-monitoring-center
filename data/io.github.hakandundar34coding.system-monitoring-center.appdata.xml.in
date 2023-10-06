@@ -95,6 +95,19 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.24.0" date="2023-10-06">
+      <description>
+        <ul>
+          <li>New: Video encoding/decoding engine load for AMD GPUs</li>
+          <li>New: GPU usage and GPU memory columns (AMD GPUs only)</li>
+          <li>New: Option for hiding kernel threads (Processes tab)</li>
+          <li>New: Show F5 shortcut of Refresh action (main menu)</li>
+          <li>Updated dependency versions (Flatpak)</li>
+          <li>Fix: Empty lists if old version of the application is run</li>
+          <li>Minor improvements (performance, translations, etc.)</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.23.0" date="2023-09-29">
       <description>
         <ul>
