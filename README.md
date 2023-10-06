@@ -84,6 +84,7 @@
     - Monitoring CPU, RAM, Disk, Network, GPU hardware/usage information
     - Monitoring and managing processes and services (systemd)
     - Monitoring users, sensors and general system information
+- GPU usage and GPU memory columns for processes (*)
 - Supports PolicyKit. No need to run the application with "sudo"
 - Hardware selection options (selecting CPU cores, disks, network cards, GPUs)
 - Plotting performance data of multiple devices at the same time
@@ -94,7 +95,7 @@
 - Supports ARM architecture
 - Hardware accelerated GUI
 - Free and open source
-
+* GPU columns on Processes tab require `amdpu_top>v0.2.0` or its build from latest source code.
 
 ### Installation:
 - There are several options for using System Monitoring Center:
