@@ -465,7 +465,7 @@ class Summary:
             ctx.move_to(gauge_gpu_usage_label_text_move_x, -gauge_gpu_usage_label_text_move_y + gauge_gpu_usage_text_move_y)
             ctx.set_source_rgba(232/255, 232/255, 232/255, 1.0)
             ctx.set_font_size(gauge_disk_network_usage_text_size)
-            ctx.show_text("14%")
+            ctx.show_text(gpu_usage_text)
             ctx.restore()
 
 
