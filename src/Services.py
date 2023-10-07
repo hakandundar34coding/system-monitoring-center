@@ -519,6 +519,8 @@ class Services:
                              [7, _tr('Description'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']]
                              ]
 
+        Common.reset_tab_settings(self)
+
         # Define data unit conversion function objects in for lower CPU usage.
         global data_unit_converter
         data_unit_converter = Libsysmon.data_unit_converter
@@ -579,8 +581,6 @@ class Services:
         # For obtaining lower CPU usage
         treeview_columns_shown = self.treeview_columns_shown
         treeview_columns_shown = set(treeview_columns_shown)
-
-        Common.reset_tab_settings(self)
 
         rows_data_dict = Libsysmon.get_services_information()
         self.rows_data_dict_prev = dict(rows_data_dict)

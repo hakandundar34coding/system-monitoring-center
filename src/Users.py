@@ -240,6 +240,8 @@ class Users:
                              [10, _tr('CPU'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent]],
                              ]
 
+        Common.reset_tab_settings(self)
+
         self.tab_data_rows_prev = []
         self.human_user_uid_list_prev = []
         self.treeview_columns_shown_prev = []
@@ -277,8 +279,6 @@ class Users:
         # For obtaining lower CPU usage
         treeview_columns_shown = self.treeview_columns_shown
         treeview_columns_shown = set(treeview_columns_shown)
-
-        Common.reset_tab_settings(self)
 
         # Get user information
         rows_data_dict = Libsysmon.get_users_information(self.rows_data_dict_prev, self.system_boot_time)

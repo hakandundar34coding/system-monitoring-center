@@ -374,18 +374,6 @@ def text_attribute_bold_2x():
     attribute_list_bold_2x.insert(attribute)
 
 
-def text_attribute_bold():
-    """
-    Define text attributes for bold labels.
-    """
-
-    global attribute_list_bold
-
-    attribute_list_bold = Pango.AttrList()
-    attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
-    attribute_list_bold.insert(attribute)
-
-
 def text_attribute_bold_underlined():
     """
     Define text attributes for bold and underlined labels.
@@ -400,92 +388,56 @@ def text_attribute_bold_underlined():
     attribute_list_bold_underlined.insert(attribute)
 
 
-def text_attribute_small_size():
-    """
-    Define text attributes for small size (10000 point) labels.
-    """
-
-    global attribute_list_small_size
-
-    # Small label atributes
-    attribute_list_small_size = Pango.AttrList()
-    attribute = Pango.attr_size_new(10000)
-    attribute_list_small_size.insert(attribute)
-
-
 def tab_title_label(text):
-    """
-    Generate tab title Label.
-    """
 
     if 'attribute_list_bold_2x' not in globals():
         text_attribute_bold_2x()
 
-    # Label
     label = Gtk.Label()
     label.set_halign(Gtk.Align.START)
+    label.set_valign(Gtk.Align.CENTER)
     label.set_margin_end(60)
     label.set_attributes(attribute_list_bold_2x)
+    #label.add_css_class("title-1")
     label.set_label(text)
 
     return label
 
 
 def title_label(text):
-    """
-    Generate title Label.
-    """
-
-    if 'attribute_list_bold' not in globals():
-        text_attribute_bold()
 
     label = Gtk.Label()
-    label.set_attributes(attribute_list_bold)
-    label.set_label(text)
     label.set_halign(Gtk.Align.START)
+    label.add_css_class("heading")
+    label.set_label(text)
 
     return label
 
 
 def menu_title_label(text):
-    """
-    Generate menu title Label.
-    """
-
-    if 'attribute_list_bold' not in globals():
-        text_attribute_bold()
 
     label = Gtk.Label()
-    label.set_attributes(attribute_list_bold)
     label.set_label(text)
     label.set_halign(Gtk.Align.CENTER)
+    label.add_css_class("heading")
     label.set_margin_bottom(10)
 
     return label
 
 
 def device_vendor_model_label():
-    """
-    Generate device vendor model information Label.
-    """
-
-    if 'attribute_list_bold' not in globals():
-        text_attribute_bold()
 
     label = Gtk.Label()
     label.set_halign(Gtk.Align.START)
     label.set_selectable(True)
     label.set_ellipsize(Pango.EllipsizeMode.END)
-    label.set_attributes(attribute_list_bold)
+    label.add_css_class("heading")
     label.set_label("--")
 
     return label
 
 
 def device_kernel_name_label():
-    """
-    Generate device kernel name information Label.
-    """
 
     label = Gtk.Label()
     label.set_halign(Gtk.Align.START)
@@ -511,13 +463,10 @@ def static_information_label(text):
 
 def static_information_bold_label(text):
 
-    if 'attribute_list_bold' not in globals():
-        text_attribute_bold()
-
     label = Gtk.Label()
-    label.set_attributes(attribute_list_bold)
     label.set_label(text)
     label.set_ellipsize(Pango.EllipsizeMode.END)
+    label.add_css_class("heading")
     label.set_halign(Gtk.Align.START)
 
     return label
@@ -554,14 +503,11 @@ def dynamic_information_label():
     Generate dynamic information Label. This label is updated by the code.
     """
 
-    if 'attribute_list_bold' not in globals():
-        text_attribute_bold()
-
     label = Gtk.Label()
     label.set_selectable(True)
-    label.set_attributes(attribute_list_bold)
     label.set_label("--")
     label.set_ellipsize(Pango.EllipsizeMode.END)
+    label.add_css_class("heading")
     label.set_halign(Gtk.Align.START)
 
     return label
@@ -577,9 +523,9 @@ def clickable_label(text, function):
 
     label = Gtk.Label()
     label.set_attributes(attribute_list_bold_underlined)
-    label.set_label(text)
     label.set_ellipsize(Pango.EllipsizeMode.END)
     label.set_halign(Gtk.Align.START)
+    label.set_label(text)
     cursor_link = Gdk.Cursor.new_from_name("pointer")
     label.set_cursor(cursor_link)
 
@@ -598,8 +544,8 @@ def da_upper_lower_label(text, alignment):
 
     label = Gtk.Label()
     label.set_halign(alignment)
-    label.add_css_class("dim-label")
     label.set_ellipsize(Pango.EllipsizeMode.END)
+    label.add_css_class("dim-label")
     label.set_label(text)
 
     return label
@@ -610,12 +556,9 @@ def performance_summary_headerbar_label(text):
     Generate Label for performance summary on the window headerbar.
     """
 
-    if 'attribute_list_small_size' not in globals():
-        text_attribute_small_size()
-
     label = Gtk.Label()
-    label.set_attributes(attribute_list_small_size)
     label.set_halign(Gtk.Align.START)
+    label.add_css_class("caption")
     label.set_label(text)
 
     return label
@@ -997,19 +940,23 @@ def reset_tab_settings(TabObject):
     one (which has new columns) is run in order to prevent errors and empty tab list.
     """
 
-    if len(TabObject.row_data_list) < len(TabObject.data_column_order):
-
-        # Get treeview columns shown
-        if TabObject.name == "Sensors":
+    if TabObject.name == "Sensors":
+        if len(TabObject.row_data_list) < len(Config.sensors_data_column_order):
             Config.config_default_performance_sensors_func()
-        elif TabObject.name == "Processes":
+            Config.config_save_func()
+    elif TabObject.name == "Processes":
+        if len(TabObject.row_data_list) < len(Config.processes_data_column_order):
             Config.config_default_processes_func()
-        elif TabObject.name == "Users":
+            Config.config_save_func()
+            print(1)
+    elif TabObject.name == "Users":
+        if len(TabObject.row_data_list) < len(Config.users_data_column_order):
             Config.config_default_users_func()
-        elif TabObject.name == "Services":
+            Config.config_save_func()
+    elif TabObject.name == "Services":
+        if len(TabObject.row_data_list) < len(Config.services_data_column_order):
             Config.config_default_services_func()
-
-        save_tab_settings(TabObject)
+            Config.config_save_func()
 
 
 def treeview_add_remove_columns(TabObject):

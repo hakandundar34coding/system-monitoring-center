@@ -116,6 +116,8 @@ class Sensors:
                              [4, _tr('Critical'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']]
                              ]
 
+        Common.reset_tab_settings(self)
+
         self.tab_data_rows_prev = []
         self.treeview_columns_shown_prev = []
         self.data_row_sorting_column_prev = ""
@@ -148,8 +150,6 @@ class Sensors:
         # For obtaining lower CPU usage
         treeview_columns_shown = self.treeview_columns_shown
         treeview_columns_shown = set(treeview_columns_shown)
-
-        Common.reset_tab_settings(self)
 
         rows_data_dict = Libsysmon.get_sensors_information(self.temperature_unit)
         self.rows_data_dict_prev = dict(rows_data_dict)

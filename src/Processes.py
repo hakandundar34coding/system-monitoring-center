@@ -1240,6 +1240,10 @@ class Processes:
                                      _tr('Written Data'): "written_data", _tr('Read Speed'): "read_speed",
                                      _tr('Write Speed'): "write_speed", _tr('Memory'): "memory"}
 
+        # Prevent errors and empty tab list if a version of the application with less number of columns
+        # than the previous one is run.
+        Common.reset_tab_settings(self)
+
         # Define data unit conversion function objects in for lower CPU usage.
         global data_unit_converter
         data_unit_converter = Libsysmon.data_unit_converter
@@ -1311,10 +1315,6 @@ class Processes:
         # For obtaining lower CPU usage
         treeview_columns_shown = self.treeview_columns_shown
         treeview_columns_shown = set(treeview_columns_shown)
-
-        # Prevent errors and empty tab list if a version of the application with less number of columns
-        # than the previous one is run.
-        Common.reset_tab_settings(self)
 
         # Define lists for appending some performance data for calculating max values to determine cell background color.
         # "0" values are added for preventing errors if the lists are empty.
