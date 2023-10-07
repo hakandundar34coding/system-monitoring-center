@@ -47,6 +47,7 @@ system_monitoring_center_sources = [
     'ProcessesMenu.py',
     'run_from_source.py',
     'Sensors.py',
+    'SensorsMenu.py',
     'Services.py',
     'ServicesDetails.py',
     'ServicesMenu.py',

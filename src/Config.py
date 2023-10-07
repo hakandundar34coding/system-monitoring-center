@@ -189,6 +189,7 @@ class Config:
         self.sensors_data_row_sorting_order = 0
         self.sensors_data_column_order = [0, 1, 2, 3, 4]
         self.sensors_data_column_widths = [-1, -1, -1, -1, -1]
+        self.temperature_unit = "celsius"
 
 
     def config_default_processes_func(self):
@@ -321,6 +322,11 @@ class Config:
         self.chart_line_color_fps = [float(value) for value in config_values[config_variables.index("chart_line_color_fps")].strip("[]").split(", ")]
         self.selected_gpu = config_values[config_variables.index("selected_gpu")]
 
+        if "temperature_unit" in config_variables:
+            self.temperature_unit = config_values[config_variables.index("temperature_unit")]
+        else:
+            pass
+
         self.show_processes_of_all_users = int(config_values[config_variables.index("show_processes_of_all_users")])
         self.show_processes_as_tree = int(config_values[config_variables.index("show_processes_as_tree")])
         self.show_tree_lines = int(config_values[config_variables.index("show_tree_lines")])
@@ -444,6 +450,10 @@ class Config:
         config_write_text = config_write_text + "[Performance Tab - GPU]" + "\n"
         config_write_text = config_write_text + "chart_line_color_fps = " + str(self.chart_line_color_fps) + "\n"
         config_write_text = config_write_text + "selected_gpu = " + str(self.selected_gpu) + "\n"
+        config_write_text = config_write_text + "\n"
+
+        config_write_text = config_write_text + "[Performance Tab - Sensors]" + "\n"
+        config_write_text = config_write_text + "temperature_unit = " + str(self.temperature_unit) + "\n"
         config_write_text = config_write_text + "\n"
 
         config_write_text = config_write_text + "[Processes Tab]" + "\n"

@@ -22,6 +22,7 @@ src/ProcessesDetails.py
 src/ProcessesMenu.py
 src/run_from_source.py
 src/Sensors.py
+src/SensorsMenu.py
 src/Services.py
 src/ServicesDetails.py
 src/ServicesMenu.py

@@ -569,7 +569,8 @@ class MainWindow():
                 self.tab_menu_menubutton.set_popover(GpuMenu.menu_po)
 
             elif Config.performance_tab_current_sub_tab == 6:
-                self.tab_menu_menubutton.set_popover(None)
+                from .SensorsMenu import SensorsMenu
+                self.tab_menu_menubutton.set_popover(SensorsMenu.menu_po)
 
         elif Config.current_main_tab == 1:
             from .ProcessesMenu import ProcessesMenu
@@ -754,7 +755,7 @@ class MainWindow():
                     self.sensors_tab_main_grid.attach(Sensors.tab_grid, 0, 0, 1, 1)
                 GLib.idle_add(Sensors.loop_func)
                 self.main_gui_device_selection_list()
-                self.tab_menu_menubutton.set_sensitive(False)
+                self.tab_menu_menubutton.set_sensitive(True)
                 return
 
         # Switch to "Processes" tab

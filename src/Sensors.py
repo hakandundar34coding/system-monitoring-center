@@ -144,13 +144,14 @@ class Sensors:
         self.data_row_sorting_order = Config.sensors_data_row_sorting_order
         self.data_column_order = Config.sensors_data_column_order
         self.data_column_widths = Config.sensors_data_column_widths
+        self.temperature_unit = Config.temperature_unit
         # For obtaining lower CPU usage
         treeview_columns_shown = self.treeview_columns_shown
         treeview_columns_shown = set(treeview_columns_shown)
 
         Common.reset_tab_settings(self)
 
-        rows_data_dict = Libsysmon.get_sensors_information()
+        rows_data_dict = Libsysmon.get_sensors_information(self.temperature_unit)
         self.rows_data_dict_prev = dict(rows_data_dict)
         sensor_unique_id_list = rows_data_dict["sensor_unique_id_list"]
 

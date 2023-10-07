@@ -3776,7 +3776,7 @@ def get_gpu_connections(gpu_device_path, selected_gpu):
 #                                           Sensors
 # ***********************************************************************************************
 
-def get_sensors_information():
+def get_sensors_information(temperature_unit="celsius"):
     """
     Get sensor information.
     """
@@ -3837,13 +3837,16 @@ def get_sensors_information():
 
                 # Get sensor current value
                 try:
-                    # Units of data in this file are millidegree Celcius for temperature sensors, RPM for fan sensors,
+                    # Units of data in this file are millidegree Celsius for temperature sensors, RPM for fan sensors,
                     # millivolt for voltage sensors and milliamper for current sensors.
                     with open("/sys/class/hwmon/" + sensor_group + "/" + attribute + string_sensor_number + "_input") as reader:
                         current_value = int(reader.read().strip())
                     if attribute == "temp":
-                        # Convert millidegree Celcius to degree Celcius
-                        current_value = f'{(current_value / 1000):.0f} °C'
+                        if temperature_unit == "celsius":
+                            # Convert millidegree Celsius to degree Celsius
+                            current_value = f'{(current_value / 1000):.0f} °C'
+                        elif temperature_unit == "fahrenheit":
+                            current_value = f'{((current_value / 1000)*9/5)+32:.0f} °F'
                     if attribute == "fan":
                         current_value = f'{current_value} RPM'
                     if attribute == "in":
