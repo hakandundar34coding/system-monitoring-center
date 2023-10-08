@@ -45,20 +45,20 @@ class SensorsMenu:
         main_grid.attach(label, 0, 2, 1, 1)
 
         # CheckButton (Celsius)
-        self.temperature_unit_celsius_cb = Common.checkbutton(_tr("Celsius"), None)
+        self.temperature_unit_celsius_cb = Common.checkbutton("°C", None)
         main_grid.attach(self.temperature_unit_celsius_cb, 0, 3, 1, 1)
 
         # CheckButton (Fahrenheit)
-        self.temperature_unit_fahrenheit_cb = Common.checkbutton(_tr("Fahrenheit"), self.temperature_unit_celsius_cb)
-        main_grid.attach(self.temperature_unit_fahrenheit_cb, 0, 4, 1, 1)
+        self.temperature_unit_fahrenheit_cb = Common.checkbutton("°F", self.temperature_unit_celsius_cb)
+        main_grid.attach(self.temperature_unit_fahrenheit_cb, 1, 3, 1, 1)
 
         # Separator
         separator = Common.menu_separator()
-        main_grid.attach(separator, 0, 5, 2, 1)
+        main_grid.attach(separator, 0, 4, 2, 1)
 
         # Button (Reset)
         self.reset_button = Common.reset_button()
-        main_grid.attach(self.reset_button, 0, 6, 2, 1)
+        main_grid.attach(self.reset_button, 0, 5, 2, 1)
 
         # Connect signals
         self.reset_button.connect("clicked", self.on_reset_button_clicked)
@@ -131,7 +131,7 @@ class SensorsMenu:
         if Config.temperature_unit == "celsius":
             self.temperature_unit_celsius_cb.set_active(True)
         if Config.temperature_unit == "fahrenheit":
-            self.temperature_unit_fahrenheit_cb.set_active(False)
+            self.temperature_unit_fahrenheit_cb.set_active(True)
 
 
 SensorsMenu = SensorsMenu()

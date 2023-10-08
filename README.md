@@ -95,7 +95,7 @@
 - Supports ARM architecture
 - Hardware accelerated GUI
 - Free and open source
-- Note: GPU columns on Processes tab require `amdpu_top>v0.2.0` or its build from latest source code.
+- Note: GPU columns on Processes tab require `amdgpu_top>v0.2.0` or its build from latest source code.
 
 ### Installation:
 - There are several options for using System Monitoring Center:

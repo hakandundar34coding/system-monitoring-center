@@ -27,13 +27,13 @@ memory_page_size = os.sysconf("SC_PAGE_SIZE")
 disk_sector_size = 512
 
 # GPU Transfer rate (link speed) units are GT/s.
-gpu_transfer_rate_pci_express_version_dict = {"2.5": "PCI-Express 1.0",
-                                              "5.0": "PCI-Express 2.0",
-                                              "8.0": "PCI-Express 3.0",
-                                              "16.0": "PCI-Express 4.0",
-                                              "32.0": "PCI-Express 5.0",
-                                              "64.0": "PCI-Express 6.0",
-                                              "128.0": "PCI-Express 7.0"}
+gpu_pci_express_version_dict = {"2.5": "PCI-Express 1.0",
+                                "5.0": "PCI-Express 2.0",
+                                "8.0": "PCI-Express 3.0",
+                                "16.0": "PCI-Express 4.0",
+                                "32.0": "PCI-Express 5.0",
+                                "64.0": "PCI-Express 6.0",
+                                "128.0": "PCI-Express 7.0"}
 
 # The content of the file is updated about 50-60 times in a second. 
 # 120 is used in order to get GPU load for AMD GPUs precisely.
@@ -3724,7 +3724,7 @@ def get_gpu_pci_express_version(gpu_device_path):
         max_link_speed_unit = "-"
 
     if max_link_speed_unit in ["GT/s", "GT/S", "gt/s"]:
-        gpu_pci_express_version = gpu_transfer_rate_pci_express_version_dict[max_link_speed_number]
+        gpu_pci_express_version = gpu_pci_express_version_dict[max_link_speed_number]
     else:
         gpu_pci_express_version = "-"
 
@@ -3866,7 +3866,10 @@ def get_sensors_information(temperature_unit="celsius"):
                     with open("/sys/class/hwmon/" + sensor_group + "/" + attribute + string_sensor_number + "_max") as reader:
                         max_value = int(reader.read().strip())
                     if attribute == "temp":
-                        max_value = f'{(max_value / 1000):.0f} °C'
+                        if temperature_unit == "celsius":
+                            max_value = f'{(max_value / 1000):.0f} °C'
+                        elif temperature_unit == "fahrenheit":
+                            max_value = f'{((max_value / 1000)*9/5)+32:.0f} °F'
                     if attribute == "fan":
                         max_value = f'{max_value} RPM'
                     if attribute == "in":
@@ -3883,7 +3886,10 @@ def get_sensors_information(temperature_unit="celsius"):
                     with open("/sys/class/hwmon/" + sensor_group + "/" + attribute + string_sensor_number + "_crit") as reader:
                         critical_value = int(reader.read().strip())
                     if attribute == "temp":
-                        critical_value = f'{(critical_value / 1000):.0f} °C'
+                        if temperature_unit == "celsius":
+                            critical_value = f'{(critical_value / 1000):.0f} °C'
+                        elif temperature_unit == "fahrenheit":
+                            critical_value = f'{((critical_value / 1000)*9/5)+32:.0f} °F'
                     if attribute == "fan":
                         critical_value = f'{critical_value} RPM'
                     if attribute == "in":
@@ -5143,18 +5149,6 @@ def get_current_gtk_version():
     current_gtk_version = f'{Gtk.get_major_version()}.{Gtk.get_minor_version()}.{Gtk.get_micro_version()}'
 
     return current_gtk_version
-
-
-def get_current_tk_version():
-    """
-    Get Tk (Tkinter) version which is used for this application.
-    """
-
-    import tkinter as tk
-
-    current_tk_version = tk.TkVersion
-
-    return current_tk_version
 
 
 def get_installed_apt_rpm_pacman_apk_packages():

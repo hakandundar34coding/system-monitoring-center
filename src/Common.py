@@ -417,10 +417,10 @@ def title_label(text):
 def menu_title_label(text):
 
     label = Gtk.Label()
-    label.set_label(text)
     label.set_halign(Gtk.Align.CENTER)
-    label.add_css_class("heading")
     label.set_margin_bottom(10)
+    label.add_css_class("heading")
+    label.set_label(text)
 
     return label
 
@@ -454,9 +454,9 @@ def static_information_label(text):
     """
 
     label = Gtk.Label()
-    label.set_label(text)
     label.set_ellipsize(Pango.EllipsizeMode.END)
     label.set_halign(Gtk.Align.START)
+    label.set_label(text)
 
     return label
 
@@ -464,10 +464,10 @@ def static_information_label(text):
 def static_information_bold_label(text):
 
     label = Gtk.Label()
-    label.set_label(text)
     label.set_ellipsize(Pango.EllipsizeMode.END)
-    label.add_css_class("heading")
     label.set_halign(Gtk.Align.START)
+    label.add_css_class("heading")
+    label.set_label(text)
 
     return label
 
@@ -478,8 +478,8 @@ def static_information_label_no_ellipsize(text):
     """
 
     label = Gtk.Label()
-    label.set_label(text)
     label.set_halign(Gtk.Align.START)
+    label.set_label(text)
 
     return label
 
@@ -492,8 +492,8 @@ def static_information_label_wrap_selectable(text):
     label = Gtk.Label()
     label.set_wrap(True)
     label.set_selectable(True)
-    label.set_label(text)
     label.set_halign(Gtk.Align.START)
+    label.set_label(text)
 
     return label
 
@@ -505,10 +505,10 @@ def dynamic_information_label():
 
     label = Gtk.Label()
     label.set_selectable(True)
-    label.set_label("--")
     label.set_ellipsize(Pango.EllipsizeMode.END)
-    label.add_css_class("heading")
     label.set_halign(Gtk.Align.START)
+    label.add_css_class("heading")
+    label.set_label("--")
 
     return label
 
@@ -552,9 +552,6 @@ def da_upper_lower_label(text, alignment):
 
 
 def performance_summary_headerbar_label(text):
-    """
-    Generate Label for performance summary on the window headerbar.
-    """
 
     label = Gtk.Label()
     label.set_halign(Gtk.Align.START)
@@ -565,9 +562,6 @@ def performance_summary_headerbar_label(text):
 
 
 def menu_separator():
-    """
-    Generate horizontal separator for menus.
-    """
 
     separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
     separator.set_margin_top(3)
@@ -577,9 +571,6 @@ def menu_separator():
 
 
 def settings_window_separator():
-    """
-    Generate horizontal separator for menus.
-    """
 
     separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
     separator.set_margin_top(5)
@@ -836,9 +827,6 @@ def current_tab_refresh(action, parameter, main_window_object):
 
 
 def searchentry(function):
-    """
-    Generate SearchEntry.
-    """
 
     searchentry = Gtk.SearchEntry()
     searchentry.props.placeholder_text = _tr("Search...")
