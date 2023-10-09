@@ -14,6 +14,7 @@
 | pt_PT          | Portuguese (Portugal)  | 98%        |
 | ru_RU          | Russian                | 98%        |
 | tr             | Turkish                | 100%       |
+| zh_CN          | Chinese (Simplified)   | 100%       |
 | zh_TW          | Chinese (Traditional)  | 78%        |
 
 

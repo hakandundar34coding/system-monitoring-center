@@ -22,7 +22,8 @@ class SettingsWindow:
                               "en_US.UTF-8":"English (US)", "es":"Español", "fa.UTF-8":"فارسی",
                               "fr.UTF-8": "Français", "hu.UTF-8":"Magyar", "pl.UTF-8":"Polski",
                               "pt_BR.UTF-8":"Português do Brasil", "pt_PT.UTF-8":"Português europeu",
-                              "ru_RU.UTF-8":"Русский", "tr.UTF-8":"Türkçe", "zh_TW":"繁體中文"}
+                              "ru_RU.UTF-8":"Русский", "tr.UTF-8":"Türkçe", "zh_CN":"简体中文",
+                              "zh_TW":"繁體中文"}
         self.gui_theme_dict = {"system":_tr("System"), "light":_tr("Light"), "dark":_tr("Dark")}
         self.update_interval_list = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 3.0, 5.0, 10.0]
         self.chart_data_history_list = [30, 60, 90, 120, 150, 180, 300, 600, 1200]
