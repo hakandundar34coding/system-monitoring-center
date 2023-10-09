@@ -2,15 +2,15 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# yuzh496 <yuzh496@gmail.com>, 2023.
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: 系统监视中心\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-08 09:51+0300\n"
-"PO-Revision-Date: 2023-10-09 07:04+0800\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"PO-Revision-Date: 2023-10-10 04:23+0800\n"
+"Last-Translator: yuzh496 <yuzh496@gmail.com>, 2023.\n"
+"Language-Team: Chinese (Simplified)  <yuzh496@gmail.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +38,7 @@ msgid ""
 "System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;GPU;"
 "Processes;Users;Services;"
 msgstr ""
-"系统监视器;任务管理器;性能;CPU;RAM;交换;内存;磁盘;网络;GPU;进程;用户;服务;"
+"系统监视器;任务管理器;性能;CPU;RAM;交换;内存;磁盘;网络;显卡;进程;用户;服务;"
 
 #: src/Common.py:197
 msgid "Reset"
@@ -54,7 +54,7 @@ msgstr "图形颜色"
 
 #: src/Common.py:844 src/Common.py:910 src/Processes.py:310
 msgid "Search..."
-msgstr "搜索……"
+msgstr "搜索…"
 
 #: src/Cpu.py:49 src/CpuMenu.py:37 src/CpuMenu.py:83 src/MainWindow.py:139
 #: src/MainWindow.py:288 src/Processes.py:1214 src/Processes.py:1231
@@ -231,7 +231,7 @@ msgstr "细节"
 
 #: src/Disk.py:166 src/Gpu.py:260 src/Memory.py:143 src/Memory.py:196
 msgid "Show..."
-msgstr "更多……"
+msgstr "更多…"
 
 #: src/Disk.py:225
 msgid "Parent Name"
@@ -288,12 +288,12 @@ msgstr "隐藏循环，ramdisk，zram磁盘"
 #: src/MainWindow.py:308 src/Processes.py:1234 src/SettingsWindow.py:30
 #: src/Summary.py:446 src/System.py:218 src/System.py:225
 msgid "GPU"
-msgstr "GPU（显卡）"
+msgstr "显卡"
 
 #: src/Gpu.py:84 src/Gpu.py:209 src/Gpu.py:359 src/ProcessesMenu.py:263
 #: src/SummaryMenu.py:42
 msgid "GPU Usage"
-msgstr "GPU 占用率"
+msgstr "显卡占用率"
 
 #: src/Gpu.py:126 src/Gpu.py:209 src/Gpu.py:369 src/Processes.py:1235
 #: src/ProcessesMenu.py:267
@@ -334,7 +334,7 @@ msgstr "PCIe 地址"
 
 #: src/Gpu.py:339
 msgid "GPU Interface"
-msgstr "GPU 接口"
+msgstr "显卡接口"
 
 #: src/Gpu.py:349
 msgid "Link Speed"
@@ -511,7 +511,7 @@ msgstr "选择 CPU 核心只会影响频率和缓存内存信息。"
 #: src/MainWindow.py:854 src/Memory.py:147 src/Memory.py:278 src/Memory.py:384
 #: src/ProcessesDetails.py:443 src/System.py:533
 msgid "Swap Memory"
-msgstr "交换分区占用"
+msgstr "交换分区"
 
 #: src/MainWindow.py:1067
 msgid ""
@@ -631,7 +631,7 @@ msgstr "非常低"
 
 #: src/Processes.py:255
 msgid "Custom Value..."
-msgstr "自定义数值……"
+msgstr "自定义数值…"
 
 #: src/Processes.py:264 src/Processes.py:375 src/Processes.py:453
 msgid "Change Priority"
@@ -826,7 +826,7 @@ msgstr "这个进程已经不再运行了。"
 
 #: src/ProcessesMenu.py:45 src/ProcessesMenu.py:105
 msgid "View"
-msgstr "试图"
+msgstr "视图"
 
 #: src/ProcessesMenu.py:55 src/ProcessesMenu.py:159 src/ServicesMenu.py:45
 #: src/ServicesMenu.py:81 src/UsersMenu.py:45 src/UsersMenu.py:81
@@ -1126,7 +1126,7 @@ msgstr "浅色/深色主题"
 
 #: src/SettingsWindow.py:84
 msgid "Opacity"
-msgstr "透明图"
+msgstr "透明度"
 
 #: src/SettingsWindow.py:102
 msgid "Update interval (seconds)"
@@ -1146,7 +1146,7 @@ msgstr "记住最后打开的标签页"
 
 #: src/SettingsWindow.py:139
 msgid "Default main tab and sub-tab"
-msgstr "记住最后打开的标签页"
+msgstr "默认页面及子页面"
 
 #: src/SettingsWindow.py:155
 msgid "Remember last selected devices"
