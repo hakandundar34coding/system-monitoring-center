@@ -489,18 +489,19 @@ class MainWindow():
 
         # Define translators dictionary
         translators_dict = {"cs": "panmourovaty",
-                           "de": "Baumfinder",
-                           "es": "haggen88",
-                           "fa": "MasterKia",
-                           "fr": "Metoto Sakamoto",
-                           "hu": "Kálmán Szalai",
-                           "pl": "ski007, K0RR, sdorpl",
-                           "pt_BR": "Bruno do Nascimento",
-                           "pt_PT": "Hugo Carvalho, Ricardo Simões",
-                           "ru_RU": "badcast, akorny",
-                           "tr": "Hakan Dündar",
-                           "zh_TW": "csc-chicken"
-                           }
+                            "de": "Baumfinder",
+                            "es": "haggen88",
+                            "fa": "MasterKia",
+                            "fr": "Metoto Sakamoto",
+                            "hu": "Kálmán Szalai",
+                            "pl": "ski007, K0RR, sdorpl",
+                            "pt_BR": "Bruno do Nascimento",
+                            "pt_PT": "Hugo Carvalho, Ricardo Simões",
+                            "ru_RU": "badcast, akorny",
+                            "tr": "Hakan Dündar",
+                            "zh_CN": "yuzh496",
+                            "zh_TW": "csc-chicken"
+                            }
 
         # Get GUI language for getting translator name
         application_language = Config.language
