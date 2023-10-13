@@ -98,6 +98,15 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.25.0" date="2023-10-13">
+      <description>
+        <ul>
+          <li>New: Temperature unit option (Sensors tab)</li>
+          <li>New: Chinese (Simplified) translations</li>
+          <li>Minor improvements (stability, code, GUI, etc.)</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.24.0" date="2023-10-06">
       <description>
         <ul>

@@ -1,5 +1,10 @@
 # System Monitoring Center
 
+### v2.25.0 (13.10.2023)
+  * New: Temperature unit option (Sensors tab)
+  * New: Chinese (Simplified) translations
+  * Minor improvements (stability, code, GUI, etc.)
+
 ### v2.24.0 (06.10.2023)
   * New: Video encoding/decoding engine load for AMD GPUs
   * New: GPU usage and GPU memory columns (AMD GPUs only)
