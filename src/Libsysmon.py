@@ -2827,7 +2827,7 @@ def get_gpu_load_memory_frequency_power(gpu_pci_address, device_vendor_id, selec
         except Exception:
             gpu_load = "-"
 
-        # Update the GPU load value. Because it is not get in "get_gpu_load_memory_frequency_power_amd" function.
+        """# Update the GPU load value. Because it is not get in "get_gpu_load_memory_frequency_power_amd" function.
         gpu_load_memory_frequency_power_dict["gpu_load"] = gpu_load
 
         # Get encoder/decoder engine load of AMD GPU by using "amdgpu_top" tool.
@@ -2841,6 +2841,7 @@ def get_gpu_load_memory_frequency_power(gpu_pci_address, device_vendor_id, selec
 
         # Update encoder/decoder engine load values. Because they are not get in "get_gpu_load_memory_frequency_power_amd" function.
         gpu_load_memory_frequency_power_dict = process_gpu_tool_output_amdgpu_top(gpu_pci_address, gpu_tool_output_amdgpu_top, gpu_load_memory_frequency_power_dict)
+        """
 
     # If selected GPU vendor is Broadcom (for RB-Pi ARM devices).
     elif device_vendor_id in ["Brcm"]:

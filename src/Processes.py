@@ -1352,10 +1352,11 @@ class Processes:
         username_list = self.rows_data_dict["username_list"]
         cmdline_list = self.rows_data_dict["cmdline_list"]
         if 24 in treeview_columns_shown or 25 in treeview_columns_shown:
-            try:
+            """try:
                 gpu_information_dict = Libsysmon.get_process_gpu_information()
             except Exception:
-                gpu_information_dict = {}
+                gpu_information_dict = {}"""
+            gpu_information_dict = {}
 
         # Get and append process data
         tab_data_rows = []
