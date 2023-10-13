@@ -79,12 +79,12 @@
     </a>
 </p>
 
+
 ### Features:
 - Detailed system performance and usage usage monitoring/managing features:
     - Monitoring CPU, RAM, Disk, Network, GPU hardware/usage information
     - Monitoring and managing processes and services (systemd)
     - Monitoring users, sensors and general system information
-- GPU usage and GPU memory columns for processes (*)
 - Supports PolicyKit. No need to run the application with "sudo"
 - Hardware selection options (selecting CPU cores, disks, network cards, GPUs)
 - Plotting performance data of multiple devices at the same time
@@ -95,7 +95,7 @@
 - Supports ARM architecture
 - Hardware accelerated GUI
 - Free and open source
-- Note: GPU columns on Processes tab require `amdgpu_top>v0.2.0` or its build from latest source code.
+
 
 ### Installation:
 - There are several options for using System Monitoring Center:
@@ -129,7 +129,6 @@
       - `polkit` (for Arch Linux)
 
   - Optional dependencies:
-      - `amdgpu_top>0.2.0 (not released yet)` (for video engine load on GPU tab and per-process GPU usage, GPU memory columns on Processes tab of System Monitoring Center v2.x.x)
       - `vcgencmd` (for physical RAM size, GPU frequency and video memory information on Raspberry Pi devices)
       - `x11-xserver-utils` or `xorg-xrandr` (for more accurate screen resolution and refresh rate detection of System Monitoring Center v1.x.x)
   ---

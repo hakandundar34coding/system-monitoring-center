@@ -98,6 +98,15 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.25.1" date="2023-10-13">
+      <description>
+        <ul>
+          <li>Fix: High memory consumption in some cases (AMD GPUs)</li>
+          <li>Disabled external tool usage for video engine load (AMD GPU)</li>
+          <li>Disabled external tool usage for GPU info. columns (AMD GPU)</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.25.0" date="2023-10-13">
       <description>
         <ul>

@@ -1,5 +1,10 @@
 # System Monitoring Center
 
+### v2.25.1 (13.10.2023)
+  * Fix: High memory consumption in some cases (AMD GPUs)
+  * Disabled external tool usage for video engine load (AMD GPU)
+  * Disabled external tool usage for GPU info. columns (AMD GPU)
+
 ### v2.25.0 (13.10.2023)
   * New: Temperature unit option (Sensors tab)
   * New: Chinese (Simplified) translations
