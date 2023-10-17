@@ -1,50 +1,12 @@
 # System Monitoring Center
 
+### v1.43.12 (17.10.2023)
+  * Add: Dialog for end of support announcement for SMC v1.x.x
+
 ### v1.43.11 (18.09.2023)
   * Changed: Reset application settings newer than SMC v1
   * Fix: Listing processes if SMC v2 settings are used
   * Fix: Listing processes if .desktop files are broken link
-
-### v2.22.1 (17.09.2023)
-  * Fix: Listing processes if .desktop files are broken link
-
-### v2.22.0 (17.09.2023)
-  * New: CPU, memory, GPU hardware information (System tab)
-  * Updated translations (pt_PT, tr, ru_RU)
-  * Updated dependency versions (Flatpak)
-  * Minor improvements
-
-### v2.21.2 (05.09.2023)
-  * Updated translations
-  * Minor improvements (performance, code, etc.)
-
-### v2.21.1 (13.08.2023)
-  * Minor improvements
-
-### v2.21.0 (12.08.2023)
-  * New: CPU cache options for core and socket (CPU tab)
-  * Improvements for CPU cache values (CPU tab)
-  * Improvements for showing processes using max CPU (CPU tab)
-  * Minor improvements (Summary tab)
-  * Updated translations
-
-### v2.20.2 (05.08.2023)
-  * Updated Russian translations
-  * Fix: GPU performance information for some old GPUs
-
-### v2.20.1 (04.08.2023)
-  * Removed unused code that prevents listing processes
-  * Fix: GPU performance information for some old GPUs
-
-### v2.20.0 (04.08.2023)
-  * New: Option for showing processes using max CPU (CPU tab)
-  * New: Process search option for name+cmdline+pid (Proceses)
-  * New: Option for searching processes by PID (Processes tab)
-  * Changed: Default process search option as name+cmdline+pid
-  * Updated Russian translations
-  * Updated dependency versions (Flatpak)
-  * Fix: Listing processes if sorting column is removed
-  * Fix: GPU performance information for some old GPUs
 
 ### v1.43.10 (02.08.2023)
   * Fix: Listing processes if sorting column is removed
@@ -53,37 +15,10 @@
   * Fix: Listing user specific services (Services tab)
   * Fix: Errors when getting process status on some kernels
 
-### v2.19.0 (29.07.2023)
-  * New: Show GPU usage option (Summary tab)
-  * Updated Portuguese (Portugal) translations
-  * Fix: Listing user specific services (Services tab)
-
 ### v1.43.8 (20.07.2023)
   * Reduced CPU load when getting AMD GPU usage percentage
   * Fix: GPU usage percentage accuracy of AMD GPUs
   * Fix: Errors when getting process status on some kernels
-
-### v2.18.3 (20.07.2023)
-  * Updated Russian translations
-  * Fix: Errors when getting process status on some kernels
-
-### v2.18.2 (17.07.2023)
-  * Fix: Error when getting information of some GPUs
-
-### v2.18.1 (16.07.2023)
-  * Fix: Showing GPU information of some GPUs
-
-### v2.18.0 (16.07.2023)
-  * New: GPU memory, video encoding/decoding graphs (GPU tab)
-  * New: GPU details window (GPU tab)
-  * New: GPU max power value (GPU tab)
-  * New: Process CPU affinity (Processes right click menu)
-  * New: Services help window (Services right click menu)
-  * New: APK package (Linux) count (System tab)
-  * Improved: GPU usage percentage of AMD GPUs
-  * GUI Improvements for Process Custom Priority window
-  * Fix: Errors if psproc package is not installed (CPU tab)
-  * Several improvements (GUI, code, translations, etc.)
 
 ### v1.43.7 (11.07.2023)
   * Improved: Selected disk and network card names (Summary tab)
@@ -91,36 +26,8 @@
   * Updated dependencies
   * Fix: Application name translation (desktop file)
 
-### v2.17.3 (10.07.2023)
-  * Improved: Selected disk and network card names (Summary tab)
-  * Minor improvements (code, etc.)
-  * Updated Russian translations
-  * Fix: Detecting system disk if it is encrypted
-  * Fix: Errors if procps is not installed (CPU, System tabs)
-
-### v2.17.2 (06.07.2023)
-  * Minor improvements
-  * Fix: RAM capacity if physical capacity is not detected
-
-### v2.17.1 (02.07.2023)
-  * Updated translation files
-  * Fix: Device selection by using unified device-tab list
-  * Fix: Running loop function for every System tab switch
-
-### v2.17.0 (01.07.2023)
-  * New: Window opacity option
-  * Updated translation files
-  * Updated dependency versions (Flatpak)
-  * Fix: Confusions if multiple columns have same title
-  * Fix: GPU usage for AMD GPUs
-
 ### v1.43.6 (28.06.2023)
   * Fix: Errors during listing processes
-  * Fix: Confusions if multiple columns have same title
-  * Fix: Show process details if right Enter is pressed
-
-### v2.16.1 (27.06.2023)
-  * Several improvements (code, etc.)
   * Fix: Confusions if multiple columns have same title
   * Fix: Show process details if right Enter is pressed
 
@@ -131,26 +38,6 @@
   * Fix: Saving settings after clicking treeviews
   * Fix: Errors during listing processes
 
-### v2.16.0 (20.06.2023)
-  * New: Setting app. language independent of system
-  * Fix: Rendering text for some languages (graphics)
-  * Fix: Listing processes with some cmdline characters
-  * Minor improvements (Performance, GUI, code)
-
-### v2.15.1 (11.06.2023)
-  * Minor performance improvements for Processes tab
-  * Fix: Recursive CPU,Memory,Memory-RSS columns
-
-### v2.15.0 (06.06.2023)
-  * New: Recursive CPU,Memory,Memory-RSS columns (Processes)
-  * New: Multiple process selection and operations
-  * Updated Portuguese(Brazilian,Portugal), Russian translations
-  * Updated dependency versions (Flatpak)
-  * Improvements for lower CPU usage (Processes)
-  * Changed: Command line column instead of path (Processes)
-  * Fix: User names of some processes
-  * Fix: Number of processes of users
-
 ### v1.43.4 (05.06.2023)
   * Fix: User names of some processes
   * Fix: Number of processes of users
@@ -159,23 +46,6 @@
   * Fix: Showing processes if .desktop files are not read
   * Fix: Desktop environment version of some systems
 
-### v2.14.0 (19.05.2023)
-  * New: CPU time column option (Processes)
-  * New: Divide CPU usage by core count option (Processes)
-  * Improvements for OS information of some systems
-  * Updated dependencies
-  * Updated translations
-  * Fix: Searching processes if processes are listed as tree
-  * Fix: Showing processes if .desktop files are not read
-
-### v2.13.0 (08.05.2023)
-  * New: Ctrl+F shortcut for focus of search entries
-  * New: Chinese (Traditional) translations
-  * Improvements for unified tab-device selection list behavior
-  * Updated dependency versions (Flatpak)
-  * Fix: Process sorting column (Processes tab)
-  * Fix: Sorting processes by name (Processes tab)
-
 ### v1.43.2 (26.04.2023)
   * Improvement for window position if size is remembered
   * Improvements for Summary tab graphics
@@ -183,54 +53,17 @@
   * Changed: Process search if process tree is enabled
   * Fix: Window manager detection of some systems
 
-### v2.12.0 (25.04.2023)
-  * New: Support for encrypted disks (Disk tab)
-  * Performance improvements for Disk tab
-  * Changed: Process tooltip from commandline instead of name
-  * Fix: Remembering column order, width on several tabs
-  * Minor GUI improvements
-
-### v2.11.0 (21.04.2023)
-  * New: Process search options (name and command line)
-  * Improvements for computer type on virtual machines
-  * Improvements for Summary tab graphics
-  * Updated dependency versions (Flatpak)
-  * Fix: Expanding process tree if a process starts/ends
-  * Fix: Window position after window size changes
-
-### v2.10.0 (01.04.2023)
-  * Updated dependency versions (Flatpak)
-  * Fix: Error when Services tab is open w/o systemd
-  * Fix: Empty service list on some systems
-
 ### v1.43.1 (27.03.2023)
   * Fix: Resetting all settings if Perf.tab is not loaded
   * Fix: Error when Services tab is open w/o systemd
   * Fix: Empty service list on some systems
   * Fix: Running disk file sys. function multiple times
 
-### v2.9.0 (23.03.2023)
-  * Reduced CPU usage for some cases (tab resets, etc.)
-  * Updated dependency versions (Flatpak)
-  * Fix: Getting processes if error exists in shell output
-  * Fix: Dependencies for .deb packaging
-
 ### v1.43.0 (14.03.2023)
   * Removed python package support
   * Removed code for python package
   * Updated translations
   * Fix: Getting processes if error exists in shell output
-
-### v2.8.1 (08.03.2023)
-  * Fix: Errors for style definitions (GTK 4.10)
-  * Fix: GUI images when app. is run from source code
-
-### v2.8.0 (03.03.2023)
-  * Changed build system and project structure
-  * Removed code for Python package of the application
-  * Updated dependencies (Flatpak)
-  * Updated Russian translations
-  * Minor improvements
 
 ### v1.42.0 (25.02.2023)
   * Added an info. dialog about PyPI package of the application
@@ -241,40 +74,15 @@
   * Minor improvements for graphics (Summary tab)
   * Updated French translations
 
-### v2.7.0 (18.02.2023)
-  * New: Changing graph point count (Process Details)
-  * Minor improvements for graphics (Summary tab)
-  * Code changes for OOP (Sensors tab)
-  * Updated dependencies (Flatpak)
-  * Updated French translations
-  * Fix: Showing the previous notebook tab (Services tab)
-
-### v2.6.0 (30.01.2023)
-  * Updated French translations
-  * Fix: Version number
-
 ### v1.40.0 (25.01.2023)
   * New: French translations
   * Improvements for detection of new device vendor-model
   * Improvements for zram device information (Disk tab)
   * Minor improvements (GUI, code, etc.)
 
-### v2.5.0 (24.01.2023)
-  * New: Vertically resizable unified tab-device list
-  * New: French translations
-  * Improvements for detection of new device vendor-model
-  * GUI Improvements for showing long disk names (device list)
-  * GUI improvements for dimmed graph labels
-  * Improvements for zram device information (Disk tab)
-
 ### v1.39.1 (10.01.2023)
   * Fix: Disk name match when loop devices are reconnected
   * Fix: Negative disk speed when loop devices are reconnected
-  * Code simplifications for Performance functions
-
-### v2.4.1 (09.01.2023)
-  * Fix: Update device list (unified tab-device list)
-  * Fix: Process name of the application (Flatpak)
   * Code simplifications for Performance functions
 
 ### v1.39.0 (04.01.2023)
@@ -284,22 +92,9 @@
   * Fix: GUI freeze when some online drives are connected
   * Minor improvements (code simplifications, project files, etc.)
 
-### v2.4.0 (02.01.2023)
-  * New: Spanish translations
-  * Updated Russian translations
-  * Improved read,write,download,upload speed accuracy
-  * Fix: GUI freeze when some online drives are connected
-  * Minor improvements (code simplifications, project files, etc.)
-
 ### v1.38.0 (28.12.2022)
   * New: Spanish translations
   * Fix: Close app. when process details window is open
-
-### v2.3.0 (26.12.2022)
-  * Updated Portuguese (Brazilian) translations
-  * Updated dependency version (Flatpak)
-  * Fix: Show processes of current user
-  * Minor improvements (bug fix, code simplifications, etc.)
 
 ### v1.37.1 (26.12.2022)
   * Fix: Show processes of current user
@@ -312,15 +107,6 @@
   * Minor visual simplifications for customization menus
   * Code simplifications, bug fixes, etc.
 
-### v2.2.0 (05.12.2022)
-  * New: Adw. theme is set for the GUI
-  * Visual improvements for Summary tab graphics
-  * Visual improvements for Processes tab list
-  * Updated Portuguese (Portugal) translations
-  * Improvements for detecting desktop environment
-  * Improvements for detecting window manager
-  * Code simplifications, bug fixes, etc.
-
 ### v1.35.1 (01.12.2022)
   * Fix: Application shortcut and image
 
@@ -331,38 +117,9 @@
   * Updated Portuguese (Portugal) translations
   * Several improvements (GUI, translations, etc.)
 
-### v2.1.0 (28.11.2022)
-  * New: Cell colors for process CPU,memory,disk data
-  * Improvements for system integration
-  * Updated: Portuguese (Portugal) translations
-  * Minor GUI improvements for menus
-
 ### v1.34.0 (25.11.2022)
   * Fix: Resetting all settings when GPU tab is open
   * Several improvements (code, setup files, etc.)
-
-### v2.0.3 (23.11.2022)
-  * Fix: Disk capacity (mass storage) information
-  * Fix: Info. when process stopped is (Process details window)
-  * Several code simplifications
-
-### v2.0.2 (21.11.2022)
-  * Fix: Resetting all settings when GPU tab is opened
-  * Fix: Window size when when default tab is changed
-  * Fix: Hiding Services tab if systemd is not used
-  * Several code simplifications
-
-### v2.0.1 (20.11.2022)
-  * Fix: Application crash after changing remembering last tabs
-
-### v2.0.0 (20.11.2022)
-  * New: GTK4 GUI toolkit is used instead of GTK3
-  * New: Design changes for main/tab customization/right click menus
-  * New: Light/Dark GUI option
-  * New: Monitor resolution and refresh rate for multiple monitors
-  * Fix: Several GTK3 bugs are removed by switching to GTK4
-  * Several code simplifications
-  * Several improvements (code, GUI, translations, etc.)
 
 ### v1.33.0 (07.11.2022)
   * Improved: CPU usage of user processes for Flatpak
