@@ -2,19 +2,18 @@
 
 | Language Code  | Language               | Percentage |
 | -------------- | ---------------------- | ---------- |
-| cs             | Czech                  | 73%        |
-| de             | German                 | 75%        |
+| cs             | Czech                  | 91%        |
+| de             | German                 | 94%        |
 | en             | English                | 100%       |
-| es             | Spanish                | 80%        |
-| fa             | Persian                | 73%        |
-| fr             | French                 | 80%        |
-| hu             | Hungarian              | 74%        |
-| pl             | Polish                 | 75%        |
-| pt_BR          | Portuguese (Brazilian) | 81%        |
-| pt_PT          | Portuguese (Portugal)  | 100%       |
-| ru_RU          | Russian                | 100%       |
+| es             | Spanish                | 99%        |
+| fa             | Persian                | 90%        |
+| fr             | French                 | 99%        |
+| hu             | Hungarian              | 92%        |
+| pl             | Polish                 | 94%        |
+| pt_BR          | Portuguese (Brazilian) | 98%        |
+| pt_PT          | Portuguese (Portugal)  | 99%        |
+| ru_RU          | Russian                | 99%        |
 | tr             | Turkish                | 100%       |
-| zh_TW          | Chinese (Traditional)  | 79%        |
 
 
 # Notes For Translators:
@@ -29,8 +28,6 @@
 # Details For Some Texts:
 
 - Boot VGA: Describes if a GPU is used during OS boot.
-
-- CPU Affinity: Describes CPU cores on which a process can be run.
 
 - Mass Storage: Describes unformatted state of a disk. Formatted and unformatted disk capacities are different.
 

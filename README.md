@@ -11,6 +11,11 @@
     </strong>
 </p>
 
+<p align="center">
+    <strong>
+        *** Announcement (17.10.2023): End of support for System Monitoring Center v1.x.x ***
+    </strong>
+</p>
 
 <p align="center">
     <a href="https://github.com/hakandundar34coding/system-monitoring-center/tags">
@@ -39,7 +44,7 @@
         <img src="https://img.shields.io/badge/Code-Python3-52a381">
     </a>
     <a href="https://github.com/hakandundar34coding/system-monitoring-center/tags">
-        <img src="https://img.shields.io/badge/GUI-GTK3-52a381">
+        <img src="https://img.shields.io/badge/GUI-GTK4-52a381">
     </a>
 </p>
 
@@ -48,7 +53,7 @@
     <strong>
         Translations:
     </strong>
-    Chinese (Traditional) | Czech | German | English | French | Hungarian | Persian | Polish | Portuguese (Brazilian) | Portuguese (Portugal) | Russian | Spanish | Turkish | <a href="docs/translations.md">Notes for translators</a>
+    Czech | German | English | French | Hungarian | Persian | Polish | Portuguese (Brazilian) | Portuguese (Portugal) | Russian | Spanish | Turkish | <a href="docs/translations.md">Notes for translators</a>
 </p>
 
 
@@ -79,6 +84,7 @@
     </a>
 </p>
 
+
 ### Features:
 - Detailed system performance and usage usage monitoring/managing features:
     - Monitoring CPU, RAM, Disk, Network, GPU hardware/usage information
@@ -92,7 +98,6 @@
 - Optimized for low CPU usage
 - Customization menus for almost all tabs
 - Supports ARM architecture
-- Hardware accelerated GUI
 - Free and open source
 
 
@@ -103,7 +108,6 @@
     - Installing from repositories of distributions
     - ~~Installing from PyPI as a Python package.~~ There will be no new packages on PyPI ([Details](docs/uninstall_pypi_package.md))
     - Running from source code:
-      - For SMC v2: in ```src/``` folder, run: ```python3 ./run_from_source.py```
       - For SMC v1: in ```src/``` folder, run: ```python3 ./Main.py```
 
 
@@ -117,18 +121,16 @@
   There is no need to install these dependencies for installing the application from Flatpak.
   For other installation types:
 
-  - For System Monitoring Center v2.x.x:
-      - `dmidecode, gir1.2-adw-1, gir1.2-glib-2.0, gir1.2-gtk-4.0, gir1.2-pango-1.0, hwdata, iproute2, python3 (>=3.6), python3-cairo, python3-gi, python3-gi-cairo, util-linux (>=2.31)`
-
   - For System Monitoring Center v1.x.x:
       - `dmidecode, hwdata, iproute2, procps (>=3.3), python3 (>=3.6), python3-cairo, python3-gi, python3-gi-cairo, util-linux (>=2.31)`
 
   - Following dependencies may be required on some systems:
       - `libcairo2-dev` (for systems with .deb packages)
       - `polkit` (for Arch Linux)
+
   - Optional dependencies:
-      - `x11-xserver-utils` or `xorg-xrandr` (for more accurate screen resolution and refresh rate detection of System Monitoring Center v1.x.x)
       - `vcgencmd` (for physical RAM size, GPU frequency and video memory information on Raspberry Pi devices)
+      - `x11-xserver-utils` or `xorg-xrandr` (for more accurate screen resolution and refresh rate detection of System Monitoring Center v1.x.x)
   ---
 
 </details>
@@ -152,9 +154,6 @@
 
   - Expander/Collapser arrows do not work sometimes if processes are listes as tree (Processes tab).
     <a href="https://github.com/hakandundar34coding/system-monitoring-center/issues/206">Issue</a>
-
-  - Tab customization menus are not closed when clicked outside of the popover menu after using a dropdown menu on the popover menu.
-      - This is a GTK4 bug. These menus can be closed by using `Esc` key.
   ---
 
 </details>
@@ -170,10 +169,6 @@
 
 ![System Monitoring Center](screenshots/cpu_tab_per_core_dark_system_theme.png)
 
-![System Monitoring Center](screenshots/memory_tab_white_system_theme.png)
-
-![System Monitoring Center](screenshots/disk_tab_menu_white_system_theme.png)
-
 ![System Monitoring Center](screenshots/network_tab_dark_system_theme.png)
 
 ![System Monitoring Center](screenshots/gpu_tab_dark_system_theme.png)
@@ -182,15 +177,7 @@
 
 ![System Monitoring Center](screenshots/processes_list_view_dark_system_theme.png)
 
-![System Monitoring Center](screenshots/processes_tree_view_white_system_theme.png)
-
 ![System Monitoring Center](screenshots/services_tab_dark_system_theme.png)
 
 ![System Monitoring Center](screenshots/system_tab_dark_system_theme.png)
-
-![System Monitoring Center](screenshots/settings_dark_system_theme.png)
-
-![System Monitoring Center](screenshots/process_details__dark_system_theme_1.png)
-
-![System Monitoring Center](screenshots/process_details__dark_system_theme_2.png)
 
