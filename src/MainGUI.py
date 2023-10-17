@@ -224,6 +224,16 @@ class MainGUI:
             self.grid10.attach(label_root_warning, 0, 0, 1, 1)
             label_root_warning.set_visible(True)
 
+        # Show information for warning about end of support of v1.x.x version of the application.
+        if Config.end_of_support_for_v1_dialog_dont_show == 0:
+            dialog = Gtk.MessageDialog(transient_for=self.window1, title="", flags=0, message_type=Gtk.MessageType.INFO,
+            buttons=Gtk.ButtonsType.CLOSE, text=_tr("Information"))
+            dialog.format_secondary_text(_tr("End of support for System Monitoring Center v1.x.x.\nThere will not be new versions for new features, bug fixes, etc."))
+            self.dialog_response = dialog.run()
+            dialog.destroy()
+            Config.end_of_support_for_v1_dialog_dont_show = 1
+            Config.config_save_func()
+
 
     # ----------------------------------- Main GUI - Performance Summary Headerbar - Initial Function -----------------------------------
     def main_gui_performance_summary_headerbar_initial_func(self):

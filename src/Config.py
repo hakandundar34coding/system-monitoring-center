@@ -86,6 +86,8 @@ class Config:
     # ----------------------- Called for default all settings -----------------------
     def config_default_reset_all_func(self):
 
+        self.end_of_support_for_v1_dialog_dont_show = 0
+
         self.config_default_general_general_func()
         self.config_default_performance_cpu_func()
         self.config_default_performance_memory_func()
@@ -236,6 +238,10 @@ class Config:
             self.language = config_values[config_variables.index("language")]
         else:
             pass
+        if "end_of_support_for_v1_dialog_dont_show" in config_variables:
+            self.end_of_support_for_v1_dialog_dont_show = int(config_values[config_variables.index("end_of_support_for_v1_dialog_dont_show")])
+        else:
+            pass
 
         self.chart_line_color_cpu_percent = [float(value) for value in config_values[config_variables.index("chart_line_color_cpu_percent")].strip("[]").split(", ")]
         self.show_cpu_usage_per_core = int(config_values[config_variables.index("show_cpu_usage_per_core")])
@@ -322,6 +328,7 @@ class Config:
         config_write_text = config_write_text + "remember_last_opened_tabs_on_application_start = " + str(self.remember_last_opened_tabs_on_application_start) + "\n"
         config_write_text = config_write_text + "remember_last_selected_hardware = " + str(self.remember_last_selected_hardware) + "\n"
         config_write_text = config_write_text + "remember_window_size = " + str(self.remember_window_size) + "\n"
+        config_write_text = config_write_text + "end_of_support_for_v1_dialog_dont_show = " + str(self.end_of_support_for_v1_dialog_dont_show) + "\n"
         config_write_text = config_write_text + "\n"
 
         config_write_text = config_write_text + "[Performance Tab - CPU]" + "\n"
