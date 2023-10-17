@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-30 11:59+0300\n"
-"PO-Revision-Date: 2023-06-30 12:06+0300\n"
+"POT-Creation-Date: 2023-10-17 13:37+0300\n"
+"PO-Revision-Date: 2023-10-17 13:38+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 2.4.2\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: src/Cpu.py:96 ui/CpuMenus.ui:35 ui/CpuTab.ui:666
 #: ui/ProcessesDetailsWindow.ui:682
@@ -29,7 +29,7 @@ msgid "CPU Usage (Per Core)"
 msgstr "Использования ЦП (Для каждого ядра)"
 
 #: src/Cpu.py:331 src/Disk.py:304 src/Disk.py:305 src/Disk.py:331
-#: src/Disk.py:333 src/Gpu.py:277 src/Gpu.py:279 src/Network.py:181
+#: src/Disk.py:333 src/Gpu.py:278 src/Gpu.py:280 src/Network.py:181
 #: src/Network.py:183 src/Network.py:266 src/Network.py:284
 msgid "Unknown"
 msgstr "Неизвестный"
@@ -46,22 +46,22 @@ msgstr "Раздел"
 msgid "Disk"
 msgstr "Диск"
 
-#: src/Disk.py:349 src/Performance.py:1269
+#: src/Disk.py:349 src/Performance.py:1272
 msgid "Swap"
 msgstr "Подкачка"
 
 #: src/Disk.py:426 src/Disk.py:427 src/Disk.py:428 src/Disk.py:429
-#: src/Disk.py:431 src/MainGUI.py:794
+#: src/Disk.py:431 src/MainGUI.py:804
 msgid "Not mounted"
 msgstr "Не смонтирован"
 
-#: src/Disk.py:515 src/Gpu.py:230 src/Gpu.py:233 src/Network.py:262
+#: src/Disk.py:515 src/Gpu.py:231 src/Gpu.py:234 src/Network.py:262
 #: src/Network.py:306 src/Services.py:158 src/ServicesDetails.py:134
 #: src/UsersDetails.py:209
 msgid "Yes"
 msgstr "Да"
 
-#: src/Disk.py:517 src/Gpu.py:235 src/Network.py:264 src/Services.py:158
+#: src/Disk.py:517 src/Gpu.py:236 src/Network.py:264 src/Services.py:158
 #: src/ServicesDetails.py:134 src/UsersDetails.py:211
 msgid "No"
 msgstr "Нет"
@@ -74,23 +74,33 @@ msgstr ""
 "Внимание! Приложение было запущенно с правами администратора, это может "
 "навредить системе."
 
-#: src/MainGUI.py:655 src/SettingsGUI.py:51 ui/MainWindow.ui:182
+#: src/MainGUI.py:230 src/ServicesMenuRightClick.py:144
+msgid "Information"
+msgstr "Информация"
+
+#: src/MainGUI.py:231
+msgid ""
+"End of support for System Monitoring Center v1.x.x.\n"
+"There will not be new versions for new features, bug fixes, etc."
+msgstr ""
+
+#: src/MainGUI.py:665 src/SettingsGUI.py:51 ui/MainWindow.ui:182
 #: ui/ProcessesDetailsWindow.ui:633 ui/ServicesDetailsWindow.ui:613
 #: ui/SummaryTab.ui:20
 msgid "Summary"
 msgstr "Сводка"
 
-#: src/MainGUI.py:665
+#: src/MainGUI.py:675
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr "Выбор ядра ЦП влияет только на информацию о частоте и кэше."
 
-#: src/MainGUI.py:669 src/Memory.py:199 src/Performance.py:1249
-#: src/Performance.py:1583 src/Performance.py:1587 ui/MainWindow.ui:920
+#: src/MainGUI.py:679 src/Memory.py:199 src/Performance.py:1252
+#: src/Performance.py:1605 src/Performance.py:1609 ui/MainWindow.ui:920
 #: ui/MemoryMenus.ui:100 ui/MemoryTab.ui:28
 msgid "RAM"
 msgstr "ОЗУ"
 
-#: src/MainGUI.py:669 src/Memory.py:228 src/Performance.py:1587
+#: src/MainGUI.py:679 src/Memory.py:228 src/Performance.py:1609
 #: ui/MemorySwapDetailsWindow.ui:7 ui/MemoryTab.ui:642
 #: ui/ProcessesDetailsWindow.ui:1066
 msgid "Swap Memory"
@@ -174,7 +184,7 @@ msgstr "Ethernet"
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: src/Performance.py:1240 src/Processes.py:206 src/SettingsGUI.py:51
+#: src/Performance.py:1243 src/Processes.py:206 src/SettingsGUI.py:51
 #: src/Users.py:129 ui/CpuMenus.ui:23 ui/CpuMenus.ui:124 ui/CpuTab.ui:591
 #: ui/MainWindow.ui:229 ui/MainWindow.ui:881 ui/ProcessesDetailsWindow.ui:120
 #: ui/ProcessesDetailsWindow.ui:961 ui/ProcessesDetailsWindow.ui:981
@@ -183,33 +193,33 @@ msgstr "Wi-Fi"
 msgid "CPU"
 msgstr "ЦП"
 
-#: src/Performance.py:1258 src/Processes.py:491 src/SettingsGUI.py:50
+#: src/Performance.py:1261 src/Processes.py:494 src/SettingsGUI.py:50
 #: src/Users.py:124 ui/MainWindow.ui:675 ui/ProcessesMenuCustomizations.ui:23
 #: ui/ProcessesTab.ui:48 ui/UsersDetailsWindow.ui:110
 #: ui/UsersMenuCustomizations.ui:129
 msgid "Processes"
 msgstr "Процессы"
 
-#: src/Performance.py:1420 src/Processes.py:212 ui/DiskMenus.ui:90
+#: src/Performance.py:1423 src/Processes.py:212 ui/DiskMenus.ui:90
 #: ui/DiskTab.ui:69 ui/DiskTab.ui:662 ui/ProcessesDetailsWindow.ui:146
 #: ui/ProcessesDetailsWindow.ui:1322 ui/ProcessesDetailsWindow.ui:1616
 #: ui/ProcessesMenuCustomizations.ui:309
 msgid "Read Speed"
 msgstr "Скорость чтения"
 
-#: src/Performance.py:1432 src/Processes.py:213 ui/DiskMenus.ui:103
+#: src/Performance.py:1435 src/Processes.py:213 ui/DiskMenus.ui:103
 #: ui/DiskTab.ui:81 ui/DiskTab.ui:685 ui/ProcessesDetailsWindow.ui:588
 #: ui/ProcessesDetailsWindow.ui:1335 ui/ProcessesDetailsWindow.ui:1639
 #: ui/ProcessesMenuCustomizations.ui:323
 msgid "Write Speed"
 msgstr "Скорость записи"
 
-#: src/Performance.py:1444 ui/NetworkMenus.ui:90 ui/NetworkTab.ui:113
+#: src/Performance.py:1447 ui/NetworkMenus.ui:90 ui/NetworkTab.ui:113
 #: ui/NetworkTab.ui:632
 msgid "Download Speed"
 msgstr "Скорость скачивания"
 
-#: src/Performance.py:1456 ui/NetworkMenus.ui:103 ui/NetworkTab.ui:101
+#: src/Performance.py:1459 ui/NetworkMenus.ui:103 ui/NetworkTab.ui:101
 #: ui/NetworkTab.ui:655
 msgid "Upload Speed"
 msgstr "Скорость загрузки"
@@ -291,31 +301,31 @@ msgstr "Время запуска"
 msgid "Command Line"
 msgstr "Командная строка"
 
-#: src/Processes.py:258 src/Services.py:157 src/ServicesDetails.py:133
+#: src/Processes.py:261 src/Services.py:157 src/ServicesDetails.py:133
 msgid "Running"
 msgstr "Выполняется"
 
-#: src/Processes.py:258
+#: src/Processes.py:261
 msgid "Sleeping"
 msgstr "Спит"
 
-#: src/Processes.py:258
+#: src/Processes.py:261
 msgid "Waiting"
 msgstr "Ожидает"
 
-#: src/Processes.py:258
+#: src/Processes.py:261
 msgid "Idle"
 msgstr "Бездействует"
 
-#: src/Processes.py:258
+#: src/Processes.py:261
 msgid "Zombie"
 msgstr "Зомби"
 
-#: src/Processes.py:258
+#: src/Processes.py:261
 msgid "Stopped"
 msgstr "Остановился"
 
-#: src/Processes.py:491 src/Sensors.py:342 src/Services.py:495 src/Users.py:465
+#: src/Processes.py:494 src/Sensors.py:342 src/Services.py:503 src/Users.py:465
 #: ui/ProcessesTab.ui:66 ui/SensorsTab.ui:66 ui/ServicesTab.ui:79
 #: ui/UsersTab.ui:66
 msgid "Search..."
@@ -443,7 +453,7 @@ msgstr "Умер"
 msgid "Exited"
 msgstr "Вышел"
 
-#: src/Services.py:495 src/SettingsGUI.py:50 ui/MainWindow.ui:769
+#: src/Services.py:503 src/SettingsGUI.py:50 ui/MainWindow.ui:769
 #: ui/ServicesMenuCustomizations.ui:23 ui/ServicesTab.ui:61
 msgid "Services"
 msgstr "Сервисы"
@@ -451,10 +461,6 @@ msgstr "Сервисы"
 #: src/ServicesDetails.py:252 ui/ServicesDetailsWindow.ui:7
 msgid "Service Details"
 msgstr "Сервисные параметры"
-
-#: src/ServicesMenuRightClick.py:144
-msgid "Information"
-msgstr "Информация"
 
 #: src/SettingsGUI.py:50 ui/MainWindow.ui:628
 msgid "Performance"

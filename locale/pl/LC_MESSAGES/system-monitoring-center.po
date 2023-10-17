@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-30 11:59+0300\n"
-"PO-Revision-Date: 2023-06-30 12:05+0300\n"
+"POT-Creation-Date: 2023-10-17 13:37+0300\n"
+"PO-Revision-Date: 2023-10-17 13:39+0300\n"
 "Last-Translator: ski007 <ski007@linux.pl>\n"
 "Language-Team: \n"
 "Language: pl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: src/Cpu.py:96 ui/CpuMenus.ui:35 ui/CpuTab.ui:666
 #: ui/ProcessesDetailsWindow.ui:682
@@ -30,7 +30,7 @@ msgid "CPU Usage (Per Core)"
 msgstr "Użycie CPU (na rdzeń)"
 
 #: src/Cpu.py:331 src/Disk.py:304 src/Disk.py:305 src/Disk.py:331
-#: src/Disk.py:333 src/Gpu.py:277 src/Gpu.py:279 src/Network.py:181
+#: src/Disk.py:333 src/Gpu.py:278 src/Gpu.py:280 src/Network.py:181
 #: src/Network.py:183 src/Network.py:266 src/Network.py:284
 msgid "Unknown"
 msgstr "Nieznane"
@@ -47,22 +47,22 @@ msgstr "Partycja"
 msgid "Disk"
 msgstr "Dysk"
 
-#: src/Disk.py:349 src/Performance.py:1269
+#: src/Disk.py:349 src/Performance.py:1272
 msgid "Swap"
 msgstr "Swap"
 
 #: src/Disk.py:426 src/Disk.py:427 src/Disk.py:428 src/Disk.py:429
-#: src/Disk.py:431 src/MainGUI.py:794
+#: src/Disk.py:431 src/MainGUI.py:804
 msgid "Not mounted"
 msgstr "Niezamontowany"
 
-#: src/Disk.py:515 src/Gpu.py:230 src/Gpu.py:233 src/Network.py:262
+#: src/Disk.py:515 src/Gpu.py:231 src/Gpu.py:234 src/Network.py:262
 #: src/Network.py:306 src/Services.py:158 src/ServicesDetails.py:134
 #: src/UsersDetails.py:209
 msgid "Yes"
 msgstr "Tak"
 
-#: src/Disk.py:517 src/Gpu.py:235 src/Network.py:264 src/Services.py:158
+#: src/Disk.py:517 src/Gpu.py:236 src/Network.py:264 src/Services.py:158
 #: src/ServicesDetails.py:134 src/UsersDetails.py:211
 msgid "No"
 msgstr "Nie"
@@ -75,25 +75,35 @@ msgstr ""
 "Ostrzeżenie ! Aplikacja została uruchomiona z uprawnieniami root'a, możesz "
 "uszkodzić swój system."
 
-#: src/MainGUI.py:655 src/SettingsGUI.py:51 ui/MainWindow.ui:182
+#: src/MainGUI.py:230 src/ServicesMenuRightClick.py:144
+msgid "Information"
+msgstr "Informacja"
+
+#: src/MainGUI.py:231
+msgid ""
+"End of support for System Monitoring Center v1.x.x.\n"
+"There will not be new versions for new features, bug fixes, etc."
+msgstr ""
+
+#: src/MainGUI.py:665 src/SettingsGUI.py:51 ui/MainWindow.ui:182
 #: ui/ProcessesDetailsWindow.ui:633 ui/ServicesDetailsWindow.ui:613
 #: ui/SummaryTab.ui:20
 msgid "Summary"
 msgstr "Podsumowanie"
 
-#: src/MainGUI.py:665
+#: src/MainGUI.py:675
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr ""
 "Wybór rdzenia procesora wpływa tylko na informacje o częstotliwości i "
 "pamięci podręcznej."
 
-#: src/MainGUI.py:669 src/Memory.py:199 src/Performance.py:1249
-#: src/Performance.py:1583 src/Performance.py:1587 ui/MainWindow.ui:920
+#: src/MainGUI.py:679 src/Memory.py:199 src/Performance.py:1252
+#: src/Performance.py:1605 src/Performance.py:1609 ui/MainWindow.ui:920
 #: ui/MemoryMenus.ui:100 ui/MemoryTab.ui:28
 msgid "RAM"
 msgstr "RAM"
 
-#: src/MainGUI.py:669 src/Memory.py:228 src/Performance.py:1587
+#: src/MainGUI.py:679 src/Memory.py:228 src/Performance.py:1609
 #: ui/MemorySwapDetailsWindow.ui:7 ui/MemoryTab.ui:642
 #: ui/ProcessesDetailsWindow.ui:1066
 msgid "Swap Memory"
@@ -177,7 +187,7 @@ msgstr "Sieć przewodowa"
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: src/Performance.py:1240 src/Processes.py:206 src/SettingsGUI.py:51
+#: src/Performance.py:1243 src/Processes.py:206 src/SettingsGUI.py:51
 #: src/Users.py:129 ui/CpuMenus.ui:23 ui/CpuMenus.ui:124 ui/CpuTab.ui:591
 #: ui/MainWindow.ui:229 ui/MainWindow.ui:881 ui/ProcessesDetailsWindow.ui:120
 #: ui/ProcessesDetailsWindow.ui:961 ui/ProcessesDetailsWindow.ui:981
@@ -186,33 +196,33 @@ msgstr "Wi-Fi"
 msgid "CPU"
 msgstr "CPU"
 
-#: src/Performance.py:1258 src/Processes.py:491 src/SettingsGUI.py:50
+#: src/Performance.py:1261 src/Processes.py:494 src/SettingsGUI.py:50
 #: src/Users.py:124 ui/MainWindow.ui:675 ui/ProcessesMenuCustomizations.ui:23
 #: ui/ProcessesTab.ui:48 ui/UsersDetailsWindow.ui:110
 #: ui/UsersMenuCustomizations.ui:129
 msgid "Processes"
 msgstr "Procesy"
 
-#: src/Performance.py:1420 src/Processes.py:212 ui/DiskMenus.ui:90
+#: src/Performance.py:1423 src/Processes.py:212 ui/DiskMenus.ui:90
 #: ui/DiskTab.ui:69 ui/DiskTab.ui:662 ui/ProcessesDetailsWindow.ui:146
 #: ui/ProcessesDetailsWindow.ui:1322 ui/ProcessesDetailsWindow.ui:1616
 #: ui/ProcessesMenuCustomizations.ui:309
 msgid "Read Speed"
 msgstr "Prędkość odczytu"
 
-#: src/Performance.py:1432 src/Processes.py:213 ui/DiskMenus.ui:103
+#: src/Performance.py:1435 src/Processes.py:213 ui/DiskMenus.ui:103
 #: ui/DiskTab.ui:81 ui/DiskTab.ui:685 ui/ProcessesDetailsWindow.ui:588
 #: ui/ProcessesDetailsWindow.ui:1335 ui/ProcessesDetailsWindow.ui:1639
 #: ui/ProcessesMenuCustomizations.ui:323
 msgid "Write Speed"
 msgstr "Prędkość zapisu"
 
-#: src/Performance.py:1444 ui/NetworkMenus.ui:90 ui/NetworkTab.ui:113
+#: src/Performance.py:1447 ui/NetworkMenus.ui:90 ui/NetworkTab.ui:113
 #: ui/NetworkTab.ui:632
 msgid "Download Speed"
 msgstr "Prędkość pobierania"
 
-#: src/Performance.py:1456 ui/NetworkMenus.ui:103 ui/NetworkTab.ui:101
+#: src/Performance.py:1459 ui/NetworkMenus.ui:103 ui/NetworkTab.ui:101
 #: ui/NetworkTab.ui:655
 msgid "Upload Speed"
 msgstr "Prędkość wysyłania"
@@ -294,31 +304,31 @@ msgstr "Czas rozpoczęcia"
 msgid "Command Line"
 msgstr "Wiersz poleceń"
 
-#: src/Processes.py:258 src/Services.py:157 src/ServicesDetails.py:133
+#: src/Processes.py:261 src/Services.py:157 src/ServicesDetails.py:133
 msgid "Running"
 msgstr "Uruchomiony"
 
-#: src/Processes.py:258
+#: src/Processes.py:261
 msgid "Sleeping"
 msgstr "Śpiący"
 
-#: src/Processes.py:258
+#: src/Processes.py:261
 msgid "Waiting"
 msgstr "Oczekujący"
 
-#: src/Processes.py:258
+#: src/Processes.py:261
 msgid "Idle"
 msgstr "W spoczynku"
 
-#: src/Processes.py:258
+#: src/Processes.py:261
 msgid "Zombie"
 msgstr "Zombie"
 
-#: src/Processes.py:258
+#: src/Processes.py:261
 msgid "Stopped"
 msgstr "Zatrzymany"
 
-#: src/Processes.py:491 src/Sensors.py:342 src/Services.py:495 src/Users.py:465
+#: src/Processes.py:494 src/Sensors.py:342 src/Services.py:503 src/Users.py:465
 #: ui/ProcessesTab.ui:66 ui/SensorsTab.ui:66 ui/ServicesTab.ui:79
 #: ui/UsersTab.ui:66
 msgid "Search..."
@@ -446,7 +456,7 @@ msgstr "Martwy"
 msgid "Exited"
 msgstr "Wyjście"
 
-#: src/Services.py:495 src/SettingsGUI.py:50 ui/MainWindow.ui:769
+#: src/Services.py:503 src/SettingsGUI.py:50 ui/MainWindow.ui:769
 #: ui/ServicesMenuCustomizations.ui:23 ui/ServicesTab.ui:61
 msgid "Services"
 msgstr "Usługi"
@@ -454,10 +464,6 @@ msgstr "Usługi"
 #: src/ServicesDetails.py:252 ui/ServicesDetailsWindow.ui:7
 msgid "Service Details"
 msgstr "Szczegóły usługi"
-
-#: src/ServicesMenuRightClick.py:144
-msgid "Information"
-msgstr "Informacja"
 
 #: src/SettingsGUI.py:50 ui/MainWindow.ui:628
 msgid "Performance"
