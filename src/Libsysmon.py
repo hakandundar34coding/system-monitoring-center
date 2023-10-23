@@ -5237,6 +5237,19 @@ def get_installed_apt_rpm_pacman_apk_packages():
         except (FileNotFoundError, subprocess.CalledProcessError) as me:
             apk_packages_available = "-"
 
+    if apk_packages_available == "-":
+        try:
+            # Python3 is in core system, no need to check if it is available.
+            if environment_type == "flatpak":
+                qlist_output = (subprocess.check_output(["flatpak-spawn", "--host", "qlist", "-Iv"], shell=False))
+            else:
+                qlist_output = (subprocess.check_output(["qlist", "-Iv"], shell=False))
+            installed_portage_packages = qlist_output.decode().strip().split("\n")
+            number_of_installed_portage_packages = len(installed_portage_packages)
+            apt_or_rpm_or_pacman_or_apk_packages_count = f'{number_of_installed_portage_packages} (Portage)'
+        except (FileNotFoundError, subprocess.CalledProcessError) as me:
+            apk_packages_available = "-"
+
     return apt_or_rpm_or_pacman_or_apk_packages_count
 
 
