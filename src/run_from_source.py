@@ -20,7 +20,7 @@ def main():
 
     localedir = None
 
-    Main.main(localedir)
+    sys.exit(Main.main(localedir))
 
 
 if __name__ == "__main__":
