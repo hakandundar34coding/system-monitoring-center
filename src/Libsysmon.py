@@ -4975,6 +4975,9 @@ def get_os_name_version_codename_based_on():
         if line.startswith("NAME="):
             os_name = line.split("NAME=")[1].strip(' "')
             continue
+        if line.startswith("VERSION_ID="):
+            os_version = line.split("VERSION_ID=")[1].strip(' "')
+            continue
         if line.startswith("VERSION="):
             os_version = line.split("VERSION=")[1].strip(' "')
             continue
