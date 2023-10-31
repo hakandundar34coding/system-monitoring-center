@@ -418,6 +418,31 @@ class MainWindow():
         # Define actions and accelerators for main window.
         Common.main_window_actions_and_accelerators(self)
 
+        # Show information for warning about end of support of v2.x.x version of the application.
+        if Config.end_of_support_for_v2_dialog_dont_show == 0:
+
+            def on_messagedialog_response(widget, response):
+                """
+                Hide the dialog if "OK" button is clicked.
+                """
+                if response == Gtk.ResponseType.OK:
+                    pass
+                messagedialog = widget
+                messagedialog.set_visible(False)
+                Config.end_of_support_for_v2_dialog_dont_show = 1
+                Config.config_save_func()
+
+            messagedialog = Gtk.MessageDialog(transient_for=MainWindow.main_window,
+                                              modal=True,
+                                              title=_tr("Information") + " (31.10.2023)",
+                                              message_type=Gtk.MessageType.INFO,
+                                              buttons=Gtk.ButtonsType.CLOSE,
+                                              text=_tr("Information"),
+                                              secondary_text=_tr("End of support for System Monitoring Center v2.x.x.\nThere will not be new versions for new features, bug fixes, etc.\nThe project is ended.")
+                                              )
+            messagedialog.connect("response", on_messagedialog_response)
+            messagedialog.present()
+
 
     def main_menu_gui(self, val=None):
         """
