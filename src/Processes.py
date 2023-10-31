@@ -66,6 +66,13 @@ class Processes:
             Config.processes_data_column_order = data_column_order + [-1]
             Config.processes_data_column_widths = data_column_widths + [-1]
 
+        # Hide GPU Usage and GPU Memory columns if they were shown before. This hides 25th and 26th columns.
+        if len(data_column_order) == 26:
+            if data_column_order[-1] != -1:
+                data_column_order[-1] = -1
+            if data_column_order[-2] != -1:
+                data_column_order[-2] = -1
+
 
     def tab_title_grid(self):
         """
