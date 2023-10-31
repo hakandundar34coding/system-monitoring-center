@@ -4499,6 +4499,8 @@ def get_services_information():
     in this case. On newer distributions "/usr/lib/systemd/system/" is a symlink to "/lib/systemd/system/".
     On ARM systems, also "/usr/lib/systemd/system/" folder may be used after installling some applications. In this situation
     this folder will be a real path. There may be user services in "/home/[USERNAME]/.config/systemd/user/" folder.
+    Service list information is get by using multiprocessing. systemd may not support this for providing service information.
+    This shortened time for getting service information and did not printed errors and did not give incorrect service information during tests.
     """
 
     environment_type = get_environment_type()
@@ -4726,7 +4728,7 @@ def get_service_data(queue1, i, unit_files_command_split):
 
 def start_processes_func(number_of_logical_cores, unit_files_command):
     """
-    Run the reuqired functions and start processes to get the service data by using multiprocessing.
+    Run the required functions and start processes to get the service data by using multiprocessing.
     """
 
     # Import modules in this function because entire module is run separately by the all processes if multiprocessing is used.
@@ -5152,7 +5154,7 @@ def get_current_gtk_version():
     return current_gtk_version
 
 
-def get_installed_apt_rpm_pacman_apk_packages():
+def get_installed_system_packages():
     """
     Get number of installed APT, RPM or pacman packages.
     """
@@ -5164,7 +5166,8 @@ def get_installed_apt_rpm_pacman_apk_packages():
     rpm_packages_available = "-"
     pacman_packages_available = "-"
     apk_packages_available = "-"
-    apt_or_rpm_or_pacman_or_apk_packages_count = "-"
+    portage_packages_available = "-"
+    system_packages_count = "-"
 
     # Get number of APT (deb) packages if available.
     try:
@@ -5178,9 +5181,9 @@ def get_installed_apt_rpm_pacman_apk_packages():
                 number_of_installed_apt_packages = (subprocess.check_output(["flatpak-spawn", "--host", "dpkg", "--list"], shell=False)).decode().strip().count("\nii  ")
             else:
                 number_of_installed_apt_packages = (subprocess.check_output(["dpkg", "--list"], shell=False)).decode().strip().count("\nii  ")
-            apt_or_rpm_or_pacman_or_apk_packages_count = f'{number_of_installed_apt_packages} (APT)'
+            system_packages_count = f'{number_of_installed_apt_packages} (APT)'
     # It gives "FileNotFoundError" if first element of the command (program name) can not be found on the system. It gives "subprocess.CalledProcessError" if there are any errors relevant with the parameters (commands later than the first one).
-    except (FileNotFoundError, subprocess.CalledProcessError) as me:
+    except (FileNotFoundError, subprocess.CalledProcessError) as e:
         apt_packages_available = "-"
 
     # Get number of RPM packages if available.
@@ -5197,8 +5200,8 @@ def get_installed_apt_rpm_pacman_apk_packages():
                     number_of_installed_rpm_packages = (subprocess.check_output(["rpm", "-qa"], shell=False)).decode().strip().split("\n")
                 # Differentiate empty line count
                 number_of_installed_rpm_packages = len(number_of_installed_rpm_packages) - number_of_installed_rpm_packages.count("")
-                apt_or_rpm_or_pacman_or_apk_packages_count = f'{number_of_installed_rpm_packages} (RPM)'
-        except (FileNotFoundError, subprocess.CalledProcessError) as me:
+                system_packages_count = f'{number_of_installed_rpm_packages} (RPM)'
+        except (FileNotFoundError, subprocess.CalledProcessError) as e:
             rpm_packages_available = "-"
 
     # Get number of pacman (Arch Linux) packages if available.
@@ -5215,12 +5218,12 @@ def get_installed_apt_rpm_pacman_apk_packages():
                     number_of_installed_pacman_packages = (subprocess.check_output(["pacman", "-Qq"], shell=False)).decode().strip().split("\n")
                 # Differentiate empty line count
                 number_of_installed_pacman_packages = len(number_of_installed_pacman_packages) - number_of_installed_pacman_packages.count("")
-                apt_or_rpm_or_pacman_or_apk_packages_count = f'{number_of_installed_pacman_packages} (pacman)'
-        except (FileNotFoundError, subprocess.CalledProcessError) as me:
+                system_packages_count = f'{number_of_installed_pacman_packages} (pacman)'
+        except (FileNotFoundError, subprocess.CalledProcessError) as e:
             pacman_packages_available = "-"
 
     # Get number of APK (Alpine Linux) packages if available.
-    if apt_packages_available == "-" and rpm_packages_available == "-" and apk_packages_available == "-":
+    if apt_packages_available == "-" and rpm_packages_available == "-" and pacman_packages_available == "-":
         try:
             if environment_type == "flatpak":
                 apk_packages_available = (subprocess.check_output(["flatpak-spawn", "--host", "apk", "list", "--installed", "python3"], shell=False)).decode().strip()
@@ -5233,11 +5236,25 @@ def get_installed_apt_rpm_pacman_apk_packages():
                     number_of_installed_apk_packages = (subprocess.check_output(["apk", "info"], shell=False)).decode().strip().split("\n")
                 # Differentiate empty line count
                 number_of_installed_apk_packages = len(number_of_installed_apk_packages) - number_of_installed_apk_packages.count("")
-                apt_or_rpm_or_pacman_or_apk_packages_count = f'{number_of_installed_apk_packages} (APK)'
-        except (FileNotFoundError, subprocess.CalledProcessError) as me:
+                system_packages_count = f'{number_of_installed_apk_packages} (APK)'
+        except (FileNotFoundError, subprocess.CalledProcessError) as e:
             apk_packages_available = "-"
 
-    return apt_or_rpm_or_pacman_or_apk_packages_count
+    # Get number of Portage (Gentoo distribution) packages if available.
+    if apt_packages_available == "-" and rpm_packages_available == "-" and pacman_packages_available == "-" and apk_packages_available == "-":
+        try:
+            # Python3 is in core system, no need to check if it is available.
+            if environment_type == "flatpak":
+                qlist_output = (subprocess.check_output(["flatpak-spawn", "--host", "qlist", "-Iv"], shell=False))
+            else:
+                qlist_output = (subprocess.check_output(["qlist", "-Iv"], shell=False))
+            installed_portage_packages = qlist_output.decode().strip().split("\n")
+            number_of_installed_portage_packages = len(installed_portage_packages)
+            system_packages_count = f'{number_of_installed_portage_packages} (Portage)'
+        except (FileNotFoundError, subprocess.CalledProcessError) as e:
+            portage_packages_available = "-"
+
+    return system_packages_count
 
 
 def get_installed_flatpak_packages():
