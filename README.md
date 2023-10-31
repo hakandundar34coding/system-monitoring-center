@@ -44,7 +44,7 @@
         <img src="https://img.shields.io/badge/Code-Python3-52a381">
     </a>
     <a href="https://github.com/hakandundar34coding/system-monitoring-center/tags">
-        <img src="https://img.shields.io/badge/GUI-GTK4-52a381">
+        <img src="https://img.shields.io/badge/GUI-GTK3-52a381">
     </a>
 </p>
 
