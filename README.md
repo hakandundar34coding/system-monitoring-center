@@ -13,6 +13,13 @@
 
 
 <p align="center">
+    <strong>
+        *** Announcement (31.10.2023): End of support for System Monitoring Center v2.x.x. The project is ended. System Monitoring Center 12.2020-10.2023. ***
+    </strong>
+</p>
+
+
+<p align="center">
     <a href="https://github.com/hakandundar34coding/system-monitoring-center/tags">
         <img alt="Platform (GNU/Linux)" src="https://img.shields.io/badge/platform-GNU/Linux-blue.svg"/>
     </a>
