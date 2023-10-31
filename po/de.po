@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: unnamed project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-30 17:58+0300\n"
-"PO-Revision-Date: 2023-09-30 18:02+0300\n"
+"POT-Creation-Date: 2023-10-31 10:00+0300\n"
+"PO-Revision-Date: 2023-10-31 10:06+0300\n"
 "Last-Translator: Baumfinder <baumkartoffel@outlook.de>\n"
 "Language-Team: German <baumkartoffel@outlook.de>\n"
 "Language: de\n"
@@ -20,17 +20,17 @@ msgstr ""
 "X-Generator: Poedit 3.2.2\n"
 
 #: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:3
-#: src/MainWindow.py:66 src/MainWindow.py:525
+#: src/MainWindow.py:66 src/MainWindow.py:551
 msgid "System Monitoring Center"
 msgstr "Systemüberwachungszentrum"
 
 #: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:4
-#: src/SettingsWindow.py:33
+#: src/SettingsWindow.py:34
 msgid "System Monitor"
 msgstr "Systemüberwachung"
 
 #: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:5
-#: src/MainWindow.py:527
+#: src/MainWindow.py:553
 msgid "Multi-featured system monitor"
 msgstr "Multifunktioneller Systemmonitor"
 
@@ -54,16 +54,16 @@ msgstr "Daten in diesem Tab aktualisieren"
 msgid "Graph Color"
 msgstr "Diagrammfarbe"
 
-#: src/Common.py:900 src/Common.py:966 src/Processes.py:310
+#: src/Common.py:832 src/Common.py:898 src/Processes.py:317
 msgid "Search..."
 msgstr "Suche..."
 
 #: src/Cpu.py:49 src/CpuMenu.py:37 src/CpuMenu.py:83 src/MainWindow.py:139
-#: src/MainWindow.py:288 src/Processes.py:1214 src/Processes.py:1231
-#: src/Processes.py:1236 src/ProcessesDetails.py:65 src/ProcessesDetails.py:157
+#: src/MainWindow.py:288 src/Processes.py:1221 src/Processes.py:1238
+#: src/Processes.py:1245 src/ProcessesDetails.py:65 src/ProcessesDetails.py:157
 #: src/ProcessesDetails.py:284 src/ProcessesMenu.py:183
-#: src/ProcessesMenu.py:251 src/ProcessesMenu.py:292 src/ProcessesMenu.py:333
-#: src/SettingsWindow.py:30 src/Summary.py:911 src/System.py:204
+#: src/ProcessesMenu.py:251 src/ProcessesMenu.py:304 src/ProcessesMenu.py:345
+#: src/SettingsWindow.py:31 src/Summary.py:911 src/System.py:204
 #: src/Users.py:240 src/UsersDetails.py:165 src/UsersMenu.py:127
 msgid "CPU"
 msgstr "CPU"
@@ -98,14 +98,14 @@ msgstr "Durchschnittliche CPU-Auslastung aller Kerne"
 msgid "Frequency"
 msgstr "Frequenz"
 
-#: src/Cpu.py:107 src/MainWindow.py:202 src/Processes.py:81
-#: src/Processes.py:502 src/Processes.py:1046 src/Processes.py:1469
-#: src/ProcessesMenu.py:33 src/SettingsWindow.py:29 src/Summary.py:945
+#: src/Cpu.py:107 src/MainWindow.py:202 src/Processes.py:88
+#: src/Processes.py:509 src/Processes.py:1053 src/Processes.py:1510
+#: src/ProcessesMenu.py:33 src/SettingsWindow.py:30 src/Summary.py:945
 #: src/Users.py:235 src/UsersDetails.py:115 src/UsersMenu.py:107
 msgid "Processes"
 msgstr "Prozesse"
 
-#: src/Cpu.py:107 src/Processes.py:1223 src/ProcessesDetails.py:294
+#: src/Cpu.py:107 src/Processes.py:1230 src/ProcessesDetails.py:294
 #: src/ProcessesMenu.py:223
 msgid "Threads"
 msgstr "Threads"
@@ -160,7 +160,7 @@ msgid "for all tabs"
 msgstr ""
 
 #: src/CpuMenu.py:78 src/DiskMenu.py:73 src/MemoryMenu.py:65
-#: src/NetworkMenu.py:73 src/ProcessesMenu.py:287
+#: src/NetworkMenu.py:73 src/ProcessesMenu.py:299
 msgid "Precision"
 msgstr "Präzision"
 
@@ -175,25 +175,25 @@ msgstr ""
 #: src/Disk.py:52 src/Disk.py:195 src/Disk.py:215 src/Disk.py:361
 #: src/DiskMenu.py:37 src/DiskMenu.py:112 src/Libsysmon.py:2095
 #: src/MainWindow.py:147 src/MainWindow.py:298 src/ProcessesDetails.py:75
-#: src/ProcessesMenu.py:314 src/ProcessesMenu.py:372 src/SettingsWindow.py:30
+#: src/ProcessesMenu.py:326 src/ProcessesMenu.py:384 src/SettingsWindow.py:31
 msgid "Disk"
 msgstr "Festplatte"
 
-#: src/Disk.py:78 src/Disk.py:105 src/DiskMenu.py:45 src/Processes.py:1220
-#: src/Processes.py:1238 src/ProcessesDetails.py:177
+#: src/Disk.py:78 src/Disk.py:105 src/DiskMenu.py:45 src/Processes.py:1227
+#: src/Processes.py:1247 src/ProcessesDetails.py:177
 #: src/ProcessesDetails.py:472 src/ProcessesDetails.py:490
 #: src/ProcessesMenu.py:211 src/Summary.py:1118
 msgid "Read Speed"
 msgstr "Lesegeschwindigkeit"
 
-#: src/Disk.py:78 src/Disk.py:105 src/DiskMenu.py:49 src/Processes.py:1221
-#: src/Processes.py:1239 src/ProcessesDetails.py:187
+#: src/Disk.py:78 src/Disk.py:105 src/DiskMenu.py:49 src/Processes.py:1228
+#: src/Processes.py:1248 src/ProcessesDetails.py:187
 #: src/ProcessesDetails.py:472 src/ProcessesDetails.py:500
 #: src/ProcessesMenu.py:215 src/Summary.py:1137
 msgid "Write Speed"
 msgstr "Schreibgeschwindigkeit"
 
-#: src/Disk.py:110 src/Processes.py:1218 src/Processes.py:1237
+#: src/Disk.py:110 src/Processes.py:1225 src/Processes.py:1246
 #: src/ProcessesDetails.py:510 src/ProcessesMenu.py:203
 msgid "Read Data"
 msgstr "Lesedaten"
@@ -202,7 +202,7 @@ msgstr "Lesedaten"
 msgid "Measured value since last system start"
 msgstr "Gemessener Wert seit letztem Systemstart"
 
-#: src/Disk.py:110 src/Processes.py:1219 src/Processes.py:1238
+#: src/Disk.py:110 src/Processes.py:1226 src/Processes.py:1247
 #: src/ProcessesDetails.py:520 src/ProcessesMenu.py:207
 msgid "Written Data"
 msgstr ""
@@ -226,7 +226,7 @@ msgstr "Frei"
 msgid "Capacity"
 msgstr "Kapazität"
 
-#: src/Disk.py:163 src/Gpu.py:257 src/Memory.py:193 src/Processes.py:274
+#: src/Disk.py:163 src/Gpu.py:257 src/Memory.py:193 src/Processes.py:281
 #: src/Services.py:299 src/Users.py:128
 msgid "Details"
 msgstr "Details"
@@ -269,16 +269,16 @@ msgid "All Devices"
 msgstr "Alle Geräte"
 
 #: src/DiskMenu.py:86 src/MemoryMenu.py:78 src/NetworkMenu.py:86
-#: src/ProcessesMenu.py:328
+#: src/ProcessesMenu.py:340 src/SensorsMenu.py:38
 msgid "Data Unit"
 msgstr "Dateneinheit"
 
 #: src/DiskMenu.py:91 src/MemoryMenu.py:83 src/NetworkMenu.py:91
-#: src/ProcessesMenu.py:352 src/ProcessesMenu.py:378
+#: src/ProcessesMenu.py:364 src/ProcessesMenu.py:390
 msgid "Show data as powers of"
 msgstr "Daten anzeigen als Potenzen von"
 
-#: src/DiskMenu.py:104 src/NetworkMenu.py:104 src/ProcessesMenu.py:399
+#: src/DiskMenu.py:104 src/NetworkMenu.py:104 src/ProcessesMenu.py:411
 msgid "Show speed units as multiples of bits"
 msgstr "Geschwindigkeit als Vielfaches von bits anzeigen"
 
@@ -287,28 +287,30 @@ msgid "Hide loop, ramdisk, zram disks"
 msgstr "Verstecke loop, ramdisk, zram Festplatten"
 
 #: src/Gpu.py:58 src/Gpu.py:289 src/Gpu.py:319 src/Gpu.py:500 src/GpuMenu.py:36
-#: src/MainWindow.py:308 src/SettingsWindow.py:30 src/Summary.py:446
-#: src/System.py:218 src/System.py:225
+#: src/MainWindow.py:308 src/Processes.py:1241 src/SettingsWindow.py:31
+#: src/Summary.py:446 src/System.py:218 src/System.py:225
 msgid "GPU"
 msgstr "GPU"
 
-#: src/Gpu.py:84 src/Gpu.py:209 src/Gpu.py:359 src/SummaryMenu.py:42
+#: src/Gpu.py:84 src/Gpu.py:209 src/Gpu.py:359 src/ProcessesMenu.py:263
+#: src/SummaryMenu.py:42
 msgid "GPU Usage"
 msgstr "GPU-Auslastung"
 
-#: src/Gpu.py:126 src/Gpu.py:209 src/Gpu.py:369
+#: src/Gpu.py:126 src/Gpu.py:209 src/Gpu.py:369 src/Processes.py:1242
+#: src/ProcessesMenu.py:269
 msgid "GPU Memory"
 msgstr ""
 
-#: src/Gpu.py:154
+#: src/Gpu.py:154 src/Gpu.py:699 src/Gpu.py:703
 msgid "Video Encoder"
 msgstr ""
 
-#: src/Gpu.py:182
+#: src/Gpu.py:182 src/Gpu.py:699
 msgid "Video Decoder"
 msgstr ""
 
-#: src/Gpu.py:214 src/Gpu.py:409
+#: src/Gpu.py:214 src/Gpu.py:409 src/SensorsMenu.py:43
 msgid "Temperature"
 msgstr "Temperatur"
 
@@ -387,14 +389,14 @@ msgstr ""
 msgid "Bank Locator"
 msgstr ""
 
-#: src/Libsysmon.py:2036 src/Processes.py:318 src/Processes.py:1210
+#: src/Libsysmon.py:2036 src/Processes.py:325 src/Processes.py:1217
 #: src/ProcessesDetails.py:107 src/ProcessesMenu.py:163 src/Sensors.py:113
 #: src/Services.py:512 src/ServicesDetails.py:88 src/ServicesMenu.py:85
 #: src/System.py:262 src/System.py:287
 msgid "Name"
 msgstr "Name"
 
-#: src/Libsysmon.py:2040 src/Processes.py:1222 src/ProcessesDetails.py:147
+#: src/Libsysmon.py:2040 src/Processes.py:1229 src/ProcessesDetails.py:147
 #: src/ProcessesMenu.py:219
 msgid "Priority"
 msgstr "Priorität"
@@ -408,18 +410,18 @@ msgid "Swap"
 msgstr "Swap"
 
 #: src/Libsysmon.py:2267 src/Libsysmon.py:2268 src/Libsysmon.py:2269
-#: src/Libsysmon.py:2270 src/Libsysmon.py:2272 src/MainWindow.py:992
+#: src/Libsysmon.py:2270 src/Libsysmon.py:2272 src/MainWindow.py:1019
 msgid "Not mounted"
 msgstr "Nicht eingehängt"
 
 #: src/Libsysmon.py:2362 src/Libsysmon.py:2524 src/Libsysmon.py:2572
-#: src/Libsysmon.py:2669 src/Libsysmon.py:2672 src/Services.py:536
+#: src/Libsysmon.py:2669 src/Libsysmon.py:2672 src/Services.py:538
 #: src/UsersDetails.py:255
 msgid "Yes"
 msgstr "Ja"
 
 #: src/Libsysmon.py:2364 src/Libsysmon.py:2526 src/Libsysmon.py:2674
-#: src/Services.py:536 src/UsersDetails.py:257
+#: src/Services.py:538 src/UsersDetails.py:257
 msgid "No"
 msgstr "Nein"
 
@@ -435,7 +437,7 @@ msgstr ""
 msgid "Wi-Fi"
 msgstr ""
 
-#: src/Libsysmon.py:4938
+#: src/Libsysmon.py:5099
 msgid "Virtual Machine"
 msgstr ""
 
@@ -443,79 +445,90 @@ msgstr ""
 msgid "Customization menu for the current tab"
 msgstr ""
 
-#: src/MainWindow.py:143 src/MainWindow.py:853 src/Memory.py:102
+#: src/MainWindow.py:143 src/MainWindow.py:880 src/Memory.py:102
 #: src/Memory.py:347 src/MemoryMenu.py:45 src/Performance.py:186
 #: src/Performance.py:190 src/Summary.py:928 src/System.py:533
 msgid "RAM"
 msgstr "RAM"
 
 #: src/MainWindow.py:153 src/MainWindow.py:303 src/Network.py:49
-#: src/NetworkMenu.py:37 src/SettingsWindow.py:30
+#: src/NetworkMenu.py:37 src/SettingsWindow.py:31
 msgid "Network"
 msgstr "Netzwerk"
 
-#: src/MainWindow.py:197 src/SettingsWindow.py:29
+#: src/MainWindow.py:197 src/SettingsWindow.py:30
 msgid "Performance"
 msgstr "Leistung"
 
-#: src/MainWindow.py:207 src/SettingsWindow.py:29 src/Users.py:61
-#: src/Users.py:333 src/UsersMenu.py:33
+#: src/MainWindow.py:207 src/SettingsWindow.py:30 src/Users.py:61
+#: src/Users.py:335 src/UsersMenu.py:33
 msgid "Users"
 msgstr "Benutzer"
 
 #: src/MainWindow.py:212 src/Services.py:63 src/Services.py:167
-#: src/Services.py:629 src/ServicesMenu.py:33 src/SettingsWindow.py:29
+#: src/Services.py:631 src/ServicesMenu.py:33 src/SettingsWindow.py:30
 msgid "Services"
 msgstr "Dienste"
 
-#: src/MainWindow.py:217 src/SettingsWindow.py:21 src/SettingsWindow.py:26
-#: src/SettingsWindow.py:29 src/System.py:50 src/System.py:365
+#: src/MainWindow.py:217 src/SettingsWindow.py:21 src/SettingsWindow.py:27
+#: src/SettingsWindow.py:30 src/System.py:50 src/System.py:365
 msgid "System"
 msgstr "System"
 
-#: src/MainWindow.py:283 src/MainWindow.py:839 src/ProcessesDetails.py:60
-#: src/ServicesDetails.py:59 src/SettingsWindow.py:30 src/Summary.py:39
+#: src/MainWindow.py:283 src/MainWindow.py:866 src/ProcessesDetails.py:60
+#: src/ServicesDetails.py:59 src/SettingsWindow.py:31 src/Summary.py:39
 #: src/SummaryMenu.py:34
 msgid "Summary"
 msgstr "Übersicht"
 
 #: src/MainWindow.py:293 src/Memory.py:50 src/MemoryMenu.py:37
-#: src/MemoryMenu.py:49 src/Processes.py:1230 src/Processes.py:1233
-#: src/Processes.py:1239 src/ProcessesDetails.py:70 src/ProcessesDetails.py:393
-#: src/ProcessesMenu.py:187 src/ProcessesMenu.py:259 src/ProcessesMenu.py:303
-#: src/ProcessesMenu.py:346 src/SettingsWindow.py:30 src/System.py:211
+#: src/MemoryMenu.py:49 src/Processes.py:1237 src/Processes.py:1240
+#: src/Processes.py:1248 src/ProcessesDetails.py:70 src/ProcessesDetails.py:393
+#: src/ProcessesMenu.py:187 src/ProcessesMenu.py:259 src/ProcessesMenu.py:315
+#: src/ProcessesMenu.py:358 src/SettingsWindow.py:31 src/System.py:211
 msgid "Memory"
 msgstr "Speicher"
 
-#: src/MainWindow.py:313 src/Sensors.py:51 src/Sensors.py:201
-#: src/SettingsWindow.py:30
+#: src/MainWindow.py:313 src/Sensors.py:51 src/Sensors.py:204
+#: src/SensorsMenu.py:34 src/SettingsWindow.py:31
 msgid "Sensors"
 msgstr "Sensoren"
 
-#: src/MainWindow.py:447
+#: src/MainWindow.py:437 src/MainWindow.py:440 src/Services.py:364
+msgid "Information"
+msgstr "Information"
+
+#: src/MainWindow.py:441
+msgid ""
+"End of support for System Monitoring Center v2.x.x.\n"
+"There will not be new versions for new features, bug fixes, etc.\n"
+"The project is ended."
+msgstr ""
+
+#: src/MainWindow.py:472
 msgid "Refresh"
 msgstr ""
 
-#: src/MainWindow.py:448 src/SettingsWindow.py:49
+#: src/MainWindow.py:473 src/SettingsWindow.py:50
 msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
 
-#: src/MainWindow.py:449
+#: src/MainWindow.py:474
 msgid "About"
 msgstr "Über"
 
-#: src/MainWindow.py:849
+#: src/MainWindow.py:876
 msgid "CPU core selection affects only frequency and cache memory information."
 msgstr ""
 "Die Auswahl des CPU-Kerns beeinflusst nur die angezeigt Frequenz und Cache-"
 "Auslastung."
 
-#: src/MainWindow.py:853 src/Memory.py:147 src/Memory.py:278 src/Memory.py:384
+#: src/MainWindow.py:880 src/Memory.py:147 src/Memory.py:278 src/Memory.py:384
 #: src/ProcessesDetails.py:443 src/System.py:533
 msgid "Swap Memory"
 msgstr "Swapspeicher"
 
-#: src/MainWindow.py:1066
+#: src/MainWindow.py:1093
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
@@ -597,115 +610,115 @@ msgstr "MAC-Adresse"
 msgid "Max"
 msgstr ""
 
-#: src/Processes.py:218
+#: src/Processes.py:225
 msgid "Pause Process"
 msgstr ""
 
-#: src/Processes.py:219
+#: src/Processes.py:226
 msgid "Continue Process"
 msgstr "Prozess fortfahren"
 
-#: src/Processes.py:220
+#: src/Processes.py:227
 msgid "End Process"
 msgstr ""
 
-#: src/Processes.py:221
+#: src/Processes.py:228
 msgid "End Process Immediately"
 msgstr ""
 
-#: src/Processes.py:227
+#: src/Processes.py:234
 msgid "Very High"
 msgstr "Sehr hoch"
 
-#: src/Processes.py:232 src/Sensors.py:115
+#: src/Processes.py:239 src/Sensors.py:115
 msgid "High"
 msgstr "Hoch"
 
-#: src/Processes.py:237
+#: src/Processes.py:244
 msgid "Normal"
 msgstr "Normal"
 
-#: src/Processes.py:242
+#: src/Processes.py:249
 msgid "Low"
 msgstr "Niedrig"
 
-#: src/Processes.py:247
+#: src/Processes.py:254
 msgid "Very Low"
 msgstr "Sehr Niedrig"
 
-#: src/Processes.py:255
+#: src/Processes.py:262
 msgid "Custom Value..."
 msgstr "Anderer Wert..."
 
-#: src/Processes.py:264 src/Processes.py:375 src/Processes.py:453
+#: src/Processes.py:271 src/Processes.py:382 src/Processes.py:460
 msgid "Change Priority"
 msgstr "Priorität verändern"
 
-#: src/Processes.py:269 src/Processes.py:484 src/Processes.py:581
+#: src/Processes.py:276 src/Processes.py:491 src/Processes.py:588
 msgid "Set CPU Affinity"
 msgstr ""
 
-#: src/Processes.py:314
+#: src/Processes.py:321
 msgid "All"
 msgstr ""
 
-#: src/Processes.py:322 src/Processes.py:1228 src/ProcessesDetails.py:584
+#: src/Processes.py:329 src/Processes.py:1235 src/ProcessesDetails.py:584
 #: src/ProcessesMenu.py:243
 msgid "Command Line"
 msgstr "Kommandozeile"
 
-#: src/Processes.py:326 src/Processes.py:1211 src/ProcessesDetails.py:117
+#: src/Processes.py:333 src/Processes.py:1218 src/ProcessesDetails.py:117
 #: src/ProcessesDetails.py:726 src/ProcessesMenu.py:169
 msgid "PID"
 msgstr "PID"
 
-#: src/Processes.py:393
+#: src/Processes.py:400
 msgid "Change priority of these processes"
 msgstr ""
 
-#: src/Processes.py:393
+#: src/Processes.py:400
 msgid "Smaller value means higher process priority"
 msgstr "Kleinere Zahl = höhere Priorität"
 
-#: src/Processes.py:448 src/Processes.py:576
+#: src/Processes.py:455 src/Processes.py:583
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: src/Processes.py:549
+#: src/Processes.py:556
 msgid "Select All"
 msgstr ""
 
-#: src/Processes.py:554
+#: src/Processes.py:561
 msgid "Select None"
 msgstr ""
 
-#: src/Processes.py:676
+#: src/Processes.py:683
 msgid "Do you want to pause these processes?"
 msgstr ""
 
-#: src/Processes.py:681
+#: src/Processes.py:688
 msgid "Do you want to end these processes?"
 msgstr ""
 
-#: src/Processes.py:684
+#: src/Processes.py:691
 msgid "Do you want to end these processes immediately?"
 msgstr ""
 
-#: src/Processes.py:1053
+#: src/Processes.py:1060
 msgid "Total"
 msgstr ""
 
-#: src/Processes.py:1212 src/ProcessesDetails.py:137 src/ProcessesMenu.py:175
+#: src/Processes.py:1219 src/ProcessesDetails.py:137 src/ProcessesMenu.py:175
 #: src/Users.py:230 src/UsersDetails.py:36 src/UsersDetails.py:65
 #: src/UsersDetails.py:236 src/UsersMenu.py:85
 msgid "User"
 msgstr "Benutzer"
 
-#: src/Processes.py:1213 src/ProcessesDetails.py:127 src/ProcessesMenu.py:179
+#: src/Processes.py:1220 src/ProcessesDetails.py:127 src/ProcessesMenu.py:179
 msgid "Status"
 msgstr "Status"
 
-#: src/Processes.py:1215 src/Processes.py:1232 src/Processes.py:1236
+#: src/Processes.py:1222 src/Processes.py:1239 src/Processes.py:1245
 #: src/ProcessesDetails.py:167 src/ProcessesDetails.py:375
 #: src/ProcessesDetails.py:403 src/ProcessesMenu.py:191
 #: src/ProcessesMenu.py:255 src/Services.py:518 src/ServicesDetails.py:220
@@ -713,65 +726,65 @@ msgstr "Status"
 msgid "Memory (RSS)"
 msgstr "Speicher (RSS)"
 
-#: src/Processes.py:1216 src/Processes.py:1236 src/ProcessesDetails.py:413
+#: src/Processes.py:1223 src/Processes.py:1245 src/ProcessesDetails.py:413
 #: src/ProcessesMenu.py:195
 msgid "Memory (VMS)"
 msgstr "Speicher (VMS)"
 
-#: src/Processes.py:1217 src/Processes.py:1237 src/ProcessesDetails.py:423
+#: src/Processes.py:1224 src/Processes.py:1246 src/ProcessesDetails.py:423
 #: src/ProcessesMenu.py:199
 msgid "Memory (Shared)"
 msgstr "Speicher (geteilt)"
 
-#: src/Processes.py:1224 src/ProcessesDetails.py:217 src/ProcessesMenu.py:227
+#: src/Processes.py:1231 src/ProcessesDetails.py:217 src/ProcessesMenu.py:227
 msgid "PPID"
 msgstr "PPID"
 
-#: src/Processes.py:1225 src/ProcessesDetails.py:227 src/ProcessesMenu.py:231
+#: src/Processes.py:1232 src/ProcessesDetails.py:227 src/ProcessesMenu.py:231
 #: src/Users.py:233 src/UsersDetails.py:95 src/UsersMenu.py:99
 msgid "UID"
 msgstr "UID"
 
-#: src/Processes.py:1226 src/ProcessesDetails.py:237 src/ProcessesMenu.py:235
+#: src/Processes.py:1233 src/ProcessesDetails.py:237 src/ProcessesMenu.py:235
 #: src/Users.py:234 src/UsersDetails.py:105 src/UsersMenu.py:103
 msgid "GID"
 msgstr "GID"
 
-#: src/Processes.py:1227 src/ProcessesDetails.py:197 src/ProcessesMenu.py:239
+#: src/Processes.py:1234 src/ProcessesDetails.py:197 src/ProcessesMenu.py:239
 #: src/Users.py:239 src/UsersDetails.py:155 src/UsersMenu.py:123
 msgid "Start Time"
 msgstr "Startzeit"
 
-#: src/Processes.py:1229 src/ProcessesMenu.py:247
+#: src/Processes.py:1236 src/ProcessesMenu.py:247
 msgid "CPU Time"
 msgstr ""
 
-#: src/Processes.py:1231 src/Processes.py:1232 src/Processes.py:1233
+#: src/Processes.py:1238 src/Processes.py:1239 src/Processes.py:1240
 #: src/ProcessesMenu.py:251 src/ProcessesMenu.py:255 src/ProcessesMenu.py:259
 msgid "Recursive"
 msgstr ""
 
-#: src/Processes.py:1263 src/Services.py:535
+#: src/Processes.py:1276 src/Services.py:537
 msgid "Running"
 msgstr "Laufend"
 
-#: src/Processes.py:1263
+#: src/Processes.py:1276
 msgid "Sleeping"
 msgstr "Schlafend"
 
-#: src/Processes.py:1263
+#: src/Processes.py:1276
 msgid "Waiting"
 msgstr "Wartend"
 
-#: src/Processes.py:1263
+#: src/Processes.py:1276
 msgid "Idle"
 msgstr "Leerlauf"
 
-#: src/Processes.py:1263
+#: src/Processes.py:1276
 msgid "Zombie"
 msgstr "Zombie"
 
-#: src/Processes.py:1263
+#: src/Processes.py:1276
 msgid "Stopped"
 msgstr "Gestoppt"
 
@@ -865,7 +878,7 @@ msgstr ""
 msgid "Collapse all"
 msgstr ""
 
-#: src/ProcessesMenu.py:340
+#: src/ProcessesMenu.py:352
 msgid "Divide CPU usage by core count"
 msgstr ""
 
@@ -982,10 +995,6 @@ msgid ""
 "enabled after unmasking."
 msgstr ""
 
-#: src/Services.py:364
-msgid "Information"
-msgstr "Information"
-
 #: src/Services.py:513 src/ServicesMenu.py:91
 msgid "State"
 msgstr "Zustand"
@@ -1010,55 +1019,55 @@ msgstr "Sub-Zustand"
 msgid "Description"
 msgstr "Beschreibung"
 
-#: src/Services.py:535
+#: src/Services.py:537
 msgid "Enabled"
 msgstr "Aktiviert"
 
-#: src/Services.py:535
+#: src/Services.py:537
 msgid "Disabled"
 msgstr "Deaktiviert"
 
-#: src/Services.py:535
+#: src/Services.py:537
 msgid "Masked"
 msgstr "Maskiert"
 
-#: src/Services.py:535
+#: src/Services.py:537
 msgid "Unmasked"
 msgstr "Unmaskiert"
 
-#: src/Services.py:535
+#: src/Services.py:537
 msgid "Static"
 msgstr "Statisch"
 
-#: src/Services.py:535
+#: src/Services.py:537
 msgid "Generated"
 msgstr "Generiert"
 
-#: src/Services.py:535
+#: src/Services.py:537
 msgid "Enabled-runtime"
 msgstr "Aktivierte Laufzeit"
 
-#: src/Services.py:535
+#: src/Services.py:537
 msgid "Indirect"
 msgstr "Indirekt"
 
-#: src/Services.py:535
+#: src/Services.py:537
 msgid "Active"
 msgstr "Aktiv"
 
-#: src/Services.py:535
+#: src/Services.py:537
 msgid "Inactive"
 msgstr "Inaktiv"
 
-#: src/Services.py:535
+#: src/Services.py:537
 msgid "Loaded"
 msgstr "Geladen"
 
-#: src/Services.py:535
+#: src/Services.py:537
 msgid "Dead"
 msgstr "Tot"
 
-#: src/Services.py:535
+#: src/Services.py:537
 msgid "Exited"
 msgstr "Verlassen"
 
@@ -1110,63 +1119,63 @@ msgstr "Danach"
 msgid "Before"
 msgstr "Davor"
 
-#: src/SettingsWindow.py:26
+#: src/SettingsWindow.py:27
 msgid "Light"
 msgstr ""
 
-#: src/SettingsWindow.py:26
+#: src/SettingsWindow.py:27
 msgid "Dark"
 msgstr ""
 
-#: src/SettingsWindow.py:33
+#: src/SettingsWindow.py:34
 msgid "Task Manager"
 msgstr "Task Manager"
 
-#: src/SettingsWindow.py:68
+#: src/SettingsWindow.py:69
 msgid "Language (Requires restart)"
 msgstr "Sprache (Neustart benötigt)"
 
-#: src/SettingsWindow.py:76
+#: src/SettingsWindow.py:77
 msgid "Light/Dark theme"
 msgstr ""
 
-#: src/SettingsWindow.py:84
+#: src/SettingsWindow.py:85
 msgid "Opacity"
 msgstr ""
 
-#: src/SettingsWindow.py:102
+#: src/SettingsWindow.py:103
 msgid "Update interval (seconds)"
 msgstr "Aktualisierungsinterval (Sekunden)"
 
-#: src/SettingsWindow.py:110
+#: src/SettingsWindow.py:111
 msgid "Graph data history"
 msgstr ""
 
-#: src/SettingsWindow.py:122
+#: src/SettingsWindow.py:123
 msgid "Show performance summary on the headerbar"
 msgstr "Leistungszusammenfassung in der Kopfzeile anzeigen"
 
-#: src/SettingsWindow.py:130
+#: src/SettingsWindow.py:131
 msgid "Remember last opened tabs"
 msgstr "Zuletzt geöffnete Tabs speichern"
 
-#: src/SettingsWindow.py:139
+#: src/SettingsWindow.py:140
 msgid "Default main tab and sub-tab"
 msgstr "Standard Haupt-Tab und Sub-Tab"
 
-#: src/SettingsWindow.py:155
+#: src/SettingsWindow.py:156
 msgid "Remember last selected devices"
 msgstr "Zuletzt ausgewählte Geräte speichern"
 
-#: src/SettingsWindow.py:163
+#: src/SettingsWindow.py:164
 msgid "Remember window size"
 msgstr "Fenstergröße speichern"
 
-#: src/SettingsWindow.py:181
+#: src/SettingsWindow.py:182
 msgid "Reset all settings of the application"
 msgstr ""
 
-#: src/SettingsWindow.py:750
+#: src/SettingsWindow.py:751
 msgid "Do you want to reset all settings to defaults?"
 msgstr "Wollen sie alle Einstellungen auf den Standard zurücksetzen?"
 
