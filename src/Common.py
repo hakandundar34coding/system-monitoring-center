@@ -936,7 +936,6 @@ def reset_tab_settings(TabObject):
         if len(TabObject.row_data_list) < len(Config.processes_data_column_order):
             Config.config_default_processes_func()
             Config.config_save_func()
-            print(1)
     elif TabObject.name == "Users":
         if len(TabObject.row_data_list) < len(Config.users_data_column_order):
             Config.config_default_users_func()

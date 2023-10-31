@@ -1,3 +1,12 @@
+system-monitoring-center (2.26.0) unstable; urgency=medium
+
+  * New: Portage package count (System tab)
+  * Add: Dialog for end of support announcement for SMC v2.x.x
+  * Disabled GPU usage and GPU memory columns (Processes tab)
+  * Minor improvements (code, translations, etc.)
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Tue, 31 Oct 2023 10:30:00 +0300
+
 system-monitoring-center (2.25.1) unstable; urgency=medium
 
   * Fix: High memory consumption in some cases (AMD GPUs)

@@ -98,6 +98,16 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="2.26.0" date="2023-10-31">
+      <description>
+        <ul>
+          <li>New: Portage package count (System tab)</li>
+          <li>Add: Dialog for end of support announcement for SMC v2.x.x</li>
+          <li>Disabled GPU usage and GPU memory columns (Processes tab)</li>
+          <li>Minor improvements (code, translations, etc.)</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.25.1" date="2023-10-13">
       <description>
         <ul>

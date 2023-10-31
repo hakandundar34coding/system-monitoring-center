@@ -1,5 +1,14 @@
 # System Monitoring Center
 
+### v2.26.0 (31.10.2023)
+  * New: Portage package count (System tab)
+  * Add: Dialog for end of support announcement for SMC v2.x.x
+  * Disabled GPU usage and GPU memory columns (Processes tab)
+  * Minor improvements (code, translations, etc.)
+
+### v1.43.12 (17.10.2023)
+  * Add: Dialog for end of support announcement for SMC v1.x.x
+
 ### v2.25.1 (13.10.2023)
   * Fix: High memory consumption in some cases (AMD GPUs)
   * Disabled external tool usage for video engine load (AMD GPU)
