@@ -30,7 +30,7 @@ class Config:
         # Code reads this value from the config file and compares with the value in the code.
         # All settings are reset if integer value of this value is bigger than the value in the config file.
         # There is no action if integer value of this value is smaller than the value in the config file.
-        self.reset_all_settings_with_new_release_value = 5
+        self.reset_all_settings_with_new_release_value = 6
         self.config_variables = []
         self.config_values = []
 
@@ -75,9 +75,7 @@ class Config:
         Run functions for all default settings.
         """
 
-        self.end_of_support_for_v2_dialog_dont_show = 0
-
-        self.config_default_general_general_func()
+        self.config_default_general_func()
         self.config_default_performance_summary_func()
         self.config_default_performance_cpu_func()
         self.config_default_performance_memory_func()
@@ -90,7 +88,7 @@ class Config:
         self.config_default_services_func()
 
 
-    def config_default_general_general_func(self):
+    def config_default_general_func(self):
         """
         Set default settings (General).
         """
@@ -103,9 +101,9 @@ class Config:
         self.default_main_tab = 0
         self.performance_tab_default_sub_tab = 0
         self.performance_summary_on_the_headerbar = 1
-        self.remember_last_opened_tabs_on_application_start = 0
+        self.remember_last_opened_tabs = 0
         self.remember_last_selected_hardware = 0
-        self.remember_window_size = [0, 0, 0, 0]
+        self.remember_window_size = "0x0"
         self.main_window_opacity = 1.0
 
 
@@ -186,11 +184,9 @@ class Config:
         Set default settings (Sensors tab).
         """
 
-        self.sensors_treeview_columns_shown = [0, 1, 2, 3, 4]
-        self.sensors_data_row_sorting_column = 0
-        self.sensors_data_row_sorting_order = 0
-        self.sensors_data_column_order = [0, 1, 2, 3, 4]
-        self.sensors_data_column_widths = [-1, -1, -1, -1, -1]
+        self.sensors_columns_shown = ["device_name", "sensor_name", "current_value", "max_value", "critical_value"]
+        self.sensors_row_sorting_column = "device_name"
+        self.sensors_row_sorting_order = 0
         self.temperature_unit = "celsius"
 
 
@@ -215,11 +211,9 @@ class Config:
         self.processes_gpu_memory_data_precision = 1
         self.processes_gpu_memory_data_unit = 0
         self.warn_before_stopping_processes = 1
-        self.processes_treeview_columns_shown = [0, 1, 2, 4, 5, 10, 11]
-        self.processes_data_row_sorting_column = 0
-        self.processes_data_row_sorting_order = 0
-        self.processes_data_column_order = [0, 1, 2, -1, 3, 4, -1, -1, -1, -1, 5, 6, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
-        self.processes_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+        self.processes_columns_shown = ["name", "pid", "username", "cpu_usage", "memory_rss", "write_speed", "read_speed"]
+        self.processes_row_sorting_column = "name"
+        self.processes_row_sorting_order = 0
 
 
     def config_default_users_func(self):
@@ -228,11 +222,9 @@ class Config:
         """
 
         self.users_cpu_precision = 0
-        self.users_treeview_columns_shown = [0, 2, 3, 5, 6, 7, 10]
-        self.users_data_row_sorting_column = 0
-        self.users_data_row_sorting_order = 0
-        self.users_data_column_order = [0, -1, 1, 2, -1, 3, 4, 5, -1, -1, 6]
-        self.users_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+        self.users_columns_shown = ["user_name", "logged_in", "uid", "process_count", "home_directory", "group_name", "cpu_usage"]
+        self.users_row_sorting_column = "user_name"
+        self.users_row_sorting_order = 0
 
 
     def config_default_services_func(self):
@@ -242,11 +234,9 @@ class Config:
 
         self.services_memory_data_precision = 1
         self.services_memory_data_unit = 0
-        self.services_treeview_columns_shown = [0, 1, 2, 3, 4, 5, 6, 7]
-        self.services_data_row_sorting_column = 0
-        self.services_data_row_sorting_order = 0
-        self.services_data_column_order = [0, 1, 2, 3, 4, 5, 6, 7]
-        self.services_data_column_widths = [-1, -1, -1, -1, -1, -1, -1, -1]
+        self.services_columns_shown = ["service_name", "unit_file_state", "main_pid", "active_state", "load_state", "sub_state", "memory_current", "description"]
+        self.services_row_sorting_column = "service_name"
+        self.services_row_sorting_order = 0
 
 
     def config_get_values_func(self):
@@ -271,35 +261,18 @@ class Config:
         self.default_main_tab = int(config_values[config_variables.index("default_main_tab")])
         self.performance_tab_default_sub_tab = int(config_values[config_variables.index("performance_tab_default_sub_tab")])
         self.performance_summary_on_the_headerbar = int(config_values[config_variables.index("performance_summary_on_the_headerbar")])
-        self.remember_last_opened_tabs_on_application_start = int(config_values[config_variables.index("remember_last_opened_tabs_on_application_start")])
+        self.remember_last_opened_tabs = int(config_values[config_variables.index("remember_last_opened_tabs")])
         self.remember_last_selected_hardware = int(config_values[config_variables.index("remember_last_selected_hardware")])
-        self.remember_window_size = [int(value) for value in config_values[config_variables.index("remember_window_size")].strip("[]").split(", ")]
-        if "main_window_opacity" in config_variables:
-            self.main_window_opacity = float(config_values[config_variables.index("main_window_opacity")])
-        else:
-            pass
-
-        if "summary_show_gpu_usage" in config_variables:
-            self.summary_show_gpu_usage = float(config_values[config_variables.index("summary_show_gpu_usage")])
-        else:
-            pass
-        if "end_of_support_for_v2_dialog_dont_show" in config_variables:
-            self.end_of_support_for_v2_dialog_dont_show = int(config_values[config_variables.index("end_of_support_for_v2_dialog_dont_show")])
-        else:
-            pass
+        self.remember_window_size = config_values[config_variables.index("remember_window_size")]
+        self.main_window_opacity = float(config_values[config_variables.index("main_window_opacity")])
+        self.summary_show_gpu_usage = int(config_values[config_variables.index("summary_show_gpu_usage")])
 
         self.chart_line_color_cpu_percent = [float(value) for value in config_values[config_variables.index("chart_line_color_cpu_percent")].strip("[]").split(", ")]
         self.show_cpu_usage_per_core = int(config_values[config_variables.index("show_cpu_usage_per_core")])
         self.performance_cpu_usage_percent_precision = int(config_values[config_variables.index("performance_cpu_usage_percent_precision")])
         self.selected_cpu_core = config_values[config_variables.index("selected_cpu_core")]
-        if "show_processes_using_max_cpu" in config_variables:
-            self.show_processes_using_max_cpu = int(config_values[config_variables.index("show_processes_using_max_cpu")])
-        else:
-            pass
-        if "show_cpu_cache_type" in config_variables:
-            self.show_cpu_cache_type = config_values[config_variables.index("show_cpu_cache_type")]
-        else:
-            pass
+        self.show_processes_using_max_cpu = int(config_values[config_variables.index("show_processes_using_max_cpu")])
+        self.show_cpu_cache_type = config_values[config_variables.index("show_cpu_cache_type")]
 
         self.chart_line_color_memory_percent = [float(value) for value in config_values[config_variables.index("chart_line_color_memory_percent")].strip("[]").split(", ")]
         self.show_memory_usage_per_memory = int(config_values[config_variables.index("show_memory_usage_per_memory")])
@@ -328,10 +301,7 @@ class Config:
         self.chart_line_color_fps = [float(value) for value in config_values[config_variables.index("chart_line_color_fps")].strip("[]").split(", ")]
         self.selected_gpu = config_values[config_variables.index("selected_gpu")]
 
-        if "temperature_unit" in config_variables:
-            self.temperature_unit = config_values[config_variables.index("temperature_unit")]
-        else:
-            pass
+        self.temperature_unit = config_values[config_variables.index("temperature_unit")]
 
         self.show_processes_of_all_users = int(config_values[config_variables.index("show_processes_of_all_users")])
         self.show_processes_as_tree = int(config_values[config_variables.index("show_processes_as_tree")])
@@ -343,47 +313,23 @@ class Config:
         self.processes_disk_data_unit = int(config_values[config_variables.index("processes_disk_data_unit")])
         self.processes_disk_speed_bit = int(config_values[config_variables.index("processes_disk_speed_bit")])
         self.warn_before_stopping_processes = int(config_values[config_variables.index("warn_before_stopping_processes")])
-        self.processes_treeview_columns_shown = [int(value) for value in config_values[config_variables.index("processes_treeview_columns_shown")].strip("[]").split(", ")]
-        self.processes_data_row_sorting_column = int(config_values[config_variables.index("processes_data_row_sorting_column")])
-        self.processes_data_row_sorting_order = int(config_values[config_variables.index("processes_data_row_sorting_order")])
-        self.processes_data_column_order = [int(value) for value in config_values[config_variables.index("processes_data_column_order")].strip("[]").split(", ")]
-        self.processes_data_column_widths = [int(value) for value in config_values[config_variables.index("processes_data_column_widths")].strip("[]").split(", ")]
-        if "processes_cpu_divide_by_core" in config_variables:
-            self.processes_cpu_divide_by_core = int(config_values[config_variables.index("processes_cpu_divide_by_core")])
-        else:
-            pass
-        if "show_multiple_processes_summation" in config_variables:
-            self.show_multiple_processes_summation = int(config_values[config_variables.index("show_multiple_processes_summation")])
-        else:
-            pass
-        if "hide_kernel_threads" in config_variables:
-            self.hide_kernel_threads = int(config_values[config_variables.index("hide_kernel_threads")])
-        else:
-            pass
-        if "processes_gpu_precision" in config_variables:
-            self.processes_gpu_precision = int(config_values[config_variables.index("processes_gpu_precision")])
-        else:
-            pass
-        if "processes_gpu_memory_data_precision" in config_variables:
-            self.processes_gpu_memory_data_precision = int(config_values[config_variables.index("processes_gpu_memory_data_precision")])
-        else:
-            pass
-        if "processes_gpu_memory_data_unit" in config_variables:
-            self.processes_gpu_memory_data_unit = int(config_values[config_variables.index("processes_gpu_memory_data_unit")])
-        else:
-            pass
+        self.processes_columns_shown = [value for value in config_values[config_variables.index("processes_columns_shown")].strip("[]").split(", ")]
+        self.processes_row_sorting_column = config_values[config_variables.index("processes_row_sorting_column")]
+        self.processes_row_sorting_order = int(config_values[config_variables.index("processes_row_sorting_order")])
+        self.processes_cpu_divide_by_core = int(config_values[config_variables.index("processes_cpu_divide_by_core")])
+        self.show_multiple_processes_summation = int(config_values[config_variables.index("show_multiple_processes_summation")])
+        self.hide_kernel_threads = int(config_values[config_variables.index("hide_kernel_threads")])
+        self.processes_gpu_precision = int(config_values[config_variables.index("processes_gpu_precision")])
+        self.processes_gpu_memory_data_precision = int(config_values[config_variables.index("processes_gpu_memory_data_precision")])
+        self.processes_gpu_memory_data_unit = int(config_values[config_variables.index("processes_gpu_memory_data_unit")])
 
-        self.users_treeview_columns_shown = [int(value) for value in config_values[config_variables.index("users_treeview_columns_shown")].strip("[]").split(", ")]
-        self.users_data_row_sorting_column = int(config_values[config_variables.index("users_data_row_sorting_column")])
-        self.users_data_row_sorting_order = int(config_values[config_variables.index("users_data_row_sorting_order")])
-        self.users_data_column_order = [int(value) for value in config_values[config_variables.index("users_data_column_order")].strip("[]").split(", ")]
-        self.users_data_column_widths = [int(value) for value in config_values[config_variables.index("users_data_column_widths")].strip("[]").split(", ")]
+        self.users_columns_shown = [value for value in config_values[config_variables.index("users_columns_shown")].strip("[]").split(", ")]
+        self.users_row_sorting_column = config_values[config_variables.index("users_row_sorting_column")]
+        self.users_row_sorting_order = int(config_values[config_variables.index("users_row_sorting_order")])
 
-        self.services_treeview_columns_shown = [int(value) for value in config_values[config_variables.index("services_treeview_columns_shown")].strip("[]").split(", ")]
-        self.services_data_row_sorting_column = int(config_values[config_variables.index("services_data_row_sorting_column")])
-        self.services_data_row_sorting_order = int(config_values[config_variables.index("services_data_row_sorting_order")])
-        self.services_data_column_order = [int(value) for value in config_values[config_variables.index("services_data_column_order")].strip("[]").split(", ")]
-        self.services_data_column_widths = [int(value) for value in config_values[config_variables.index("services_data_column_widths")].strip("[]").split(", ")]
+        self.services_columns_shown = [value for value in config_values[config_variables.index("services_columns_shown")].strip("[]").split(", ")]
+        self.services_row_sorting_column = config_values[config_variables.index("services_row_sorting_column")]
+        self.services_row_sorting_order = int(config_values[config_variables.index("services_row_sorting_order")])
 
 
     def config_save_func(self):
@@ -404,11 +350,10 @@ class Config:
         config_write_text = config_write_text + "default_main_tab = " + str(self.default_main_tab) + "\n"
         config_write_text = config_write_text + "performance_tab_default_sub_tab = " + str(self.performance_tab_default_sub_tab) + "\n"
         config_write_text = config_write_text + "performance_summary_on_the_headerbar = " + str(self.performance_summary_on_the_headerbar) + "\n"
-        config_write_text = config_write_text + "remember_last_opened_tabs_on_application_start = " + str(self.remember_last_opened_tabs_on_application_start) + "\n"
+        config_write_text = config_write_text + "remember_last_opened_tabs = " + str(self.remember_last_opened_tabs) + "\n"
         config_write_text = config_write_text + "remember_last_selected_hardware = " + str(self.remember_last_selected_hardware) + "\n"
         config_write_text = config_write_text + "remember_window_size = " + str(self.remember_window_size) + "\n"
         config_write_text = config_write_text + "main_window_opacity = " + str(self.main_window_opacity) + "\n"
-        config_write_text = config_write_text + "end_of_support_for_v2_dialog_dont_show = " + str(self.end_of_support_for_v2_dialog_dont_show) + "\n"
         config_write_text = config_write_text + "\n"
 
         config_write_text = config_write_text + "[Performance Tab - Summary]" + "\n"
@@ -480,27 +425,21 @@ class Config:
         config_write_text = config_write_text + "processes_gpu_memory_data_precision = " + str(self.processes_gpu_memory_data_precision) + "\n"
         config_write_text = config_write_text + "processes_gpu_memory_data_unit = " + str(self.processes_gpu_memory_data_unit) + "\n"
         config_write_text = config_write_text + "warn_before_stopping_processes = " + str(self.warn_before_stopping_processes) + "\n"
-        config_write_text = config_write_text + "processes_treeview_columns_shown = " + str(self.processes_treeview_columns_shown) + "\n"
-        config_write_text = config_write_text + "processes_data_row_sorting_column = " + str(self.processes_data_row_sorting_column) + "\n"
-        config_write_text = config_write_text + "processes_data_row_sorting_order = " + str(self.processes_data_row_sorting_order) + "\n"
-        config_write_text = config_write_text + "processes_data_column_order = " + str(self.processes_data_column_order) + "\n"
-        config_write_text = config_write_text + "processes_data_column_widths = " + str(self.processes_data_column_widths) + "\n"
+        config_write_text = config_write_text + "processes_columns_shown = " + str(', '.join(self.processes_columns_shown)) + "\n"
+        config_write_text = config_write_text + "processes_row_sorting_column = " + str(self.processes_row_sorting_column) + "\n"
+        config_write_text = config_write_text + "processes_row_sorting_order = " + str(self.processes_row_sorting_order) + "\n"
         config_write_text = config_write_text + "\n"
 
         config_write_text = config_write_text + "[Users Tab]" + "\n"
-        config_write_text = config_write_text + "users_treeview_columns_shown = " + str(self.users_treeview_columns_shown) + "\n"
-        config_write_text = config_write_text + "users_data_row_sorting_column = " + str(self.users_data_row_sorting_column) + "\n"
-        config_write_text = config_write_text + "users_data_row_sorting_order = " + str(self.users_data_row_sorting_order) + "\n"
-        config_write_text = config_write_text + "users_data_column_order = " + str(self.users_data_column_order) + "\n"
-        config_write_text = config_write_text + "users_data_column_widths = " + str(self.users_data_column_widths) + "\n"
+        config_write_text = config_write_text + "users_columns_shown = " + str(', '.join(self.users_columns_shown)) + "\n"
+        config_write_text = config_write_text + "users_row_sorting_column = " + str(self.users_row_sorting_column) + "\n"
+        config_write_text = config_write_text + "users_row_sorting_order = " + str(self.users_row_sorting_order) + "\n"
         config_write_text = config_write_text + "\n"
 
         config_write_text = config_write_text + "[Services Tab]" + "\n"
-        config_write_text = config_write_text + "services_treeview_columns_shown = " + str(self.services_treeview_columns_shown) + "\n"
-        config_write_text = config_write_text + "services_data_row_sorting_column = " + str(self.services_data_row_sorting_column) + "\n"
-        config_write_text = config_write_text + "services_data_row_sorting_order = " + str(self.services_data_row_sorting_order) + "\n"
-        config_write_text = config_write_text + "services_data_column_order = " + str(self.services_data_column_order) + "\n"
-        config_write_text = config_write_text + "services_data_column_widths = " + str(self.services_data_column_widths) + "\n"
+        config_write_text = config_write_text + "services_columns_shown = " + str(', '.join(self.services_columns_shown)) + "\n"
+        config_write_text = config_write_text + "services_row_sorting_column = " + str(self.services_row_sorting_column) + "\n"
+        config_write_text = config_write_text + "services_row_sorting_order = " + str(self.services_row_sorting_order) + "\n"
         config_write_text = config_write_text + "\n"
 
         with open(self.config_file_path, "w") as writer:

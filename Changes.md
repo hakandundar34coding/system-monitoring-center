@@ -1,5 +1,10 @@
 # System Monitoring Center
 
+### v3.0.0 (26.01.2026)
+  * New: Tk (Tkinter) GUI toolkit is used instead of GTK4
+  * Several code simplifications
+  * Several improvements (code, GUI, translations, etc.)
+
 ### v2.26.0 (31.10.2023)
   * New: Portage package count (System tab)
   * Add: Dialog for end of support announcement for SMC v2.x.x

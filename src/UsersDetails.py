@@ -1,7 +1,5 @@
-import gi
-gi.require_version('Gtk', '4.0')
-gi.require_version('GLib', '2.0')
-from gi.repository import Gtk, GLib
+import tkinter as tk
+from tkinter import ttk
 
 import os
 import time
@@ -22,7 +20,8 @@ class UsersDetails:
 
     def __init__(self):
 
-        self.window_gui()
+        #self.window_gui()
+        pass
 
 
     def window_gui(self):
@@ -30,14 +29,12 @@ class UsersDetails:
         Generate window GUI.
         """
 
-        # Window
-        self.user_details_window = Gtk.Window()
-        self.user_details_window.set_default_size(350, 345)
-        self.user_details_window.set_title(_tr("User"))
-        self.user_details_window.set_icon_name("system-monitoring-center")
-        self.user_details_window.set_transient_for(MainWindow.main_window)
-        self.user_details_window.set_modal(True)
-        self.user_details_window.set_hide_on_close(True)
+        # Window (User Details)
+        self.user_details_window, frame = Common.window(MainWindow.main_window, _tr("User Details"))
+
+        # Frame (main)
+        self.main_frame = ttk.Frame(frame)
+        self.main_frame.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
 
         self.main_tab_gui()
 
@@ -49,127 +46,115 @@ class UsersDetails:
         Generate labels on the main (single) tab.
         """
 
-        # ScrolledWindow
-        scrolledwindow = Common.window_main_scrolledwindow()
-        self.user_details_window.set_child(scrolledwindow)
-
-        # Viewport
-        viewport = Gtk.Viewport()
-        scrolledwindow.set_child(viewport)
-
-        # Grid
-        grid = Common.window_main_grid()
-        scrolledwindow.set_child(grid)
-
         # Label (User)
-        label = Common.static_information_label(_tr("User"))
-        grid.attach(label, 0, 0, 1, 1)
+        label = Common.static_information_label(self.main_frame, text=_tr("User"))
+        label.grid(row=0, column=0, sticky="nsew", padx=0, pady=4)
         # Label (User)
-        label = Common.static_information_label(":")
-        grid.attach(label, 1, 0, 1, 1)
+        label = Common.static_information_label(self.main_frame, text=":")
+        label.grid(row=0, column=1, sticky="nsew", padx=5, pady=4)
         # Label (User)
-        self.user_label = Common.dynamic_information_label()
-        grid.attach(self.user_label, 2, 0, 1, 1)
+        self.user_label = Common.dynamic_information_label(self.main_frame)
+        self.user_label.grid(row=0, column=2, sticky="nsew", padx=0, pady=4)
 
         # Label (Full Name)
-        label = Common.static_information_label(_tr("Full Name"))
-        grid.attach(label, 0, 1, 1, 1)
+        label = Common.static_information_label(self.main_frame, text=_tr("Full Name"))
+        label.grid(row=1, column=0, sticky="nsew", padx=0, pady=4)
         # Label (Full Name)
-        label = Common.static_information_label(":")
-        grid.attach(label, 1, 1, 1, 1)
+        label = Common.static_information_label(self.main_frame, text=":")
+        label.grid(row=1, column=1, sticky="nsew", padx=5, pady=4)
         # Label (Full Name)
-        self.full_name_label = Common.dynamic_information_label()
-        grid.attach(self.full_name_label, 2, 1, 1, 1)
+        self.full_name_label = Common.dynamic_information_label(self.main_frame)
+        self.full_name_label.grid(row=1, column=2, sticky="nsew", padx=0, pady=4)
 
         # Label (Logged In)
-        label = Common.static_information_label(_tr("Logged In"))
-        grid.attach(label, 0, 2, 1, 1)
+        label = Common.static_information_label(self.main_frame, text=_tr("Logged In"))
+        label.grid(row=2, column=0, sticky="nsew", padx=0, pady=4)
         # Label (Logged In)
-        label = Common.static_information_label(":")
-        grid.attach(label, 1, 2, 1, 1)
+        label = Common.static_information_label(self.main_frame, text=":")
+        label.grid(row=2, column=1, sticky="nsew", padx=5, pady=4)
         # Label (Logged In)
-        self.logged_in_label = Common.dynamic_information_label()
-        grid.attach(self.logged_in_label, 2, 2, 1, 1)
+        self.logged_in_label = Common.dynamic_information_label(self.main_frame)
+        self.logged_in_label.grid(row=2, column=2, sticky="nsew", padx=0, pady=4)
 
         # Label (UID)
-        label = Common.static_information_label(_tr("UID"))
-        grid.attach(label, 0, 3, 1, 1)
+        label = Common.static_information_label(self.main_frame, text=_tr("UID"))
+        label.grid(row=3, column=0, sticky="nsew", padx=0, pady=4)
         # Label (UID)
-        label = Common.static_information_label(":")
-        grid.attach(label, 1, 3, 1, 1)
+        label = Common.static_information_label(self.main_frame, text=":")
+        label.grid(row=3, column=1, sticky="nsew", padx=5, pady=4)
         # Label (UID)
-        self.uid_label = Common.dynamic_information_label()
-        grid.attach(self.uid_label, 2, 3, 1, 1)
+        self.uid_label = Common.dynamic_information_label(self.main_frame)
+        self.uid_label.grid(row=3, column=2, sticky="nsew", padx=0, pady=4)
 
         # Label (GID)
-        label = Common.static_information_label(_tr("GID"))
-        grid.attach(label, 0, 4, 1, 1)
+        label = Common.static_information_label(self.main_frame, text=_tr("GID"))
+        label.grid(row=4, column=0, sticky="nsew", padx=0, pady=4)
         # Label (GID)
-        label = Common.static_information_label(":")
-        grid.attach(label, 1, 4, 1, 1)
+        label = Common.static_information_label(self.main_frame, text=":")
+        label.grid(row=4, column=1, sticky="nsew", padx=5, pady=4)
         # Label (GID)
-        self.gid_label = Common.dynamic_information_label()
-        grid.attach(self.gid_label, 2, 4, 1, 1)
+        self.gid_label = Common.dynamic_information_label(self.main_frame)
+        self.gid_label.grid(row=4, column=2, sticky="nsew", padx=0, pady=4)
 
         # Label (Processes)
-        label = Common.static_information_label(_tr("Processes"))
-        grid.attach(label, 0, 5, 1, 1)
+        label = Common.static_information_label(self.main_frame, text=_tr("Processes"))
+        label.grid(row=5, column=0, sticky="nsew", padx=0, pady=4)
         # Label (Processes)
-        label = Common.static_information_label(":")
-        grid.attach(label, 1, 5, 1, 1)
+        label = Common.static_information_label(self.main_frame, text=":")
+        label.grid(row=5, column=1, sticky="nsew", padx=5, pady=4)
         # Label (Processes)
-        self.processes_label = Common.dynamic_information_label()
-        grid.attach(self.processes_label, 2, 5, 1, 1)
+        self.processes_label = Common.dynamic_information_label(self.main_frame)
+        self.processes_label.grid(row=5, column=2, sticky="nsew", padx=0, pady=4)
 
         # Label (Home Directory)
-        label = Common.static_information_label(_tr("Home Directory"))
-        grid.attach(label, 0, 6, 1, 1)
+        label = Common.static_information_label(self.main_frame, text=_tr("Home Directory"))
+        label.grid(row=6, column=0, sticky="nsew", padx=0, pady=4)
         # Label (Home Directory)
-        label = Common.static_information_label(":")
-        grid.attach(label, 1, 6, 1, 1)
+        label = Common.static_information_label(self.main_frame, text=":")
+        label.grid(row=6, column=1, sticky="nsew", padx=5, pady=4)
         # Label (Home Directory)
-        self.home_directory_label = Common.dynamic_information_label()
-        grid.attach(self.home_directory_label, 2, 6, 1, 1)
+        self.home_directory_label = Common.dynamic_information_label(self.main_frame)
+        self.home_directory_label.grid(row=6, column=2, sticky="nsew", padx=0, pady=4)
 
         # Label (Group)
-        label = Common.static_information_label(_tr("Group"))
-        grid.attach(label, 0, 7, 1, 1)
+        label = Common.static_information_label(self.main_frame, text=_tr("Group"))
+        label.grid(row=7, column=0, sticky="nsew", padx=0, pady=4)
         # Label (Group)
-        label = Common.static_information_label(":")
-        grid.attach(label, 1, 7, 1, 1)
+        label = Common.static_information_label(self.main_frame, text=":")
+        label.grid(row=7, column=1, sticky="nsew", padx=5, pady=4)
         # Label (Group)
-        self.group_label = Common.dynamic_information_label()
-        grid.attach(self.group_label, 2, 7, 1, 1)
+        self.group_label = Common.dynamic_information_label(self.main_frame)
+        self.group_label.grid(row=7, column=2, sticky="nsew", padx=0, pady=4)
 
         # Label (Terminal)
-        label = Common.static_information_label(_tr("Terminal"))
-        grid.attach(label, 0, 8, 1, 1)
+        label = Common.static_information_label(self.main_frame, text=_tr("Terminal"))
+        label.grid(row=8, column=0, sticky="nsew", padx=0, pady=4)
         # Label (Terminal)
-        label = Common.static_information_label(":")
-        grid.attach(label, 1, 8, 1, 1)
+        label = Common.static_information_label(self.main_frame, text=":")
+        label.grid(row=8, column=1, sticky="nsew", padx=5, pady=4)
         # Label (Terminal)
-        self.terminal_label = Common.dynamic_information_label()
-        grid.attach(self.terminal_label, 2, 8, 1, 1)
+        self.terminal_label = Common.dynamic_information_label(self.main_frame)
+        self.terminal_label.grid(row=8, column=2, sticky="nsew", padx=0, pady=4)
 
         # Label (Start Time)
-        label = Common.static_information_label(_tr("Start Time"))
-        grid.attach(label, 0, 9, 1, 1)
+        label = Common.static_information_label(self.main_frame, text=_tr("Start Time"))
+        label.grid(row=9, column=0, sticky="nsew", padx=0, pady=4)
         # Label (Start Time)
-        label = Common.static_information_label(":")
-        grid.attach(label, 1, 9, 1, 1)
+        label = Common.static_information_label(self.main_frame, text=":")
+        label.grid(row=9, column=1, sticky="nsew", padx=5, pady=4)
         # Label (Start Time)
-        self.start_time_label = Common.dynamic_information_label()
-        grid.attach(self.start_time_label, 2, 9, 1, 1)
+        self.start_time_label = Common.dynamic_information_label(self.main_frame)
+        self.start_time_label.grid(row=9, column=2, sticky="nsew", padx=0, pady=4)
 
         # Label (CPU)
-        label = Common.static_information_label(_tr("CPU"))
-        grid.attach(label, 0, 10, 1, 1)
+        label = Common.static_information_label(self.main_frame, text=_tr("CPU"))
+        label.grid(row=10, column=0, sticky="nsew", padx=0, pady=4)
         # Label (CPU)
-        label = Common.static_information_label(":")
-        grid.attach(label, 1, 10, 1, 1)
+        label = Common.static_information_label(self.main_frame, text=":")
+        label.grid(row=10, column=1, sticky="nsew", padx=5, pady=4)
         # Label (CPU)
-        self.cpu_label = Common.dynamic_information_label()
-        grid.attach(self.cpu_label, 2, 10, 1, 1)
+        self.cpu_label = Common.dynamic_information_label(self.main_frame)
+        self.cpu_label.grid(row=10, column=2, sticky="nsew", padx=0, pady=4)
 
 
     def gui_signals(self):
@@ -177,12 +162,10 @@ class UsersDetails:
         Connect GUI signals.
         """
 
-        # Window signals
-        self.user_details_window.connect("close-request", self.on_user_details_window_delete_event)
-        self.user_details_window.connect("show", self.on_user_details_window_show)
+        self.user_details_window.after(1, self.on_details_window_show)
 
 
-    def on_user_details_window_delete_event(self, widget):
+    def on_details_window_delete_event(self, widget):
         """
         Called when window is closed.
         """
@@ -192,7 +175,7 @@ class UsersDetails:
         return True
 
 
-    def on_user_details_window_show(self, widget):
+    def on_details_window_show(self):
         """
         Run code after window is shown.
         """
@@ -207,94 +190,96 @@ class UsersDetails:
         # This value is checked for repeating the function for getting the user data.
         self.update_window_value = 1
 
-        self.users_details_run_func()
+        self.details_run_func()
 
 
-    def users_details_initial_func(self):
+    def initial_func(self):
         """
         Initial code which which is not wanted to be run in every loop.
         """
 
-        self.users_data_dict_prev = {}
+        self.update_interval = Config.update_interval
+
+        self.rows_data_dict_prev = {}
+        self.rows_additional_data_dict_prev = {}
 
         self.system_boot_time = Libsysmon.get_system_boot_time()
 
+        self.uid_list_prev = []
+        self.human_user_uid_list_prev = []
+        self.processes_data_dict_prev = {}
 
-    def users_details_loop_func(self):
+
+    def details_loop_func(self):
         """
         Get and show information on the GUI on every loop.
         """
 
-        # Get right clicked user UID and username
-        selected_user_uid = Users.selected_user_uid
-        selected_username = Users.selected_username
+        # Get right clicked user user name
+        selected_user_name = Users.selected_row_name
 
         # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
         users_cpu_precision = Config.users_cpu_precision
 
-        # Set window title
-        self.user_details_window.set_title(_tr("User") + ": " + selected_username)
-
         # Get user information
-        users_data_dict = Libsysmon.get_users_information(self.users_data_dict_prev, self.system_boot_time)
-        self.users_data_dict_prev = dict(users_data_dict)
-        human_user_uid_list = users_data_dict["human_user_uid_list"]
+        username_uid_dict = {}
+        rows_data_dict, rows_additional_data_dict = Libsysmon.get_users_information(self.rows_data_dict_prev, self.system_boot_time, username_uid_dict, self.rows_additional_data_dict_prev)
+        #rows_data_dict, uid_list, human_user_uid_list, processes_data_dict = Libsysmon.get_users_information(self.rows_data_dict_prev, self.system_boot_time, username_uid_dict, self.uid_list_prev, self.human_user_uid_list_prev, self.processes_data_dict_prev)
+
+        #row_data_dict = rows_data_dict[selected_user_name]
+
+        uid_list = rows_additional_data_dict["uid_list"]
+        human_user_uid_list = rows_additional_data_dict["human_user_uid_list"]
+        processes_data_dict_prev = rows_additional_data_dict["processes_data_dict_prev"]
+        processes_additional_data_dict_prev = rows_additional_data_dict["processes_additional_data_dict_prev"]
 
         try:
-            user_data_dict = users_data_dict[selected_user_uid]
+            row_data_dict = rows_data_dict[selected_user_name]
         # Prevent error if user account is deleted while its detail window is open.
         except KeyError:
             self.update_window_value = 0
-            self.user_details_window.set_visible(False)
+            self.user_details_window.destroy()
             return
 
         # Set label text
-        self.user_label.set_label(user_data_dict["username"])
-        self.full_name_label.set_label(user_data_dict["full_name"])
-        if user_data_dict["logged_in"] == True:
+        self.user_label.config(text=row_data_dict["user_name"])
+        self.full_name_label.config(text=row_data_dict["full_name"])
+        if row_data_dict["logged_in"] == True:
             selected_user_logged_in = _tr("Yes")
         else:
             selected_user_logged_in = _tr("No")
-        self.logged_in_label.set_label(selected_user_logged_in)
-        self.uid_label.set_label(str(selected_user_uid))
-        self.gid_label.set_label(str(user_data_dict["gid"]))
-        self.processes_label.set_label(str(user_data_dict["process_count"]))
-        self.home_directory_label.set_label(user_data_dict["home_dir"])
-        self.group_label.set_label(user_data_dict["group_name"])
-        self.terminal_label.set_label(user_data_dict["terminal"])
-        selected_user_process_start_time = user_data_dict["log_in_time"]
+        self.logged_in_label.config(text=selected_user_logged_in)
+        self.uid_label.config(text=str(row_data_dict["uid"]))
+        self.gid_label.config(text=str(row_data_dict["gid"]))
+        self.processes_label.config(text=str(row_data_dict["process_count"]))
+        self.home_directory_label.config(text=row_data_dict["home_directory"])
+        self.group_label.config(text=row_data_dict["group_name"])
+        self.terminal_label.config(text=row_data_dict["terminal"])
+        selected_user_process_start_time = row_data_dict["log_in_time"]
         if selected_user_process_start_time != 0:
-            self.start_time_label.set_label(datetime.fromtimestamp(selected_user_process_start_time).strftime("%H:%M:%S %d.%m.%Y"))
+            self.start_time_label.config(text=datetime.fromtimestamp(selected_user_process_start_time).strftime("%H:%M:%S %d.%m.%Y"))
         if selected_user_process_start_time == 0:
-            self.start_time_label.set_label("-")
-        self.cpu_label.set_label(f'{user_data_dict["total_cpu_usage"]:.{users_cpu_precision}f} %')
+            self.start_time_label.config(text="-")
+        self.cpu_label.config(text=f'{row_data_dict["cpu_usage"]:.{users_cpu_precision}f} %')
+
+        self.rows_additional_data_dict_prev = dict(rows_additional_data_dict)
+        self.rows_data_dict_prev = dict(rows_data_dict)
+        self.uid_list_prev = list(uid_list)
+        self.human_user_uid_list_prev = list(human_user_uid_list)
+        #self.processes_data_dict_prev = dict(processes_data_dict)
 
 
-    def users_details_run_func(self, *args):
+    def details_run_func(self):
         """
-        Run initial and loop functions of user details window.
-        "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()".
-        "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to change the update interval and
-        run the loop again without waiting ending the previous update interval.
+        Run initial and loop functions of service details window.
         """
 
         if hasattr(UsersDetails, "update_interval") == False:
-            GLib.idle_add(self.users_details_initial_func)
+            self.initial_func()
 
-        # Destroy GLib source for preventing it repeating the function.
-        try:
-            self.main_glib_source.destroy()
-        # "try-except" is used in order to prevent errors if this is first run of the function.
-        except AttributeError:
-            pass
-        self.update_interval = Config.update_interval
-        self.main_glib_source = GLib.timeout_source_new(self.update_interval * 1000)
+        self.details_loop_func()
 
-        if self.update_window_value == 1:
-            GLib.idle_add(self.users_details_loop_func)
-            self.main_glib_source.set_callback(self.users_details_run_func)
-            # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
-            self.main_glib_source.attach(GLib.MainContext.default())
+        self.user_details_window.after(int(Config.update_interval*1000), self.details_run_func)
 
 
 UsersDetails = UsersDetails()

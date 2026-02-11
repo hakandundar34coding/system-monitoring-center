@@ -33,7 +33,8 @@ gpu_pci_express_version_dict = {"2.5": "PCI-Express 1.0",
                                 "16.0": "PCI-Express 4.0",
                                 "32.0": "PCI-Express 5.0",
                                 "64.0": "PCI-Express 6.0",
-                                "128.0": "PCI-Express 7.0"}
+                                "128.0": "PCI-Express 7.0",
+                                "256.0": "PCI-Express 8.0"}
 
 # The content of the file is updated about 50-60 times in a second. 
 # 120 is used in order to get GPU load for AMD GPUs precisely.
@@ -58,6 +59,7 @@ megabyte     MB               1000^2       -       mebibyte     MiB             
 gigabyte     GB               1000^3       -       gibibyte     GiB             1024^3
 terabyte     TB               1000^4       -       tebibyte     TiB             1024^4
 petabyte     PB               1000^5       -       pebibyte     PiB             1024^5
+exabayte     EB               1000^6       -       exbibyte     EiB             1024^6
 
 Unit Name    Abbreviation     bits         -       Unit Name    Abbreviation    bits    
 bit          b                1            -       bit          b               1
@@ -66,12 +68,13 @@ megabit      Mb               1000^2       -       mebibit      Mib             
 gigabit      Gb               1000^3       -       gibibit      Gib             1024^3
 terabit      Tb               1000^4       -       tebibit      Tib             1024^4
 petabit      Pb               1000^5       -       pebibit      Pib             1024^5
+exabit       Eb               1000^6       -       exbibit      Eib             1024^6
 
 1 byte = 8 bits
 """
 # Data unit options: 0: Bytes (ISO), 1: Bytes (IEC), 2: bits (ISO), 3: bits (IEC).
 data_unit_list = [[0, "B", "B", "b", "b"], [1, "KiB", "KB", "Kib", "Kb"], [2, "MiB", "MB", "Mib", "Mb"],
-                  [3, "GiB", "GB", "Gib", "Gb"], [4, "TiB", "TB", "Tib", "Tb"], [5, "PiB", "PB", "Pib", "Pb"]]
+                  [3, "GiB", "GB", "Gib", "Gb"], [4, "TiB", "TB", "Tib", "Tb"], [5, "PiB", "PB", "Pib", "Pb"], [6, "EiB", "EB", "Eib", "Eb"]]
 
 # For more information about computer chassis types, see: "https://www.dmtf.org/standards/SMBIOS"
 # "https://superuser.com/questions/877677/programatically-determine-if-an-script-is-being-executed-on-laptop-or-desktop"
@@ -166,6 +169,60 @@ def get_init_system():
         init_system = "other"
 
     return init_system
+
+
+def get_gnome_theme():
+    """
+    Get light/dark mode information for Gnome desktop environments.
+    """
+
+    import subprocess
+
+    cmd = ["gsettings", "get", "org.gnome.desktop.interface", "color-scheme"]
+    
+    try:
+        gnome_theme_output = (subprocess.check_output(["gsettings", "get", "org.gnome.desktop.interface", "color-scheme"], shell=False)).decode("utf-8").strip().strip("'")
+    except Exception as e:
+        print(e)
+        gnome_theme = "-"
+
+    if gnome_theme_output in ["prefer-dark"]:
+        gnome_theme = "dark"
+    if gnome_theme_output in ["prefer-light", "default"]:
+        gnome_theme = "light"
+
+    return gnome_theme
+
+
+def get_kde_theme():
+    """
+    Get light/dark mode information for KDE desktop environments.
+    """
+
+    import subprocess, shutil
+
+    if shutil.which("kreadconfig6"):
+        cmd_tool = "kreadconfig6"
+    if shutil.which("kreadconfig5"):
+        cmd_tool = "kreadconfig5"
+
+    try:
+        #kde_theme_output = (subprocess.check_output(["qdbus", "org.kde.KWin", "/org/kde/KWin", "org.kde.KWin.supportInformation"], shell=False)).decode("utf-8").strip()
+        kde_theme_output = (subprocess.check_output([cmd_tool, "--group", "General", "--key", "ColorScheme"], shell=False)).decode("utf-8").strip()
+    except Exception as e:
+        print(e)
+        kde_theme = "-"
+
+        if kde_theme != "-":
+            kde_theme = "light"
+        dark_indicators = ['dark', 'black', 'nocturnal', 'ocean']
+
+        for theme_name in dark_indicators:
+            if theme_name in kde_theme_output:
+                kde_theme = "dark"
+                break
+
+    return kde_theme
 
 
 def get_number_of_logical_cores():
@@ -481,7 +538,7 @@ def get_device_vendor_model(modalias_output):
     return device_vendor_name, device_model_name, device_vendor_id, device_model_id
 
 
-def get_processes_information(process_list=[], processes_of_user="all", hide_kernel_threads=0, cpu_usage_divide_by_cores="yes", detail_level="medium", processes_data_dict_prev={}, system_boot_time=0, username_uid_dict={}):
+def get_processes_information(process_list=[], processes_of_user="all", hide_kernel_threads=0, cpu_usage_divide_by_cores="yes", detail_level="medium", processes_data_dict_prev={}, processes_additional_data_dict_prev={}, system_boot_time=0, username_uid_dict={}):
     """
     Get process information of all/specified processes.
     """
@@ -512,17 +569,19 @@ def get_processes_information(process_list=[], processes_of_user="all", hide_ker
     # Define lists for getting process information from command output.
     processes_data_dict = {}
     if processes_data_dict_prev != {}:
-        pid_list_prev = processes_data_dict_prev["pid_list"]
-        ppid_list_prev = processes_data_dict_prev["ppid_list"]
-        process_cpu_times_prev = processes_data_dict_prev["process_cpu_times"]
-        disk_read_write_data_prev = processes_data_dict_prev["disk_read_write_data"]
-        global_cpu_time_all_prev = processes_data_dict_prev["global_cpu_time_all"]
-        global_time_prev = processes_data_dict_prev["global_time"]
+        pid_list_prev = processes_additional_data_dict_prev["pid_list"]
+        ppid_list_prev = processes_additional_data_dict_prev["ppid_list"]
+        process_cpu_times_prev = processes_additional_data_dict_prev["process_cpu_times"]
+        disk_read_write_data_prev = processes_additional_data_dict_prev["disk_read_write_data"]
+        global_cpu_time_all_prev = processes_additional_data_dict_prev["global_cpu_time_all"]
+        global_time_prev = processes_additional_data_dict_prev["global_time"]
     else:
         pid_list_prev = []
         ppid_list_prev = []
         process_cpu_times_prev = {}
         disk_read_write_data_prev = {}
+        global_cpu_time_all_prev = []
+        global_time_prev = []
     pid_list = []
     ppid_list = []
     username_list = []
@@ -558,7 +617,7 @@ def get_processes_information(process_list=[], processes_of_user="all", hide_ker
             break
 
         ppid = int(stat_file_split[-49])
-        status = process_status_dict[stat_file_split[-50]]
+        status = _tr(process_status_dict[stat_file_split[-50]])
         # Get process CPU time in user mode (utime + stime)
         cpu_time_user = int(stat_file_split[-39])
         cpu_time_kernel = int(stat_file_split[-38])
@@ -716,6 +775,7 @@ def get_processes_information(process_list=[], processes_of_user="all", hide_ker
         if detail_level == "low":
             process_data_dict = {
                                 "name" : name,
+                                "pid": pid,
                                 "username" : username,
                                 "status" : status,
                                 "cpu_time" : cpu_time,
@@ -729,11 +789,12 @@ def get_processes_information(process_list=[], processes_of_user="all", hide_ker
                                 "ppid" : ppid,
                                 "uid" : uid,
                                 "gid" : gid,
-                                "start_time" : start_time,
+                                "start_time" : start_time
                                 }
         elif detail_level == "medium":
             process_data_dict = {
                                 "name" : name,
+                                "pid": pid,
                                 "username" : username,
                                 "status" : status,
                                 "cpu_time" : cpu_time,
@@ -757,6 +818,7 @@ def get_processes_information(process_list=[], processes_of_user="all", hide_ker
         elif detail_level == "high":
             process_data_dict = {
                                 "name" : name,
+                                "pid": pid,
                                 "username" : username,
                                 "status" : status,
                                 "cpu_time" : cpu_time,
@@ -800,19 +862,20 @@ def get_processes_information(process_list=[], processes_of_user="all", hide_ker
                                 }
 
         # Add process sub-dictionary to dictionary
-        processes_data_dict[pid] = process_data_dict
+        processes_data_dict[str(pid)] = process_data_dict
 
     # Add process related lists and variables for returning them for using them (for using some them as previous data in the next loop).
-    processes_data_dict["pid_list"] = pid_list
-    processes_data_dict["ppid_list"] = ppid_list
-    processes_data_dict["username_list"] = username_list
-    processes_data_dict["cmdline_list"] = cmdline_list
-    processes_data_dict["process_cpu_times"] = process_cpu_times
-    processes_data_dict["disk_read_write_data"] = disk_read_write_data
-    processes_data_dict["global_cpu_time_all"] = global_cpu_time_all
-    processes_data_dict["global_time"] = global_time
+    processes_additional_data_dict = {"pid_list" : pid_list,
+                                      "ppid_list" : ppid_list,
+                                      "username_list" : username_list,
+                                      "cmdline_list" : cmdline_list,
+                                      "process_cpu_times" : process_cpu_times,
+                                      "disk_read_write_data" : disk_read_write_data,
+                                      "global_cpu_time_all" : global_cpu_time_all,
+                                      "global_time" : global_time
+                                      }
 
-    return processes_data_dict
+    return processes_data_dict, processes_additional_data_dict
 
 
 def read_process_information(process_list, detail_level="medium"):
@@ -931,6 +994,30 @@ def data_unit_converter(data_type, data_type_option, data, unit, precision):
         precision = 0
 
     return f'{data:.{precision}f} {unit}'
+
+
+def cpu_time_converter(data):
+    """
+    Calculate CPU time.
+    """
+
+    global number_of_clock_ticks
+
+    time_days = data/number_of_clock_ticks/60/60/24
+    time_days_int = int(time_days)
+    time_hours = (time_days -time_days_int) * 24
+    time_hours_int = int(time_hours)
+    time_minutes = (time_hours - time_hours_int) * 60
+    time_minutes_int = int(time_minutes)
+    time_seconds = (time_minutes - time_minutes_int) * 60
+    if time_days_int == 0 and time_hours_int == 0:
+        cpu_time = f'{time_minutes_int:02}:{time_seconds:05.2f}'
+    elif time_days_int == 0:
+        cpu_time = f'{time_hours_int:02}:{time_minutes_int:02}:{time_seconds:05.2f}'
+    else:
+        cpu_time = f'{time_days_int:02}:{time_hours_int:02}:{time_minutes_int:02}:{time_seconds:05.2f}'
+
+    return cpu_time
 
 
 # ***********************************************************************************************
@@ -1397,7 +1484,7 @@ def get_cpu_core_l1_l2_l3_cache(selected_cpu_core):
     except FileNotFoundError:
         cpu_core_l1d_cache = "-"
 
-    # Get li cache
+    # Get l1i cache
     try:
         with open("/sys/devices/system/cpu/" + selected_cpu_core + "/cache/index1/level") as reader:
             cache_level = reader.read().strip()
@@ -2731,19 +2818,20 @@ def get_resolution_refresh_rate():
     return current_resolution, current_refresh_rate
 
 
-def monitor_resolution_refresh_rate_multiple_text(current_resolution, current_refresh_rate):
+def monitor_resolution_refresh_rate_multiple_text(root_window):
     """
     Generate a multiline text for resolutions and refresh rates of multiple monitors.
     """
 
-    current_resolution_list = current_resolution.split(", ")
-    current_refresh_rate_list = current_refresh_rate.split(", ")
+    screen_width = "-"
+    screen_height = "-"
+    try:
+        screen_width = root_window.winfo_screenwidth()
+        screen_height = root_window.winfo_screenheight()
+    except Exception:
+        pass
 
-    resolution_refresh_rate_text = ""
-    for i, resolution in enumerate(current_resolution_list):
-        resolution_refresh_rate_text = resolution_refresh_rate_text + resolution + " @" + current_refresh_rate_list[i]
-        if i != len(current_resolution_list) - 1:
-            resolution_refresh_rate_text = resolution_refresh_rate_text + ", "
+    resolution_refresh_rate_text = str(screen_width) + "x" + str(screen_height)
 
     return resolution_refresh_rate_text
 
@@ -3351,7 +3439,6 @@ def process_gpu_tool_output_amdgpu_top(gpu_pci_address, gpu_tool_output_amdgpu_t
     return gpu_load_memory_frequency_power_dict
 
 
-
 def get_process_gpu_information():
 
     gpu_process_information_dict = {}
@@ -3422,7 +3509,6 @@ def process_gpu_tool_process_output_amdgpu_top(gpu_tool_process_output_amdgpu_to
                     gpu_process_information_dict[pid]["gpu_memory"] = gpu_process_information_dict[pid]["gpu_memory"] + gpu_memory
 
     return gpu_process_information_dict
-
 
 
 def gpu_load_nvidia_func():
@@ -3789,7 +3875,7 @@ def get_sensors_information(temperature_unit="celsius"):
     sensor_count = 0
     sensor_unique_id_list = []
     sensor_groups = sorted(os.listdir("/sys/class/hwmon/"))
-    sensor_group_names = []
+    device_names = []
     for sensor_group in sensor_groups:
         files_in_sensor_group = os.listdir("/sys/class/hwmon/" + sensor_group)
         for attribute in supported_sensor_attributes:
@@ -3811,7 +3897,7 @@ def get_sensors_information(temperature_unit="celsius"):
 
                 # Get device name
                 with open("/sys/class/hwmon/" + sensor_group + "/name") as reader:
-                    sensor_group_name = reader.read().strip()
+                    device_name = reader.read().strip()
                 if attribute == "temp":
                     sensor_type = "temperature"
                 elif attribute == "fan":
@@ -3827,7 +3913,7 @@ def get_sensors_information(temperature_unit="celsius"):
                     if device_detailed_name.startswith("hwmon") == True:
                         device_detailed_name = "-"
                 if device_detailed_name != "-" and device_detailed_name.startswith("0000:") == False:
-                    sensor_group_name = device_detailed_name + " ( " + sensor_group_name + " )"
+                    device_name = device_detailed_name + " ( " + device_name + " )"
 
                 # Get sensor name
                 try:
@@ -3905,7 +3991,7 @@ def get_sensors_information(temperature_unit="celsius"):
                 # Add sensor data to a sub-dictionary
                 sensor_data_dict = {
                                     "sensor_type": sensor_type,
-                                    "sensor_group_name" : sensor_group_name,
+                                    "device_name" : device_name,
                                     "sensor_name" : sensor_name,
                                     "current_value" : current_value,
                                     "max_value" : max_value,
@@ -3918,13 +4004,10 @@ def get_sensors_information(temperature_unit="celsius"):
                 sensor_count = sensor_count + 1
                 sensor_unique_id = "sensor_" + str(sensor_count)
 
-                sensor_unique_id_list.append(sensor_unique_id)
+                sensor_data_dict["sensor_unique_id"] = sensor_unique_id
 
                 # Add sensor sub-dictionary to dictionary
                 sensors_data_dict[sensor_unique_id] = sensor_data_dict
-
-    # Add sensor related lists and variables
-    sensors_data_dict["sensor_unique_id_list"] = sensor_unique_id_list
 
     return sensors_data_dict
 
@@ -4146,7 +4229,7 @@ def get_process_priority(process_pid):
     return selected_process_nice
 
 
-def change_process_priority(process_list, priority_option):
+def change_process_priority(process_list, process_priority):
     """
     Change priority (nice) of process.
     """
@@ -4155,25 +4238,8 @@ def change_process_priority(process_list, priority_option):
     for process_pid in process_list:
         process_pid_list_str.append(str(process_pid))
 
-    if priority_option == "priority_very_high":
-        priority_command = ["renice", "-n", "-20", "-p"]
-        priority_command_pkexec = ["pkexec", "renice", "-n", "-20", "-p"]
-    elif priority_option == "priority_high":
-        priority_command = ["renice", "-n", "-10", "-p"]
-        priority_command_pkexec = ["pkexec", "renice", "-n", "-10", "-p"]
-    elif priority_option == "priority_normal":
-        priority_command = ["renice", "-n", "0", "-p"]
-        priority_command_pkexec = ["pkexec", "renice", "-n", "0", "-p"]
-    elif priority_option == "priority_low":
-        priority_command = ["renice", "-n", "10", "-p"]
-        priority_command_pkexec = ["pkexec", "renice", "-n", "10", "-p"]
-    elif priority_option == "priority_very_low":
-        priority_command = ["renice", "-n", "19", "-p"]
-        priority_command_pkexec = ["pkexec", "renice", "-n", "19", "-p"]
-    else:
-        process_priority = priority_option
-        priority_command = ["renice", "-n", process_priority, "-p"]
-        priority_command_pkexec = ["pkexec", "renice", "-n", process_priority, "-p"]
+    priority_command = ["renice", "-n", process_priority, "-p"]
+    priority_command_pkexec = ["pkexec", "renice", "-n", process_priority, "-p"]
 
     priority_command = priority_command + process_pid_list_str
     priority_command_pkexec = priority_command_pkexec + process_pid_list_str
@@ -4232,7 +4298,6 @@ def set_process_cpu_affinity(process_list, cpu_core_list):
     for process_pid in process_list:
         process_pid_list_str.append(str(process_pid))
 
-
     cpu_core_list_str = []
     for cpu_core in cpu_core_list:
         cpu_core_list_str.append(str(cpu_core))
@@ -4250,13 +4315,13 @@ def set_process_cpu_affinity(process_list, cpu_core_list):
         try:
             (subprocess.check_output(command_list, stderr=subprocess.STDOUT, shell=False)).decode()
             # Stop running the function if process priority is changed without root privileges.
-            return
+            #return
         except subprocess.CalledProcessError:
             # Try to change priority of the process if root privileges are required.
             try:
                 (subprocess.check_output(command_list_pkexec, stderr=subprocess.STDOUT, shell=False)).decode()
             except subprocess.CalledProcessError:
-                return
+                pass
 
 
 def manage_process(process_list, manage_option):
@@ -4303,6 +4368,40 @@ def manage_process(process_list, manage_option):
             pass
 
 
+def get_pid_ppid_tree(pid_list, ppid_list):
+    """
+    Get PID-PPID tree dictionary.
+    """
+
+    pid_ppid_tree = {}
+    for pid, ppid in zip(pid_list, ppid_list):
+        if ppid not in pid_ppid_tree:
+            pid_ppid_tree[ppid] = []
+        pid_ppid_tree[ppid].append(pid)
+
+    return pid_ppid_tree
+
+
+def get_recursive_data(pid_list, ppid_list, data_dict):
+
+    pid_ppid_tree = get_pid_ppid_tree(pid_list, ppid_list)
+
+    branch_dict = {}
+    def get_total_data(current_pid):
+        total = data_dict.get(current_pid, 0)
+
+        for child in pid_ppid_tree.get(current_pid, []):
+            total = total + get_total_data(child)
+
+        branch_dict[current_pid] = total
+        return total
+
+    for pid in pid_list:
+        get_total_data(pid)
+
+    return branch_dict
+
+
 # ***********************************************************************************************
 #                                           Users
 # ***********************************************************************************************
@@ -4326,10 +4425,10 @@ def get_etc_passwd_dict():
         line_split = line.split(":", 6)
         uid = int(line_split[2])
         etc_passwd_sub_dict = {
-                               "username" : line_split[0],
+                               "user_name" : line_split[0],
                                "gid" : int(line_split[3]),
                                "full_name" : line_split[4],
-                               "home_dir" : line_split[5],
+                               "home_directory" : line_split[5],
                                "terminal" : line_split[6]
                                }
         etc_passwd_dict[uid] = etc_passwd_sub_dict
@@ -4356,14 +4455,14 @@ def get_etc_group_dict():
         line_split = line.split(":", 3)
         gid = int(line_split[2])
         etc_group_sub_dict = {
-                             "user_group_name" : line_split[0]
+                             "group_name" : line_split[0]
                              }
         etc_group_dict[gid] = etc_group_sub_dict
 
     return etc_group_dict
 
 
-def get_users_information(users_data_dict_prev={}, system_boot_time=0, username_uid_dict={}):
+def get_users_information(users_data_dict_prev={}, system_boot_time=0, username_uid_dict={}, users_additional_data_dict_prev={}):
     """
     Get user information of all/specified users.
     """
@@ -4377,17 +4476,23 @@ def get_users_information(users_data_dict_prev={}, system_boot_time=0, username_
     # Define lists for getting user information from command output.
     users_data_dict = {}
     if users_data_dict_prev != {}:
-        uid_list_prev = users_data_dict_prev["uid_list"]
-        processes_data_dict_prev = users_data_dict_prev["processes_data_dict_prev"]
-        pid_list_prev = processes_data_dict_prev["pid_list"]
-        ppid_list_prev = processes_data_dict_prev["ppid_list"]
-        process_cpu_times_prev = processes_data_dict_prev["process_cpu_times"]
-        disk_read_write_data_prev = processes_data_dict_prev["disk_read_write_data"]
-        global_cpu_time_all_prev = processes_data_dict_prev["global_cpu_time_all"]
-        global_time_prev = processes_data_dict_prev["global_time"]
+        uid_list_prev = users_additional_data_dict_prev["uid_list"]
+        human_user_uid_list_prev = users_additional_data_dict_prev["human_user_uid_list"]
+        processes_additional_data_dict_prev = users_additional_data_dict_prev["processes_additional_data_dict_prev"]
+        processes_data_dict_prev = users_additional_data_dict_prev["processes_data_dict_prev"]
+        uid_list_prev = uid_list_prev
+        #processes_data_dict_prev = processes_data_dict_prev
+        pid_list_prev = processes_additional_data_dict_prev["pid_list"]
+        ppid_list_prev = processes_additional_data_dict_prev["ppid_list"]
+        process_cpu_times_prev = processes_additional_data_dict_prev["process_cpu_times"]
+        disk_read_write_data_prev = processes_additional_data_dict_prev["disk_read_write_data"]
+        global_cpu_time_all_prev = processes_additional_data_dict_prev["global_cpu_time_all"]
+        global_time_prev = processes_additional_data_dict_prev["global_time"]
     else:
         uid_list_prev = []
+        human_user_uid_list_prev = []
         processes_data_dict_prev = {}
+        processes_additional_data_dict_prev = {}
         pid_list_prev = []
         ppid_list_prev = []
         process_cpu_times_prev = {}
@@ -4402,20 +4507,27 @@ def get_users_information(users_data_dict_prev={}, system_boot_time=0, username_
     disk_read_write_data = {}
 
     # Get process information fo getting logged in, CPU usage percentage, log in time and process count information.
-    processes_data_dict = get_processes_information(process_list, processes_of_user, hide_kernel_threads, cpu_usage_divide_by_cores, detail_level, processes_data_dict_prev, system_boot_time, username_uid_dict)
+    processes_data_dict, processes_additional_data_dict = get_processes_information(process_list, processes_of_user, hide_kernel_threads, cpu_usage_divide_by_cores, detail_level, processes_data_dict_prev, processes_additional_data_dict_prev, system_boot_time, username_uid_dict)
     processes_data_dict_prev = dict(processes_data_dict)
+
+    pid_list_prev = processes_additional_data_dict["pid_list"]
+    ppid_list_prev = processes_additional_data_dict["ppid_list"]
+    process_cpu_times_prev = processes_additional_data_dict["process_cpu_times"]
+    disk_read_write_data_prev = processes_additional_data_dict["disk_read_write_data"]
+    global_cpu_time_all_prev = processes_additional_data_dict["global_cpu_time_all"]
+    global_time_prev = processes_additional_data_dict["global_time"]
 
     # Get user and user group information of all users
     etc_passwd_dict = get_etc_passwd_dict()
     etc_group_dict = get_etc_group_dict()
 
     # Get logged in users list
-    logged_in_users_list = processes_data_dict["username_list"]
+    logged_in_users_list = processes_additional_data_dict["username_list"]
 
     # Get UIDs, CPU usage percentages and start times of all processes
     user_process_cpu_usage_start_time_dict = {}
-    for pid in processes_data_dict["pid_list"]:
-        process_data_dict = processes_data_dict[pid]
+    for pid in processes_additional_data_dict["pid_list"]:
+        process_data_dict = processes_data_dict[str(pid)]
         uid = process_data_dict["uid"]
         uid_list.append(uid)
         user_process_cpu_usage_start_time_sub_dict = {
@@ -4430,16 +4542,21 @@ def get_users_information(users_data_dict_prev={}, system_boot_time=0, username_
         etc_passwd_sub_dict = etc_passwd_dict[uid]
         # Get information for only human users
         if uid >= 1000 and uid != 65534:
+            if etc_passwd_sub_dict["user_name"] == "":
+                continue
             human_user_uid_list.append(uid)
-            username = etc_passwd_sub_dict["username"]
+            username = etc_passwd_sub_dict["user_name"]
             if uid in uid_list:
-                logged_in = True
+                logged_in = _tr("Yes")
             else:
-                logged_in = False
+                logged_in = _tr("No")
             gid = etc_passwd_sub_dict["gid"]
-            group_name = etc_group_dict[gid]["user_group_name"]
+            try:
+                group_name = etc_group_dict[gid]["group_name"]
+            except KeyError:
+                group_name = "-"
             full_name = etc_passwd_sub_dict["full_name"]
-            home_dir = etc_passwd_sub_dict["home_dir"]
+            home_directory = etc_passwd_sub_dict["home_directory"]
             terminal = etc_passwd_sub_dict["terminal"]
 
             # Get user processes
@@ -4452,9 +4569,9 @@ def get_users_information(users_data_dict_prev={}, system_boot_time=0, username_
                     cpu_usage_list.append(user_process_cpu_usage_start_time_sub_dict["cpu_usage"])
                     start_time_list.append(user_process_cpu_usage_start_time_sub_dict["start_time"])
             if cpu_usage_list == []:
-                total_cpu_usage = 0
+                cpu_usage = 0
             else:
-                total_cpu_usage = sum(cpu_usage_list)
+                cpu_usage = sum(cpu_usage_list)
             if start_time_list == []:
                 log_in_time = 0
             else:
@@ -4463,27 +4580,30 @@ def get_users_information(users_data_dict_prev={}, system_boot_time=0, username_
 
             # Add user data to a sub-dictionary
             user_data_dict = {
-                             "username" : username,
+                             "uid": uid,
+                             "user_name" : username,
                              "gid" : gid,
                              "group_name" : group_name,
                              "full_name" : full_name,
                              "logged_in" : logged_in,
-                             "home_dir" : home_dir,
+                             "home_directory" : home_directory,
                              "terminal" : terminal,
-                             "total_cpu_usage" : total_cpu_usage,
+                             "cpu_usage" : cpu_usage,
                              "log_in_time" : log_in_time,
                              "process_count" : process_count
                              }
 
             # Add user sub-dictionary to dictionary
-            users_data_dict[uid] = user_data_dict
+            users_data_dict[username] = user_data_dict
 
     # Add user related lists and variables for returning them for using them (for using some them as previous data in the next loop).
-    users_data_dict["uid_list"] = uid_list
-    users_data_dict["human_user_uid_list"] = human_user_uid_list
-    users_data_dict["processes_data_dict_prev"] = processes_data_dict_prev
+    users_additional_data_dict = {"uid_list": uid_list,
+                                  "human_user_uid_list": human_user_uid_list,
+                                  "processes_data_dict_prev": processes_data_dict,
+                                  "processes_additional_data_dict_prev": processes_additional_data_dict
+                                  }
 
-    return users_data_dict
+    return users_data_dict, users_additional_data_dict
 
 
 # ***********************************************************************************************
@@ -4578,14 +4698,14 @@ def get_services_information():
                     if service_unit_file_split == service_loaded.split("@")[0]:
                         service_list.append(service_loaded)
                         continue
-    service_list = sorted(service_list)
+    service_list = sorted(service_list, key=str.lower)
 
     # Generate "unit_files_command_parameter_list". This list will be used for constructing commandline for getting
     # service data per service file.
     # "LoadState" is always get for filtering service, etc. Also it prevents errors if every columns other than 
     # service names are preferred not to be shown. It gives errors if no property is specified with
     # "systemctl show [service_name] --property=" command.
-    unit_files_command_parameter_list = ["LoadState", "UnitFileState", "MainPID", "ActiveState", "SubState", "MemoryCurrent", "Description"]
+    unit_files_command_parameter_list = ["Id", "LoadState", "UnitFileState", "MainPID", "ActiveState", "SubState", "MemoryCurrent", "Description"]
     unit_files_command_parameter_list = ",".join(unit_files_command_parameter_list)           # Join strings with "," between them.
     # Construct command for getting service information for all services
     if environment_type == "flatpak":
@@ -4600,22 +4720,29 @@ def get_services_information():
     # CPU usage percentage data of the processes even if this is a very rare situation.)
     number_of_logical_cores = get_number_of_logical_cores()
 
-    # Get services bu using single process (instead of multiprocessing) if the system has 1 or 2 CPU cores.
-    if number_of_logical_cores < 3:
-        # Get service data per service file in one attempt in order to obtain lower CPU usage.
-        # Because information from all service files will be get by one commandline operation and will be parsed later.
-        try:
-            systemctl_show_command_lines = (subprocess.check_output(unit_files_command, shell=False)).decode().strip().split("\n\n")
-        # Prevent errors if "systemd" is not used on the system.
-        except Exception:
-            return
-    # Get services bu using multiple processes (multiprocessing) if the system has more than 2 CPU cores.
+    # Do not use multiprocessing with Python 3.14 and higher versions. Multiple GUI instances are opened.
+    minor_version = int(get_current_python_version().split(".")[1])
+    if minor_version > 13:
+        systemctl_show_command_lines = (subprocess.check_output(unit_files_command, shell=False)).decode().strip().split("\n\n")
     else:
-        systemctl_show_command_lines = start_processes_func(number_of_logical_cores, unit_files_command)
+        # Get services bu using single process (instead of multiprocessing) if the system has 1 or 2 CPU cores.
+        if number_of_logical_cores < 3:
+            # Get service data per service file in one attempt in order to obtain lower CPU usage.
+            # Because information from all service files will be get by one commandline operation and will be parsed later.
+            try:
+                systemctl_show_command_lines = (subprocess.check_output(unit_files_command, shell=False)).decode().strip().split("\n\n")
+            # Prevent errors if "systemd" is not used on the system.
+            except Exception:
+                return
+        # Get services bu using multiple processes (multiprocessing) if the system has more than 2 CPU cores.
+        else:
+            systemctl_show_command_lines = start_processes_func(number_of_logical_cores, unit_files_command)
 
     # Get service information by processing command output
     for i, service_name in enumerate(service_list):
         systemctl_show_command_lines_split = systemctl_show_command_lines[i]
+        # Get service ID
+        id_name = systemctl_show_command_lines_split.split("Id=", 1)[1].split("\n", 1)[0].capitalize()
         # Get service "loaded/not loaded" status
         load_state = "-"
         load_state = _tr(systemctl_show_command_lines_split.split("LoadState=", 1)[1].split("\n", 1)[0].capitalize())
@@ -4640,6 +4767,8 @@ def get_services_information():
 
         # Add service data to a sub-dictionary
         service_data_dict = {
+                             "service_name": service_name,
+                             "id_name": id_name,
                              "load_state" : load_state,
                              "unit_file_state" : unit_file_state,
                              "main_pid" : main_pid,
@@ -4653,7 +4782,7 @@ def get_services_information():
         services_data_dict[service_name] = service_data_dict
 
     # Add service related lists and variables
-    services_data_dict["service_list"] = service_list
+    #services_data_dict["service_list"] = service_list
 
     return services_data_dict
 
@@ -4909,19 +5038,6 @@ def get_service_detailed_information(service_name):
     return service_detailed_info_dict
 
 
-def get_service_mask_state(service_name):
-    """
-    Get service mask state (masked/unmasked).
-    """
-
-    command_list = ["systemctl", "show", service_name, "--property=UnitFileState"]
-    if get_environment_type() == "flatpak":
-        command_list = ["flatpak-spawn", "--host"] + command_list
-    service_mask_status = (subprocess.check_output(command_list, shell=False)).decode().strip().split("=")[1]
-
-    return service_mask_status
-
-
 def manage_service(service_name, action_name):
     """
     Start, stop, restart, enable, disable, mask (hide), unmask services.
@@ -5118,14 +5234,16 @@ def get_number_of_monitors():
     """
 
     number_of_monitors = "-"
+
+    command_list = ["xrandr", "--listmonitors"]
+    if get_environment_type() == "flatpak":
+        command_list = ["flatpak-spawn", "--host"] + command_list
     try:
-        import gi
-        gi.require_version('Gdk', '4.0')
-        from gi.repository import Gdk
-        monitor_list = Gdk.Display().get_default().get_monitors()
-        number_of_monitors = len(monitor_list)
-    except Exception:
-        pass
+        xrandr_output_lines = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
+        # Differentiate header line count
+        number_of_monitors = len(xrandr_output_lines) - 1
+    except (FileNotFoundError, subprocess.CalledProcessError) as me:
+        number_of_monitors = "-"
 
     return number_of_monitors
 
@@ -5138,6 +5256,17 @@ def get_current_python_version():
     current_python_version = platform.python_version()
 
     return current_python_version
+
+
+def get_current_tk_version():
+    """
+    Get Tk version which is used for this application.
+    """
+
+    import tkinter as tk
+    current_tk_version = tk.TkVersion
+
+    return current_tk_version
 
 
 def get_current_gtk_version():
@@ -5277,9 +5406,30 @@ def get_installed_flatpak_packages():
     return flatpak_packages_count
 
 
-def get_desktop_environment_and_version_windowing_system_window_manager_display_manager():
+def get_windowing_system():
     """
-    Get current desktop environment, windowing_system, window_manager, current_display_manager.
+    Get current windowing system.
+    """
+
+    # Try to get windowing system. This value may be get as "None" if the
+    # application is run with root privileges. This value will be get by
+    # reading information of processes if it is get as "None".
+    # Windowing system may be get as "tty" (which is for non-graphical system) when
+    # "os.environ.get('XDG_SESSION_TYPE')" is used on Arch Linux if environment
+    # variables are not set after installing a windowing system.
+    windowing_system = os.environ.get('XDG_SESSION_TYPE')
+    # "windowing_system" is get as "None" if application is run with root privileges.
+    if windowing_system != None:
+        windowing_system = windowing_system.capitalize()
+    else:
+        windowing_system = "-"
+
+    return windowing_system
+
+
+def get_desktop_environment_and_version_window_manager_display_manager():
+    """
+    Get current desktop environment, window_manager, current_display_manager.
     """
 
     # Get current username
@@ -5291,14 +5441,6 @@ def get_desktop_environment_and_version_windowing_system_window_manager_display_
     if current_user_name is None:
         current_user_name = os.environ.get('USER')
 
-    # Try to get windowing system. This value may be get as "None" if the
-    # application is run with root privileges. This value will be get by
-    # reading information of processes if it is get as "None".
-    windowing_system = os.environ.get('XDG_SESSION_TYPE')
-    # "windowing_system" is get as "None" if application is run with root privileges.
-    if windowing_system != None:
-        windowing_system = windowing_system.capitalize()
-
     # Try to get current desktop environment. This value may be get as
     # "None" if the application is run with root privileges. This value
     # will be get by reading information of processes if it is get as "None".
@@ -5308,10 +5450,6 @@ def get_desktop_environment_and_version_windowing_system_window_manager_display_
     if current_desktop_environment == None:
         # Define initial value of "desktop environment".
         current_desktop_environment = "-"
-
-    # Define initial value of "windowing_system".
-    if windowing_system == None:
-        windowing_system = "-"
 
     # Define initial value of "window_manager".
     window_manager = "-"
@@ -5352,20 +5490,6 @@ def get_desktop_environment_and_version_windowing_system_window_manager_display_
     # Get current desktop environment version
     current_desktop_environment_version = get_desktop_environment_version(current_desktop_environment)
 
-    # Get windowing system information.
-    # Windowing system may be get as "tty" (which is for non-graphical system) when
-    # "os.environ.get('XDG_SESSION_TYPE')" is used on Arch Linux if environment
-    # variables are not set after installing a windowing system.
-    for process_name in process_name_list:
-        if windowing_system in ["-", "Tty"]:
-            process_name = process_name.lower()
-            if process_name == "xorg":
-                windowing_system = "X11"
-                break
-            if process_name == "xwayland":
-                windowing_system = "Wayland"
-                break
-
     # Get window manager information
     for process_name in process_name_list:
         if window_manager == "-":
@@ -5379,7 +5503,7 @@ def get_desktop_environment_and_version_windowing_system_window_manager_display_
     # it not detected because it has no separate package or process.).
     if window_manager == "-":
         if current_desktop_environment.upper() == "GNOME":
-            if current_desktop_environment_version.split(".")[0] in ["3", "40", "41", "42", "43", "44", "45"]:
+            if current_desktop_environment_version.split(".")[0] in ["3", "40", "41", "42", "43", "44", "45", "46", "47", "48"]:
                 window_manager = "mutter"
 
     # Get current display manager information
@@ -5392,7 +5516,7 @@ def get_desktop_environment_and_version_windowing_system_window_manager_display_
                     current_display_manager = supported_display_managers_dict[process_name]
                     break
 
-    return current_desktop_environment, current_desktop_environment_version, windowing_system, window_manager, current_display_manager
+    return current_desktop_environment, current_desktop_environment_version, window_manager, current_display_manager
 
 
 def get_desktop_environment_version(current_desktop_environment):

@@ -1,6 +1,6 @@
 app-id: io.github.hakandundar34coding.system-monitoring-center
 runtime: org.gnome.Platform
-runtime-version: '45'
+runtime-version: '49'
 sdk: org.gnome.Sdk
 command: system-monitoring-center
 
@@ -29,14 +29,127 @@ cleanup:
 
 modules:
 
+  # For drawing Cairo graphics
+  - name: pycairo
+    buildsystem: meson
+    sources:
+      - type: archive
+        url: https://github.com/pygobject/pycairo/archive/v1.29.0/pycairo-v1.29.0.tar.gz
+        sha256: 25c6a8a5a488afdd21208b5a71f95796891cceb2ee94f2ec1c51fdf0735eab0b
+        x-checker-data:
+          type: anitya
+          project-id: 13166
+          stable-only: true
+          url-template: https://github.com/pygobject/pycairo/archive/v$version/pycairo-v$version.tar.gz
+
+
+
+
+
+
+  - name: pluggy
+    buildsystem: simple
+    build-commands:
+      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
+        --prefix=${FLATPAK_DEST} "pluggy>=1.5.0" --no-build-isolation
+    sources:
+      - type: file
+        url: https://files.pythonhosted.org/packages/96/2d/02d4312c973c6050a18b314a5ad0b3210edb65a906f868e31c111dede4a6/pluggy-1.5.0.tar.gz
+        sha256: 2cffa88e94fdc978c4c574f15f9e59b7f4201d439195c3715ca9e2486f1d0cf1
+
+
+
+
+  - name: flit-core
+    buildsystem: simple
+    build-commands:
+      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
+        --prefix=${FLATPAK_DEST} "flit-core>=3.12.0" --no-build-isolation
+    sources:
+      - type: file
+        url: https://files.pythonhosted.org/packages/69/59/b6fc2188dfc7ea4f936cd12b49d707f66a1cb7a1d2c16172963534db741b/flit_core-3.12.0.tar.gz
+        sha256: 18f63100d6f94385c6ed57a72073443e1a71a4acb4339491615d0f16d6ff01b2
+
+
+
+  - name: pathspec
+    buildsystem: simple
+    build-commands:
+      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
+        --prefix=${FLATPAK_DEST} "pathspec>=1.0.4" --no-build-isolation
+    sources:
+      - type: file
+        url: https://files.pythonhosted.org/packages/fa/36/e27608899f9b8d4dff0617b2d9ab17ca5608956ca44461ac14ac48b44015/pathspec-1.0.4.tar.gz
+        sha256: 0210e2ae8a21a9137c0d470578cb0e595af87edaa6ebf12ff176f14a02e0e645
+
+
+
+  - name: hatchling
+    buildsystem: simple
+    build-commands:
+      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
+        --prefix=${FLATPAK_DEST} "hatchling>=1.28.0" --no-build-isolation
+    sources:
+      - type: file
+        url: https://files.pythonhosted.org/packages/0b/8e/e480359492affde4119a131da729dd26da742c2c9b604dff74836e47eef9/hatchling-1.28.0.tar.gz
+        sha256: 4d50b02aece6892b8cd0b3ce6c82cb218594d3ec5836dbde75bf41a21ab004c8
+
+
+  - name: scikit-build-core
+    buildsystem: simple
+    build-commands:
+      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
+        --prefix=${FLATPAK_DEST} "scikit-build-core>=0.11.6" --no-build-isolation
+    sources:
+      - type: file
+        url: https://files.pythonhosted.org/packages/48/b2/c11aaa746f3dfcdb46499affbc5f9784c991d354a80ca92f96a0f0f5aadf/scikit_build_core-0.11.6.tar.gz
+        sha256: 5982ccd839735be99cfd3b92a8847c6c196692f476c215da84b79d2ad12f9f1b
+
+
+  - name: pybind11
+    buildsystem: simple
+    build-commands:
+      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
+        --prefix=${FLATPAK_DEST} "pybind11>=3.0.1" --no-build-isolation
+    sources:
+      - type: file
+        url: https://files.pythonhosted.org/packages/2f/7b/a6d8dcb83c457e24a9df1e4d8fd5fb8034d4bbc62f3c324681e8a9ba57c2/pybind11-3.0.1.tar.gz
+        sha256: 9c0f40056a016da59bab516efb523089139fcc6f2ba7e4930854c61efb932051
+
+
+
+
+
+  # Tkinter theme
+  - name: sun-valley-theme
+    buildsystem: simple
+    build-commands:
+      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
+        --prefix=${FLATPAK_DEST} sun-valley-ttk-theme --no-build-isolation
+    sources:
+      - type: shell
+        commands:
+          - pip3 download sun-valley-ttk-theme
+
+  # For showing images on the GUI
+  - name: Pillow
+    buildsystem: simple
+    build-commands:
+      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
+        --prefix=${FLATPAK_DEST} "Pillow>=12.1.0" --no-build-isolation
+    sources:
+      - type: file
+        url: https://files.pythonhosted.org/packages/d0/02/d52c733a2452ef1ffcc123b68e6606d07276b0e358db70eabad7e40042b7/pillow-12.1.0.tar.gz
+        sha256: 5c5ae0a06e9ea030ab786b0251b32c7e4ce10e58d983c0d5c56029455180b5b9
+
   # For using hardware database of "hwdata"
   - name: hwdata
     config-opts:
       - --datarootdir=/app/share
     sources:
       - type: archive
-        url: https://github.com/vcrhonek/hwdata/archive/refs/tags/v0.375.tar.gz
-        sha256: 69ffbfe4801c12c2d66d51f98044beec35afa406b1baa619c57b25a9b62b43a0
+        url: https://github.com/vcrhonek/hwdata/archive/refs/tags/v0.403.tar.gz
+        sha256: 77d0a69e5558d16d33bbb510a09093deaf11c882baf9ef6ec5f18a8ef96e2c13
 
   # For getting IPv4 and IPv6 addresses by using 'ip a show [network_card]' command
   - name: iproute2
@@ -47,8 +160,8 @@ modules:
       - CONFDIR=${FLATPAK_DEST}/etc/iproute2
     sources:
       - type: archive
-        url: https://github.com/shemminger/iproute2/archive/refs/tags/v6.5.0.tar.gz
-        sha256: a336d4d66e390c51564980152ffdafa0e214eb6e447c12582eafffb6d836b41d
+        url: https://github.com/iproute2/iproute2/archive/refs/tags/v6.18.0.tar.gz
+        sha256: eff48ad35d039735ab318749868587115b524dc44ef49e47e52ca3665e8f05f1
 
   # For System Monitoring Center
   - name: system-monitoring-center
@@ -56,5 +169,5 @@ modules:
     sources:
       - type: git
         url: https://github.com/hakandundar34coding/system-monitoring-center.git
-        commit: 698b7b3667ad06a4ea66e528df0bf63e592beb72
+        commit: 4d9424833bd36cfd4fe7521139fe57faf9ee626b
 

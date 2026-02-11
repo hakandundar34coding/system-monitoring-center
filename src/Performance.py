@@ -1,5 +1,9 @@
+import cairo
+from PIL import Image, ImageTk
+
 import os
 import cairo
+import time
 from math import sqrt, ceil
 
 from .Config import Config
@@ -52,6 +56,7 @@ class Performance:
         Get basic CPU, memory, disk and network usage data in the background in order to assure uninterrupted data for charts.
         """
 
+
         if self.initial_already_run == 0:
             self.initial_func()
 
@@ -102,6 +107,7 @@ class Performance:
 
         if hasattr(self, "rows_data_dict_prev") == False:
             self.rows_data_dict_prev = {}
+            self.rows_additional_data_dict_prev = {}
             self.system_boot_time = Libsysmon.get_system_boot_time()
             self.username_uid_dict = Libsysmon.get_username_uid_dict()
             self.max_cpu_usage_list = [0] * chart_data_history
@@ -123,19 +129,21 @@ class Performance:
         hide_kernel_threads = 0
         cpu_usage_divide_by_cores = "yes"
         detail_level = "low"
-        rows_data_dict = Libsysmon.get_processes_information(process_list, processes_of_user, hide_kernel_threads, cpu_usage_divide_by_cores, detail_level, self.rows_data_dict_prev, self.system_boot_time, self.username_uid_dict)
+        rows_data_dict, rows_additional_data_dict = Libsysmon.get_processes_information(process_list, processes_of_user, hide_kernel_threads, cpu_usage_divide_by_cores, detail_level, self.rows_data_dict_prev, self.rows_additional_data_dict_prev, self.system_boot_time, self.username_uid_dict)
         self.rows_data_dict_prev = dict(rows_data_dict)
-        pid_list = rows_data_dict["pid_list"]
+        self.rows_additional_data_dict_prev = dict(rows_additional_data_dict)
+        pid_list = rows_additional_data_dict["pid_list"]
 
         cpu_usage_list = []
         for pid in pid_list:
+            pid = str(pid)
             row_data_dict = rows_data_dict[pid]
             cpu_usage = row_data_dict["cpu_usage"]
             cpu_usage_list.append(cpu_usage)
         max_cpu_usage = max(cpu_usage_list)
         max_cpu_usage_index = cpu_usage_list.index(max_cpu_usage)
         max_cpu_usage_process_pid = pid_list[max_cpu_usage_index]
-        max_cpu_usage_process_name = rows_data_dict[max_cpu_usage_process_pid]["name"]
+        max_cpu_usage_process_name = rows_data_dict[str(max_cpu_usage_process_pid)]["name"]
 
         self.max_cpu_usage_list.append(max_cpu_usage)
         self.max_cpu_usage_process_name_list.append(max_cpu_usage_process_name)
@@ -145,10 +153,19 @@ class Performance:
         del self.max_cpu_usage_process_pid_list[0]
 
 
-    def performance_line_charts_draw(self, widget, ctx, width, height, widget_name):
+    def performance_line_charts_draw(self, widget, widget_name):
         """
         Draw performance data as line chart.
         """
+
+        # Get drawingarea size.
+        widget.update()
+        width = widget.winfo_width()
+        height = widget.winfo_height()
+
+        surface1 = cairo.ImageSurface(cairo.FORMAT_ARGB32, width, height)
+        ctx = cairo.Context(surface1)
+
 
         # Check if drawing will be for CPU tab.
         if widget_name == "da_cpu_usage":
@@ -267,7 +284,7 @@ class Performance:
             # For example, 1.9999 (2-0.0001). This number is enough because maximum precision of the performance data is "3" (1.234 MiB/s).
             number_to_get_next_multiple = chart_y_limit_float + (multiple - 0.0001)
             next_multiple = int(number_to_get_next_multiple - (number_to_get_next_multiple % multiple))
-            Disk.da_upper_right_label.set_text(f'{next_multiple} {chart_y_limit_split[1]}')
+            Disk.da_upper_right_label.config(text=f'{next_multiple} {chart_y_limit_split[1]}')
             # "0.0000001"'s are used in order to avoid errors if values are tried to be divided by "0".
             # Update "chart_y_limit_dict" if multiple charts (devices) are drawn.
             if selected_device != "":
@@ -337,7 +354,7 @@ class Performance:
             # For example, 1.9999 (2-0.0001). This number is enough because maximum precision of the performance data is "3" (1.234 MiB/s).
             number_to_get_next_multiple = chart_y_limit_float + (multiple - 0.0001)
             next_multiple = int(number_to_get_next_multiple - (number_to_get_next_multiple % multiple))
-            Network.da_upper_right_label.set_text(f'{next_multiple} {chart_y_limit_split[1]}')
+            Network.da_upper_right_label.config(text=f'{next_multiple} {chart_y_limit_split[1]}')
             # "0.0000001"'s are used in order to avoid errors if values are tried to be divided by "0".
             # Update chart_y_limit_dict if multiple charts (devices) are drawn.
             if selected_device != "":
@@ -373,7 +390,7 @@ class Performance:
                 chart_y_limit_dict[device_name] = 100
 
         # Check if drawing will be for GPU tab (GPU memory).
-        elif widget_name == "da_gpu_memory":
+        elif widget_name == "da_gpu_memory_usage":
 
             # Get chart colors.
             chart_line_color = Config.chart_line_color_fps
@@ -487,7 +504,7 @@ class Performance:
                 chart_y_limit = max(list(chart_y_limit_dict.values()))
             chart_y_limit_str = f'{chart_y_limit_for_cpu_core}%'
             chart_y_limit_split = chart_y_limit_str
-            current_process_object.drawingarea_cpu_limit_label.set_text(chart_y_limit_split)
+            current_process_object.drawingarea_cpu_limit_label.config(text=chart_y_limit_split)
 
         # Check if drawing will be for Process Details window Memory tab.
         elif widget_name == "processes_details_da_memory_usage":
@@ -534,7 +551,7 @@ class Performance:
             # For example, 1.9999 (2-0.0001). This number is enough because maximum precision of the performance data is "3" (1.234 MiB/s).
             number_to_get_next_multiple = chart_y_limit_float + (multiple - 0.0001)
             next_multiple = int(number_to_get_next_multiple - (number_to_get_next_multiple % multiple))
-            current_process_object.drawingarea_memory_limit_label.set_text(f'{next_multiple} {chart_y_limit_split[1]}')
+            current_process_object.drawingarea_memory_limit_label.config(text=f'{next_multiple} {chart_y_limit_split[1]}')
             # "0.0000001"'s are used in order to avoid errors if values are tried to be divided by "0".
             # Update chart_y_limit_dict if multiple charts (devices) are drawn.
             if selected_device != "":
@@ -594,7 +611,7 @@ class Performance:
             # "0.0001" is used in order to take decimal part of the numbers into account. For example, 1.9999 (2-0.0001). This number is enough because maximum precision of the performance data is "3" (1.234 MiB/s).
             number_to_get_next_multiple = chart_y_limit_float + (multiple - 0.0001)
             next_multiple = int(number_to_get_next_multiple - (number_to_get_next_multiple % multiple))
-            current_process_object.drawingarea_disk_limit_label.set_text(f'{next_multiple} {chart_y_limit_split[1]}')
+            current_process_object.drawingarea_disk_limit_label.config(text=f'{next_multiple} {chart_y_limit_split[1]}')
             # "0.0000001"'s are used in order to avoid errors if values are tried to be divided by "0".
             # Update chart_y_limit_dict if multiple charts (devices) are drawn.
             if selected_device != "":
@@ -617,7 +634,11 @@ class Performance:
         chart_height = height
 
         # Get number of charts.
-        number_of_charts = len(device_name_list)
+        try:
+            number_of_charts = len(device_name_list)
+        # Prevent error during moving of the main window when Disks tab is opened.
+        except UnboundLocalError:
+            return
 
         # Get number of horizontal and vertical charts (per-device).
         for i in range(1, 1000):
@@ -871,7 +892,7 @@ class Performance:
                     performance_data1_at_point_text = f'{Libsysmon.data_unit_converter("speed", performance_network_speed_bit, performance_data1[device_name_to_line_highlight][chart_point_highlight], performance_network_data_unit, performance_network_data_precision)}/s'
                 elif widget_name == "da_gpu_usage":
                     performance_data1_at_point_text = f'{performance_data1[device_name_to_line_highlight][chart_point_highlight]:.0f} %'
-                elif widget_name == "da_gpu_memory":
+                elif widget_name == "da_gpu_memory_usage":
                     performance_data1_at_point_text = f'{performance_data1[device_name_to_line_highlight][chart_point_highlight]:.0f} %'
                 elif widget_name == "da_gpu_encoder_load":
                     performance_data1_at_point_text = f'{performance_data1[device_name_to_line_highlight][chart_point_highlight]:.0f} %'
@@ -899,7 +920,7 @@ class Performance:
                     performance_data2_at_point_text = f'- -{Libsysmon.data_unit_converter("speed", performance_network_speed_bit, performance_data2[device_name_to_line_highlight][chart_point_highlight], performance_network_data_unit, performance_network_data_precision)}/s'
                 elif widget_name == "da_gpu_usage":
                     performance_data2_at_point_text = f'- -{performance_data2[device_name_to_line_highlight][chart_point_highlight]:.0f} %'
-                elif widget_name == "da_gpu_memory":
+                elif widget_name == "da_gpu_memory_usage":
                     performance_data2_at_point_text = f'- -{performance_data2[device_name_to_line_highlight][chart_point_highlight]:.0f} %'
                 elif widget_name == "da_gpu_encoder_load":
                     performance_data2_at_point_text = f'- -{performance_data2[device_name_to_line_highlight][chart_point_highlight]:.0f} %'
@@ -992,48 +1013,66 @@ class Performance:
                     ctx.show_text(performance_data_at_point_text)
 
 
-    def performance_line_charts_enter_notify_event(self, event, x, y):
+        # Show Cairo context as image on label.
+        image_ref = ImageTk.PhotoImage(Image.frombuffer("RGBA", (chart_width, chart_height), surface1.get_data().tobytes(), "raw", "BGRa", surface1.get_stride()))
+        # Update label for showing the new image.
+        widget.configure(image=image_ref)
+        widget.image = image_ref
+        surface1 = None
+        image_ref = None
+
+
+    def performance_line_charts_enter_notify_event(self, event, widget_name):
         """
         Highlight performance chart line if mouse is moved onto the drawingarea.
         """
 
-        widget = event.get_widget()
+        widget = event.widget
         self.chart_line_highlight = widget
-        widget.queue_draw()
+        self.performance_line_charts_draw(widget, widget_name)
 
 
-    def performance_line_charts_leave_notify_event(self, event):
+    def performance_line_charts_leave_notify_event(self, event, widget_name):
         """
         Revert highlighted performance chart line if mouse is moved out of the drawingarea.
         """
 
-        widget = event.get_widget()
+        widget = event.widget
         try:
             self.chart_line_highlight = ""
         except ValueError:
             pass
-        widget.queue_draw()
+        self.performance_line_charts_draw(widget, widget_name)
 
 
-    def performance_line_charts_motion_notify_event(self, event, x, y):
+    def performance_line_charts_motion_notify_event(self, event, widget_name):
         """
         Highlight performance chart point and show performance data text if mouse is moved on the drawingarea.
         """
 
-        widget = event.get_widget()
+        widget = event.widget
 
         # Get mouse position on the x and y coordinates on the drawingarea.
-        self.mouse_position_x = x
-        self.mouse_position_y = y
+        self.mouse_position_x = event.x
+        self.mouse_position_y = event.y
 
         # Update the chart in order to show visual changes.
-        widget.queue_draw()
+        self.performance_line_charts_draw(widget, widget_name)
 
 
-    def performance_bar_charts_draw(self, widget, ctx, width, height, widget_name):
+    def performance_bar_charts_draw(self, widget, widget_name):
         """
         Draw performance data as bar chart.
         """
+
+        # Get drawingarea size.
+        widget.update()
+        width = widget.winfo_width()
+        height = widget.winfo_height()
+
+        surface1 = cairo.ImageSurface(cairo.FORMAT_ARGB32, width, height)
+        ctx = cairo.Context(surface1)
+
 
         # Check if drawing will be for Memory tab.
         if widget_name == "da_swap_usage":
@@ -1117,6 +1156,15 @@ class Performance:
         ctx.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.3 * chart_line_color[3])
         ctx.rectangle(0, 0, chart_width*performance_data1/chart_y_limit, chart_height)
         ctx.fill()
+
+
+        # Show Cairo context as image on label.
+        image_ref = ImageTk.PhotoImage(Image.frombuffer("RGBA", (chart_width, chart_height), surface1.get_data().tobytes(), "raw", "BGRa", surface1.get_stride()))
+        # Update label for showing the new image.
+        widget.configure(image=image_ref)
+        widget.image = image_ref
+        surface1 = None
+        image_ref = None
 
 
 Performance = Performance()

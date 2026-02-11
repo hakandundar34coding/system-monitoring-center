@@ -11,27 +11,59 @@ install_data([
 
 scalable_apps_theme_dir = join_paths('hicolor', 'scalable', 'apps')
 install_data([
-    'hicolor/scalable/apps/system-monitoring-center.svg',
+    'hicolor/scalable/apps/system-monitoring-center.png',
     ],
     install_dir: join_paths(pkgdatadir, 'icons', scalable_apps_theme_dir)
 )
 
-scalable_actions_theme_dir = join_paths('hicolor', 'scalable', 'actions')
+scalable_actions_theme_dir = join_paths('hicolor', 'scalable', 'actions', 'white')
 install_data([
-    'hicolor/scalable/actions/system-monitoring-center-cpu-symbolic.svg',
-    'hicolor/scalable/actions/system-monitoring-center-disk-hdd-symbolic.svg',
-    'hicolor/scalable/actions/system-monitoring-center-fan-symbolic.svg',
-    'hicolor/scalable/actions/system-monitoring-center-graphics-card-symbolic.svg',
-    'hicolor/scalable/actions/system-monitoring-center-network-symbolic.svg',
-    'hicolor/scalable/actions/system-monitoring-center-performance-symbolic.svg',
-    'hicolor/scalable/actions/system-monitoring-center-performance-symbolic.svg',
-    'hicolor/scalable/actions/system-monitoring-center-process-symbolic.svg',
-    'hicolor/scalable/actions/system-monitoring-center-ram-symbolic.svg',
-    'hicolor/scalable/actions/system-monitoring-center-services-symbolic.svg',
-    'hicolor/scalable/actions/system-monitoring-center-system-symbolic.svg',
-    'hicolor/scalable/actions/system-monitoring-center-temperature-symbolic.svg',
-    'hicolor/scalable/actions/system-monitoring-center-user-symbolic.svg',
-    'hicolor/scalable/actions/system-monitoring-center-voltage-symbolic.svg',
+    'hicolor/scalable/actions/white/smc-cpu.png',
+    'hicolor/scalable/actions/white/smc-customizations.png',
+    'hicolor/scalable/actions/white/smc-disk.png',
+    'hicolor/scalable/actions/white/smc-fan.png',
+    'hicolor/scalable/actions/white/smc-gpu.png',
+    'hicolor/scalable/actions/white/smc-info-about.png',
+    'hicolor/scalable/actions/white/smc-menu.png',
+    'hicolor/scalable/actions/white/smc-network.png',
+    'hicolor/scalable/actions/white/smc-performance.png',
+    'hicolor/scalable/actions/white/smc-process.png',
+    'hicolor/scalable/actions/white/smc-process-row.png',
+    'hicolor/scalable/actions/white/smc-ram.png',
+    'hicolor/scalable/actions/white/smc-reload.png',
+    'hicolor/scalable/actions/white/smc-search.png',
+    'hicolor/scalable/actions/white/smc-service.png',
+    'hicolor/scalable/actions/white/smc-service-row.png',
+    'hicolor/scalable/actions/white/smc-system.png',
+    'hicolor/scalable/actions/white/smc-temperature.png',
+    'hicolor/scalable/actions/white/smc-user.png',
+    'hicolor/scalable/actions/white/smc-voltage.png',
+    ],
+    install_dir: join_paths(pkgdatadir, 'icons', scalable_actions_theme_dir)
+)
+
+scalable_actions_theme_dir = join_paths('hicolor', 'scalable', 'actions', 'dark')
+install_data([
+    'hicolor/scalable/actions/dark/smc-cpu.png',
+    'hicolor/scalable/actions/dark/smc-customizations.png',
+    'hicolor/scalable/actions/dark/smc-disk.png',
+    'hicolor/scalable/actions/dark/smc-fan.png',
+    'hicolor/scalable/actions/dark/smc-gpu.png',
+    'hicolor/scalable/actions/dark/smc-info-about.png',
+    'hicolor/scalable/actions/dark/smc-menu.png',
+    'hicolor/scalable/actions/dark/smc-network.png',
+    'hicolor/scalable/actions/dark/smc-performance.png',
+    'hicolor/scalable/actions/dark/smc-process.png',
+    'hicolor/scalable/actions/dark/smc-process-row.png',
+    'hicolor/scalable/actions/dark/smc-ram.png',
+    'hicolor/scalable/actions/dark/smc-reload.png',
+    'hicolor/scalable/actions/dark/smc-search.png',
+    'hicolor/scalable/actions/dark/smc-service.png',
+    'hicolor/scalable/actions/dark/smc-service-row.png',
+    'hicolor/scalable/actions/dark/smc-system.png',
+    'hicolor/scalable/actions/dark/smc-temperature.png',
+    'hicolor/scalable/actions/dark/smc-user.png',
+    'hicolor/scalable/actions/dark/smc-voltage.png',
     ],
     install_dir: join_paths(pkgdatadir, 'icons', scalable_actions_theme_dir)
 )

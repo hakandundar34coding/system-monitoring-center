@@ -8,4 +8,5 @@ Icon=io.github.hakandundar34coding.system-monitoring-center
 Terminal=false
 Type=Application
 Categories=System;Utility;
-StartupNotify=true
+StartupNotify=false
+StartupWMClass=smc_window

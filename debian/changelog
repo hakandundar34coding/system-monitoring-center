@@ -1,3 +1,14 @@
+system-monitoring-center (3.0.0) unstable; urgency=medium
+
+  * New: Tk (Tkinter) is used for application GUI
+  * All tab settings are moved to Settings window
+  * Settings simplifications (removed color, precision settings)
+  * Simplified remember selected tab settings
+  * Multiprocessing is disabled for >= Python 3.14 (Services)
+  * Several code simplifications
+
+ -- Hakan Dündar <hakandundar34coding@gmail.com>  Mon, 02 Feb 2026 12:00:00 +0300
+
 system-monitoring-center (2.26.0) unstable; urgency=medium
 
   * New: Portage package count (System tab)

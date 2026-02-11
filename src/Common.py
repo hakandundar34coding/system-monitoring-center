@@ -1,43 +1,460 @@
-import gi
-gi.require_version('Gtk', '4.0')
-gi.require_version('Gdk', '4.0')
-gi.require_version('Gio', '2.0')
-gi.require_version('GObject', '2.0')
-gi.require_version('Pango', '1.0')
-from gi.repository import Gtk, Gdk, Gio, GObject, Pango
+import tkinter as tk
+from tkinter import ttk
+import tkinter.font
 
 import os
-import gettext
+import locale
 
 from .Config import Config
+from .Performance import Performance
+
+_tr = Config._tr
 
 
-def language_translation_support():
+def get_system_font():
     """
-    Configurations for language translation support.
+    Get system font and modified fonts.
     """
 
-    from .Main import localedir
-    if localedir == None:
-        localedir = os.path.dirname(os.path.realpath(__file__)) + "/../po/locale"
+    global font_system, font_bold_2x, font_bold_underlined, font_bold, font_underlined, font_small
 
-    if Config.language == "system":
-        application_language = os.environ.get("LANG")
-    else:
-        application_language = Config.language
+    # Get system font
+    font_system = tkinter.font.nametofont("TkDefaultFont")
+    #font_system = tkinter.font.Font(family="Cantarell", size=11)
+    #font_system_config = font_system.config()
+    font_system_config = font_system.actual()
+    font_system_family = font_system_config["family"]
+    font_system_size = font_system_config["size"]
+    font_system_weight = font_system_config["weight"]
+    font_system_slant = font_system_config["slant"]
+    font_system_underline = font_system_config["underline"]
+    font_system_overstrike = font_system_config["overstrike"]
 
-    global _tr
+    # Get modified fonts
+    font_bold_2x = tkinter.font.Font(family=font_system_family, size=2*font_system_size, weight="bold", slant=font_system_slant, underline=font_system_underline, overstrike=font_system_overstrike)
+    font_bold = tkinter.font.Font(family=font_system_family, size=font_system_size, weight="bold", slant=font_system_slant, underline=font_system_underline, overstrike=font_system_overstrike)
+    font_bold_underlined = tkinter.font.Font(family=font_system_family, size=font_system_size, weight="bold", slant=font_system_slant, underline=1, overstrike=font_system_overstrike)
+    font_underlined = tkinter.font.Font(family=font_system_family, size=font_system_size, weight=font_system_weight, slant=font_system_slant, underline=1, overstrike=font_system_overstrike)
+    font_small = tkinter.font.Font(family=font_system_family, size=int(font_system_size*0.9), weight=font_system_weight, slant=font_system_slant, underline=font_system_underline, overstrike=font_system_overstrike)
 
+
+def separate_thread(function, widget):
+    """
+    Run functions in a separate thread and show the result on the GUI.
+    """
+
+    import threading, queue
+
+    # Generate queue for getting result
+    queue = queue.Queue()
+    check_if_finished(queue, widget)
+
+    # Generate and start thread
+    threading.Thread(target=function, args=(queue,), daemon=True).start()
+
+
+def check_if_finished(_queue, widget):
+    """
+    Check the queue if there is a result.
+    Get the result if the thread is finished or rerun the check function if the thread is not finished.
+    """
+
+    import queue
     try:
-        language = gettext.translation('system-monitoring-center', localedir=localedir, languages=[application_language])
-        language.install()
-        _tr = language.gettext
-    # Prevent errors if there are problems with language installations on the system.
-    except Exception:
-        def _tr(text_for_translation):
-            return text_for_translation
+        result = _queue.get_nowait()
+        widget.config(text=result)
+    except queue.Empty:
+        widget.after(100, check_if_finished, _queue, widget)
 
-    Config._tr = _tr
+
+def main_tab_togglebutton(container, text, image_name, variable, value):
+    """
+    Generate main tab ToggleButton and its widgets.
+    """
+
+    # Image
+    _image = tk.PhotoImage(file=image_name)
+    _image = _image.subsample(2, 2)
+
+    # ToggleButton
+    _togglebutton = ttk.Radiobutton(container, image=_image, compound="top", text=text, style="Toggle.TButton", variable=variable, value=value)
+    _togglebutton.image = _image
+
+    if "font_system" not in globals():
+        get_system_font()
+
+    style = ttk.Style(container.winfo_toplevel())
+    style.configure("Toggle.TButton", font=font_bold)
+    #style.map("Toggle1.TButton", foreground=[('selected', 'cyan')])
+
+    return _togglebutton
+
+
+def sub_tab_togglebutton(container, text, image_name, variable, value):
+    """
+    Generate Performance tab sub-tab ToggleButton and its widgets.
+    """
+
+    # Image
+    _image = tk.PhotoImage(file=image_name)
+    _image = _image.subsample(2, 2)
+
+    # ToggleButton
+    _togglebutton = ttk.Radiobutton(container, image=_image, compound="left", text=text, style="Toggle_sub.TButton", variable=variable, value=value)
+    _togglebutton.image = _image
+
+    if "font_system" not in globals():
+        get_system_font()
+
+    style = ttk.Style(container.winfo_toplevel())
+    style.configure("Toggle_sub.TButton", anchor="w", font=font_bold)
+    style.map("Toggle_sub.TButton", foreground=[('selected', 'cyan')])
+
+    return _togglebutton
+
+
+def tab_main_frame(container):
+    """
+    Generate tab main frame.
+    """
+
+    _frame = ttk.Frame(container)
+    _frame.grid(row=0, column=0, sticky="nsew", padx=2, pady=2)
+    _frame.columnconfigure(0, weight=1)
+    _frame.rowconfigure(0, weight=1)
+
+    return _frame
+
+
+def tab_title_label(container, text):
+    """
+    Generate tab title Label.
+    """
+
+    if "font_system" not in globals():
+        get_system_font()
+
+    _label = ttk.Label(container, text=text, font=font_bold_2x)
+    _label.grid(row=0, column=0, rowspan=2, sticky="w", padx=(0, 60), pady=0)
+
+    return _label
+
+
+def device_vendor_model_label(container):
+    """
+    Generate device vendor model information Label.
+    """
+
+    if "font_system" not in globals():
+        get_system_font()
+
+    _label = ttk.Label(container, text="--", font=font_bold)
+    _label.grid(row=0, column=1, sticky="nw")
+
+    return _label
+
+
+def device_kernel_name_label(container):
+    """
+    Generate device kernel name information Label.
+    """
+
+    """_text = ttk.Entry(container, text="--", font=("", 0))
+    _text.insert("--")
+    _text.grid(row=0, column=0, sticky="w")
+    _text.configure(bg=master.cget("bg"), relief="flat")
+    _text.configure(state="readonly")"""
+
+    _label = ttk.Label(container, text="--")
+    _label.grid(row=1, column=1, sticky="nw")
+
+    return _label
+
+
+def da_upper_lower_label(container, text):
+    """
+    Generate Label above or below DrawingArea.
+    """
+
+    _label = ttk.Label(container, text=text, foreground="gray")
+
+    return _label
+
+
+def static_information_label(container, text):
+    """
+    Generate static information Label. This label is not updated.
+    """
+
+    _label = ttk.Label(container, text=text, anchor='w')
+
+    return _label
+
+
+def dynamic_information_label(container):
+    """
+    Generate dynamic information Label. This label is updated by the code.
+    """
+
+    if "font_system" not in globals():
+        get_system_font()
+
+    _label = ttk.Label(container, text="--", font=font_bold)
+
+    return _label
+
+
+def dynamic_information_label_wrap(container):
+    """
+    Generate dynamic information Label. This label is updated by the code.
+    """
+
+    if "font_system" not in globals():
+        get_system_font()
+
+    _label = ttk.Label(container, text="--", font=font_bold, wraplength=400)
+
+    return _label
+
+
+def bold_label(container, text):
+    """
+    Generate bold Label.
+    """
+
+    if "font_system" not in globals():
+        get_system_font()
+
+    _label = ttk.Label(container, text=text, font=font_bold)
+
+    return _label
+
+
+def link_label(container, text, link):
+    """
+    Generate link Label.
+    """
+
+    if "font_system" not in globals():
+        get_system_font()
+
+    import webbrowser
+
+    _label = ttk.Label(container, text=text, font=font_underlined, foreground="blue", cursor="hand2")
+    _label.bind("<ButtonRelease-1>", lambda e:webbrowser.open_new(link))
+    _tooltip = tooltip(_label, link)
+
+    return _label
+
+
+def clickable_label(container, function):
+    """
+    Generate clickable Label. Mouse cursor is changed when mouse hover action is performed.
+    """
+
+    if "font_system" not in globals():
+        get_system_font()
+
+    _label = ttk.Label(container, text=_tr("Show..."), font=font_bold_underlined, cursor="hand2")
+    _label.bind("<ButtonRelease-1>", function)
+
+    return _label
+
+
+def headerbar_label(container, text):
+    """
+    Generate Label for window HeaderBar.
+    """
+
+    if "font_system" not in globals():
+        get_system_font()
+
+    _label = ttk.Label(container, text=text, font=font_small)
+
+    return _label
+
+
+def styled_information_scrolledwindow(container, text1, tooltip1, text2, tooltip2):
+    """
+    Generate styled information Frame (labels, separators on it).
+    """
+
+    # Frame (text1 and text2)
+    _frame = ttk.Frame(container, style='Card.TFrame', padding=(6, 6, 6, 6))
+    _frame.columnconfigure((0, 1), weight=1, uniform="equal")
+
+    # Label (text1)
+    _label = static_information_label(_frame, text1)
+    _label.grid(row=0, column=0, padx=0, pady=(3, 0))
+
+    # Tooltip (text1)
+    if tooltip1 != None:
+        _tooltip = tooltip(_label, tooltip1)
+
+    # Label (text2)
+    _label = static_information_label(_frame, text2)
+    _label.grid(row=0, column=1, padx=0, pady=(3, 0))
+
+    # Tooltip (text2)
+    if tooltip2 != None:
+        _tooltip = tooltip(_label, tooltip2)
+
+    """_frame_for_separator = ttk.Frame(_frame, width=30, height=5)
+    _frame_for_separator.grid(row=1, column=0, sticky="ew", padx=0, pady=0)
+    _frame_for_separator.columnconfigure(0, weight=1)"""
+
+    # Separator (text1)
+    _separator = ttk.Separator(_frame, orient="horizontal")
+    _separator.grid(row=1, column=0, sticky="ew", padx=30, pady=2)
+
+    # Separator (text2)
+    _separator = ttk.Separator(_frame, orient="horizontal")
+    _separator.grid(row=1, column=1, sticky="ew", padx=30, pady=2)
+
+    # Label (text1)
+    label1 = dynamic_information_label(_frame)
+    label1.grid(row=2, column=0)
+
+    # Label (text1)
+    label2 = dynamic_information_label(_frame)
+    label2.grid(row=2, column=1)
+
+    return _frame, label1, label2
+
+
+def window(parent_window, window_title):
+    """
+    Generate window and add frame.
+    """
+
+    window = tk.Toplevel(parent_window)
+    # Keep the window on top of the main window
+    window.wm_transient(parent_window)
+    # Prevent usage of the main window
+    try:
+        window.grab_set()
+    except tk.TclError:
+        # Wait until window is shown. Otherwise it gives error if grab_set is used for windows that opened with double click.
+        window.wait_visibility()
+        window.grab_set()
+    #window.resizable(False, False)
+    window.title(window_title)
+    window.minsize(300, 300)
+    #self.disk_details_window.maxsize(300, 300)
+
+    # Frame (Main)
+    main_frame = ttk.Frame(window, style="Card.TFrame")
+    main_frame.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
+
+    frame = ttk.Frame(main_frame)
+    frame.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
+
+    return window, frame
+
+
+def tooltip(widget, text):
+    """
+    Generate a tooltip for widgets.
+    "overrideredirect" is used for hiding window decorations.
+    "wraplength" is used for splitting long texts into multiple lines.
+    "justify" is used for aligning the text if it is splitted.
+    "background", "borderwidth" and "padx, pady" are used for showing a different colored border around the tooltip.
+    """
+
+    def on_enter(event):
+
+        global _tooltip
+        _tooltip = tk.Toplevel(background="gray")
+        _tooltip.overrideredirect(True)
+        _tooltip.geometry("+" + str(event.x_root+15) + "+" + str(event.y_root+10))
+
+        _tooltip.bind('<ButtonPress>', destroy_tooltip)
+
+        label = tk.Label(_tooltip, text=text, borderwidth=8, wraplength=400, justify="left")
+        label.grid(row=0, column=0, sticky="nsew", padx=1, pady=1)
+
+    def destroy_tooltip(event):
+
+        global _tooltip
+        try:
+            _tooltip.destroy()
+        except (AttributeError, NameError):
+            pass
+        _tooltip = None
+
+    if text != "":
+        widget.bind('<Enter>', on_enter)
+        widget.bind('<Leave>', destroy_tooltip)
+        widget.bind("<ButtonPress>", destroy_tooltip)
+        widget.bind("<Key>", destroy_tooltip)
+
+
+def drawingarea(container, widget_name):
+    """
+    Generate drawingarea and connect signals.
+    """
+
+    _drawingarea = ttk.Label(container)
+    _drawingarea.bind('<Enter>', lambda event: Performance.performance_line_charts_enter_notify_event(event, widget_name))
+    _drawingarea.bind('<Leave>', lambda event: Performance.performance_line_charts_leave_notify_event(event, widget_name))
+    _drawingarea.bind("<Motion>", lambda event: Performance.performance_line_charts_motion_notify_event(event, widget_name))
+
+    return _drawingarea
+
+
+def radiobutton(container, text, variable, value, command):
+
+    _radiobutton = ttk.Radiobutton(container, text=text, variable=variable, value=value, command=command)
+
+    return _radiobutton
+
+
+def checkbutton(container, text, variable, command):
+
+    _checkbutton = ttk.Checkbutton(container, text=text, variable=variable, command=command)
+
+    return _checkbutton
+
+
+def reset_button(container):
+
+    _button = ttk.Button(container, text=_tr("Reset"))
+
+    return _button
+
+
+def refresh_button(container, image_name):
+
+    _image = tk.PhotoImage(file=image_name)
+    _image = _image.subsample(3, 3)
+    _button = ttk.Button(container, image=_image)
+    _button.image = _image
+    _tooltip = tooltip(_button, _tr("Refresh the data on this tab"))
+
+    return _button
+
+
+def popover_update_position(menu_po, MainWindow):
+    """
+    Update Popover position fot matching it MenuButton after its GUI is generated.
+    """
+
+    # Get menubutton coordinates for using them for popover coordinates.
+    menubutton_position_x = MainWindow.tab_menu_menubutton.winfo_rootx()
+    menubutton_position_y = MainWindow.tab_menu_menubutton.winfo_rooty()
+    menubutton_width = MainWindow.tab_menu_menubutton.winfo_width()
+    menubutton_heigh = MainWindow.tab_menu_menubutton.winfo_height()
+
+    popover_position_x = int(menubutton_position_x + menubutton_width / 2)
+    popover_position_y = int(menubutton_position_y + menubutton_heigh + 5)
+
+    # Update popover position by using its width.
+    menu_po.update()
+    menu_po_width = menu_po.winfo_width()
+    menu_po_heigh = menu_po.winfo_height()
+    popover_position_x = int(menubutton_position_x + menubutton_width / 2 - menu_po_width / 2)
+    popover_position_y = int(menubutton_position_y + menubutton_heigh + 5)
+    menu_po.geometry("+" + str(popover_position_x) + "+" + str(popover_position_y))
 
 
 def save_tab_settings(TabObject):
@@ -50,1019 +467,514 @@ def save_tab_settings(TabObject):
     Config.config_save_func()
 
 
-def update_tab_and_menu_gui(MenuObject, TabObject):
+def update_tab_and_menu_gui(func, TabObject):
     """
     Update current tab GUI and menu of the current tab.
     """
 
     TabObject.initial_func()
     TabObject.loop_func()
-
-    try:
-        MenuObject.disconnect_signals()
-        MenuObject.set_gui()
-        MenuObject.connect_signals()
-    # Prevent errors if current tab menu does not have functions for
-    # setting GUI, disconnecting and connecting signals.
-    except AttributeError:
-        pass
+    func()
 
 
-class ListStoreItem(GObject.Object):
-    __gtype_name__ = 'ListStoreItem'
-
-    def __init__(self, item_name):
-        super().__init__()
-
-        self._item_name = item_name
-
-    @GObject.Property
-    def item_name(self):
-        return self._item_name
-
-
-def dropdown_model(item_list):
+def searchentry(container, TabObject):
     """
-    Generate a model (ListStore) and add items to model.
+    Generate searchentry by using an Entry and define its variable for text changed event.
     """
 
-    model = Gio.ListStore(item_type=ListStoreItem)
-    for line_data in item_list:
-        model.append(ListStoreItem(item_name=line_data))
+    # Text variable of Entry
+    _text_variable = tk.StringVar()
+    _text_variable.trace_add("write", lambda name, index, mode, _text_variable=_text_variable: on_searchentry_changed(_text_variable, TabObject))
 
-    return model
+    # Entry
+    _searchentry = ttk.Entry(container, textvariable=_text_variable)
+    _searchentry.grid(row=0, column=0, sticky="nsew", padx=0, pady=0)
+    _searchentry.delete(0, "end")
+    #_searchentry.insert(0, " " + _tr("Search...") + " ")
+
+    _searchentry.bind("<FocusIn>", lambda event: on_searchentry_focus_in(event, TabObject))
+    _searchentry.bind("<FocusOut>", lambda event: on_searchentry_focus_out(event, TabObject))
+
+    return _searchentry, _text_variable
 
 
-def dropdown_signal_list_item_factory():
+def searchentry_focus(event):
     """
-    Generate and connect DropDown signals.
-    """
-
-    factory = Gtk.SignalListItemFactory()
-    factory.connect("setup", on_list_item_factory_setup)
-    factory.connect("bind", on_list_item_factory_bind)
-
-    return factory
-
-
-def on_list_item_factory_setup(factory, list_item):
-    """
-    Generate child widget of the list item.
-    This widget can be simple or complex widget.
+    Focus tab Eearchentry.
     """
 
-    label = Gtk.Label()
-    label.set_halign(Gtk.Align.START)
-    list_item.set_child(label)
-
-
-def on_list_item_factory_bind(factory, list_item):
-    """
-    Bind the list item to the row widget.
-    """
-
-    label = list_item.get_child()
-    list_data = list_item.get_item()
-    label.set_label(str(list_data.item_name))
-
-
-def main_tab_togglebutton(text, image_name):
-    """
-    Generate main tab ToggleButton and its widgets.
-    """
-
-    # ToggleButton
-    togglebutton = Gtk.ToggleButton()
-    togglebutton.set_group(None)
-
-    # Grid
-    grid = Gtk.Grid.new()
-    grid.set_row_homogeneous(True)
-    grid.set_halign(Gtk.Align.CENTER)
-    grid.set_valign(Gtk.Align.CENTER)
-    togglebutton.set_child(grid)
-
-    # Image
-    image = Gtk.Image()
-    image.set_from_icon_name(image_name)
-    image.set_pixel_size(24)
-    grid.attach(image, 0, 0, 1, 1)
-
-    # Label
-    label = Gtk.Label()
-    label.set_ellipsize(Pango.EllipsizeMode.END)
-    label.set_label(text)
-    grid.attach(label, 0, 1, 1, 1)
-
-    return togglebutton
-
-
-def sub_tab_togglebutton(text, image_name):
-    """
-    Generate Performance tab sub-tab ToggleButton and its widgets.
-    """
-
-    # ToggleButton
-    togglebutton = Gtk.ToggleButton()
-    togglebutton.set_group(None)
-
-    # Grid
-    grid = Gtk.Grid.new()
-    grid.set_column_spacing(3)
-    grid.set_valign(Gtk.Align.CENTER)
-    grid.set_margin_top(2)
-    grid.set_margin_bottom(2)
-    togglebutton.set_child(grid)
-
-    # Image
-    image = Gtk.Image()
-    image.set_from_icon_name(image_name)
-    image.set_pixel_size(24)
-    grid.attach(image, 0, 0, 1, 1)
-
-    # Label
-    label = Gtk.Label()
-    label.set_label(text)
-    grid.attach(label, 1, 0, 1, 1)
-
-    return togglebutton
-
-
-def reset_button():
-    """
-    Generate "Reset" button for menus and settings window.
-    """
-
-    button = Gtk.Button()
-    button.set_label(_tr("Reset"))
-    button.set_halign(Gtk.Align.CENTER)
-
-    return button
-
-
-def refresh_button(function):
-    """
-    Generate "Refresh" button.
-    """
-
-    refresh_button = Gtk.Button()
-    refresh_button.set_tooltip_text(_tr("Refresh the data on this tab"))
-    refresh_button.set_hexpand(True)
-    refresh_button.set_halign(Gtk.Align.END)
-    refresh_button.set_valign(Gtk.Align.CENTER)
-    refresh_button.set_icon_name("view-refresh-symbolic")
-
-    refresh_button.connect("clicked", function)
-
-    return refresh_button
-
-
-def graph_color_button(TabMenuObject):
-    """
-    Generate "Graph Color" button for menus.
-    """
-
-    button = Gtk.Button()
-    button.set_label(_tr("Graph Color"))
-    button.set_halign(Gtk.Align.CENTER)
-
-    button.connect("clicked", on_graph_color_button_clicked, TabMenuObject)
-
-    return button
-
-
-def on_graph_color_button_clicked(widget, TabMenuObject):
-    """
-    Change graph foreground color.
-    Also get current foreground color of the graph and set it as selected color of the dialog.
-    """
-
-    # Generate a ColorChooserDialog
-    main_window = widget.get_root()
-    if 'colorchooserdialog' not in globals():
-        global colorchooserdialog
-        colorchooserdialog = Gtk.ColorChooserDialog().new(title=_tr("Graph Color"), parent=main_window)
-        colorchooserdialog.set_modal(True)
-    # Disconnect and connect ColorChooserDialog response signal to pass current tab object every time.
-    try:
-        colorchooserdialog.disconnect_by_func(on_colorchooserdialog_response)
-    except TypeError:
-        pass
-    colorchooserdialog.connect("response", on_colorchooserdialog_response, TabMenuObject)
-
-    # Get graph color of the tab
-    if TabMenuObject.name == "CpuMenu":
-        tab_graph_color = Config.chart_line_color_cpu_percent
-    elif TabMenuObject.name == "MemoryMenu":
-        tab_graph_color = Config.chart_line_color_memory_percent
-    elif TabMenuObject.name == "DiskMenu":
-        tab_graph_color = Config.chart_line_color_disk_speed_usage
-    elif TabMenuObject.name == "NetworkMenu":
-        tab_graph_color = Config.chart_line_color_network_speed_data
-    elif TabMenuObject.name == "GpuMenu":
-        tab_graph_color = Config.chart_line_color_fps
-
-    # Set selected color on the ColorChooserDialog
-    color = Gdk.RGBA()
-    color.red, color.green, color.blue, color.alpha = tab_graph_color
-    colorchooserdialog.set_rgba(color)
-
-    # Show the ColorChooserDialog
-    TabMenuObject.menu_po.popdown()
-    colorchooserdialog.present()
-
-
-def on_colorchooserdialog_response(widget, response, TabMenuObject):
-    """
-    Get selected color, apply it to graph and save it.
-    Dialog have to be hidden for "Cancel" response.
-    """
-
-    colorchooserdialog.set_visible(False)
-
-    if response == Gtk.ResponseType.OK:
-
-        # Get the selected color
-        selected_color = colorchooserdialog.get_rgba()
-        tab_graph_color = [selected_color.red, selected_color.green, selected_color.blue, selected_color.alpha]
-
-        # Set graph color of the tab and apply changes immediately (without waiting update interval)
-        if TabMenuObject.name == "CpuMenu":
-            Config.chart_line_color_cpu_percent = tab_graph_color
-            from .Cpu import Cpu
-            Cpu.initial_func()
-            Cpu.loop_func()
-        elif TabMenuObject.name == "MemoryMenu":
-            Config.chart_line_color_memory_percent = tab_graph_color
-            from .Memory import Memory
-            Memory.initial_func()
-            Memory.loop_func()
-        elif TabMenuObject.name == "DiskMenu":
-            Config.chart_line_color_disk_speed_usage = tab_graph_color
-            from .Disk import Disk
-            Disk.initial_func()
-            Disk.loop_func()
-        elif TabMenuObject.name == "NetworkMenu":
-            Config.chart_line_color_network_speed_data = tab_graph_color
-            from .Network import Network
-            Network.initial_func()
-            Network.loop_func()
-        elif TabMenuObject.name == "GpuMenu":
-            Config.chart_line_color_fps = tab_graph_color
-            from .Gpu import Gpu
-            Gpu.initial_func()
-            Gpu.loop_func()
-        Config.config_save_func()
-
-
-def drawingarea(drawing_function, drawingarea_tag):
-    """
-    Generate DrawingArea, set drawing function and connect mouse events.
-    """
-
-    drawingarea = Gtk.DrawingArea()
-    drawingarea.set_hexpand(True)
-    drawingarea.set_vexpand(True)
-
-    # Set drawing function
-    if drawingarea_tag == "da_summary":
-        drawingarea.set_draw_func(drawing_function)
-    else:
-        drawingarea.set_draw_func(drawing_function, drawingarea_tag)
-
-    # Drawingarea mouse events
-    if drawingarea_tag in ["da_cpu_usage", "da_memory_usage", "da_disk_speed", "da_network_speed", "da_gpu_usage", "da_gpu_memory",
-                           "da_gpu_encoder_load", "da_gpu_decoder_load", "processes_details_da_cpu_usage", "processes_details_da_memory_usage",
-                           "processes_details_da_disk_speed"]:
-        from .Performance import Performance
-        drawingarea_mouse_event = Gtk.EventControllerMotion()
-        drawingarea_mouse_event.connect("enter", Performance.performance_line_charts_enter_notify_event)
-        drawingarea_mouse_event.connect("leave", Performance.performance_line_charts_leave_notify_event)
-        drawingarea_mouse_event.connect("motion", Performance.performance_line_charts_motion_notify_event)
-        drawingarea.add_controller(drawingarea_mouse_event)
-
-    return drawingarea
-
-
-def dropdown_and_model(item_list):
-    """
-    Generate DropDown and its model.
-    """
-
-    dropdown = Gtk.DropDown()
-
-    # Model
-    model = dropdown_model(item_list)
-    factory = dropdown_signal_list_item_factory()
-    dropdown.set_model(model)
-    dropdown.set_factory(factory)
-
-    return dropdown
-
-
-def text_attribute_bold_2x():
-    """
-    Define text attributes for bold and 2x labels.
-    """
-
-    global attribute_list_bold_2x
-
-    attribute_list_bold_2x = Pango.AttrList()
-    attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
-    attribute_list_bold_2x.insert(attribute)
-    attribute = Pango.attr_scale_new(2.0)
-    attribute_list_bold_2x.insert(attribute)
-
-
-def text_attribute_bold_underlined():
-    """
-    Define text attributes for bold and underlined labels.
-    """
-
-    global attribute_list_bold_underlined
-
-    attribute_list_bold_underlined = Pango.AttrList()
-    attribute = Pango.attr_weight_new(Pango.Weight.BOLD)
-    attribute_list_bold_underlined.insert(attribute)
-    attribute = Pango.attr_underline_new(Pango.Underline.SINGLE)
-    attribute_list_bold_underlined.insert(attribute)
-
-
-def tab_title_label(text):
-
-    if 'attribute_list_bold_2x' not in globals():
-        text_attribute_bold_2x()
-
-    label = Gtk.Label()
-    label.set_halign(Gtk.Align.START)
-    label.set_valign(Gtk.Align.CENTER)
-    label.set_margin_end(60)
-    label.set_attributes(attribute_list_bold_2x)
-    #label.add_css_class("title-1")
-    label.set_label(text)
-
-    return label
-
-
-def title_label(text):
-
-    label = Gtk.Label()
-    label.set_halign(Gtk.Align.START)
-    label.add_css_class("heading")
-    label.set_label(text)
-
-    return label
-
-
-def menu_title_label(text):
-
-    label = Gtk.Label()
-    label.set_halign(Gtk.Align.CENTER)
-    label.set_margin_bottom(10)
-    label.add_css_class("heading")
-    label.set_label(text)
-
-    return label
-
-
-def device_vendor_model_label():
-
-    label = Gtk.Label()
-    label.set_halign(Gtk.Align.START)
-    label.set_selectable(True)
-    label.set_ellipsize(Pango.EllipsizeMode.END)
-    label.add_css_class("heading")
-    label.set_label("--")
-
-    return label
-
-
-def device_kernel_name_label():
-
-    label = Gtk.Label()
-    label.set_halign(Gtk.Align.START)
-    label.set_selectable(True)
-    label.set_ellipsize(Pango.EllipsizeMode.END)
-    label.set_label("--")
-
-    return label
-
-
-def static_information_label(text):
-    """
-    Generate static information Label. This label is not updated.
-    """
-
-    label = Gtk.Label()
-    label.set_ellipsize(Pango.EllipsizeMode.END)
-    label.set_halign(Gtk.Align.START)
-    label.set_label(text)
-
-    return label
-
-
-def static_information_bold_label(text):
-
-    label = Gtk.Label()
-    label.set_ellipsize(Pango.EllipsizeMode.END)
-    label.set_halign(Gtk.Align.START)
-    label.add_css_class("heading")
-    label.set_label(text)
-
-    return label
-
-
-def static_information_label_no_ellipsize(text):
-    """
-    Generate static information Label. This label is not updated.
-    """
-
-    label = Gtk.Label()
-    label.set_halign(Gtk.Align.START)
-    label.set_label(text)
-
-    return label
-
-
-def static_information_label_wrap_selectable(text):
-    """
-    Generate static information Label. This label is not updated.
-    """
-
-    label = Gtk.Label()
-    label.set_wrap(True)
-    label.set_selectable(True)
-    label.set_halign(Gtk.Align.START)
-    label.set_label(text)
-
-    return label
-
-
-def dynamic_information_label():
-    """
-    Generate dynamic information Label. This label is updated by the code.
-    """
-
-    label = Gtk.Label()
-    label.set_selectable(True)
-    label.set_ellipsize(Pango.EllipsizeMode.END)
-    label.set_halign(Gtk.Align.START)
-    label.add_css_class("heading")
-    label.set_label("--")
-
-    return label
-
-
-def clickable_label(text, function):
-    """
-    Generate clickable Label. Mouse cursor is changed when mouse hover action is performed.
-    """
-
-    if 'attribute_list_bold_underlined' not in globals():
-        text_attribute_bold_underlined()
-
-    label = Gtk.Label()
-    label.set_attributes(attribute_list_bold_underlined)
-    label.set_ellipsize(Pango.EllipsizeMode.END)
-    label.set_halign(Gtk.Align.START)
-    label.set_label(text)
-    cursor_link = Gdk.Cursor.new_from_name("pointer")
-    label.set_cursor(cursor_link)
-
-    # Label mouse events. Definition of separate events are required for different widgets.
-    mouse_event = Gtk.GestureClick()
-    mouse_event.connect("released", function)
-    label.add_controller(mouse_event)
-
-    return label
-
-
-def da_upper_lower_label(text, alignment):
-    """
-    Generate Label above or below DrawingArea.
-    """
-
-    label = Gtk.Label()
-    label.set_halign(alignment)
-    label.set_ellipsize(Pango.EllipsizeMode.END)
-    label.add_css_class("dim-label")
-    label.set_label(text)
-
-    return label
-
-
-def performance_summary_headerbar_label(text):
-
-    label = Gtk.Label()
-    label.set_halign(Gtk.Align.START)
-    label.add_css_class("caption")
-    label.set_label(text)
-
-    return label
-
-
-def menu_separator():
-
-    separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-    separator.set_margin_top(3)
-    separator.set_margin_bottom(3)
-
-    return separator
-
-
-def settings_window_separator():
-
-    separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-    separator.set_margin_top(5)
-    separator.set_margin_bottom(5)
-
-    return separator
-
-
-def performance_info_grid():
-    """
-    Generate grid for performance information labels, drawingareas (bar), etc. on CPU, Disk, Network, GPU tabs.
-    """
-
-    grid = Gtk.Grid()
-    grid.set_column_homogeneous(True)
-    grid.set_row_homogeneous(True)
-    grid.set_column_spacing(12)
-    grid.set_row_spacing(10)
-
-    return grid
-
-
-def performance_info_right_grid():
-    """
-    Generate grid for performance information labels (right side) on CPU, Disk, Network, GPU tabs.
-    """
-
-    grid = Gtk.Grid()
-    grid.set_column_homogeneous(True)
-    grid.set_row_homogeneous(True)
-    grid.set_column_spacing(2)
-    grid.set_row_spacing(4)
-
-    return grid
-
-
-def tab_grid():
-    """
-    Generate tab Grid (root widget of the tab in the tab module).
-    """
-
-    tab_grid = Gtk.Grid()
-    tab_grid.set_row_spacing(10)
-    tab_grid.set_margin_top(2)
-    tab_grid.set_margin_bottom(2)
-    tab_grid.set_margin_start(2)
-    tab_grid.set_margin_end(2)
-
-    return tab_grid
-
-
-def menu_main_grid():
-    """
-    Generate menu main Grid.
-    """
-
-    main_grid = Gtk.Grid()
-    main_grid.set_row_spacing(2)
-    main_grid.set_margin_top(2)
-    main_grid.set_margin_bottom(2)
-    main_grid.set_margin_start(2)
-    main_grid.set_margin_end(2)
-
-    return main_grid
-
-
-def window_main_grid():
-    """
-    Generate window main Grid.
-    """
-
-    main_grid = Gtk.Grid.new()
-    main_grid.set_margin_top(10)
-    main_grid.set_margin_bottom(10)
-    main_grid.set_margin_start(10)
-    main_grid.set_margin_end(10)
-    main_grid.set_column_spacing(10)
-    main_grid.set_row_spacing(5)
-
-    return main_grid
-
-
-def window_main_scrolledwindow():
-    """
-    Generate window main ScroledWindow.
-    """
-
-    scrolledwindow = Gtk.ScrolledWindow()
-    scrolledwindow.set_has_frame(True)
-    scrolledwindow.set_hexpand(True)
-    scrolledwindow.set_vexpand(True)
-    scrolledwindow.set_margin_top(10)
-    scrolledwindow.set_margin_bottom(10)
-    scrolledwindow.set_margin_start(10)
-    scrolledwindow.set_margin_end(10)
-
-    return scrolledwindow
-
-
-def style_provider_scrolledwindow_separator():
-    """
-    Define style provider for ScrolledWindow and Separator on for styled information.
-    """
-
-    global style_provider_scrolledwindow, style_provider_separator
-
-    # Define style provider for scrolledwindow for border radius.
-    style_provider_scrolledwindow = Gtk.CssProvider()
-    try:
-        css = b"scrolledwindow {border-radius: 8px 8px 8px 8px;}"
-        style_provider_scrolledwindow.load_from_data(css)
-    except Exception:
-        css = "scrolledwindow {border-radius: 8px 8px 8px 8px;}"
-        style_provider_scrolledwindow.load_from_data(css, len(css))
-
-    # Add separators for showing lines with contrast colors between some the performance data and set color of the separators.
-    style_provider_separator = Gtk.CssProvider()
-    try:
-        css = b"separator {background: rgba(50%,50%,50%,0.6);}"
-        style_provider_separator.load_from_data(css)
-    except Exception:
-        css = "separator {background: rgba(50%,50%,50%,0.6);}"
-        style_provider_separator.load_from_data(css, len(css))
-
-
-def styled_information_scrolledwindow(text1, tooltip1, text2, tooltip2):
-    """
-    Generate styled information ScrolledWindow (grid, labels, separators on it).
-    """
-
-    if 'style_provider_scrolledwindow' not in globals() or 'style_provider_separator' not in globals():
-        style_provider_scrolledwindow_separator()
-
-    # ScrolledWindow (text1 and text2)
-    scrolledwindow = Gtk.ScrolledWindow()
-    scrolledwindow.set_has_frame(True)
-    scrolledwindow.get_style_context().add_provider(style_provider_scrolledwindow, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-    scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
-
-    # Grid (text1 and text2)
-    grid = Gtk.Grid()
-    grid.set_column_homogeneous(True)
-    grid.set_row_spacing(3)
-    grid.set_margin_top(5)
-    grid.set_margin_bottom(5)
-    grid.set_margin_start(5)
-    grid.set_margin_end(5)
-    grid.set_valign(Gtk.Align.CENTER)
-    scrolledwindow.set_child(grid)
-
-    # Label (text1)
-    label = static_information_label(text1)
-    if tooltip1 != None:
-        label.set_tooltip_text(tooltip1)
-    label.set_halign(Gtk.Align.CENTER)
-    grid.attach(label, 0, 0, 1, 1)
-
-    # Label (text2)
-    label = static_information_label(text2)
-    if tooltip2 != None:
-        label.set_tooltip_text(tooltip2)
-    label.set_halign(Gtk.Align.CENTER)
-    grid.attach(label, 1, 0, 1, 1)
-
-    # Separator
-    separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-    separator.set_halign(Gtk.Align.CENTER)
-    separator.set_valign(Gtk.Align.CENTER)
-    separator.set_size_request(60, -1)
-    separator.get_style_context().add_provider(style_provider_separator, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-    grid.attach(separator, 0, 1, 1, 1)
-
-    # Separator
-    separator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-    separator.set_halign(Gtk.Align.CENTER)
-    separator.set_valign(Gtk.Align.CENTER)
-    separator.set_size_request(60, -1)
-    separator.get_style_context().add_provider(style_provider_separator, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-    grid.attach(separator, 1, 1, 1, 1)
-
-    # Label (text1)
-    label1 = dynamic_information_label()
-    label1.set_halign(Gtk.Align.CENTER)
-    grid.attach(label1, 0, 2, 1, 1)
-
-    # Label (text2)
-    label2 = dynamic_information_label()
-    label2.set_halign(Gtk.Align.CENTER)
-    grid.attach(label2, 1, 2, 1, 1)
-
-    return scrolledwindow, label1, label2
-
-
-def main_window_actions_and_accelerators(main_window_object):
-    """
-    Define actions and accelerators for main window.
-    """
-
-    MainWindow = main_window_object
-
-    # Prevent defining action and accelerator if they were defined before.
-    action = MainWindow.main_window.lookup_action("refresh_tab")
-    if action != None:
-        return
-
-    # Tab refresh action
-    action = Gio.SimpleAction.new("refresh_tab", None)
-    action.connect("activate", current_tab_refresh, main_window_object)
-    MainWindow.main_window.add_action(action)
-
-    # Accelerator for tab refresh action
-    application = MainWindow.main_window.get_application()
-    application.set_accels_for_action("win.refresh_tab", ["F5"])
-
-
-def current_tab_refresh(action, parameter, main_window_object):
-    """
-    Refreshes current tab. This function is called if "F5" button is pressed.
-    """
-
-    # Prevent refreshing current tab very frequently for preventing GUI freeze
-    # if refresh button is pressed for a long time.
     if Config.current_main_tab == 0:
-        if Config.performance_tab_current_sub_tab in [0, 1, 2, 3, 4]:
-            tab_refresh_time_difference = 0.2
-        elif Config.performance_tab_current_sub_tab in [5, 6]:
-            tab_refresh_time_difference = 0.35
-    elif Config.current_main_tab in [1, 2]:
-        tab_refresh_time_difference = 0.35
-    elif Config.current_main_tab in [3, 4]:
-        tab_refresh_time_difference = 1
-
-    import time
-    tab_refresh_time_current = time.time()
-    global tab_refresh_time_prev
-    try:
-        if tab_refresh_time_current - tab_refresh_time_prev < tab_refresh_time_difference:
-            return
-    except NameError:
-        pass
-    tab_refresh_time_prev = tab_refresh_time_current
-
-    # Reset "loop_already_run" values of Services and System tab for refreshing them.
-    # These tabs are not refreshed on every main loop of the application if these values are "1".
-    if Config.current_main_tab == 3:
-        from .Services import Services
-        Services.loop_already_run = 0
-    elif Config.current_main_tab == 4:
-        from .System import System
-        System.loop_already_run = 0
-
-    MainWindow = main_window_object
-    MainWindow.main_gui_tab_loop()
-
-
-def searchentry(function):
-
-    searchentry = Gtk.SearchEntry()
-    searchentry.props.placeholder_text = _tr("Search...")
-    searchentry.set_max_width_chars(100)
-    searchentry.set_hexpand(True)
-    searchentry.set_halign(Gtk.Align.CENTER)
-    searchentry.set_valign(Gtk.Align.CENTER)
-
-    searchentry.connect("changed", function)
-
-    return searchentry
-
-
-def searchentry_focus_action_and_accelerator(main_window_object):
-    """
-    Define action and accelerator for focus of SearchEntry widgets. They will be called if "Ctrl+F" buttons are pressed.
-    """
-
-    MainWindow = main_window_object
-
-    # Prevent defining action and accelerator if they were defined before.
-    action = MainWindow.main_window.lookup_action("searchentry_focus")
-    if action != None:
-        return
-
-    # SearchEntry focus action
-    action = Gio.SimpleAction.new("searchentry_focus", None)
-    action.connect("activate", searchentry_grab_focus)
-    MainWindow.main_window.add_action(action)
-
-    # Accelerator for SearchEntry focus action
-    application = MainWindow.main_window.get_application()
-    application.set_accels_for_action("win.searchentry_focus", ["<Control>F"])
-
-
-def searchentry_grab_focus(action, parameter):
-    """
-    Sets focus for the SearchEntry. This function is called if "Ctrl+F" buttons are pressed.
-    """
-
-    # Get SearchEntry for focusing. This function is called on every tab.
-    # Because the accelerator is defined for window for a simpler code.
-    if Config.current_main_tab == 0 and Config.performance_tab_current_sub_tab == 6:
-        from .Sensors import Sensors
-        searchentry = Sensors.searchentry
+        if Config.performance_tab_current_sub_tab == 6:
+            from .Sensors import Sensors
+            Sensors.searchentry.focus_set()
     elif Config.current_main_tab == 1:
         from .Processes import Processes
-        searchentry = Processes.searchentry
+        Processes.searchentry.focus_set()
     elif Config.current_main_tab == 2:
         from .Users import Users
-        searchentry = Users.searchentry
+        Users.searchentry.focus_set()
     elif Config.current_main_tab == 3:
         from .Services import Services
-        searchentry = Services.searchentry
-    else:
-        return
-
-    searchentry.grab_focus()
+        Services.searchentry.focus_set()
 
 
-def searchentry_update_placeholder_text(TabObject, row_type):
+def on_searchentry_focus_in(event, TabObject):
     """
-    Update placeholder text (row count) on SearchEntry.
+    Clear placeholder text if searchentry is focused in and placeholder text is in it.
+    """
+
+    # Get search text
+    searchentry = TabObject.searchentry
+    searchentry_text_var = TabObject.searchentry_text_var
+    row_count = TabObject.row_count
+    row_information = TabObject.row_information
+
+    search_text = searchentry_text_var.get()
+    placeholder_text = _tr("Search...") + "                    " + "(" + row_information + ": " + str(row_count) + ")"
+
+    # Clear placeholder text if SearchEntry is clicked.
+    if search_text == placeholder_text:
+        searchentry.delete(0, "end")
+    if search_text == "":
+        searchentry.delete(0, "end")
+    if search_text.startswith(_tr("Search...") + "                    " + "("):
+        searchentry.delete(0, "end")
+
+
+def on_searchentry_focus_out(event, TabObject):
+    """
+    Call searchentry placeholder text function for setting placeholder text without waiting tab loop funciton.
+    """
+
+    searchentry_placeholder_text(TabObject)
+
+
+def on_searchentry_changed(searchentry_text_var, TabObject):
+    """
+    Called by searchentry when its text is changed.
     """
 
     searchentry = TabObject.searchentry
-    tab_data_rows = TabObject.tab_data_rows
+    searchentry_text_var = TabObject.searchentry_text_var
+    row_count = TabObject.row_count
+    row_information = TabObject.row_information
 
-    searchentry.props.placeholder_text = _tr("Search...") + "                    " + "(" + row_type + ": " + str(len(tab_data_rows)) + ")"
+    search_text = searchentry_text_var.get()
+    placeholder_text = _tr("Search...") + "                    " + "(" + row_information + ": " + str(row_count) + ")"
 
+    """if search_text == "":
+        return"""
 
-def checkbutton(text, group_cb):
-    """
-    Generate CheckButton or RadioButton.
-    """
+    # Clear placeholder text if SearchEntry is clicked.
+    if search_text.split("(")[0] == placeholder_text.split("(")[0]:
+        return
 
-    checkbutton = Gtk.CheckButton()
-    checkbutton.set_halign(Gtk.Align.START)
-    checkbutton.set_label(text)
-    if group_cb != None:
-        checkbutton.set_group(group_cb)
-
-    return checkbutton
-
-
-def set_label_spinner(label, spinner_label, label_data):
-    """
-    Stop and hide spinner and show set label text.
-    """
-
-    #spinner_label.stop()
-    spinner_label.set_visible(False)
-    label.set_label(f'{label_data}')
-
-
-def reset_tab_settings(TabObject):
-    """
-    Reset tab columns if a version of the application with less number of columns than the previous
-    one (which has new columns) is run in order to prevent errors and empty tab list.
-    """
-
-    if TabObject.name == "Sensors":
-        if len(TabObject.row_data_list) < len(Config.sensors_data_column_order):
-            Config.config_default_performance_sensors_func()
-            Config.config_save_func()
-    elif TabObject.name == "Processes":
-        if len(TabObject.row_data_list) < len(Config.processes_data_column_order):
-            Config.config_default_processes_func()
-            Config.config_save_func()
-    elif TabObject.name == "Users":
-        if len(TabObject.row_data_list) < len(Config.users_data_column_order):
-            Config.config_default_users_func()
-            Config.config_save_func()
-    elif TabObject.name == "Services":
-        if len(TabObject.row_data_list) < len(Config.services_data_column_order):
-            Config.config_default_services_func()
-            Config.config_save_func()
-
-
-def treeview_add_remove_columns(TabObject):
-    """
-    Add/Remove treeview columns appropriate for user preferences.
-    Remove all columns, redefine treestore and models, set treestore data types (str, int, etc) if
-    column numbers are changed. Because once treestore data types (str, int, etc) are defined, they
-    can not be changed anymore. Thus column (internal data) order and column treeview column addition/removal
-    can not be performed.
-    """
+    # Get search text
+    search_text = searchentry_text_var.get().lower()
 
     treeview = TabObject.treeview
-    row_data_list = TabObject.row_data_list
+    selected_data_rows = TabObject.selected_data_rows
+    piter_dict = TabObject.piter_dict
+
+    # Detach all rows
+    row_id_row_dict = {}
+    for row in treeview.get_children():
+        treeview.detach(row)
+
+    # Search in names if current tab is not Processes tab.
+    if TabObject.name != "Processes":
+        # Reattach rows that contains search text
+        for row in selected_data_rows:
+            data_row_dict = selected_data_rows[row]
+            if search_text in data_row_dict[0].lower():
+                try:
+                    treeview.reattach(piter_dict[row], "", "end")
+                except KeyError:
+                    pass
+
+    # Do not run rest of the function if selected tab is not Processes tab.
+    if TabObject.name != "Processes":
+        sort_columns_on_every_loop(TabObject)
+        return
+
+    ppid_list = TabObject.ppid_list
+    pid_list = TabObject.pid_list
+    cmdline_list = TabObject.cmdline_list
+
+    # Reattach rows that contains search text
+    filtered_rows = {}
+    for row in selected_data_rows:
+        data_row_dict = selected_data_rows[row]
+        pid = data_row_dict[Config.processes_columns_shown.index("pid")]
+        pid_index = pid_list.index(pid)
+        command_line = cmdline_list[pid_index]
+        if TabObject.process_search_type == "all":
+            if search_text in data_row_dict[0].lower() or search_text in command_line.lower() or search_text in str(pid):
+                filtered_rows[row] = piter_dict[row]
+                try:
+                    treeview.reattach(piter_dict[row], "", "end")
+                except KeyError:
+                    pass
+        if TabObject.process_search_type == "name":
+            if search_text in data_row_dict[0].lower():
+                filtered_rows[row] = piter_dict[row]
+                try:
+                    treeview.reattach(piter_dict[row], "", "end")
+                except KeyError:
+                    pass
+        if TabObject.process_search_type == "command_line":
+            if search_text in command_line.lower():
+                filtered_rows[row] = piter_dict[row]
+                try:
+                    treeview.reattach(piter_dict[row], "", "end")
+                except KeyError:
+                    pass
+        if TabObject.process_search_type == "pid":
+            if search_text in str(pid):
+                filtered_rows[row] = piter_dict[row]
+                try:
+                    treeview.reattach(piter_dict[row], "", "end")
+                except KeyError:
+                    pass
+
+    # Move rows to generate Treeview tree
+    show_as_tree = TabObject.show_processes_as_tree
+    if show_as_tree == 1:
+        for row in list(filtered_rows.keys()):
+            pid = row
+            while pid != "0":
+                piter = piter_dict[str(pid)]
+                ppid = ppid_list[pid_list.index(int(pid))]
+                if ppid != 0:
+                    parent_piter = piter_dict[str(ppid)]
+                if ppid == 0:
+                    parent_piter = ""
+                if pid not in filtered_rows:
+                    filtered_rows[pid] = piter
+                    treeview.reattach(piter, "", "end")
+                #treeview.move(piter, parent_piter, 0)
+                pid = str(ppid)
+
+        for row_id, piter in piter_dict.items():
+            if row_id in filtered_rows:
+                try:
+                    ppid = ppid_list[pid_list.index(int(row_id))]
+                    parent_id = str(ppid)
+                    if parent_id in filtered_rows and ppid != 0:
+                        treeview.move(piter, piter_dict[parent_id], "end")
+                    else:
+                        treeview.move(piter, "", "end")
+                except (ValueError, IndexError):
+                    treeview.move(piter, "", "end")
+            else:
+                try:
+                    treeview.detach(piter)
+                except:
+                    pass
+
+    sort_columns_on_every_loop(TabObject)
+
+
+def searchentry_placeholder_text(TabObject):
+    """
+    Show an update number of rows on the searchentry as placeholder text.
+    Tkinter does not support placeholder text for Entry. Placeholder tetxt is set as Entry text.
+    """
+
+    # Get searchentry related information
+    searchentry = TabObject.searchentry
+    searchentry_text_var = TabObject.searchentry_text_var
+    row_count = TabObject.row_count
+    row_information = TabObject.row_information
+
+    # Update searchentry placeholder text
+    search_text = searchentry_text_var.get()
+    placeholder_text = _tr("Search...") + "                    " + "(" + row_information + ": " + str(row_count) + ")"
+
+    if search_text == "" and searchentry != searchentry.focus_get():
+        searchentry.delete(0, "end")
+        searchentry.insert(0, placeholder_text)
+    if search_text == "" and searchentry == searchentry.focus_get():
+        searchentry.delete(0, "end")
+    """if search_text != "":
+        searchentry.delete(0, "end")
+        searchentry.insert(0, search_text)"""
+    if search_text.split("(")[0] == placeholder_text.split("(")[0]:
+        searchentry.delete(0, "end")
+        searchentry.insert(0, placeholder_text)
+
+    on_searchentry_changed(searchentry_text_var, TabObject)
+
+
+def treeview(container, TabObject):
+    """
+    Generate treeview, vertical, horizontal scrollbars and their frame.
+    """
+
+    # Frame
+    frame = ttk.Frame(container)
+    frame.columnconfigure(0, weight=1)
+    frame.rowconfigure(0, weight=1)
+    frame.grid(row=1, column=0, sticky="nsew", padx=0, pady=0)
+
+    # TreeView
+    treeview = ttk.Treeview(frame, selectmode="browse", padding=[-22,0,0,0])
+    treeview.grid(row=0, column=0, sticky="nsew", padx=0, pady=0)
+    """treeview.bind('<ButtonPress>', treeview_button_press_event)
+    treeview.bind('<ButtonRelease>', treeview_button_release_event)
+    treeview.bind("<B1-Motion>", treeview_button1_motion_event)"""
+    treeview.bind("<Button-1>", treeview_button1_press_event)
+    treeview.bind("<B1-Motion>", treeview_button1_motion_event)
+    treeview.bind("<ButtonRelease-1>", lambda event: treeview_button1_release_event(event, TabObject))
+    treeview.bind("<Motion>", treeview_motion_event)
+    treeview.bind('<Leave>', destroy_row_tooltip)
+    treeview.bind('<Key>', destroy_row_tooltip)
+
+    # Scrollbars (TreeView)
+    scrollbar_vertical = ttk.Scrollbar(frame, orient="vertical", command=treeview.yview)
+    scrollbar_vertical.grid(row=0, column=1, sticky="ns", padx=0, pady=0)
+    scrollbar_horizontal = ttk.Scrollbar(frame, orient="horizontal", command=treeview.xview)
+    scrollbar_horizontal.grid(row=1, column=0, sticky="ew", padx=0, pady=0)
+    treeview.configure(yscrollcommand=scrollbar_vertical.set)
+    treeview.configure(xscrollcommand=scrollbar_horizontal.set)
+
+    return treeview, frame
+
+
+def treeview_button1_press_event(event):
+
+    treeview = event.widget
+    region = treeview.identify_region(event.x, event.y)
+    if region == "heading":
+        column_id = treeview.identify_column(event.x)
+
+        # Prevent dragging #0 column
+        if column_id == "#0":
+            return
+
+        treeview._drag_column = column_id
+
+        # Show window for drag and drop information
+        treeview._drag_window = tk.Toplevel(treeview)
+        treeview._drag_window.overrideredirect(True)
+
+        label = tk.Label(treeview._drag_window, text=treeview.heading(column_id, "text"), bg="gray", fg="white", relief="raised", borderwidth=1, padx=5, pady=5)
+        label.pack()
+
+        treeview_button1_motion_event(event)
+
+
+def treeview_button1_motion_event(event):
+
+    # Move window when mouse is moved
+    treeview = event.widget
+    try:
+        if treeview._drag_window:
+            x = treeview.winfo_pointerx() + 10
+            y = treeview.winfo_pointery() + 10
+            treeview._drag_window.geometry(f"+{x}+{y}")
+    # Prevent error if #0 column title is clicked first.
+    except AttributeError:
+        return
+
+
+def treeview_button1_release_event(event, TabObject):
+
+    treeview = event.widget
+    try:
+        if treeview._drag_window:
+            treeview._drag_window.destroy()
+            treeview._drag_window = None
+    # Prevent error if #0 column title is clicked first.
+    except AttributeError:
+        return
+
+    region = treeview.identify_region(event.x, event.y)
+    if region == "heading" and treeview._drag_column:
+        target_column = treeview.identify_column(event.x)
+        if target_column != "#0" and target_column != treeview._drag_column:
+            display_cols = list(treeview["displaycolumns"])
+            if not display_cols or display_cols == ['#all']:
+                display_cols = list(treeview["columns"])
+
+            idx_source = int(treeview._drag_column.replace('#', '')) - 1
+            idx_target = int(target_column.replace('#', '')) - 1
+            col_to_move = display_cols.pop(idx_source)
+            display_cols.insert(idx_target, col_to_move)
+            treeview["displaycolumns"] = display_cols
+
+            #idx_source = "#" + str(idx_source + 1)
+            #idx_target = "#" + str(idx_target + 1)
+            idx_source = treeview["columns"][idx_source]
+            idx_target = treeview["columns"][idx_target]
+            treeview.heading(idx_source, command=lambda: treeview_sort_column(treeview, idx_source, False, TabObject))
+            treeview.heading(idx_target, command=lambda: treeview_sort_column(treeview, idx_target, False, TabObject))
+
+    treeview._drag_column = None
+    save_column_title_order(TabObject)
+
+
+def save_column_title_order(TabObject):
+
+    treeview = TabObject.treeview
+    current_columns = list(treeview["displaycolumns"])
+    if current_columns == ["#all"]:
+        current_columns = list(treeview["columns"])
+    current_columns.insert(0, TabObject.treeview_columns_shown[0])
+
+    if Config.current_main_tab == 0:
+        if Config.performance_tab_current_sub_tab == 6:
+            Config.sensors_columns_shown = list(current_columns)
+    elif Config.current_main_tab == 1:
+        Config.processes_columns_shown = list(current_columns)
+    elif Config.current_main_tab == 2:
+        Config.users_columns_shown = list(current_columns)
+    elif Config.current_main_tab == 3:
+        Config.services_columns_shown = list(current_columns)
+
+    Config.config_save_func()
+
+
+def treeview_motion_event(event):
+    """
+    Call functions if mouse is moved.
+    """
+
+    treeview_row_tooltip(event)
+
+
+def treeview_row_tooltip(event):
+    """
+    Generate tooltip for treeview row.
+    Events for row tooltip are defined for Treeview.
+    """
+
+    global _treeview_tooltip, _previous_row
+
+    widget = event.widget
+    row = widget.identify_row(event.y)
+
+    # Delete previous tooltip if this function is called before "_previous_row" is defined or
+    # mouse arrow is above column title or empty area on treeview.
+    try:
+        if row != _previous_row or row == "":
+            _treeview_tooltip.destroy()
+            _treeview_tooltip = None
+    except Exception:
+        pass
+
+    # Prevent generating a new tooltip if it is not changed (mouse arow is above the same row)
+    # since the last function call.
+    try:
+        if _previous_row == row:
+            return
+    except Exception:
+        pass
+
+    _previous_row = row
+
+    # Prevent errors if mouse arrow is above column title or empty area on treeview.
+    # This is checked separately from check of tooltip destroy.
+    if row == "":
+        return
+
+    # Get tooltip text (Process command line fo Processes tab and row name for the other tabs)
+    """if Config.current_main_tab == 1:
+        from .Processes import Processes
+        selected_data_rows = Processes.selected_data_rows
+        for unique_id in selected_data_rows:
+            if selected_data_rows[unique_id]["piter"] == row:
+                unique_id = str(unique_id)
+                tool_tip_text = Processes.process_commandline_dict[unique_id]
+    else:
+        tool_tip_text = str(widget.item(row)["text"])"""
+    tool_tip_text = str(widget.item(row)["text"])
+
+    # Generate tooltip
+    _treeview_tooltip = tk.Toplevel(background="gray")
+    _treeview_tooltip.overrideredirect(True)
+    _treeview_tooltip.geometry("+" + str(event.x_root+15) + "+" + str(event.y_root+10))
+    _treeview_tooltip.bind('<ButtonPress>', destroy_row_tooltip)
+
+    label = tk.Label(_treeview_tooltip, text=tool_tip_text, borderwidth=8, wraplength=400, justify="left")
+    label.grid(row=0, column=0, sticky="nsew", padx=1, pady=1)
+
+
+def destroy_row_tooltip(event):
+    """
+    Called for deleting Treeview row tooltips.
+    """
+
+    global _treeview_tooltip
+    try:
+        _treeview_tooltip.destroy()
+        _treeview_tooltip = None
+    except (tk.TclError, NameError, AttributeError) as e:
+        pass
+
+
+def add_columns_and_reset_rows_and_columns(TabObject):
+    """
+    Reset rows and columns if Treeview columns are changed.
+    """
+
+    treeview_columns_shown = TabObject.treeview_columns_shown
     treeview_columns_shown_prev = TabObject.treeview_columns_shown_prev
+    treeview = TabObject.treeview
 
-    # Get treeview columns shown
-    if TabObject.name == "Sensors":
-        treeview_columns_shown = Config.sensors_treeview_columns_shown
-    elif TabObject.name == "Processes":
-        treeview_columns_shown = Config.processes_treeview_columns_shown
-    elif TabObject.name == "Users":
-        treeview_columns_shown = Config.users_treeview_columns_shown
-    elif TabObject.name == "Services":
-        treeview_columns_shown = Config.services_treeview_columns_shown
-
-    # Add/Remove treeview columns if they are changed since the last loop.
-    reset_row_unique_data_list_prev = "no"
     if treeview_columns_shown != treeview_columns_shown_prev:
-        cumulative_sort_column_id = -1
-        cumulative_internal_data_id = -1
-        # Remove all treeview columns
-        for column in treeview.get_columns():
-            treeview.remove_column(column)
-        # Append columns
-        for i, column in enumerate(treeview_columns_shown):
-            if row_data_list[column][0] in treeview_columns_shown:
-                cumulative_sort_column_id = cumulative_sort_column_id + row_data_list[column][2]
-            # Define column (also column title is defined)
-            treeview_column = Gtk.TreeViewColumn(row_data_list[column][1])
-            for i, cell_renderer_type in enumerate(row_data_list[column][6]):
-                cumulative_internal_data_id = cumulative_internal_data_id + 1
-                # Continue to next loop to avoid generating a cell renderer for internal column
-                # (internal columns are not shown on the treeview and they do not have cell renderers).
-                if cell_renderer_type == "internal_column":
-                    continue
-                # Define cell renderer
-                if cell_renderer_type == "CellRendererPixbuf":
-                    cell_renderer = Gtk.CellRendererPixbuf()
-                if cell_renderer_type == "CellRendererText":
-                    cell_renderer = Gtk.CellRendererText()
-                if cell_renderer_type == "CellRendererToggle":
-                    cell_renderer = Gtk.CellRendererToggle()
-                # Vertical alignment is set 0.5 in order to leave it as unchanged.
-                cell_renderer.set_alignment(row_data_list[column][9][i], 0.5)
-                # Set if column will allocate unused space
-                treeview_column.pack_start(cell_renderer, row_data_list[column][10][i])
-                treeview_column.add_attribute(cell_renderer, row_data_list[column][7][i], cumulative_internal_data_id)
-                if row_data_list[column][11][i] != "no_cell_function":
-                    treeview_column.set_cell_data_func(cell_renderer, row_data_list[column][11][i], func_data=cumulative_internal_data_id)    # Define cell function which sets cell data precision and/or data unit
-            treeview_column.set_sizing(2)                                           # Set column sizing (2 = auto sizing which is required for "treeview.set_fixed_height_mode(True)" command that is used for lower treeview CPU consumption because row heights are not calculated for every row).
-            treeview_column.set_sort_column_id(cumulative_sort_column_id)           # Be careful with lists contain same element more than one.
-            treeview_column.set_resizable(True)
-            treeview_column.set_reorderable(True)
-            treeview_column.set_min_width(50)                                       # Set minimum column widths as "50 pixels" which is useful for realizing the minimized column. Otherwise column title will be invisible.
-            treeview_column.connect("clicked", on_column_title_clicked, TabObject)
-            treeview_column.connect("notify::width", treeview_column_order_width_row_sorting, TabObject)
-            treeview.append_column(treeview_column)
+        for row in treeview.get_children():
+            treeview.delete(row)
+        #treeview["columns"] = []
+        TabObject.piter_dict = {} 
+        TabObject.row_id_list_prev = []
 
-        # Get column data types (int, bool, float, str, etc.) for appending row data to treestore
-        data_column_types = []
-        for column in sorted(treeview_columns_shown):
-            internal_column_count = len(row_data_list[column][5])
-            for internal_column_number in range(internal_column_count):
-                data_column_types.append(row_data_list[column][5][internal_column_number])
-
-        # Define a treestore (for storing treeview data in it), a treemodelfilter (for search filtering),
-        # treemodelsort (for row sorting when column title buttons are clicked)
-        TabObject.treestore = Gtk.TreeStore()
-        TabObject.treestore.set_column_types(data_column_types)                     # Set column types of the columns which will be appended into treestore
-        treemodelfilter = TabObject.treestore.filter_new()
-        treemodelfilter.set_visible_column(0)                                       # Column "0" of the treestore will be used for column visibility information (True or False)
-        treemodelsort = Gtk.TreeModelSort().new_with_model(treemodelfilter)
-        treeview.set_model(treemodelsort)
-        TabObject.piter_list = []
-        reset_row_unique_data_list_prev = "yes"                                     # For redefining (clear) "pid_list_prev, human_user_uid_list_prev, service_list_prev" lists. Thus code will recognize this and data will be appended into treestore and piter_list from zero.
-
-    return reset_row_unique_data_list_prev
+        add_treeview_columns(treeview, treeview_columns_shown, TabObject.column_dict, TabObject)
 
 
-def get_sort_column_id_column_dict(row_data_list, treeview_columns_shown):
+def add_treeview_columns(treeview, treeview_columns_shown, column_dict, TabObject):
     """
-    Get sort column ID - column dictionary of treeview columns.
+    Add treeview columns.
     """
 
-    sort_column_id_column_dict = {}
-    cumulative_sort_column_id = -1
-    for column in treeview_columns_shown:
-        if row_data_list[column][0] in treeview_columns_shown:
-            cumulative_sort_column_id = cumulative_sort_column_id + row_data_list[column][2]
-            sort_column_id_column_dict[column] = cumulative_sort_column_id
+    # Clear display columns in order to avoid "invalid column index" error.
+    try:
+        treeview.configure(displaycolumns="#all")
+    except:
+        pass
 
-    return sort_column_id_column_dict
+    treeview.configure(columns=[])
+
+    column_id_list = []
+    for i, column_shown in enumerate(treeview_columns_shown):
+        if i == 0:
+            column_id_list.append("#0")
+        else:
+            column_id_list.append(column_shown)
+    # Do not add 0th column. It is added automatically.
+    treeview["columns"] = column_id_list[1:]
+    #treeview["displaycolumns"] = column_id_list[1:]
+
+    for i, column_shown in enumerate(treeview_columns_shown):
+        column_data = column_dict[column_shown]
+        column_type = column_data["column_type"]
+        column_title = column_data["column_title"]
+        if column_type in [int, float]:
+            column_alignment = "e"
+        else:
+            column_alignment = "w"
+        column_id = column_id_list[i]
+        if i == 0:
+            width = 200
+        else:
+            width = 110
+        treeview.column(column_id, anchor=column_alignment, width=width, stretch=False)
+        treeview.heading(column_id, text=column_title, command=lambda c=column_id: treeview_sort_column(treeview, c, False, TabObject))
 
 
-def get_sort_column_id_list(treeview_columns):
+def get_new_removed_updated_rows(row_id_list, row_id_list_prev):
     """
-    Get sort column ID list of TreeView columns.
-    """
-
-    sort_column_id_list = []
-    for column in treeview_columns:
-        sort_column_id_list.append(column.get_sort_column_id())
-
-    return sort_column_id_list
-
-
-def get_new_deleted_updated_rows(row_id_list, row_id_list_prev):
-    """
-    Get new/deleted/updated rows for updating treestore/treeview.
+    Append/Remove/Update treeview rows.
     """
 
     row_id_list_prev_set = set(row_id_list_prev)
@@ -1070,296 +982,205 @@ def get_new_deleted_updated_rows(row_id_list, row_id_list_prev):
     deleted_rows = sorted(list(row_id_list_prev_set - row_id_list_set))
     new_rows = sorted(list(row_id_list_set - row_id_list_prev_set))
     existing_rows = sorted(list(row_id_list_set.intersection(row_id_list_prev)))
-    # "c = set(a).intersection(b)" is about 19% faster than "c = set(a).intersection(set(b))"
     updated_existing_row_index = [[row_id_list.index(i), row_id_list_prev.index(i)] for i in existing_rows]
 
-    return deleted_rows, new_rows, updated_existing_row_index
+    return new_rows, deleted_rows, existing_rows
 
 
-def update_treestore_rows(TabObject, rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, row_id_list, row_id_list_prev, show_rows_as_tree=0, show_all_rows=1):
+def add_remove_update_treeview_rows(treeview, piter_dict, selected_data_rows_prev, image_dict, selected_data_rows, data_rows_raw_dict, new_rows, deleted_rows, existing_rows, pid_list=None, ppid_list=None, show_as_tree=0):
     """
-    Add/Remove/Update treestore rows.
+    Add, remove, update treeview rows.
     """
 
-    # Get sort column and sort order (they will be used for restoring the current sort column and sort order) before
-    # disabling sorting of TreeModelSort for preventing unusable expanding/collapsing arrows of TreeView.
-    # Because, the model sorts the rows while the model data is modified.
-    sort_model = TabObject.treeview.get_model()
-    sort_column_id, sort_order = sort_model.get_sort_column_id()
-    sort_model.set_sort_column_id(-1, 0)
-    sort_model.reset_default_sort_func()
-
-    treestore = TabObject.treestore
-    piter_list = TabObject.piter_list
-    searchentry = TabObject.searchentry
-    on_searchentry_changed = TabObject.on_searchentry_changed
-    tab_data_rows = TabObject.tab_data_rows
-    tab_data_rows_prev = TabObject.tab_data_rows_prev
-
-    tab_data_rows_row_length = len(tab_data_rows[0])
-    if len(piter_list) > 0:
-        for i, j in updated_existing_row_index:
-            row_data = tab_data_rows[i]
-            row_data_prev = tab_data_rows_prev[j]
-            if row_data != row_data_prev:
-                # Start from "1" in order to not to set first element (treeview row visibility data) as "True" in every loop.
-                for k in range(1, tab_data_rows_row_length):
-                    cell_data = row_data[k]
-                    if row_data_prev[k] != cell_data:
-                        treestore.set_value(piter_list[j], k, cell_data)
+    # Update rows
+    if len(existing_rows) > 0:
+        for row in existing_rows:
+            data_row_dict = selected_data_rows[row]
+            data_row_dict_prev = selected_data_rows_prev[row]
+            if data_row_dict != data_row_dict_prev:
+                piter = piter_dict[row]
+                treeview.item(piter, image=image_dict[row], text=data_row_dict[0], values=tuple(data_row_dict[1:]), tags=data_rows_raw_dict[row][1:])
+    # Remove rows
     if len(deleted_rows) > 0:
-        for row in reversed(sorted(list(deleted_rows))):
-            treestore.remove(piter_list[row_id_list_prev.index(row)])
-            piter_list.remove(piter_list[row_id_list_prev.index(row)])
+        for row in deleted_rows:
+            piter = piter_dict[row]
+            treeview.delete(piter)
+    # Add rows
     if len(new_rows) > 0:
         for row in new_rows:
-            pid_index = row_id_list.index(row)
-            if show_rows_as_tree == 1:
-                row_data_dict = rows_data_dict[row]
-                parent_row = row_data_dict["ppid"]
-                if parent_row == 0:                                                           # Row ppid was set as "0" if it has no parent row. Row is set as tree root (this root has no relationship between root user) row if it has no ppid (parent row). Treeview tree indentation is first level for the tree root row.
-                    piter_list.append(treestore.append(None, tab_data_rows[pid_index]))
-                else:
-                    if show_all_rows == 1:                                      # Row appended under tree root row or another row if "Show [ROWS] as tree" option is preferred.
-                        piter_list.append(treestore.append(piter_list[row_id_list.index(parent_row)], tab_data_rows[pid_index]))
-                    if show_all_rows == 0 and parent_row not in row_id_list:    # Row is appended into treeview as tree root row if "Show [ROWS] of all users" is not preferred and row ppid not in row_id_list.
-                        piter_list.append(treestore.append(None, tab_data_rows[pid_index]))
-                    if show_all_rows == 0 and parent_row in row_id_list:        # Row is appended into treeview under tree root row or another row if "Show [ROWS] of all users" is preferred and row ppid is in row_id_list.
-                        piter_list.append(treestore.append(piter_list[row_id_list.index(parent_row)], tab_data_rows[pid_index]))
-            else:                                                                             # All rows are appended into treeview as tree root row if "Show [ROWS] as tree" is not preferred. Thus rows are listed as list structure instead of tree structure.
-                piter_list.insert(pid_index, treestore.insert(None, pid_index, tab_data_rows[pid_index]))
-
-    # Update search results
-    if len(piter_list) > 0 or len(new_rows) > 0:
-        on_searchentry_changed(searchentry)
-
-    # Restore sort column and sort order
-    sort_model.set_sort_column_id(sort_column_id, sort_order)
-
-
-def treeview_reorder_columns_sort_rows_set_column_widths(TabObject):
-    """
-    Reorder TreeView columns, sort TreeView rows and set TreeView columns.
-    """
-
-    treeview = TabObject.treeview
-    row_data_list = TabObject.row_data_list
-    treeview_columns_shown = TabObject.treeview_columns_shown
-    data_column_order = TabObject.data_column_order
-    data_row_sorting_column = TabObject.data_row_sorting_column
-    data_row_sorting_order = TabObject.data_row_sorting_order
-    data_column_widths = TabObject.data_column_widths
-    treeview_columns_shown_prev = TabObject.treeview_columns_shown_prev
-    data_column_order_prev = TabObject.data_column_order_prev
-    data_row_sorting_column_prev = TabObject.data_row_sorting_column_prev
-    data_row_sorting_order_prev = TabObject.data_row_sorting_order_prev
-    data_column_widths_prev = TabObject.data_column_widths_prev
-
-    # Reorder columns if this is the first loop (columns are appended into treeview as unordered) or
-    # user has reset column order from customizations.
-    if treeview_columns_shown_prev != treeview_columns_shown or data_column_order_prev != data_column_order:
-        treeview_columns = treeview.get_columns()
-        sort_column_id_column_dict = get_sort_column_id_column_dict(row_data_list, treeview_columns_shown)
-        sort_column_id_list = get_sort_column_id_list(treeview_columns)
-        data_column_order_scratch = []
-        for column_order in data_column_order:
-            if column_order != -1:
-                data_column_order_scratch.append(column_order)
-        # Reorder treeview columns by moving the last unsorted column at the beginning of the treeview.
-        for order in reversed(sorted(data_column_order_scratch)):
-            if data_column_order.index(order) in treeview_columns_shown:
-                column_number_to_move = data_column_order.index(order)
-                column_id_to_move = sort_column_id_column_dict[column_number_to_move]
-                column_to_move = treeview_columns[sort_column_id_list.index(column_id_to_move)]
-                # Column is moved at the beginning of the treeview if "None" is used.
-                treeview.move_column_after(column_to_move, None)
-
-    # Sort rows if user has changed row sorting column and sorting order (ascending/descending) by clicking
-    # on any column title button on the GUI.
-    # Reorder columns/sort rows if column ordering/row sorting has been changed since last loop in order to avoid
-    # reordering/sorting in every loop.
-    if treeview_columns_shown_prev != treeview_columns_shown or \
-       data_row_sorting_column_prev != data_row_sorting_column or \
-       data_row_sorting_order != data_row_sorting_order_prev:
-        sort_column_id_column_dict = get_sort_column_id_column_dict(row_data_list, treeview_columns_shown)
-        treeview_columns = treeview.get_columns()
-        sort_column_id_list = get_sort_column_id_list(treeview_columns)
-        if data_row_sorting_column in treeview_columns_shown:
-            data_row_sorting_column_id = sort_column_id_column_dict[data_row_sorting_column]
-        else:
-            data_row_sorting_column_id = row_data_list[0][2] - 1
-        column_for_sorting = treeview_columns[sort_column_id_list.index(data_row_sorting_column_id)]
-        # Set row sorting
-        for i in range(4):
-            column_for_sorting.clicked()
-            if data_row_sorting_order == int(column_for_sorting.get_sort_order()):
-                break
-
-    # Set column widths if there are changes since last loop.
-    if treeview_columns_shown_prev != treeview_columns_shown or data_column_widths_prev != data_column_widths:
-        sort_column_id_column_dict = get_sort_column_id_column_dict(row_data_list, treeview_columns_shown)
-        treeview_columns = treeview.get_columns()
-        sort_column_id_list = get_sort_column_id_list(treeview_columns)
-        for row_data in row_data_list:
-            column_id = row_data[0]
-            for j, sort_column_id in enumerate(sort_column_id_list):
-                if column_id not in sort_column_id_column_dict:
+            data_row_dict = selected_data_rows[row]
+            piter = treeview.insert("", 'end', image=image_dict[row], text=data_row_dict[0], values=tuple(data_row_dict[1:]), tags=data_rows_raw_dict[row][1:], open=True)
+            piter_dict[row] = piter
+        # Move rows to generate Treeview tree
+        if show_as_tree == 1:
+            for row in piter_dict:
+                piter = piter_dict[row]
+                if int(row) not in pid_list:
                     continue
-                if sort_column_id == sort_column_id_column_dict[column_id]:
-                    column_width = data_column_widths[column_id]
-                    # Set column width in pixels. Fixed width is unset if value is "-1".
-                    treeview_columns[j].set_fixed_width(column_width)
+                ppid = ppid_list[pid_list.index(int(row))]
+                # Also check if parent process is in current user processes in order to avoid errors 
+                # if "show only current user processes" and "show processes as tree" options are checked at the same time.
+                if ppid != 0 and str(ppid) in piter_dict:
+                    parent_piter = piter_dict[str(ppid)]
+                if ppid == 0:
+                    parent_piter = ""
+                try:
+                    treeview.move(piter, parent_piter, 0)
+                # Sometimes it can not insert a row as descendant of another row.
+                except Exception:
+                    continue
+    #treeview.update()
+    return piter_dict
 
 
-def treeview_column_order_width_row_sorting(widget, parameter, TabObject):
+def treeview_sort_column(treeview, column_id, reverse, TabObject):
+
+    # Get all row data for the clicked column. Different code is used for 0th column and other columns.
+    """if column_id == "#0":
+        column_data = [(treeview.item(k, "text"), k) for k in treeview.get_children('')]
+    else:
+        column_data = [(treeview.set(k, column_id), k) for k in treeview.get_children('')]"""
+
+    treeview_columns_shown = TabObject.treeview_columns_shown
+    column_dict = TabObject.column_dict
+
+    column_data = []
+    for k in treeview.get_children(''):
+        column_name_value = treeview.item(k, 'text')
+        item_values = treeview.item(k, 'values')
+
+        # -1 is for getting first column after column #0 (values #0).
+        if column_id == "#0":
+            column_index = 0
+        else:
+            if column_id in treeview_columns_shown:
+                column_index = treeview_columns_shown.index(column_id)
+            else:
+                column_index = 0
+        if column_index == 0:
+            value = column_name_value
+        else:
+            value = item_values[column_index - 1]
+
+        try:
+            col_config = column_dict[treeview_columns_shown[column_index]]
+            if col_config["converted_data"] == "yes":
+                actual_value = float(treeview.item(k, 'tags')[column_index - 1])
+            else:
+                actual_value = str(value).lower()
+        except (IndexError, KeyError):
+            actual_value = 0
+
+
+        column_data.append((actual_value, k))
+
+    # Sort data depending on data type (int, float, str).
+    try:
+        # Sort column data for float or int
+        column_data.sort(key=lambda t: float(t[0]), reverse=reverse)
+    except ValueError:
+        # Sort column data for string
+        column_data.sort(key=lambda t: locale.strxfrm(t[0]), reverse=reverse)
+
+    # Move rows for sorted order
+    for index, (val, k) in enumerate(column_data):
+        treeview.move(k, '', index)
+
+    # Save sorting column and sorting order if one of them changed since last loop.
+
+    save_column_order(TabObject, column_id, reverse)
+
+    # Update command for sorting in reverse order when column title is clicked.
+    try:
+        treeview.heading(column_id, command=lambda: treeview_sort_column(treeview, column_id, not reverse, TabObject))
+    except tk.TclError:
+        # Sütun o anda silinmişse sessizce çık
+        return
+
+
+def save_column_order(TabObject, column_id, reverse):
     """
-    Get and save column order/width, row sorting.
-    Columns in the treeview are get one by one and appended into "data_column_order".
-    "data_column_widths" list elements are modified for widths of every columns in the treeview.
-    Length of these list are always same even if columns are removed, appended and column widths are changed.
-    Only values of the elements (element indexes are always same with "row_data_list") are changed if column order/widths are changed.
+    Save sorting column and sorting order.
     """
 
-    treeview = TabObject.treeview
-    row_data_list = TabObject.row_data_list
     treeview_columns_shown = TabObject.treeview_columns_shown
 
-    # Get previous column order and widths
-    if TabObject.name == "Sensors":
-        data_column_order_prev = Config.sensors_data_column_order
-        data_column_widths_prev = Config.sensors_data_column_widths
-    elif TabObject.name == "Processes":
-        data_column_order_prev = Config.processes_data_column_order
-        data_column_widths_prev = Config.processes_data_column_widths
-    elif TabObject.name == "Users":
-        data_column_order_prev = Config.users_data_column_order
-        data_column_widths_prev = Config.users_data_column_widths
-    elif TabObject.name == "Services":
-        data_column_order_prev = Config.services_data_column_order
-        data_column_widths_prev = Config.services_data_column_widths
+    if column_id == "#0":
+        sorting_column = treeview_columns_shown[0]
+    else:
+        sorting_column = column_id
 
-    sort_column_id_column_dict = get_sort_column_id_column_dict(row_data_list, treeview_columns_shown)
+    if reverse == True:
+        sorting_order = 1
+    if reverse == False:
+        sorting_order = 0
 
-    # Get new column order and widths
-    treeview_columns = treeview.get_columns()
-    sort_column_id_list = get_sort_column_id_list(treeview_columns)
+    if Config.current_main_tab == 0:
+        if Config.performance_tab_current_sub_tab == 6:
+            Config.sensors_row_sorting_column = sorting_column
+            Config.sensors_row_sorting_order = sorting_order
+    elif Config.current_main_tab == 1:
+        Config.processes_row_sorting_column = sorting_column
+        Config.processes_row_sorting_order = sorting_order
+    elif Config.current_main_tab == 2:
+        Config.users_row_sorting_column = sorting_column
+        Config.users_row_sorting_order = sorting_order
+    elif Config.current_main_tab == 3:
+        Config.services_row_sorting_column = sorting_column
+        Config.services_row_sorting_order = sorting_order
 
-    data_column_order = [-1] * len(row_data_list)
-    data_column_widths = [-1] * len(row_data_list)
+    # Prevent saving config on every loops if there is no column or sorting change since last loop.
+    if TabObject.row_sorting_column != TabObject.row_sorting_column_prev or TabObject.row_sorting_order != TabObject.row_sorting_order_prev:
+        Config.config_save_func()
 
-    treeview_columns_last_index = len(treeview_columns)-1
+    # Update sort column title with arrow characters.
+    column_list = TabObject.treeview["columns"]
+    column_list = list(column_list) + ["#0"]
 
-    for row_data in row_data_list:
-        column_id = row_data[0]
-        for j, sort_column_id in enumerate(sort_column_id_list):
-            if column_id not in sort_column_id_column_dict:
-                continue
-            if sort_column_id == sort_column_id_column_dict[column_id]:
-                data_column_order[column_id] = j
-                if j != treeview_columns_last_index:
-                    data_column_widths[column_id] = treeview_columns[j].get_width()
+    # Clear indicator arrows from all columns.
+    for column_id_to_clear in column_list:
+        current_title = TabObject.treeview.heading(column_id_to_clear, "text")
+        updated_title = current_title.strip("↓ ↑")
+        TabObject.treeview.heading(column_id_to_clear, text=updated_title)
 
-    # Prevent saving settings if column order and widths are not changed.
-    if data_column_order == data_column_order_prev and data_column_widths == data_column_widths_prev:
-        return
+    if sorting_order == 0:
+        column_sort_indicator = "↓"
+    else:
+        column_sort_indicator = "↑"
 
-    # Save new column order and widths
-    if TabObject.name == "Processes":
-        Config.processes_data_column_order = list(data_column_order)
-        Config.processes_data_column_widths = list(data_column_widths)
-    elif TabObject.name == "Users":
-        Config.users_data_column_order = list(data_column_order)
-        Config.users_data_column_widths = list(data_column_widths)
-    elif TabObject.name == "Services":
-        Config.services_data_column_order = list(data_column_order)
-        Config.services_data_column_widths = list(data_column_widths)
-    Config.config_save_func()
+    if column_id not in TabObject.treeview["columns"]:
+        column_id = "#0"
+    # Add indicator arrows for sorting column.
+    current_title = TabObject.treeview.heading(column_id, "text")
+    updated_title = current_title.strip("↓ ↑") + "   " + column_sort_indicator
+    TabObject.treeview.heading(column_id, text=updated_title)
 
 
-def on_column_title_clicked(widget, TabObject):
+def sort_columns_on_every_loop(TabObject):
     """
-    Get and save column sorting order.
+    Sütunlar her döngüde sıralanır. Sütun silinmişse hata oluşmasını engeller.
     """
 
     treeview = TabObject.treeview
-    row_data_list = TabObject.row_data_list
+    row_sorting_column = TabObject.row_sorting_column
+    row_sorting_order = TabObject.row_sorting_order
     treeview_columns_shown = TabObject.treeview_columns_shown
-    data_row_sorting_column = TabObject.data_row_sorting_column
 
-    sort_column_id_column_dict = get_sort_column_id_column_dict(row_data_list, treeview_columns_shown)
-    treeview_columns = treeview.get_columns()
+    # Set first column as sorting column if sorting column is not in treeview columns.
+    if row_sorting_column not in treeview_columns_shown:
+        TabObject.row_sorting_column = treeview_columns_shown[0]
+        row_sorting_column = TabObject.row_sorting_column
 
-    # Get column that is used for sorting
-    data_row_sorting_column_id = widget.get_sort_column_id()
-    for column in sort_column_id_column_dict.keys():
-        if sort_column_id_column_dict[column] == data_row_sorting_column_id:
-            data_row_sorting_column = column
-            break
+    all_column_names = list(TabObject.column_dict)
+    column_index = all_column_names.index(row_sorting_column)
 
-    # Convert Gtk.SortType (for example: <enum GTK_SORT_ASCENDING of type Gtk.SortType>) to integer (0: ascending, 1: descending)
-    data_row_sorting_order = int(widget.get_sort_order())
+    if column_index == 0:
+        column_id = "#0"
+    else:
+        column_id = row_sorting_column
 
-    # Save new column order and widths
-    if TabObject.name == "Processes":
-        Config.processes_data_row_sorting_column = data_row_sorting_column
-        Config.processes_data_row_sorting_order = data_row_sorting_order
-    elif TabObject.name == "Users":
-        Config.users_data_row_sorting_column = data_row_sorting_column
-        Config.users_data_row_sorting_order = data_row_sorting_order
-    elif TabObject.name == "Services":
-        Config.services_data_row_sorting_column = data_row_sorting_column
-        Config.services_data_row_sorting_order = data_row_sorting_order
-    Config.config_save_func()
-
-
-def on_columns_changed(widget, TabObject):
-    """
-    Called if number of columns changed.
-    """
-
-    treeview = TabObject.treeview
-
-    # Get treeview columns shown
-    if TabObject.name == "Sensors":
-        treeview_columns_shown = Config.sensors_treeview_columns_shown
-    elif TabObject.name == "Processes":
-        treeview_columns_shown = Config.processes_treeview_columns_shown
-    elif TabObject.name == "Users":
-        treeview_columns_shown = Config.users_treeview_columns_shown
-    elif TabObject.name == "Services":
-        treeview_columns_shown = Config.services_treeview_columns_shown
-
-    treeview_columns = treeview.get_columns()
-    if len(treeview_columns_shown) != len(treeview_columns):
-        return
-    if treeview_columns[0].get_width() == 0:
-        return
-    treeview_column_order_width_row_sorting(widget, None, TabObject)
-
-
-def get_selected_process_names(TabObject):
-
-    selected_process_pid_list = TabObject.selected_process_pid_list
-    tab_data_rows = TabObject.tab_data_rows
-    pid_list = TabObject.pid_list
-
-    selected_process_name_list = []
-    for selected_process_pid in selected_process_pid_list:
-        selected_process_name = tab_data_rows[pid_list.index(selected_process_pid)][2]
-        selected_process_name_list.append(selected_process_name)
-
-    return selected_process_name_list
-
-
-def get_process_name_pid_list_text(TabObject, selected_process_name_list):
-
-    selected_process_pid_list = TabObject.selected_process_pid_list
-
-    selected_process_name_pid_text = ""
-    for i, selected_process_pid in enumerate(selected_process_pid_list):
-        if selected_process_name_pid_text != "":
-            selected_process_name_pid_text = selected_process_name_pid_text + "\n"
-        selected_process_name_pid_text = selected_process_name_pid_text + f'{selected_process_name_list[i]} - (PID: {selected_process_pid})'
-
-    return selected_process_name_pid_text
+    # Sort columns if sorting column is in treeview columns.
+    current_columns = list(treeview["columns"]) + ["#0"]
+    if column_id in current_columns:
+        treeview_sort_column(treeview, column_id, row_sorting_order, TabObject)
 

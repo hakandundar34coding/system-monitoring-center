@@ -14,7 +14,7 @@
 
 <p align="center">
     <strong>
-        *** Announcement (31.10.2023): End of support for System Monitoring Center v2.x.x. The project is ended. System Monitoring Center 12.2020-10.2023. ***
+        <a href="https://github.com/hakandundar34coding/system-monitoring-center/tree/smc_v1">SMC v1 (GTK3)</a> | <a href="https://github.com/hakandundar34coding/system-monitoring-center/tree/smc_v2">SMC v2 (GTK3/4)</a> | <a href="https://github.com/hakandundar34coding/system-monitoring-center">SMC v3 (Tk)</a>
     </strong>
 </p>
 
@@ -46,7 +46,10 @@
         <img src="https://img.shields.io/badge/Code-Python3-52a381">
     </a>
     <a href="https://github.com/hakandundar34coding/system-monitoring-center/tags">
-        <img src="https://img.shields.io/badge/GUI-GTK4-52a381">
+        <img src="https://img.shields.io/badge/GUI-Tk (Tkinter)-52a381">
+    </a>
+    <a href="https://github.com/rdbende/Sun-Valley-ttk-theme">
+        <img src="https://img.shields.io/badge/Theme (sv_ttk)-52a381">
     </a>
 </p>
 
@@ -100,7 +103,6 @@
 - Optimized for low CPU usage
 - Customization menus for almost all tabs
 - Supports ARM architecture
-- Hardware accelerated GUI
 - Free and open source
 
 
@@ -109,10 +111,7 @@
     - Installing from Flatpak ([Details](docs/flatpak.md))
     - Installing from application stores (Pardus Application Center, Pi-Apps Store)
     - Installing from repositories of distributions
-    - ~~Installing from PyPI as a Python package.~~ There will be no new packages on PyPI ([Details](docs/uninstall_pypi_package.md))
-    - Running from source code:
-      - For SMC v2: in ```src/``` folder, run: ```python3 ./run_from_source.py```
-      - For SMC v1: in ```src/``` folder, run: ```python3 ./Main.py```
+    - Running from source code: in ```src/``` folder, run: ```python3 ./run_from_source.py```
 
 
 ### Dependencies:
@@ -125,11 +124,8 @@
   There is no need to install these dependencies for installing the application from Flatpak.
   For other installation types:
 
-  - For System Monitoring Center v2.x.x:
-      - `dmidecode, gir1.2-adw-1, gir1.2-glib-2.0, gir1.2-gtk-4.0, gir1.2-pango-1.0, hwdata, iproute2, python3 (>=3.6), python3-cairo, python3-gi, python3-gi-cairo, util-linux (>=2.31)`
-
-  - For System Monitoring Center v1.x.x:
-      - `dmidecode, hwdata, iproute2, procps (>=3.3), python3 (>=3.6), python3-cairo, python3-gi, python3-gi-cairo, util-linux (>=2.31)`
+  - For System Monitoring Center v3.x.x:
+      - `dmidecode, hwdata, iproute2, python3 (>=3.6), python3-cairo, python3-tk, python3-pil, python3-pil.imagetk, util-linux (>=2.31)`
 
   - Following dependencies may be required on some systems:
       - `libcairo2-dev` (for systems with .deb packages)
@@ -137,7 +133,7 @@
 
   - Optional dependencies:
       - `vcgencmd` (for physical RAM size, GPU frequency and video memory information on Raspberry Pi devices)
-      - `x11-xserver-utils` or `xorg-xrandr` (for more accurate screen resolution and refresh rate detection of System Monitoring Center v1.x.x)
+      - `xorg-xrandr` (for more accurate screen resolution and refresh rate detection)
   ---
 
 </details>
@@ -154,16 +150,10 @@
   - GPU load is not tracked if GPU tab is switched off (for lower CPU usage).
   - Virtual machines may not provide CPU min-max frequencies, sensors and RAM hardware information.
   - Non-Flatpak versions of the application has higher performance (start speed, CPU, RAM usage).
-  - GTK4 (used for SMC v2) consumes about 2x RAM when compared to GTK3 (used for SMC v1).
-  - Running SMC v1 after SMC v2 resets application settings
 
   #### Known Issues
 
-  - Expander/Collapser arrows do not work sometimes if processes are listes as tree (Processes tab).
-    <a href="https://github.com/hakandundar34coding/system-monitoring-center/issues/206">Issue</a>
-
-  - Tab customization menus are not closed when clicked outside of the popover menu after using a dropdown menu on the popover menu.
-      - This is a GTK4 bug. These menus can be closed by using `Esc` key.
+  - Not detected so far.
   ---
 
 </details>

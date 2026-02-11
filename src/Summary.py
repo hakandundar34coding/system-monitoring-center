@@ -1,16 +1,15 @@
-import gi
-gi.require_version('Gtk', '4.0')
-gi.require_version('Pango', '1.0')
-gi.require_version('PangoCairo', '1.0')
-from gi.repository import Gtk, Pango, PangoCairo
-
-import os
+import tkinter as tk
+from tkinter import ttk, font
 
 import cairo
+from PIL import Image, ImageTk
+
+import os
 from math import sin, cos, atan
 
 from .Config import Config
 from .Performance import Performance
+from .MainWindow import MainWindow
 from . import Common
 from . import Libsysmon
 
@@ -33,15 +32,21 @@ class Summary:
         Generate tab GUI.
         """
 
-        self.tab_grid = Common.tab_grid()
+        self.tab_frame = ttk.Frame(MainWindow.summary_tab_main_frame)
+        self.tab_frame.grid(row=0, column=0, sticky="nsew", padx=0, pady=0)
+        self.tab_frame.columnconfigure(0, weight=1)
+        self.tab_frame.rowconfigure(1, weight=1)
+
+        # Grid (tab title)
+        frame = ttk.Frame(self.tab_frame)
+        frame.grid(row=0, column=0, sticky="new", padx=0, pady=(0, 10))
 
         # Label (Summary)
-        label = Common.tab_title_label(_tr("Summary"))
-        self.tab_grid.attach(label, 0, 0, 1, 1)
+        label = Common.tab_title_label(frame, _tr("Summary"))
 
-        # Summary tab drawingarea
-        self.da_summary = Common.drawingarea(self.performance_summary_graph_draw, "da_summary")
-        self.tab_grid.attach(self.da_summary, 0, 1, 1, 1)
+        # Label (for showing graphics)
+        self.da_summary = tk.Label(self.tab_frame)
+        self.da_summary.grid(row=1, column=0, sticky="nsew", padx=0, pady=0)
 
 
     def initial_func(self):
@@ -57,16 +62,33 @@ class Summary:
         Draw graphics for showing performance data.
         """
 
-        if self.initial_already_run == 0:
-            self.initial_func()
-
-        self.da_summary.queue_draw()
+        self.performance_summary_graph_draw("da_summary")
 
 
-    def performance_summary_graph_draw(self, widget, ctx, width, height):
+    def performance_summary_graph_draw(self, drawingarea_tag):
         """
         Draw performance summary data.
         """
+
+        # Get drawingarea size.
+        widget = self.da_summary
+        widget.update()
+        width = widget.winfo_width()
+        height = widget.winfo_height()
+
+        surface1 = cairo.ImageSurface(cairo.FORMAT_ARGB32, width, height)
+        ctx = cairo.Context(surface1)
+
+        # Select a Chinese character compatible font in order to prevent empty box characters.
+        if Config.language in ["zh_CN", "zh_TW"]:
+            system_font_list = font.families()
+            if "WenQuanYi Zen Hei" in system_font_list:
+                ctx.select_font_face("WenQuanYi Zen Hei", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+            # This font requires installation (sudo apt install fonts-noto-cjk).
+            elif "Noto Sans CJK SC" in system_font_list:
+                ctx.select_font_face("Noto Sans CJK SC", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+            else:
+                pass
 
         # Get chart colors of performance tab sub-tab charts.
         chart_line_color_cpu_percent = Config.chart_line_color_cpu_percent
@@ -94,8 +116,8 @@ class Summary:
 
 
         # Get system font name
-        system_font = Gtk.Settings.get_default().props.gtk_font_name
-        system_font_name = system_font.split(" ", -1)[:-1]
+        """system_font = Gtk.Settings.get_default().props.gtk_font_name
+        system_font_name = system_font.split(" ", -1)[:-1]"""
 
         # Set antialiasing level as "BEST" in order to avoid low quality chart line because of the highlight effect (more than one line will be overlayed for this appearance).
         ctx.set_antialias(cairo.Antialias.BEST)
@@ -176,16 +198,17 @@ class Summary:
         selected_disk_name_text_move_y = gauge_outer_radius*0.03
         selected_network_card_name_text_move_y = gauge_outer_radius*0.07
 
+        # *1.25 is added for fixing very small text after Pango is removed.
         gauge_indicator_text_size = gauge_outer_radius * 0.091
         gauge_cpu_ram_usage_text_size = gauge_outer_radius * 0.25
         gauge_processes_swap_usage_text_size = gauge_cpu_ram_usage_text_size * 0.45
         gauge_disk_network_usage_text_size = gauge_cpu_ram_usage_text_size * 0.4
         gauge_cpu_ram_label_text_size = gauge_outer_radius * 0.068
-        gauge_processes_swap_label_text_size = gauge_outer_radius * 0.062
-        gauge_indicator_text_size_smaller = gauge_outer_radius * 0.053
-        gauge_indicator_text_size_smallest = gauge_outer_radius * 0.047
-        gauge_disk_network_label_text_size = gauge_outer_radius * 0.062
-        selected_disk_network_card_name_text_size = gauge_disk_network_usage_text_size * 0.65
+        gauge_processes_swap_label_text_size = gauge_outer_radius * 0.062 * 1.25
+        gauge_indicator_text_size_smaller = gauge_outer_radius * 0.053 * 1.25
+        gauge_indicator_text_size_smallest = gauge_outer_radius * 0.047 * 1.25
+        gauge_disk_network_label_text_size = gauge_outer_radius * 0.062 * 1.25
+        selected_disk_network_card_name_text_size = gauge_disk_network_usage_text_size * 0.65 * 1.25
 
 
         # Draw a rounded rectangle to use it as outer frame of the chart.
@@ -283,13 +306,10 @@ class Summary:
                 from .Gpu import Gpu
                 from .MainWindow import MainWindow
                 # Grid may have been attached before GPU tab).
-                child_grid = MainWindow.gpu_tab_main_grid.get_child_at(0, 0)
-                if child_grid == None:
-                    MainWindow.gpu_tab_main_grid.attach(Gpu.tab_grid, 0, 0, 1, 1)
-                global GLib
-                gi.require_version('GLib', '2.0')
-                from gi.repository import GLib
-            GLib.idle_add(Gpu.loop_func)
+                child_grid = MainWindow.gpu_tab_main_frame.winfo_children()
+                if child_grid == []:
+                    Gpu.tab_frame = ttk.Frame(MainWindow.gpu_tab_main_frame)
+            Gpu.loop_func()
 
             try:
                 gpu_usage_text = f'{Gpu.gpu_load_list[-1]:.0f}%'
@@ -441,7 +461,7 @@ class Summary:
 
 
             # Draw "GPU" label on the upper-left side of the inner circle of the circular gauge.
-            ctx.save()
+            """ctx.save()
             ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
             label_text = _tr("GPU")
             system_font_scaled = f'{system_font_name} {gauge_disk_network_label_text_size}'
@@ -459,7 +479,17 @@ class Summary:
             text_start_y = logical_extents.height + logical_extents.y
             ctx.move_to(-gauge_gpu_label_text_move_x, -gauge_gpu_label_text_move_y - text_start_y)
             ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
-            PangoCairo.show_layout(ctx, layout)
+            PangoCairo.show_layout(ctx, layout)"""
+
+            ctx.save()
+            ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
+            cpu_text = _tr("GPU")
+            ctx.set_font_size(gauge_indicator_text_size)
+            text_extends = ctx.text_extents(cpu_text)
+            text_start_x = text_extends.width
+            ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), -gauge_cpu_ram_label_text_move)
+            ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
+            ctx.show_text(cpu_text)
 
             # Draw GPU Usage label on the right gauge.
             ctx.move_to(gauge_gpu_usage_label_text_move_x, -gauge_gpu_usage_label_text_move_y + gauge_gpu_usage_text_move_y)
@@ -908,7 +938,7 @@ class Summary:
 
 
         # Draw "CPU" label on the upper-left side of the inner circle of the circular gauge.
-        label_text = _tr("CPU")
+        """label_text = _tr("CPU")
         system_font_scaled = f'{system_font_name} {gauge_cpu_ram_label_text_size}'
         if len(label_text) > 9:
             system_font_scaled = f'{system_font_name} {gauge_indicator_text_size_smaller}'
@@ -921,11 +951,19 @@ class Summary:
         text_start_y = logical_extents.height + logical_extents.y
         ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), -gauge_cpu_ram_label_text_move - text_start_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
-        PangoCairo.show_layout(ctx, layout)
+        PangoCairo.show_layout(ctx, layout)"""
+
+        cpu_text = _tr("CPU")
+        ctx.set_font_size(gauge_indicator_text_size)
+        text_extends = ctx.text_extents(cpu_text)
+        text_start_x = text_extends.width
+        ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), -gauge_cpu_ram_label_text_move)
+        ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
+        ctx.show_text(cpu_text)
 
 
         # Draw "RAM" label on the upper-right side of the inner circle of the circular gauge.
-        label_text = _tr("RAM")
+        """label_text = _tr("RAM")
         system_font_scaled = f'{system_font_name} {gauge_cpu_ram_label_text_size}'
         if len(label_text) > 9:
             system_font_scaled = f'{system_font_name} {gauge_indicator_text_size_smaller}'
@@ -938,11 +976,19 @@ class Summary:
         text_start_y = logical_extents.height + logical_extents.y
         ctx.move_to(gauge_cpu_ram_label_text_margin, -gauge_cpu_ram_label_text_move - text_start_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
-        PangoCairo.show_layout(ctx, layout)
+        PangoCairo.show_layout(ctx, layout)"""
+
+        ram_text = _tr("RAM")
+        ctx.set_font_size(gauge_indicator_text_size)
+        text_extends = ctx.text_extents(ram_text)
+        text_start_x = text_extends.width
+        ctx.move_to(gauge_cpu_ram_label_text_margin, -gauge_cpu_ram_label_text_move)
+        ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
+        ctx.show_text(ram_text)
 
 
         # Draw "Processes" label on the lower-left side of the inner circle of the circular gauge.
-        label_text = _tr("Processes")
+        """label_text = _tr("Processes")
         system_font_scaled = f'{system_font_name} {gauge_processes_swap_label_text_size}'
         if len(label_text) > 9:
             system_font_scaled = f'{system_font_name} {gauge_indicator_text_size_smaller}'
@@ -955,11 +1001,22 @@ class Summary:
         text_start_y = logical_extents.height + logical_extents.y
         ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), gauge_processes_swap_label_text_move - text_start_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
-        PangoCairo.show_layout(ctx, layout)
+        PangoCairo.show_layout(ctx, layout)"""
+
+        # Draw "Processes" label on the lower-left side of the inner circle of the circular gauge.
+        processes_text = _tr("Processes")
+        ctx.set_font_size(gauge_processes_swap_label_text_size)
+        if len(processes_text) > 9:
+            ctx.set_font_size(gauge_indicator_text_size_smaller)
+        text_extends = ctx.text_extents(processes_text)
+        text_start_x = text_extends.width
+        ctx.move_to(-(text_start_x + gauge_cpu_ram_label_text_margin), gauge_processes_swap_label_text_move)
+        ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
+        ctx.show_text(processes_text)
 
 
         # Draw "Swap" label on the upper-right side of the inner circle of the circular gauge.
-        label_text = _tr("Swap")
+        """label_text = _tr("Swap")
         system_font_scaled = f'{system_font_name} {gauge_processes_swap_label_text_size}'
         if len(label_text) > 9:
             system_font_scaled = f'{system_font_name} {gauge_indicator_text_size_smaller}'
@@ -972,7 +1029,17 @@ class Summary:
         text_start_y = logical_extents.height + logical_extents.y
         ctx.move_to(gauge_cpu_ram_label_text_margin, gauge_processes_swap_label_text_move - text_start_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
-        PangoCairo.show_layout(ctx, layout)
+        PangoCairo.show_layout(ctx, layout)"""
+
+        ram_text = _tr("Swap")
+        ctx.set_font_size(gauge_processes_swap_label_text_size)
+        if len(ram_text) > 9:
+            ctx.set_font_size(gauge_indicator_text_size_smaller)
+        text_extends = ctx.text_extents(ram_text)
+        text_start_x = text_extends.width
+        ctx.move_to(gauge_cpu_ram_label_text_margin, gauge_processes_swap_label_text_move)
+        ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
+        ctx.show_text(ram_text)
 
 
         # Draw "%" labels below the CPU and RAM percentages on the inner circle of the circular gauge.
@@ -1113,7 +1180,7 @@ class Summary:
 
 
         # Draw "Read Speed" label on the upper-left side of the inner circle of the circular gauge.
-        ctx.save()
+        """ctx.save()
         ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
         label_text = _tr("Read Speed")
         system_font_scaled = f'{system_font_name} {gauge_disk_network_label_text_size}'
@@ -1131,10 +1198,21 @@ class Summary:
         text_start_y = logical_extents.height + logical_extents.y
         ctx.move_to(gauge_disk_read_speed_label_text_move_x, -gauge_disk_read_speed_label_text_move_y - text_start_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
-        PangoCairo.show_layout(ctx, layout)
+        PangoCairo.show_layout(ctx, layout)"""
+
+        ctx.save()
+        ctx.translate(gauge_circular_center_x + gauge_right_move, chart_height / 2)
+        read_speed_text = _tr("Read Speed")
+        ctx.set_font_size(gauge_disk_network_label_text_size)
+        if len(read_speed_text) > 16:
+            ctx.set_font_size(gauge_indicator_text_size_smaller)
+        ctx.move_to(gauge_disk_read_speed_label_text_move_x, -gauge_disk_read_speed_label_text_move_y)
+        ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
+        ctx.show_text(read_speed_text)
+
 
         # Draw "Write Speed" label on the upper-left side of the inner circle of the circular gauge.
-        label_text = _tr("Write Speed")
+        """label_text = _tr("Write Speed")
         system_font_scaled = f'{system_font_name} {gauge_disk_network_label_text_size}'
         text_length = len(label_text)
         if text_length > 15 and text_length < 19:
@@ -1150,11 +1228,19 @@ class Summary:
         text_start_y = logical_extents.height + logical_extents.y
         ctx.move_to(gauge_disk_write_speed_label_text_move_x, -gauge_disk_write_speed_label_text_move_y - text_start_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
-        PangoCairo.show_layout(ctx, layout)
+        PangoCairo.show_layout(ctx, layout)"""
+
+        write_speed_text = _tr("Write Speed")
+        ctx.set_font_size(gauge_disk_network_label_text_size)
+        if len(write_speed_text) > 16:
+            ctx.set_font_size(gauge_indicator_text_size_smaller)
+        ctx.move_to(gauge_disk_write_speed_label_text_move_x, -gauge_disk_write_speed_label_text_move_y)
+        ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
+        ctx.show_text(write_speed_text)
 
 
         # Draw "Download Speed" label on the upper-left side of the inner circle of the circular gauge.
-        label_text = _tr("Download Speed")
+        """label_text = _tr("Download Speed")
         system_font_scaled = f'{system_font_name} {gauge_disk_network_label_text_size}'
         text_length = len(label_text)
         if text_length > 15 and text_length < 19:
@@ -1170,11 +1256,19 @@ class Summary:
         text_start_y = logical_extents.height + logical_extents.y
         ctx.move_to(gauge_network_download_speed_label_text_move_x, gauge_network_download_speed_label_text_move_y - text_start_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
-        PangoCairo.show_layout(ctx, layout)
+        PangoCairo.show_layout(ctx, layout)"""
+
+        download_speed_text = _tr("Download Speed")
+        ctx.set_font_size(gauge_disk_network_label_text_size)
+        if len(download_speed_text) > 16:
+            ctx.set_font_size(gauge_indicator_text_size_smaller)
+        ctx.move_to(gauge_network_download_speed_label_text_move_x, gauge_network_download_speed_label_text_move_y)
+        ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
+        ctx.show_text(download_speed_text)
 
 
         # Draw "Upload Speed" label on the upper-left side of the inner circle of the circular gauge.
-        label_text = _tr("Upload Speed")
+        """label_text = _tr("Upload Speed")
         system_font_scaled = f'{system_font_name} {gauge_disk_network_label_text_size}'
         text_length = len(label_text)
         if text_length > 15 and text_length < 19:
@@ -1190,7 +1284,15 @@ class Summary:
         text_start_y = logical_extents.height + logical_extents.y
         ctx.move_to(gauge_network_upload_speed_label_text_move_x, gauge_network_upload_speed_label_text_move_y - text_start_y)
         ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
-        PangoCairo.show_layout(ctx, layout)
+        PangoCairo.show_layout(ctx, layout)"""
+
+        upload_speed_text = _tr("Upload Speed")
+        ctx.set_font_size(gauge_disk_network_label_text_size)
+        if len(upload_speed_text) > 16:
+            ctx.set_font_size(gauge_indicator_text_size_smaller)
+        ctx.move_to(gauge_network_upload_speed_label_text_move_x, gauge_network_upload_speed_label_text_move_y)
+        ctx.set_source_rgba(188/255, 191/255, 193/255, 1.0)
+        ctx.show_text(upload_speed_text)
 
 
         # Draw selected disk name label on the right gauge.
@@ -1285,6 +1387,15 @@ class Summary:
         ctx.show_text(network_upload_speed_text)
 
         ctx.restore()
+
+
+        # Show Cairo context as image on label.
+        image_ref = ImageTk.PhotoImage(Image.frombuffer("RGBA", (chart_width, chart_height), surface1.get_data().tobytes(), "raw", "BGRa", surface1.get_stride()))
+        # Update label for showing the new image.
+        widget.configure(image=image_ref)
+        widget.image = image_ref
+        surface1 = None
+        image_ref = None
 
 
 Summary = Summary()

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 系统监视中心\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-31 10:00+0300\n"
-"PO-Revision-Date: 2023-10-31 10:01+0300\n"
+"POT-Creation-Date: 2026-02-09 14:08+0300\n"
+"PO-Revision-Date: 2026-02-09 14:19+0300\n"
 "Last-Translator: yuzh496 <yuzh496@gmail.com>, 2023.\n"
 "Language-Team: Chinese (Simplified)  <yuzh496@gmail.com>\n"
 "Language: zh_CN\n"
@@ -16,615 +16,588 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.6\n"
 
-#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:3
-#: src/MainWindow.py:66 src/MainWindow.py:551
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:2
+#: src/MainWindow.py:94 src/MainWindow.py:559
 msgid "System Monitoring Center"
 msgstr "系统监视中心"
 
-#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:4
-#: src/SettingsWindow.py:34
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:3
+#: src/SettingsWindow.py:32
 msgid "System Monitor"
 msgstr "多功能系统监视器"
 
-#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:5
-#: src/MainWindow.py:553
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:4
+#: src/MainWindow.py:567
 msgid "Multi-featured system monitor"
 msgstr "多功能系统监视器"
 
-#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:6
+#: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:5
 msgid ""
-"System Monitor;Task Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;GPU;"
-"Processes;Users;Services;"
+"System Monitor;Task "
+"Manager;Performance;CPU;RAM;Swap;Memory;Disk;Network;GPU;Processes;Users;Services;"
 msgstr ""
 "系统监视器;任务管理器;性能;CPU;RAM;交换;内存;磁盘;网络;显卡;进程;用户;服务;"
 
-#: src/Common.py:197
-msgid "Reset"
-msgstr "重置"
-
-#: src/Common.py:209
-msgid "Refresh the data on this tab"
-msgstr "在此选项卡上刷新数据"
-
-#: src/Common.py:226 src/Common.py:244
-msgid "Graph Color"
-msgstr "图形颜色"
-
-#: src/Common.py:832 src/Common.py:898 src/Processes.py:317
-msgid "Search..."
-msgstr "搜索…"
-
-#: src/Cpu.py:49 src/CpuMenu.py:37 src/CpuMenu.py:83 src/MainWindow.py:139
-#: src/MainWindow.py:288 src/Processes.py:1221 src/Processes.py:1238
-#: src/Processes.py:1245 src/ProcessesDetails.py:65 src/ProcessesDetails.py:157
-#: src/ProcessesDetails.py:284 src/ProcessesMenu.py:183
-#: src/ProcessesMenu.py:251 src/ProcessesMenu.py:304 src/ProcessesMenu.py:345
-#: src/SettingsWindow.py:31 src/Summary.py:911 src/System.py:204
-#: src/Users.py:240 src/UsersDetails.py:165 src/UsersMenu.py:127
-msgid "CPU"
-msgstr "CPU"
-
-#: src/Cpu.py:54 src/Disk.py:57 src/Disk.py:305 src/Gpu.py:63 src/Gpu.py:309
-#: src/Network.py:54 src/System.py:241
-msgid "Vendor"
-msgstr "供应商"
-
-#: src/Cpu.py:54 src/Disk.py:57 src/Disk.py:305 src/Gpu.py:63 src/Gpu.py:309
-#: src/Network.py:54 src/System.py:248
-msgid "Model"
-msgstr "型号"
-
-#: src/Cpu.py:59 src/Disk.py:62 src/Gpu.py:68 src/Network.py:59
-msgid "Device Name In Kernel"
-msgstr "内核中的设备名称"
-
-#: src/Cpu.py:75 src/Cpu.py:180 src/CpuMenu.py:45 src/ProcessesDetails.py:266
-msgid "CPU Usage (Average)"
-msgstr "CPU使用率（平均）"
-
-#: src/Cpu.py:102
-msgid "Average Usage"
-msgstr "平均使用率"
-
-#: src/Cpu.py:102
-msgid "Average CPU usage of all cores"
-msgstr "所有核心的平均CPU使用率"
-
-#: src/Cpu.py:102 src/Gpu.py:214 src/Gpu.py:379
-msgid "Frequency"
-msgstr "频率"
-
-#: src/Cpu.py:107 src/MainWindow.py:202 src/Processes.py:88
-#: src/Processes.py:509 src/Processes.py:1053 src/Processes.py:1510
-#: src/ProcessesMenu.py:33 src/SettingsWindow.py:30 src/Summary.py:945
-#: src/Users.py:235 src/UsersDetails.py:115 src/UsersMenu.py:107
-msgid "Processes"
-msgstr "进程"
-
-#: src/Cpu.py:107 src/Processes.py:1230 src/ProcessesDetails.py:294
-#: src/ProcessesMenu.py:223
-msgid "Threads"
-msgstr "线程"
-
-#: src/Cpu.py:107
-msgid "Up Time"
-msgstr "运行时长"
-
-#: src/Cpu.py:116 src/Gpu.py:222 src/Gpu.py:389
-msgid "Min-Max Frequency"
-msgstr "最小-最大频率"
-
-#: src/Cpu.py:123 src/Cpu.py:130 src/CpuMenu.py:97
-msgid "Cache"
-msgstr "缓冲"
-
-#: src/Cpu.py:137
-msgid "CPU Sockets"
-msgstr "CPU插槽"
-
-#: src/Cpu.py:144
-msgid "Cores (Physical-Logical)"
-msgstr "核心数（物理-逻辑）"
-
-#: src/Cpu.py:145
-msgid "Number of online physical and logical CPU cores"
-msgstr "在线物理和逻辑CPU核心数"
-
-#: src/Cpu.py:152 src/System.py:269
-msgid "Architecture"
-msgstr "架构"
-
-#: src/Cpu.py:182 src/CpuMenu.py:49
-msgid "CPU Usage (Per Core)"
-msgstr "CPU使用率(每核心)"
-
-#: src/CpuMenu.py:41 src/DiskMenu.py:41 src/MemoryMenu.py:41
-#: src/NetworkMenu.py:41 src/SummaryMenu.py:38
-msgid "Graph - Show"
-msgstr "图形 - 显示"
-
-#: src/CpuMenu.py:57
-msgid "Show processes using max CPU"
-msgstr "显示使用最大CPU的进程"
-
-#: src/CpuMenu.py:61 src/SummaryMenu.py:46
-msgid "This increases CPU usage."
-msgstr "这会增加CPU的使用率。"
-
-#: src/CpuMenu.py:61
-msgid "for all tabs"
-msgstr "对所有选项卡"
-
-#: src/CpuMenu.py:78 src/DiskMenu.py:73 src/MemoryMenu.py:65
-#: src/NetworkMenu.py:73 src/ProcessesMenu.py:299
-msgid "Precision"
-msgstr "精度"
-
-#: src/CpuMenu.py:101
-msgid "CPU Socket"
-msgstr "CPU插槽"
-
-#: src/CpuMenu.py:105
-msgid "Selected CPU Core"
-msgstr "选定的CPU核心"
-
-#: src/Disk.py:52 src/Disk.py:195 src/Disk.py:215 src/Disk.py:361
-#: src/DiskMenu.py:37 src/DiskMenu.py:112 src/Libsysmon.py:2095
-#: src/MainWindow.py:147 src/MainWindow.py:298 src/ProcessesDetails.py:75
-#: src/ProcessesMenu.py:326 src/ProcessesMenu.py:384 src/SettingsWindow.py:31
-msgid "Disk"
-msgstr "磁盘"
-
-#: src/Disk.py:78 src/Disk.py:105 src/DiskMenu.py:45 src/Processes.py:1227
-#: src/Processes.py:1247 src/ProcessesDetails.py:177
-#: src/ProcessesDetails.py:472 src/ProcessesDetails.py:490
-#: src/ProcessesMenu.py:211 src/Summary.py:1118
-msgid "Read Speed"
-msgstr "读取速度"
-
-#: src/Disk.py:78 src/Disk.py:105 src/DiskMenu.py:49 src/Processes.py:1228
-#: src/Processes.py:1248 src/ProcessesDetails.py:187
-#: src/ProcessesDetails.py:472 src/ProcessesDetails.py:500
-#: src/ProcessesMenu.py:215 src/Summary.py:1137
-msgid "Write Speed"
-msgstr "写入速度"
-
-#: src/Disk.py:110 src/Processes.py:1225 src/Processes.py:1246
-#: src/ProcessesDetails.py:510 src/ProcessesMenu.py:203
-msgid "Read Data"
-msgstr "读取数据"
-
-#: src/Disk.py:110 src/Network.py:107
-msgid "Measured value since last system start"
-msgstr "自上次系统启动以来的测量值"
-
-#: src/Disk.py:110 src/Processes.py:1226 src/Processes.py:1247
-#: src/ProcessesDetails.py:520 src/ProcessesMenu.py:207
-msgid "Written Data"
-msgstr "写入数据"
-
-#: src/Disk.py:120 src/Disk.py:235
-msgid "System Disk"
-msgstr "系统盘"
-
-#: src/Disk.py:127 src/Disk.py:149 src/Disk.py:295 src/Libsysmon.py:2039
-#: src/Memory.py:107 src/Memory.py:152 src/Memory.py:164
-msgid "Used"
-msgstr "已使用"
-
-#: src/Disk.py:142 src/Disk.py:285 src/Memory.py:126 src/Memory.py:152
-msgid "Free"
-msgstr "剩余空间"
-
-#: src/Disk.py:156 src/Disk.py:265 src/Disk.py:275 src/Libsysmon.py:1972
-#: src/Libsysmon.py:1992 src/Libsysmon.py:2038 src/Memory.py:119
-#: src/Memory.py:179 src/Memory.py:347
-msgid "Capacity"
-msgstr "总容量"
-
-#: src/Disk.py:163 src/Gpu.py:257 src/Memory.py:193 src/Processes.py:281
-#: src/Services.py:299 src/Users.py:128
-msgid "Details"
-msgstr "细节"
-
-#: src/Disk.py:166 src/Gpu.py:260 src/Memory.py:143 src/Memory.py:196
+#: src/Common.py:257
 msgid "Show..."
 msgstr "更多…"
 
-#: src/Disk.py:225
+#: src/Common.py:420
+msgid "Reset"
+msgstr "重置"
+
+#: src/Common.py:431
+msgid "Refresh the data on this tab"
+msgstr "在此选项卡上刷新数据"
+
+#: src/Common.py:532 src/Common.py:539 src/Common.py:562 src/Common.py:691
+msgid "Search..."
+msgstr "搜索…"
+
+#: src/Cpu.py:53 src/MainWindow.py:167 src/MainWindow.py:285
+#: src/Processes.py:681 src/Processes.py:699 src/ProcessesDetails.py:52
+#: src/ProcessesDetails.py:139 src/ProcessesDetails.py:265
+#: src/SettingsWindow.py:62 src/SettingsWindow.py:1164
+#: src/SettingsWindow.py:1235 src/SettingsWindow.py:1320
+#: src/SettingsWindow.py:1597 src/Summary.py:956 src/System.py:77
+#: src/Users.py:192 src/UsersDetails.py:150
+msgid "CPU"
+msgstr "CPU"
+
+#: src/Cpu.py:57 src/Disk.py:285 src/Gpu.py:61 src/Gpu.py:212 src/Network.py:60
+#| msgid "Vendor"
+msgid "Vendor - Model"
+msgstr ""
+
+#: src/Cpu.py:61 src/Disk.py:64 src/Gpu.py:65 src/Network.py:64
+msgid "Device Name In Kernel"
+msgstr "内核中的设备名称"
+
+#: src/Cpu.py:76 src/Cpu.py:184 src/ProcessesDetails.py:249
+#: src/SettingsWindow.py:654
+msgid "CPU Usage (Average)"
+msgstr "CPU使用率（平均）"
+
+#: src/Cpu.py:106
+msgid "Average Usage"
+msgstr "平均使用率"
+
+#: src/Cpu.py:106
+msgid "Average CPU usage of all cores"
+msgstr "所有核心的平均CPU使用率"
+
+#: src/Cpu.py:106 src/Gpu.py:138 src/Gpu.py:282
+msgid "Frequency"
+msgstr "频率"
+
+#: src/Cpu.py:111
+#| msgid "Processes"
+msgid "Processes-Threads"
+msgstr ""
+
+#: src/Cpu.py:111
+msgid "Up Time"
+msgstr "运行时长"
+
+#: src/Cpu.py:121 src/Gpu.py:148 src/Gpu.py:292
+msgid "Min-Max Frequency"
+msgstr "最小-最大频率"
+
+#: src/Cpu.py:128
+msgid "Cache (L1d-L1i)"
+msgstr ""
+
+#: src/Cpu.py:135
+msgid "Cache (L2-L3)"
+msgstr ""
+
+#: src/Cpu.py:142
+msgid "CPU Sockets"
+msgstr "CPU插槽"
+
+#: src/Cpu.py:149
+msgid "Cores (Physical-Logical)"
+msgstr "核心数（物理-逻辑）"
+
+#: src/Cpu.py:151
+msgid "Number of online physical and logical CPU cores"
+msgstr "在线物理和逻辑CPU核心数"
+
+#: src/Cpu.py:157 src/System.py:150
+msgid "Architecture"
+msgstr "架构"
+
+#: src/Cpu.py:186 src/SettingsWindow.py:658
+msgid "CPU Usage (Per Core)"
+msgstr "CPU使用率(每核心)"
+
+#: src/Disk.py:56 src/Disk.py:191 src/Disk.py:195 src/Disk.py:341
+#: src/Libsysmon.py:2182 src/MainWindow.py:183 src/MainWindow.py:293
+#: src/ProcessesDetails.py:60 src/SettingsWindow.py:70
+#: src/SettingsWindow.py:879 src/SettingsWindow.py:1190
+msgid "Disk"
+msgstr "磁盘"
+
+#: src/Disk.py:60
+#| msgid "Vendor"
+msgid "Vendor-Model"
+msgstr ""
+
+#: src/Disk.py:79 src/Disk.py:109 src/MainWindow.py:185 src/Processes.py:688
+#: src/ProcessesDetails.py:159 src/ProcessesDetails.py:451
+#: src/ProcessesDetails.py:467 src/SettingsWindow.py:831
+#: src/SettingsWindow.py:1270 src/Summary.py:1205
+msgid "Read Speed"
+msgstr "读取速度"
+
+#: src/Disk.py:79 src/Disk.py:109 src/MainWindow.py:185 src/Processes.py:689
+#: src/ProcessesDetails.py:169 src/ProcessesDetails.py:451
+#: src/ProcessesDetails.py:477 src/SettingsWindow.py:836
+#: src/SettingsWindow.py:1275 src/Summary.py:1233
+msgid "Write Speed"
+msgstr "写入速度"
+
+#: src/Disk.py:114 src/Processes.py:686 src/ProcessesDetails.py:487
+#: src/SettingsWindow.py:1260
+msgid "Read Data"
+msgstr "读取数据"
+
+#: src/Disk.py:114 src/Network.py:114
+msgid "Measured value since last system start"
+msgstr "自上次系统启动以来的测量值"
+
+#: src/Disk.py:114 src/Processes.py:687 src/ProcessesDetails.py:497
+#: src/SettingsWindow.py:1265
+msgid "Written Data"
+msgstr "写入数据"
+
+#: src/Disk.py:124 src/Disk.py:215
+msgid "System Disk"
+msgstr "系统盘"
+
+#: src/Disk.py:131 src/Disk.py:154 src/Disk.py:275 src/Libsysmon.py:2126
+#: src/Memory.py:111 src/Memory.py:154 src/Memory.py:164
+msgid "Used"
+msgstr "已使用"
+
+#: src/Disk.py:147 src/Disk.py:265 src/Memory.py:128 src/Memory.py:154
+msgid "Free"
+msgstr "剩余空间"
+
+#: src/Disk.py:161 src/Disk.py:245 src/Disk.py:255 src/Libsysmon.py:2059
+#: src/Libsysmon.py:2079 src/Libsysmon.py:2125 src/Memory.py:121
+#: src/Memory.py:180 src/Memory.py:305
+msgid "Capacity"
+msgstr "总容量"
+
+#: src/Disk.py:168 src/Gpu.py:183 src/Memory.py:194 src/Processes.py:131
+#: src/Services.py:106 src/Users.py:92
+msgid "Details"
+msgstr "细节"
+
+#: src/Disk.py:205
 msgid "Parent Name"
 msgstr "上级名称"
 
-#: src/Disk.py:245 src/Libsysmon.py:1973 src/Libsysmon.py:1993
-#: src/Libsysmon.py:2037 src/ServicesDetails.py:210
+#: src/Disk.py:225 src/Libsysmon.py:2060 src/Libsysmon.py:2080
+#: src/Libsysmon.py:2124 src/ServicesDetails.py:180
 msgid "Type"
 msgstr "类型"
 
-#: src/Disk.py:255
+#: src/Disk.py:235
 msgid "File System"
 msgstr "磁盘格式"
 
-#: src/Disk.py:275
+#: src/Disk.py:255
 msgid "Mass Storage"
 msgstr "理论最大容量"
 
-#: src/Disk.py:315
+#: src/Disk.py:295
 msgid "Label (File System)"
 msgstr "标注（磁盘格式）"
 
-#: src/Disk.py:325
+#: src/Disk.py:305
 msgid "Mount Point"
 msgstr "挂载点"
 
-#: src/DiskMenu.py:53 src/NetworkMenu.py:53
-msgid "Selected Device"
-msgstr "选定设备"
-
-#: src/DiskMenu.py:57 src/NetworkMenu.py:57
-msgid "All Devices"
-msgstr "所有设备"
-
-#: src/DiskMenu.py:86 src/MemoryMenu.py:78 src/NetworkMenu.py:86
-#: src/ProcessesMenu.py:340 src/SensorsMenu.py:38
-msgid "Data Unit"
-msgstr "数据单元"
-
-#: src/DiskMenu.py:91 src/MemoryMenu.py:83 src/NetworkMenu.py:91
-#: src/ProcessesMenu.py:364 src/ProcessesMenu.py:390
-msgid "Show data as powers of"
-msgstr "以幂的形式显示数据"
-
-#: src/DiskMenu.py:104 src/NetworkMenu.py:104 src/ProcessesMenu.py:411
-msgid "Show speed units as multiples of bits"
-msgstr "以位的倍数显示速度单位"
-
-#: src/DiskMenu.py:116
-msgid "Hide loop, ramdisk, zram disks"
-msgstr "隐藏循环，ramdisk，zram磁盘"
-
-#: src/Gpu.py:58 src/Gpu.py:289 src/Gpu.py:319 src/Gpu.py:500 src/GpuMenu.py:36
-#: src/MainWindow.py:308 src/Processes.py:1241 src/SettingsWindow.py:31
-#: src/Summary.py:446 src/System.py:218 src/System.py:225
+#: src/Gpu.py:57 src/Gpu.py:208 src/Gpu.py:222 src/Gpu.py:382
+#: src/MainWindow.py:301 src/Summary.py:486 src/System.py:91 src/System.py:98
 msgid "GPU"
 msgstr "显卡"
 
-#: src/Gpu.py:84 src/Gpu.py:209 src/Gpu.py:359 src/ProcessesMenu.py:263
-#: src/SummaryMenu.py:42
+#: src/Gpu.py:80 src/Gpu.py:133 src/Gpu.py:262 src/SettingsWindow.py:602
 msgid "GPU Usage"
 msgstr "显卡占用率"
 
-#: src/Gpu.py:126 src/Gpu.py:209 src/Gpu.py:369 src/Processes.py:1242
-#: src/ProcessesMenu.py:269
+#: src/Gpu.py:103 src/Gpu.py:272
 msgid "GPU Memory"
 msgstr "显存"
 
-#: src/Gpu.py:154 src/Gpu.py:699 src/Gpu.py:703
-msgid "Video Encoder"
-msgstr "视频编码"
+#: src/Gpu.py:133
+#| msgid "Video Decoder"
+msgid "Video Memory"
+msgstr ""
 
-#: src/Gpu.py:182 src/Gpu.py:699
-msgid "Video Decoder"
-msgstr "视频解码"
-
-#: src/Gpu.py:214 src/Gpu.py:409 src/SensorsMenu.py:43
+#: src/Gpu.py:138 src/Gpu.py:312
 msgid "Temperature"
 msgstr "温度"
 
-#: src/Gpu.py:229 src/Gpu.py:399
+#: src/Gpu.py:155 src/Gpu.py:302
 msgid "Memory Frequency"
 msgstr "显存频率"
 
-#: src/Gpu.py:236 src/Gpu.py:419
+#: src/Gpu.py:162 src/Gpu.py:322
 msgid "Power Usage"
 msgstr "功耗"
 
-#: src/Gpu.py:243 src/Gpu.py:429
+#: src/Gpu.py:169 src/Gpu.py:332
 msgid "Boot VGA"
 msgstr "系统默认显卡"
 
-#: src/Gpu.py:250 src/Gpu.py:439
+#: src/Gpu.py:176 src/Gpu.py:342
 msgid "Driver"
 msgstr "驱动"
 
-#: src/Gpu.py:329
+#: src/Gpu.py:232
 msgid "PCIe Address"
 msgstr "PCIe 地址"
 
-#: src/Gpu.py:339
+#: src/Gpu.py:242
 msgid "GPU Interface"
 msgstr "显卡接口"
 
-#: src/Gpu.py:349
-msgid "Link Speed"
-msgstr "链接速度"
+#: src/Gpu.py:252
+#| msgid "Connection Type"
+msgid "Connection Speed"
+msgstr ""
 
-#: src/Gpu.py:449
+#: src/Gpu.py:352
 msgid "Connections"
 msgstr "链接到"
 
-#: src/Gpu.py:459
-msgid "Refresh Rate"
-msgstr "刷新率"
-
-#: src/Gpu.py:469 src/System.py:230
-msgid "Resolution"
-msgstr "分辨率"
-
-#: src/Libsysmon.py:1730 src/Libsysmon.py:2131 src/Libsysmon.py:2132
-#: src/Libsysmon.py:2158 src/Libsysmon.py:2160 src/Libsysmon.py:2432
-#: src/Libsysmon.py:2434 src/Libsysmon.py:2528 src/Libsysmon.py:2548
-#: src/Libsysmon.py:2768 src/Libsysmon.py:2770
+#: src/Libsysmon.py:1817 src/Libsysmon.py:2218 src/Libsysmon.py:2219
+#: src/Libsysmon.py:2245 src/Libsysmon.py:2247 src/Libsysmon.py:2519
+#: src/Libsysmon.py:2521 src/Libsysmon.py:2615 src/Libsysmon.py:2635
+#: src/Libsysmon.py:2856 src/Libsysmon.py:2858
 msgid "Unknown"
 msgstr "未知"
 
-#: src/Libsysmon.py:1931
+#: src/Libsysmon.py:2018
 msgid "Maximum Capacity"
 msgstr "最大容量"
 
-#: src/Libsysmon.py:1932
+#: src/Libsysmon.py:2019
 msgid "Number Of Devices"
 msgstr "设备数量"
 
-#: src/Libsysmon.py:1974 src/Libsysmon.py:1994
+#: src/Libsysmon.py:2061 src/Libsysmon.py:2081
 msgid "Speed"
 msgstr "速度"
 
-#: src/Libsysmon.py:1975 src/Libsysmon.py:1995
+#: src/Libsysmon.py:2062 src/Libsysmon.py:2082
 msgid "Manufacturer"
 msgstr "制造商"
 
-#: src/Libsysmon.py:1976 src/Libsysmon.py:1996
+#: src/Libsysmon.py:2063 src/Libsysmon.py:2083
 msgid "Form Factor"
 msgstr "颗粒布局"
 
-#: src/Libsysmon.py:1977 src/Libsysmon.py:1997
+#: src/Libsysmon.py:2064 src/Libsysmon.py:2084
 msgid "Locator"
 msgstr "插槽位置"
 
-#: src/Libsysmon.py:1978 src/Libsysmon.py:1998
+#: src/Libsysmon.py:2065 src/Libsysmon.py:2085
 msgid "Bank Locator"
 msgstr "插槽编号"
 
-#: src/Libsysmon.py:2036 src/Processes.py:325 src/Processes.py:1217
-#: src/ProcessesDetails.py:107 src/ProcessesMenu.py:163 src/Sensors.py:113
-#: src/Services.py:512 src/ServicesDetails.py:88 src/ServicesMenu.py:85
-#: src/System.py:262 src/System.py:287
+#: src/Libsysmon.py:2123 src/Processes.py:85 src/Processes.py:677
+#: src/ProcessesDetails.py:89 src/Services.py:317 src/ServicesDetails.py:60
+#: src/SettingsWindow.py:1213 src/SettingsWindow.py:1713 src/System.py:143
+#: src/System.py:169
 msgid "Name"
 msgstr "名称"
 
-#: src/Libsysmon.py:2040 src/Processes.py:1229 src/ProcessesDetails.py:147
-#: src/ProcessesMenu.py:219
+#: src/Libsysmon.py:2127 src/Processes.py:690 src/ProcessesDetails.py:129
+#: src/SettingsWindow.py:1280
 msgid "Priority"
 msgstr "优先级"
 
-#: src/Libsysmon.py:2082 src/Libsysmon.py:2097 src/Memory.py:336
+#: src/Libsysmon.py:2169 src/Libsysmon.py:2184 src/Memory.py:297
 msgid "Partition"
 msgstr "分区"
 
-#: src/Libsysmon.py:2176 src/Performance.py:190 src/Summary.py:962
+#: src/Libsysmon.py:2263 src/Memory.py:149 src/Performance.py:207
+#: src/Summary.py:1034
 msgid "Swap"
 msgstr "交换分区"
 
-#: src/Libsysmon.py:2267 src/Libsysmon.py:2268 src/Libsysmon.py:2269
-#: src/Libsysmon.py:2270 src/Libsysmon.py:2272 src/MainWindow.py:1019
+#: src/Libsysmon.py:2354 src/Libsysmon.py:2355 src/Libsysmon.py:2356
+#: src/Libsysmon.py:2357 src/Libsysmon.py:2359
 msgid "Not mounted"
 msgstr "未挂载"
 
-#: src/Libsysmon.py:2362 src/Libsysmon.py:2524 src/Libsysmon.py:2572
-#: src/Libsysmon.py:2669 src/Libsysmon.py:2672 src/Services.py:538
-#: src/UsersDetails.py:255
+#: src/Libsysmon.py:2449 src/Libsysmon.py:2611 src/Libsysmon.py:2659
+#: src/Libsysmon.py:2756 src/Libsysmon.py:2759 src/Libsysmon.py:4550
+#: src/Services.py:339 src/UsersDetails.py:248
 msgid "Yes"
 msgstr "是"
 
-#: src/Libsysmon.py:2364 src/Libsysmon.py:2526 src/Libsysmon.py:2674
-#: src/Services.py:538 src/UsersDetails.py:257
+#: src/Libsysmon.py:2451 src/Libsysmon.py:2613 src/Libsysmon.py:2761
+#: src/Libsysmon.py:4552 src/Services.py:339 src/UsersDetails.py:250
 msgid "No"
 msgstr "否"
 
-#: src/Libsysmon.py:2443
+#: src/Libsysmon.py:2530
 msgid "Virtual Network Interface"
 msgstr "虚拟网接口"
 
-#: src/Libsysmon.py:2454
+#: src/Libsysmon.py:2541
 msgid "Ethernet"
 msgstr "有线网络"
 
-#: src/Libsysmon.py:2456
+#: src/Libsysmon.py:2543
 msgid "Wi-Fi"
 msgstr "Wi-Fi"
 
-#: src/Libsysmon.py:5099
+#: src/Libsysmon.py:5215
 msgid "Virtual Machine"
 msgstr "虚拟机"
 
-#: src/MainWindow.py:108
-msgid "Customization menu for the current tab"
-msgstr "当前标签页的自定义菜单"
-
-#: src/MainWindow.py:143 src/MainWindow.py:880 src/Memory.py:102
-#: src/Memory.py:347 src/MemoryMenu.py:45 src/Performance.py:186
-#: src/Performance.py:190 src/Summary.py:928 src/System.py:533
-msgid "RAM"
-msgstr "RAM"
-
-#: src/MainWindow.py:153 src/MainWindow.py:303 src/Network.py:49
-#: src/NetworkMenu.py:37 src/SettingsWindow.py:31
-msgid "Network"
-msgstr "网络"
-
-#: src/MainWindow.py:197 src/SettingsWindow.py:30
-msgid "Performance"
-msgstr "性能"
-
-#: src/MainWindow.py:207 src/SettingsWindow.py:30 src/Users.py:61
-#: src/Users.py:335 src/UsersMenu.py:33
-msgid "Users"
-msgstr "用户"
-
-#: src/MainWindow.py:212 src/Services.py:63 src/Services.py:167
-#: src/Services.py:631 src/ServicesMenu.py:33 src/SettingsWindow.py:30
-msgid "Services"
-msgstr "服务"
-
-#: src/MainWindow.py:217 src/SettingsWindow.py:21 src/SettingsWindow.py:27
-#: src/SettingsWindow.py:30 src/System.py:50 src/System.py:365
-msgid "System"
-msgstr "系统"
-
-#: src/MainWindow.py:283 src/MainWindow.py:866 src/ProcessesDetails.py:60
-#: src/ServicesDetails.py:59 src/SettingsWindow.py:31 src/Summary.py:39
-#: src/SummaryMenu.py:34
-msgid "Summary"
-msgstr "概览"
-
-#: src/MainWindow.py:293 src/Memory.py:50 src/MemoryMenu.py:37
-#: src/MemoryMenu.py:49 src/Processes.py:1237 src/Processes.py:1240
-#: src/Processes.py:1248 src/ProcessesDetails.py:70 src/ProcessesDetails.py:393
-#: src/ProcessesMenu.py:187 src/ProcessesMenu.py:259 src/ProcessesMenu.py:315
-#: src/ProcessesMenu.py:358 src/SettingsWindow.py:31 src/System.py:211
-msgid "Memory"
-msgstr "内存"
-
-#: src/MainWindow.py:313 src/Sensors.py:51 src/Sensors.py:204
-#: src/SensorsMenu.py:34 src/SettingsWindow.py:31
-msgid "Sensors"
-msgstr "温度传感器"
-
-#: src/MainWindow.py:437 src/MainWindow.py:440 src/Services.py:364
-msgid "Information"
-msgstr "信息"
-
-#: src/MainWindow.py:441
-msgid ""
-"End of support for System Monitoring Center v2.x.x.\n"
-"There will not be new versions for new features, bug fixes, etc.\n"
-"The project is ended."
-msgstr ""
-
-#: src/MainWindow.py:472
-msgid "Refresh"
-msgstr "刷新"
-
-#: src/MainWindow.py:473 src/SettingsWindow.py:50
-msgid "General Settings"
-msgstr "通用选项"
-
-#: src/MainWindow.py:474
-msgid "About"
-msgstr "关于"
-
-#: src/MainWindow.py:876
-msgid "CPU core selection affects only frequency and cache memory information."
-msgstr "选择 CPU 核心只会影响频率和缓存内存信息。"
-
-#: src/MainWindow.py:880 src/Memory.py:147 src/Memory.py:278 src/Memory.py:384
-#: src/ProcessesDetails.py:443 src/System.py:533
-msgid "Swap Memory"
-msgstr "交换分区"
-
-#: src/MainWindow.py:1093
+#: src/MainWindow.py:121
 msgid ""
 "Warning! The application has been run with root privileges, you may harm "
 "your system."
 msgstr "警告！应用程序已以 root 权限运行，可能会损害您的系统。"
 
-#: src/Memory.py:74
-msgid "RAM Usage"
-msgstr "RAM 使用率"
+#: src/MainWindow.py:130
+msgid "Refresh"
+msgstr "刷新"
 
-#: src/Memory.py:107
-msgid "Available"
-msgstr "可用"
+#: src/MainWindow.py:138 src/SettingsWindow.py:41
+#| msgid "General Settings"
+msgid "Settings"
+msgstr ""
 
-#: src/Memory.py:133 src/Memory.py:186
-msgid "Cached"
-msgstr "已缓冲"
+#: src/MainWindow.py:146 src/MainWindow.py:551
+msgid "About"
+msgstr "关于"
 
-#: src/Memory.py:140
-msgid "Hardware"
-msgstr "硬件"
+#: src/MainWindow.py:171 src/MainWindow.py:1012 src/Memory.py:106
+#: src/Memory.py:305 src/Performance.py:203 src/Performance.py:207
+#: src/SettingsWindow.py:750 src/Summary.py:981 src/System.py:374
+msgid "RAM"
+msgstr "RAM"
 
-#: src/Memory.py:239 src/Memory.py:343
-msgid "Physical RAM"
-msgstr "物理内存"
+#: src/MainWindow.py:188 src/MainWindow.py:297 src/Network.py:56
+#: src/SettingsWindow.py:74
+msgid "Network"
+msgstr "网络"
 
-#: src/Memory.py:336 src/ProcessesDetails.py:80
-msgid "File"
-msgstr "文件"
-
-#: src/Network.py:75 src/Network.py:102 src/NetworkMenu.py:45
-#: src/Summary.py:1157
+#: src/MainWindow.py:190 src/Network.py:79 src/Network.py:109
+#: src/SettingsWindow.py:960 src/Summary.py:1261
 msgid "Download Speed"
 msgstr "下载速度"
 
-#: src/Network.py:75 src/Network.py:102 src/NetworkMenu.py:49
-#: src/Summary.py:1177
+#: src/MainWindow.py:190 src/Network.py:79 src/Network.py:109
+#: src/SettingsWindow.py:965 src/Summary.py:1289
 msgid "Upload Speed"
 msgstr "上传速度"
 
-#: src/Network.py:107
+#: src/MainWindow.py:215
+msgid "Performance"
+msgstr "性能"
+
+#: src/MainWindow.py:219 src/Processes.py:62 src/Processes.py:285
+#: src/Processes.py:951 src/SettingsWindow.py:82 src/SettingsWindow.py:1572
+#: src/Summary.py:1007 src/Users.py:187 src/UsersDetails.py:100
+msgid "Processes"
+msgstr "进程"
+
+#: src/MainWindow.py:223 src/SettingsWindow.py:86 src/Users.py:58
+#: src/Users.py:296
+msgid "Users"
+msgstr "用户"
+
+#: src/MainWindow.py:228 src/Services.py:61 src/Services.py:438
+#: src/SettingsWindow.py:90
+msgid "Services"
+msgstr "服务"
+
+#: src/MainWindow.py:232 src/SettingsWindow.py:20 src/SettingsWindow.py:27
+#: src/System.py:54 src/System.py:219
+msgid "System"
+msgstr "系统"
+
+#: src/MainWindow.py:281 src/MainWindow.py:998 src/ProcessesDetails.py:48
+#: src/ServicesDetails.py:41 src/SettingsWindow.py:58 src/Summary.py:45
+msgid "Summary"
+msgstr "概览"
+
+#: src/MainWindow.py:289 src/Memory.py:56 src/Processes.py:682
+#: src/Processes.py:701 src/ProcessesDetails.py:56 src/ProcessesDetails.py:371
+#: src/SettingsWindow.py:66 src/SettingsWindow.py:754
+#: src/SettingsWindow.py:1173 src/SettingsWindow.py:1240
+#: src/SettingsWindow.py:1330 src/System.py:84
+msgid "Memory"
+msgstr "内存"
+
+#: src/MainWindow.py:305 src/Sensors.py:51 src/Sensors.py:173
+#: src/SettingsWindow.py:78
+msgid "Sensors"
+msgstr "温度传感器"
+
+#: src/MainWindow.py:548
+msgid "Translated by"
+msgstr ""
+
+#: src/MainWindow.py:571
+msgid "Web Page"
+msgstr ""
+
+#: src/MainWindow.py:583
+msgid ""
+"This program comes with absolutely no warranty.\n"
+"See the GNU General Public License, version 3 or later for details."
+msgstr ""
+
+#: src/MainWindow.py:1008
+msgid "CPU core selection affects only frequency and cache memory information."
+msgstr "选择 CPU 核心只会影响频率和缓存内存信息。"
+
+#: src/MainWindow.py:1012 src/Memory.py:256 src/Memory.py:342
+#: src/ProcessesDetails.py:421 src/System.py:374
+msgid "Swap Memory"
+msgstr "交换分区"
+
+#: src/Memory.py:77 src/ProcessesDetails.py:355
+msgid "RAM Usage"
+msgstr "RAM 使用率"
+
+#: src/Memory.py:111
+msgid "Available"
+msgstr "可用"
+
+#: src/Memory.py:135 src/Memory.py:187
+msgid "Cached"
+msgstr "已缓冲"
+
+#: src/Memory.py:142
+msgid "Hardware"
+msgstr "硬件"
+
+#: src/Memory.py:232 src/Memory.py:303
+msgid "Physical RAM"
+msgstr "物理内存"
+
+#: src/Memory.py:297 src/ProcessesDetails.py:64
+msgid "File"
+msgstr "文件"
+
+#: src/Network.py:114
 msgid "Downloaded Data"
 msgstr "已下载数据"
 
-#: src/Network.py:107
+#: src/Network.py:114
 msgid "Uploaded Data"
 msgstr "已上传数据"
 
-#: src/Network.py:116
+#: src/Network.py:124
 msgid "Connection Type"
 msgstr "连接类型"
 
-#: src/Network.py:123
-msgid "Connected"
-msgstr "已连接"
+#: src/Network.py:131
+#| msgid "Connected"
+msgid "Connected-SSID"
+msgstr ""
 
-#: src/Network.py:123
-msgid "SSID"
-msgstr "SSID"
-
-#: src/Network.py:130
+#: src/Network.py:138
 msgid "Link Quality"
 msgstr "信号强度"
 
-#: src/Network.py:137
+#: src/Network.py:145
 msgid "IPv4 Address"
 msgstr "IPv4 地址"
 
-#: src/Network.py:144
+#: src/Network.py:152
 msgid "IPv6 Address"
 msgstr "IPv6 地址"
 
-#: src/Network.py:151
+#: src/Network.py:159
 msgid "MAC Address"
 msgstr "MAC 地址"
 
-#: src/Performance.py:956
+#: src/Performance.py:977
 msgid "Max"
 msgstr "最大"
 
-#: src/Processes.py:225
+#: src/Processes.py:84
+msgid "All"
+msgstr "所有"
+
+#: src/Processes.py:86 src/Processes.py:697 src/ProcessesDetails.py:561
+#: src/SettingsWindow.py:1310
+msgid "Command Line"
+msgstr "命令行"
+
+#: src/Processes.py:87 src/Processes.py:678 src/ProcessesDetails.py:99
+#: src/ProcessesDetails.py:738 src/SettingsWindow.py:1219
+msgid "PID"
+msgstr "PID"
+
+#: src/Processes.py:122
 msgid "Pause Process"
 msgstr "暂停进程"
 
-#: src/Processes.py:226
+#: src/Processes.py:123
 msgid "Continue Process"
 msgstr "继续进程"
 
-#: src/Processes.py:227
+#: src/Processes.py:124
 msgid "End Process"
 msgstr "停止进程"
 
-#: src/Processes.py:228
+#: src/Processes.py:125
 msgid "End Process Immediately"
 msgstr "立即停止进程"
 
-#: src/Processes.py:234
+#: src/Processes.py:127 src/Processes.py:196 src/Processes.py:229
+#: src/Processes.py:570 src/Processes.py:627
+msgid "Change Priority"
+msgstr "改变优先级"
+
+#: src/Processes.py:129 src/Processes.py:281 src/Processes.py:325
+msgid "Set CPU Affinity"
+msgstr "设置 可运行的CPU内核"
+
+#: src/Processes.py:136
+#| msgid "Expand all"
+msgid "Expand All"
+msgstr ""
+
+#: src/Processes.py:137
+#| msgid "Collapse all"
+msgid "Collapse All"
+msgstr ""
+
+#: src/Processes.py:201
+msgid "Change priority of these processes"
+msgstr "改变这些进程的优先级"
+
+#: src/Processes.py:204
+msgid "Smaller value means higher process priority"
+msgstr "数值越小，优先级越高"
+
+#: src/Processes.py:226 src/Processes.py:322 src/Processes.py:622
+msgid "Cancel"
+msgstr "取消"
+
+#: src/Processes.py:240
 msgid "Very High"
 msgstr "非常高"
 
-#: src/Processes.py:239 src/Sensors.py:115
+#: src/Processes.py:242 src/Sensors.py:89
 msgid "High"
 msgstr "最高"
 
@@ -632,482 +605,414 @@ msgstr "最高"
 msgid "Normal"
 msgstr "普通"
 
-#: src/Processes.py:249
+#: src/Processes.py:246
 msgid "Low"
 msgstr "低"
 
-#: src/Processes.py:254
+#: src/Processes.py:248
 msgid "Very Low"
 msgstr "非常低"
 
-#: src/Processes.py:262
-msgid "Custom Value..."
-msgstr "自定义数值…"
-
-#: src/Processes.py:271 src/Processes.py:382 src/Processes.py:460
-msgid "Change Priority"
-msgstr "改变优先级"
-
-#: src/Processes.py:276 src/Processes.py:491 src/Processes.py:588
-msgid "Set CPU Affinity"
-msgstr "设置 可运行的CPU内核"
-
-#: src/Processes.py:321
-msgid "All"
-msgstr "所有"
-
-#: src/Processes.py:329 src/Processes.py:1235 src/ProcessesDetails.py:584
-#: src/ProcessesMenu.py:243
-msgid "Command Line"
-msgstr "命令行"
-
-#: src/Processes.py:333 src/Processes.py:1218 src/ProcessesDetails.py:117
-#: src/ProcessesDetails.py:726 src/ProcessesMenu.py:169
-msgid "PID"
-msgstr "PID"
-
-#: src/Processes.py:400
-msgid "Change priority of these processes"
-msgstr "改变这些进程的优先级"
-
-#: src/Processes.py:400
-msgid "Smaller value means higher process priority"
-msgstr "数值越小，优先级越高"
-
-#: src/Processes.py:455 src/Processes.py:583
-msgid "Cancel"
-msgstr "取消"
-
-#: src/Processes.py:556
+#: src/Processes.py:301
 msgid "Select All"
 msgstr "选中所有"
 
-#: src/Processes.py:561
+#: src/Processes.py:304
 msgid "Select None"
 msgstr "全都不选"
 
-#: src/Processes.py:683
-msgid "Do you want to pause these processes?"
-msgstr "您想暂停这些进程吗？"
-
-#: src/Processes.py:688
+#: src/Processes.py:390
 msgid "Do you want to end these processes?"
 msgstr "您想结束这些进程吗？"
 
-#: src/Processes.py:691
+#: src/Processes.py:396
 msgid "Do you want to end these processes immediately?"
 msgstr "您想立即结束这些进程吗？"
 
-#: src/Processes.py:1060
-msgid "Total"
-msgstr "全部进程"
+#: src/Processes.py:588
+#| msgid "Smaller value means higher process priority"
+msgid ""
+"Change priority of these process:\n"
+"(Smaller value means higher process priority)"
+msgstr ""
 
-#: src/Processes.py:1219 src/ProcessesDetails.py:137 src/ProcessesMenu.py:175
-#: src/Users.py:230 src/UsersDetails.py:36 src/UsersDetails.py:65
-#: src/UsersDetails.py:236 src/UsersMenu.py:85
+#: src/Processes.py:679 src/ProcessesDetails.py:119 src/SettingsWindow.py:1225
+#: src/SettingsWindow.py:1546 src/Users.py:182 src/UsersDetails.py:50
 msgid "User"
 msgstr "用户进程"
 
-#: src/Processes.py:1220 src/ProcessesDetails.py:127 src/ProcessesMenu.py:179
+#: src/Processes.py:680 src/ProcessesDetails.py:109 src/SettingsWindow.py:1230
+#: src/SettingsWindow.py:1719
 msgid "Status"
 msgstr "状态"
 
-#: src/Processes.py:1222 src/Processes.py:1239 src/Processes.py:1245
-#: src/ProcessesDetails.py:167 src/ProcessesDetails.py:375
-#: src/ProcessesDetails.py:403 src/ProcessesMenu.py:191
-#: src/ProcessesMenu.py:255 src/Services.py:518 src/ServicesDetails.py:220
-#: src/ServicesMenu.py:111
+#: src/Processes.py:683 src/Processes.py:700 src/ProcessesDetails.py:149
+#: src/ProcessesDetails.py:381 src/Services.py:323 src/ServicesDetails.py:190
+#: src/SettingsWindow.py:1245 src/SettingsWindow.py:1325
+#: src/SettingsWindow.py:1744
 msgid "Memory (RSS)"
 msgstr "内存 (RSS)"
 
-#: src/Processes.py:1223 src/Processes.py:1245 src/ProcessesDetails.py:413
-#: src/ProcessesMenu.py:195
+#: src/Processes.py:684 src/ProcessesDetails.py:391 src/SettingsWindow.py:1250
 msgid "Memory (VMS)"
 msgstr "内存 (VMS)"
 
-#: src/Processes.py:1224 src/Processes.py:1246 src/ProcessesDetails.py:423
-#: src/ProcessesMenu.py:199
+#: src/Processes.py:685 src/ProcessesDetails.py:401 src/SettingsWindow.py:1255
 msgid "Memory (Shared)"
 msgstr "内存(共享)"
 
-#: src/Processes.py:1231 src/ProcessesDetails.py:217 src/ProcessesMenu.py:227
+#: src/Processes.py:691 src/ProcessesDetails.py:275 src/SettingsWindow.py:1285
+msgid "Threads"
+msgstr "线程"
+
+#: src/Processes.py:692 src/ProcessesDetails.py:199 src/SettingsWindow.py:1290
 msgid "PPID"
 msgstr "PPID"
 
-#: src/Processes.py:1232 src/ProcessesDetails.py:227 src/ProcessesMenu.py:231
-#: src/Users.py:233 src/UsersDetails.py:95 src/UsersMenu.py:99
+#: src/Processes.py:693 src/ProcessesDetails.py:209 src/SettingsWindow.py:1295
+#: src/SettingsWindow.py:1562 src/Users.py:185 src/UsersDetails.py:80
 msgid "UID"
 msgstr "UID"
 
-#: src/Processes.py:1233 src/ProcessesDetails.py:237 src/ProcessesMenu.py:235
-#: src/Users.py:234 src/UsersDetails.py:105 src/UsersMenu.py:103
+#: src/Processes.py:694 src/ProcessesDetails.py:219 src/SettingsWindow.py:1300
+#: src/SettingsWindow.py:1567 src/Users.py:186 src/UsersDetails.py:90
 msgid "GID"
 msgstr "GID"
 
-#: src/Processes.py:1234 src/ProcessesDetails.py:197 src/ProcessesMenu.py:239
-#: src/Users.py:239 src/UsersDetails.py:155 src/UsersMenu.py:123
+#: src/Processes.py:695 src/ProcessesDetails.py:179 src/SettingsWindow.py:1305
+#: src/SettingsWindow.py:1592 src/Users.py:191 src/UsersDetails.py:140
 msgid "Start Time"
 msgstr "开始时间"
 
-#: src/Processes.py:1236 src/ProcessesMenu.py:247
-msgid "CPU Time"
-msgstr "CPU 时间"
-
-#: src/Processes.py:1238 src/Processes.py:1239 src/Processes.py:1240
-#: src/ProcessesMenu.py:251 src/ProcessesMenu.py:255 src/ProcessesMenu.py:259
-msgid "Recursive"
-msgstr "递归"
-
-#: src/Processes.py:1276 src/Services.py:537
-msgid "Running"
-msgstr "运行中"
-
-#: src/Processes.py:1276
-msgid "Sleeping"
-msgstr "睡眠中"
-
-#: src/Processes.py:1276
-msgid "Waiting"
-msgstr "等待中"
-
-#: src/Processes.py:1276
-msgid "Idle"
-msgstr "闲置"
-
-#: src/Processes.py:1276
-msgid "Zombie"
-msgstr "死锁"
-
-#: src/Processes.py:1276
-msgid "Stopped"
-msgstr "已停止"
-
-#: src/ProcessesDetails.py:37 src/ProcessesDetails.py:726
-msgid "Process Details"
-msgstr "进程细节"
-
-#: src/ProcessesDetails.py:207 src/ProcessesDetails.py:564
-#: src/ServicesDetails.py:148
+#: src/Processes.py:696 src/ProcessesDetails.py:189 src/ProcessesDetails.py:541
+#: src/ServicesDetails.py:120
 msgid "Path"
 msgstr "路径"
 
-#: src/ProcessesDetails.py:304
+#: src/Processes.py:698 src/SettingsWindow.py:1315
+msgid "CPU Time"
+msgstr "CPU 时间"
+
+#: src/Processes.py:699 src/Processes.py:700 src/Processes.py:701
+#: src/SettingsWindow.py:1320 src/SettingsWindow.py:1325
+#: src/SettingsWindow.py:1330
+msgid "Recursive"
+msgstr "递归"
+
+#: src/Processes.py:709 src/Services.py:338
+msgid "Running"
+msgstr "运行中"
+
+#: src/Processes.py:709
+msgid "Sleeping"
+msgstr ""
+
+#: src/Processes.py:709
+msgid "Waiting"
+msgstr ""
+
+#: src/Processes.py:709
+msgid "Idle"
+msgstr ""
+
+#: src/Processes.py:709
+msgid "Zombie"
+msgstr ""
+
+#: src/Processes.py:709
+#| msgid "Stop"
+msgid "Stopped"
+msgstr ""
+
+#: src/Processes.py:709 src/Services.py:338
+msgid "Dead"
+msgstr "僵尸"
+
+#: src/ProcessesDetails.py:37 src/ProcessesDetails.py:738
+msgid "Process Details"
+msgstr "进程细节"
+
+#: src/ProcessesDetails.py:285
 msgid "Threads (TID)"
 msgstr "线程 (TID)"
 
-#: src/ProcessesDetails.py:316
+#: src/ProcessesDetails.py:295
 msgid "Used CPU Core(s)"
 msgstr "已使用CPU核心"
 
-#: src/ProcessesDetails.py:326
+#: src/ProcessesDetails.py:305
 msgid "CPU Times"
 msgstr "CPU时间"
 
-#: src/ProcessesDetails.py:336
+#: src/ProcessesDetails.py:315
 msgid "Context Switches"
 msgstr "上下文切换"
 
-#: src/ProcessesDetails.py:346
+#: src/ProcessesDetails.py:325
 msgid "CPU Affinity"
 msgstr "CPU 亲和性"
 
-#: src/ProcessesDetails.py:433
+#: src/ProcessesDetails.py:411
 msgid "Memory (USS)"
 msgstr "内存(USS)"
 
-#: src/ProcessesDetails.py:530
+#: src/ProcessesDetails.py:507
 msgid "Read Count"
 msgstr "读取次数"
 
-#: src/ProcessesDetails.py:540
+#: src/ProcessesDetails.py:517
 msgid "Write Count"
 msgstr "写入次数"
 
-#: src/ProcessesDetails.py:574
+#: src/ProcessesDetails.py:551
 msgid "Current Working Directory"
 msgstr "当前工作目录"
 
-#: src/ProcessesDetails.py:596
+#: src/ProcessesDetails.py:571
 msgid "Opened Files"
 msgstr "已打开文件"
 
-#: src/ProcessesDetails.py:851
+#: src/ProcessesDetails.py:848
 msgid "This process is not running anymore."
 msgstr "这个进程已经不再运行了。"
 
-#: src/ProcessesMenu.py:45 src/ProcessesMenu.py:105
-msgid "View"
-msgstr "视图"
-
-#: src/ProcessesMenu.py:55 src/ProcessesMenu.py:159 src/ServicesMenu.py:45
-#: src/ServicesMenu.py:81 src/UsersMenu.py:45 src/UsersMenu.py:81
-msgid "Add/Remove Columns"
-msgstr "添加/删除列"
-
-#: src/ProcessesMenu.py:65
-msgid "Numbers"
-msgstr "数量"
-
-#: src/ProcessesMenu.py:109
-msgid "Show processes of all users"
-msgstr "显示所有用户进程"
-
-#: src/ProcessesMenu.py:113
-msgid "Hide kernel threads"
-msgstr "隐藏内核线程"
-
-#: src/ProcessesMenu.py:118
-msgid "Show processes as tree"
-msgstr "以树的形式显示进程"
-
-#: src/ProcessesMenu.py:122
-msgid "Show tree lines"
-msgstr "显示树的结构线"
-
-#: src/ProcessesMenu.py:134
-msgid "Expand all"
-msgstr "全部展开"
-
-#: src/ProcessesMenu.py:139
-msgid "Collapse all"
-msgstr "全部折叠"
-
-#: src/ProcessesMenu.py:352
-msgid "Divide CPU usage by core count"
-msgstr "将 CPU 使用率除以核心数量"
-
-#: src/Sensors.py:112
+#: src/Sensors.py:86
 msgid "Device"
 msgstr "设备"
 
-#: src/Sensors.py:114
+#: src/Sensors.py:87
+#| msgid "Sensors"
+msgid "Sensor Name"
+msgstr ""
+
+#: src/Sensors.py:88
 msgid "Current Value"
 msgstr "当前值"
 
-#: src/Sensors.py:116
+#: src/Sensors.py:90
 msgid "Critical"
 msgstr "临界温度"
 
-#: src/Services.py:44
+#: src/Services.py:46
 msgid ""
 "Note: This tab is not reloaded automatically. Manually reload for changes."
 msgstr "注意：此标签页不会自动刷新。如有更改，请手动刷新。"
 
-#: src/Services.py:167 src/Services.py:294
-msgid "Help"
-msgstr "帮助"
-
-#: src/Services.py:187 src/Services.py:278
+#: src/Services.py:95 src/Services.py:201
 msgid "Start"
 msgstr "开始"
 
-#: src/Services.py:190
-msgid "Starts a service."
-msgstr "启动一项服务。"
-
-#: src/Services.py:190 src/Services.py:201
-msgid "This action does not affect a service after system reboot."
-msgstr "这个操作在系统重启后不会影响服务。"
-
-#: src/Services.py:198 src/Services.py:279
+#: src/Services.py:96 src/Services.py:213
 msgid "Stop"
 msgstr "停止"
 
-#: src/Services.py:201
-msgid "Stops a service."
-msgstr "停止一项服务。"
-
-#: src/Services.py:209 src/Services.py:280
+#: src/Services.py:97 src/Services.py:225
 msgid "Restart"
 msgstr "重启"
 
-#: src/Services.py:212
-msgid "Restarts a service."
-msgstr "重新启动一项服务。"
-
-#: src/Services.py:220 src/Services.py:281
+#: src/Services.py:98 src/Services.py:237
 msgid "Reload"
 msgstr "重新加载"
 
-#: src/Services.py:223
-msgid "Reloads a service."
-msgstr "重新加载一项服务。"
-
-#: src/Services.py:223
-msgid "This action is not available for all services."
-msgstr "这个操作并不适用于所有的服务。"
-
-#: src/Services.py:223 src/Services.py:245
-msgid "This action does not affect running process of a service."
-msgstr "这个操作不会影响服务的运行过程。"
-
-#: src/Services.py:231 src/Services.py:282
+#: src/Services.py:99 src/Services.py:249
 msgid "Enable"
 msgstr "启用"
 
-#: src/Services.py:234
-msgid "Enables a service."
-msgstr "启用一项服务。"
-
-#: src/Services.py:234 src/Services.py:245
-msgid "This action affects a service after system reboot."
-msgstr "这个操作会在系统重启后影响服务。"
-
-#: src/Services.py:242 src/Services.py:283
+#: src/Services.py:100 src/Services.py:261
 msgid "Disable"
 msgstr "禁用"
 
-#: src/Services.py:245
-msgid "Disables a service."
-msgstr "禁用一项服务。"
-
-#: src/Services.py:253 src/Services.py:286
+#: src/Services.py:101 src/Services.py:273
 msgid "Mask"
 msgstr "Mask"
 
-#: src/Services.py:256
-msgid "Disables a service completely."
-msgstr "完全禁用一个服务。"
-
-#: src/Services.py:256
-msgid "A masked service can not be started, restarted, reloaded or enabled."
-msgstr "一个被\"Mask\"的服务不能被启动、重启、重新加载或启用。"
-
-#: src/Services.py:264
+#: src/Services.py:102 src/Services.py:285
 msgid "Unmask"
 msgstr "Unmask"
 
-#: src/Services.py:267
+#: src/Services.py:104 src/Services.py:192
+msgid "Help"
+msgstr "帮助"
+
+#: src/Services.py:169
+msgid "Information"
+msgstr "信息"
+
+#: src/Services.py:205
+msgid "Starts a service."
+msgstr "启动一项服务。"
+
+#: src/Services.py:205 src/Services.py:217
+msgid "This action does not affect a service after system reboot."
+msgstr "这个操作在系统重启后不会影响服务。"
+
+#: src/Services.py:217
+msgid "Stops a service."
+msgstr "停止一项服务。"
+
+#: src/Services.py:229
+msgid "Restarts a service."
+msgstr "重新启动一项服务。"
+
+#: src/Services.py:241
+msgid "Reloads a service."
+msgstr "重新加载一项服务。"
+
+#: src/Services.py:241
+msgid "This action is not available for all services."
+msgstr "这个操作并不适用于所有的服务。"
+
+#: src/Services.py:241 src/Services.py:265
+msgid "This action does not affect running process of a service."
+msgstr "这个操作不会影响服务的运行过程。"
+
+#: src/Services.py:253
+msgid "Enables a service."
+msgstr "启用一项服务。"
+
+#: src/Services.py:253 src/Services.py:265
+msgid "This action affects a service after system reboot."
+msgstr "这个操作会在系统重启后影响服务。"
+
+#: src/Services.py:265
+msgid "Disables a service."
+msgstr "禁用一项服务。"
+
+#: src/Services.py:277
+msgid "Disables a service completely."
+msgstr "完全禁用一个服务。"
+
+#: src/Services.py:277
+msgid "A masked service can not be started, restarted, reloaded or enabled."
+msgstr "一个被\"Mask\"的服务不能被启动、重启、重新加载或启用。"
+
+#: src/Services.py:289
 msgid "Unmasks a service."
 msgstr "将服务Unmasks。"
 
-#: src/Services.py:267
+#: src/Services.py:289
 msgid ""
 "A service can be started, restarted, reloaded (if it is available) or "
 "enabled after unmasking."
 msgstr "在取消\"Mask\"后，服务可以被启动、重启、重新加载（如果可用）或启用。"
 
-#: src/Services.py:513 src/ServicesMenu.py:91
+#: src/Services.py:318
 msgid "State"
 msgstr "状态"
 
-#: src/Services.py:514 src/ServicesDetails.py:180 src/ServicesMenu.py:95
+#: src/Services.py:319 src/ServicesDetails.py:150 src/SettingsWindow.py:1724
 msgid "Main PID"
 msgstr "主PID"
 
-#: src/Services.py:515 src/ServicesDetails.py:128 src/ServicesMenu.py:99
+#: src/Services.py:320 src/ServicesDetails.py:100 src/SettingsWindow.py:1729
 msgid "Active State"
 msgstr "激活状态"
 
-#: src/Services.py:516 src/ServicesDetails.py:118 src/ServicesMenu.py:103
+#: src/Services.py:321 src/ServicesDetails.py:90 src/SettingsWindow.py:1734
 msgid "Load State"
 msgstr "加载状态"
 
-#: src/Services.py:517 src/ServicesDetails.py:138 src/ServicesMenu.py:107
+#: src/Services.py:322 src/ServicesDetails.py:110
 msgid "Sub-State"
 msgstr "子状态"
 
-#: src/Services.py:519 src/ServicesDetails.py:98 src/ServicesMenu.py:115
+#: src/Services.py:324 src/ServicesDetails.py:70 src/SettingsWindow.py:1749
 msgid "Description"
 msgstr "描述"
 
-#: src/Services.py:537
+#: src/Services.py:338
 msgid "Enabled"
 msgstr "已启用"
 
-#: src/Services.py:537
+#: src/Services.py:338
 msgid "Disabled"
 msgstr "已禁用"
 
-#: src/Services.py:537
+#: src/Services.py:338
 msgid "Masked"
 msgstr "Masked"
 
-#: src/Services.py:537
+#: src/Services.py:338
 msgid "Unmasked"
 msgstr "Unmasked"
 
-#: src/Services.py:537
+#: src/Services.py:338
 msgid "Static"
 msgstr "静态"
 
-#: src/Services.py:537
+#: src/Services.py:338
 msgid "Generated"
 msgstr "已生成"
 
-#: src/Services.py:537
+#: src/Services.py:338
 msgid "Enabled-runtime"
 msgstr "生成-运行时"
 
-#: src/Services.py:537
+#: src/Services.py:338
 msgid "Indirect"
 msgstr "间接"
 
-#: src/Services.py:537
+#: src/Services.py:338
 msgid "Active"
 msgstr "活动的"
 
-#: src/Services.py:537
+#: src/Services.py:338
 msgid "Inactive"
 msgstr "不活动的"
 
-#: src/Services.py:537
+#: src/Services.py:338
 msgid "Loaded"
 msgstr "已加载"
 
-#: src/Services.py:537
-msgid "Dead"
-msgstr "僵尸"
-
-#: src/Services.py:537
+#: src/Services.py:338
 msgid "Exited"
 msgstr "已退出"
 
-#: src/ServicesDetails.py:36
+#: src/ServicesDetails.py:33
 msgid "Service Details"
 msgstr "服务细节"
 
-#: src/ServicesDetails.py:64
+#: src/ServicesDetails.py:46
 msgid "Dependencies"
 msgstr "依赖"
 
-#: src/ServicesDetails.py:108
+#: src/ServicesDetails.py:80
 msgid "Unit File State"
 msgstr "单元文件状态"
 
-#: src/ServicesDetails.py:108
+#: src/ServicesDetails.py:80
 msgid "Preset"
 msgstr "预置"
 
-#: src/ServicesDetails.py:158
+#: src/ServicesDetails.py:130
 msgid "Documentation"
 msgstr "文档"
 
-#: src/ServicesDetails.py:170
+#: src/ServicesDetails.py:140
 msgid "Triggered By"
 msgstr "触发者"
 
-#: src/ServicesDetails.py:190
+#: src/ServicesDetails.py:160
 msgid "Main Process Start Time"
 msgstr "主进程开始时间"
 
-#: src/ServicesDetails.py:200
+#: src/ServicesDetails.py:170
 msgid "Main Process End Time"
 msgstr "主进程结束时间"
 
-#: src/ServicesDetails.py:244
+#: src/ServicesDetails.py:206
 msgid "Requires"
 msgstr "依赖"
 
-#: src/ServicesDetails.py:256
+#: src/ServicesDetails.py:216
 msgid "Conflicts"
 msgstr "冲突"
 
-#: src/ServicesDetails.py:268
+#: src/ServicesDetails.py:226
 msgid "After"
 msgstr "在……时候"
 
-#: src/ServicesDetails.py:280
+#: src/ServicesDetails.py:236
 msgid "Before"
 msgstr "在……之前"
 
@@ -1119,162 +1024,271 @@ msgstr "浅色方案"
 msgid "Dark"
 msgstr "深色方案"
 
-#: src/SettingsWindow.py:34
+#: src/SettingsWindow.py:32
 msgid "Task Manager"
 msgstr "任务管理器"
 
-#: src/SettingsWindow.py:69
+#: src/SettingsWindow.py:54
+msgid "General Settings"
+msgstr "通用选项"
+
+#: src/SettingsWindow.py:142
 msgid "Language (Requires restart)"
 msgstr "语言（需要重启）"
 
-#: src/SettingsWindow.py:77
+#: src/SettingsWindow.py:151
 msgid "Light/Dark theme"
 msgstr "浅色/深色主题"
 
-#: src/SettingsWindow.py:85
-msgid "Opacity"
-msgstr "透明度"
-
-#: src/SettingsWindow.py:103
+#: src/SettingsWindow.py:164
 msgid "Update interval (seconds)"
 msgstr "刷新频率（秒）"
 
-#: src/SettingsWindow.py:111
+#: src/SettingsWindow.py:173
 msgid "Graph data history"
 msgstr "图表数据历史"
 
-#: src/SettingsWindow.py:123
-msgid "Show performance summary on the headerbar"
-msgstr "在标题栏上显示性能摘要"
-
-#: src/SettingsWindow.py:131
+#: src/SettingsWindow.py:187
 msgid "Remember last opened tabs"
 msgstr "记住最后打开的标签页"
 
-#: src/SettingsWindow.py:140
-msgid "Default main tab and sub-tab"
-msgstr "默认页面及子页面"
-
-#: src/SettingsWindow.py:156
+#: src/SettingsWindow.py:192
 msgid "Remember last selected devices"
 msgstr "记住最后选择的设备"
 
-#: src/SettingsWindow.py:164
+#: src/SettingsWindow.py:197
 msgid "Remember window size"
 msgstr "记住窗口大小"
 
-#: src/SettingsWindow.py:182
+#: src/SettingsWindow.py:213
 msgid "Reset all settings of the application"
 msgstr "重置应用程序的所有设置"
 
-#: src/SettingsWindow.py:751
-msgid "Do you want to reset all settings to defaults?"
-msgstr "确定要重置所有选项吗？"
+#: src/SettingsWindow.py:597 src/SettingsWindow.py:649
+#: src/SettingsWindow.py:745 src/SettingsWindow.py:826
+#: src/SettingsWindow.py:955
+msgid "Graph - Show"
+msgstr "图形 - 显示"
 
-#: src/System.py:55 src/System.py:283
-msgid "Operating System (OS)"
-msgstr "操作系统（OS）"
+#: src/SettingsWindow.py:606 src/SettingsWindow.py:671
+msgid "This increases CPU usage."
+msgstr "这会增加CPU的使用率。"
 
-#: src/System.py:60 src/System.py:237
-msgid "Computer"
-msgstr "计算机"
+#: src/SettingsWindow.py:667
+msgid "Show processes using max CPU"
+msgstr "显示使用最大CPU的进程"
 
-#: src/System.py:255
-msgid "Computer Type"
-msgstr "计算机类型"
+#: src/SettingsWindow.py:671
+msgid "for all tabs"
+msgstr "对所有选项卡"
 
-#: src/System.py:276
-msgid "Number Of Monitors"
-msgstr "显示器数量"
+#: src/SettingsWindow.py:679
+msgid "Cache"
+msgstr "缓冲"
 
-#: src/System.py:294
-msgid "Version"
-msgstr "版本"
+#: src/SettingsWindow.py:684
+msgid "CPU Socket"
+msgstr "CPU插槽"
 
-#: src/System.py:294
-msgid "Code Name"
-msgstr "代号"
+#: src/SettingsWindow.py:688
+msgid "Selected CPU Core"
+msgstr "选定的CPU核心"
 
-#: src/System.py:301
-msgid "OS Family"
-msgstr "系统类型"
+#: src/SettingsWindow.py:762 src/SettingsWindow.py:853
+#: src/SettingsWindow.py:982 src/SettingsWindow.py:1066
+msgid "Data Unit"
+msgstr "数据单元"
 
-#: src/System.py:308
-msgid "Based On"
-msgstr "基于"
+#: src/SettingsWindow.py:766 src/SettingsWindow.py:857
+#: src/SettingsWindow.py:986 src/SettingsWindow.py:1177
+#: src/SettingsWindow.py:1194
+msgid "Show data as powers of"
+msgstr "以幂的形式显示数据"
 
-#: src/System.py:315
-msgid "Kernel Release"
-msgstr "内核发行版"
+#: src/SettingsWindow.py:771 src/SettingsWindow.py:862
+#: src/SettingsWindow.py:991 src/SettingsWindow.py:1182
+#: src/SettingsWindow.py:1199
+msgid "1024"
+msgstr ""
 
-#: src/System.py:322
-msgid "Kernel Version"
-msgstr "内核版本"
+#: src/SettingsWindow.py:775 src/SettingsWindow.py:866
+#: src/SettingsWindow.py:995 src/SettingsWindow.py:1186
+#: src/SettingsWindow.py:1203
+msgid "1000"
+msgstr ""
 
-#: src/System.py:329
-msgid "Graphical User Interface (GUI)"
-msgstr "用户界面（GUI）"
+#: src/SettingsWindow.py:841 src/SettingsWindow.py:970
+msgid "Selected Device"
+msgstr "选定设备"
 
-#: src/System.py:333
-msgid "Desktop Environment"
-msgstr "桌面环境"
+#: src/SettingsWindow.py:845 src/SettingsWindow.py:974
+msgid "All Devices"
+msgstr "所有设备"
 
-#: src/System.py:340
-msgid "Windowing System"
-msgstr "窗口系统"
+#: src/SettingsWindow.py:871 src/SettingsWindow.py:1000
+#: src/SettingsWindow.py:1208
+msgid "Show speed units as multiples of bits"
+msgstr "以位的倍数显示速度单位"
 
-#: src/System.py:347
-msgid "Window Manager"
-msgstr "窗口管理器"
+#: src/SettingsWindow.py:884
+msgid "Hide loop, ramdisk, zram disks"
+msgstr "隐藏循环，ramdisk，zram磁盘"
 
-#: src/System.py:354
-msgid "Display Manager"
-msgstr "显示管理器"
+#: src/SettingsWindow.py:1071
+msgid "°C"
+msgstr ""
 
-#: src/System.py:361
-msgid "Packages"
-msgstr "软件包"
+#: src/SettingsWindow.py:1075
+msgid "°F"
+msgstr ""
 
-#: src/System.py:375 src/System.py:392
-msgid "Processing"
-msgstr "处理中"
+#: src/SettingsWindow.py:1133
+msgid "View"
+msgstr "视图"
 
-#: src/System.py:381
-msgid "Flatpak"
-msgstr "Flatpak"
+#: src/SettingsWindow.py:1138
+msgid "Add/Remove Columns"
+msgstr "添加/删除列"
 
-#: src/System.py:382
-msgid "Number of installed Flatpak applications and runtimes"
-msgstr "已安装的 Flatpak 应用程序和运行时的数量"
+#: src/SettingsWindow.py:1146
+msgid "Show processes of all users"
+msgstr "显示所有用户进程"
 
-#: src/System.py:399
-msgid "GTK Version"
-msgstr "GTK版本"
+#: src/SettingsWindow.py:1151
+msgid "Hide kernel threads"
+msgstr "隐藏内核线程"
 
-#: src/System.py:400 src/System.py:408
-msgid "Version for the currently running software"
-msgstr "当前运行的软件的版本"
+#: src/SettingsWindow.py:1156
+msgid "Show processes as tree"
+msgstr "以树的形式显示进程"
 
-#: src/System.py:407
-msgid "Python Version"
-msgstr "Python 版本"
+#: src/SettingsWindow.py:1169
+msgid "Divide CPU usage by core count"
+msgstr "将 CPU 使用率除以核心数量"
 
-#: src/Users.py:231 src/UsersDetails.py:75 src/UsersMenu.py:91
+#: src/SettingsWindow.py:1552 src/Users.py:183 src/UsersDetails.py:60
 msgid "Full Name"
 msgstr "全称"
 
-#: src/Users.py:232 src/UsersDetails.py:85 src/UsersMenu.py:95
+#: src/SettingsWindow.py:1557 src/Users.py:184 src/UsersDetails.py:70
 msgid "Logged In"
 msgstr "已登录"
 
-#: src/Users.py:236 src/UsersDetails.py:125 src/UsersMenu.py:111
+#: src/SettingsWindow.py:1577 src/Users.py:188 src/UsersDetails.py:110
 msgid "Home Directory"
 msgstr "主目录"
 
-#: src/Users.py:237 src/UsersDetails.py:135 src/UsersMenu.py:115
+#: src/SettingsWindow.py:1582 src/Users.py:189 src/UsersDetails.py:120
 msgid "Group"
 msgstr "群组"
 
-#: src/Users.py:238 src/UsersDetails.py:145 src/UsersMenu.py:119
+#: src/SettingsWindow.py:1587 src/Users.py:190 src/UsersDetails.py:130
 msgid "Terminal"
 msgstr "终端"
+
+#: src/SettingsWindow.py:1739
+#| msgid "Sub-State"
+msgid "Sub State"
+msgstr ""
+
+#: src/System.py:58 src/System.py:165
+msgid "Operating System (OS)"
+msgstr "操作系统（OS）"
+
+#: src/System.py:62 src/System.py:118
+msgid "Computer"
+msgstr "计算机"
+
+#: src/System.py:105
+msgid "Resolution"
+msgstr "分辨率"
+
+#: src/System.py:122
+msgid "Vendor"
+msgstr "供应商"
+
+#: src/System.py:129
+msgid "Model"
+msgstr "型号"
+
+#: src/System.py:136
+msgid "Computer Type"
+msgstr "计算机类型"
+
+#: src/System.py:157
+msgid "Number Of Monitors"
+msgstr "显示器数量"
+
+#: src/System.py:176
+#| msgid "Code Name"
+msgid "Version - Code Name"
+msgstr ""
+
+#: src/System.py:183
+msgid "OS Family"
+msgstr "系统类型"
+
+#: src/System.py:190
+msgid "Based On"
+msgstr "基于"
+
+#: src/System.py:197
+msgid "Kernel Release"
+msgstr "内核发行版"
+
+#: src/System.py:204
+msgid "Kernel Version"
+msgstr "内核版本"
+
+#: src/System.py:215
+msgid "Packages"
+msgstr "软件包"
+
+#: src/System.py:226
+msgid "Flatpak"
+msgstr "Flatpak"
+
+#: src/System.py:228
+msgid "Number of installed Flatpak applications and runtimes"
+msgstr "已安装的 Flatpak 应用程序和运行时的数量"
+
+#: src/System.py:234
+#| msgid "GTK Version"
+msgid "Tkinter Version"
+msgstr ""
+
+#: src/System.py:236 src/System.py:244
+msgid "Version for the currently running software"
+msgstr "当前运行的软件的版本"
+
+#: src/System.py:242
+msgid "Python Version"
+msgstr "Python 版本"
+
+#: src/System.py:253
+msgid "Graphical User Interface (GUI)"
+msgstr "用户界面（GUI）"
+
+#: src/System.py:257
+msgid "Desktop Environment"
+msgstr "桌面环境"
+
+#: src/System.py:264
+msgid "Windowing System"
+msgstr "窗口系统"
+
+#: src/System.py:271
+msgid "Window Manager"
+msgstr "窗口管理器"
+
+#: src/System.py:278
+msgid "Display Manager"
+msgstr "显示管理器"
+
+#: src/UsersDetails.py:33
+#| msgid "Service Details"
+msgid "User Details"
+msgstr ""
+
+#~ msgid "Graph Color"
+#~ msgstr "图形颜色"

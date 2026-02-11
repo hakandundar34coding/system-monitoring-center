@@ -1,11 +1,5 @@
-import gi
-gi.require_version('Gtk', '4.0')
-gi.require_version('Gdk', '4.0')
-gi.require_version('GLib', '2.0')
-gi.require_version('Gio', '2.0')
-gi.require_version('GObject', '2.0')
-gi.require_version('Pango', '1.0')
-from gi.repository import Gtk, Gdk, GLib, Gio, GObject, Pango
+import tkinter as tk
+from tkinter import ttk, messagebox
 
 import os
 import time
@@ -39,311 +33,512 @@ class Processes:
         Generate tab GUI.
         """
 
-        self.tab_grid = Common.tab_grid()
+        self.tab_frame = ttk.Frame(MainWindow.processes_tab_main_frame)
+        self.tab_frame.grid(row=0, column=0, sticky="nsew", padx=0, pady=0)
+        self.tab_frame.columnconfigure(0, weight=1)
+        self.tab_frame.rowconfigure(1, weight=1)
 
-        self.tab_title_grid()
+        self.tab_title_frame()
 
-        self.tab_info_grid()
+        self.information_frame()
 
-        self.gui_signals()
-
-        self.right_click_menu()
+        self.right_click_menu_gui()
 
         # Set initial value for process searching.
-        self.process_search_type = "all"
-
-        # Add PID column (1) to shown columns in order to prevent errors during process search if PID column is hidden in
-        # previous versions (<=v2.10.0) of the application.
-        treeview_columns_shown = Config.processes_treeview_columns_shown
-        if 1 not in treeview_columns_shown:
-            treeview_columns_shown.append(1)
-        Config.processes_treeview_columns_shown = sorted(treeview_columns_shown)
+        self.process_search_type = "name"
 
 
-        data_column_order = Config.processes_data_column_order
-        if len(data_column_order) < 20:
-            data_column_widths = Config.processes_data_column_widths
-            Config.processes_data_column_order = data_column_order + [-1]
-            Config.processes_data_column_widths = data_column_widths + [-1]
-
-        # Hide GPU Usage and GPU Memory columns if they were shown before. This hides 25th and 26th columns.
-        if len(data_column_order) == 26:
-            if data_column_order[-1] != -1:
-                data_column_order[-1] = -1
-            if data_column_order[-2] != -1:
-                data_column_order[-2] = -1
-
-
-    def tab_title_grid(self):
+    def tab_title_frame(self):
         """
         Generate tab name label, searchentry.
         """
 
         # Grid (tab title)
-        grid = Gtk.Grid()
-        grid.set_column_spacing(5)
-        self.tab_grid.attach(grid, 0, 0, 1, 1)
+        frame = ttk.Frame(self.tab_frame)
+        frame.grid(row=0, column=0, sticky="new", padx=0, pady=(0, 10))
+        frame.columnconfigure(1, weight=1)
 
         # Label (Processes)
-        label = Common.tab_title_label(_tr("Processes"))
-        grid.attach(label, 0, 0, 1, 1)
+        label = Common.tab_title_label(frame, _tr("Processes"))
 
         # Grid (search widgets)
-        search_grid = Gtk.Grid()
-        search_grid.set_column_spacing(3)
-        search_grid.add_css_class("linked")
-        search_grid.set_halign(Gtk.Align.CENTER)
-        grid.attach(search_grid, 1, 0, 1, 1)
+        search_frame = ttk.Frame(frame)
+        search_frame.columnconfigure(0, weight=1)
+        search_frame.grid(row=0, column=1, sticky="ew", padx=0, pady=0)
 
         # SearchEntry
-        self.searchentry = Common.searchentry(self.on_searchentry_changed)
-        search_grid.attach(self.searchentry, 0, 0, 1, 1)
+        self.searchentry, self.searchentry_text_var = Common.searchentry(search_frame, self)
+        self.searchentry.grid(row=0, column=0, sticky="nsew", padx=0, pady=0)
 
         # MenuButton (search customization)
-        self.search_customization_menubutton = Gtk.MenuButton()
-        self.search_customization_menubutton.set_icon_name("edit-find-symbolic")
-        self.search_customization_menubutton.set_halign(Gtk.Align.START)
-        self.search_customization_menubutton.set_valign(Gtk.Align.CENTER)
-        self.search_customization_menubutton.set_create_popup_func(self.search_customization_menu_gui)
-        self.search_customization_menubutton.set_direction(Gtk.ArrowType.DOWN)
-        search_grid.attach(self.search_customization_menubutton, 1, 0, 1, 1)
+        image = tk.PhotoImage(file=MainWindow.image_path + "smc-search.png")
+        image = image.subsample(3, 3)
+        self.search_customization_menubutton = ttk.Menubutton(search_frame, image=image, style="Toggle.TButton")
+        self.search_customization_menubutton.image = image
+        self.search_customization_menubutton.grid(row=0, column=1, sticky="w", padx=(3, 0), pady=0)
+
+        # Search customization Menu
+        self.search_customization_menubutton_var = tk.StringVar()
+        self.search_customization_menubutton.menu = tk.Menu(self.search_customization_menubutton, tearoff=False)
+        self.search_customization_menubutton["menu"] = self.search_customization_menubutton.menu
+        self.search_customization_menubutton.menu.add_radiobutton(label=_tr("All"), activebackground="gray", variable=self.search_customization_menubutton_var, value="all", command=lambda: self.on_search_menu_cb_toggled("all"))
+        self.search_customization_menubutton.menu.add_radiobutton(label=_tr("Name"), activebackground="gray", variable=self.search_customization_menubutton_var, value="name" , command=lambda: self.on_search_menu_cb_toggled("name"))
+        self.search_customization_menubutton.menu.add_radiobutton(label=_tr("Command Line"), activebackground="gray", variable=self.search_customization_menubutton_var, value="command_line", command=lambda: self.on_search_menu_cb_toggled("command_line"))
+        self.search_customization_menubutton.menu.add_radiobutton(label=_tr("PID"), activebackground="gray", variable=self.search_customization_menubutton_var, value="pid", command=lambda: self.on_search_menu_cb_toggled("pid"))
+        self.search_customization_menubutton_var.set("name")
 
 
-    def tab_info_grid(self):
+    def information_frame(self):
         """
         Generate information GUI objects.
         """
 
-        # ScrolledWindow
-        scrolledwindow = Gtk.ScrolledWindow()
-        scrolledwindow.set_hexpand(True)
-        scrolledwindow.set_vexpand(True)
-        self.tab_grid.attach(scrolledwindow, 0, 1, 1, 1)
-
         # TreeView
-        self.treeview = Gtk.TreeView()
-        self.treeview.set_activate_on_single_click(True)
-        self.treeview.set_fixed_height_mode(True)
-        self.treeview.set_headers_clickable(True)
-        self.treeview.set_enable_search(True)
-        self.treeview.set_search_column(2)
-        self.treeview.set_tooltip_column(3)                                                       # "3" is used for process command line
-        scrolledwindow.set_child(self.treeview)
-
-        # TreeSelection
-        self.selection = self.treeview.get_selection()
-        self.selection.set_mode(Gtk.SelectionMode.MULTIPLE)
-
-
-    def gui_signals(self):
-        """
-        Connect GUI signals.
-        """
-
-        # Treeview signals
-        self.treeview.connect("columns-changed", Common.on_columns_changed, self)
-
-        # Treeview mouse events
-        treeview_mouse_event = Gtk.GestureClick()
-        treeview_mouse_event.connect("pressed", self.on_treeview_pressed)
-        self.treeview.add_controller(treeview_mouse_event)
-
-        treeview_mouse_event_right_click = Gtk.GestureClick()
-        treeview_mouse_event_right_click.set_button(3)
-        treeview_mouse_event_right_click.connect("released", self.on_treeview_released)
-        self.treeview.add_controller(treeview_mouse_event_right_click)
-
-        treeview_mouse_event_left_click = Gtk.GestureClick()
-        treeview_mouse_event_left_click.set_button(1)
-        treeview_mouse_event_left_click.connect("released", self.on_treeview_released_button1)
-        self.treeview.add_controller(treeview_mouse_event_left_click)
-
-        # TreeSelection events
-        self.selection_changed_signal_handler = self.selection.connect("changed", self.treeview_selection_changed)
-
-        # SeachEntry focus action and accelerator
-        Common.searchentry_focus_action_and_accelerator(MainWindow)
-
-        # Right click menu actions
-        # "Pause Process" action
-        action = Gio.SimpleAction.new("processes_pause_process", None)
-        action.connect("activate", self.on_process_manage_items_clicked)
-        MainWindow.main_window.add_action(action)
-
-        # "Continue Process" action
-        action = Gio.SimpleAction.new("processes_continue_process", None)
-        action.connect("activate", self.on_process_manage_items_clicked)
-        MainWindow.main_window.add_action(action)
-
-        # "End Process" action
-        action = Gio.SimpleAction.new("processes_end_process", None)
-        action.connect("activate", self.on_process_manage_items_clicked)
-        MainWindow.main_window.add_action(action)
-
-        # "End Process Immediately" action
-        action = Gio.SimpleAction.new("processes_end_process_immediately", None)
-        action.connect("activate", self.on_process_manage_items_clicked)
-        MainWindow.main_window.add_action(action)
-
-        # Priority actions. One option have to be chosen for radiobuttons. It is chosen by using "GLib.Variant("s", "[action_name]")".
-        self.priority_action = Gio.SimpleAction.new_stateful("processes_priority_group", GLib.VariantType.new("s"), GLib.Variant("s", "processes_priority_normal"))
-        self.priority_action.connect("activate", self.on_change_priority_item_clicked)
-        MainWindow.main_window.add_action(self.priority_action)
-
-        # "Priority - Custom Value" action
-        action = Gio.SimpleAction.new("processes_priority_custom_value", None)
-        action.connect("activate", self.on_change_priority_item_clicked)
-        MainWindow.main_window.add_action(action)
-
-        # "Set CPU Affinity" action
-        action = Gio.SimpleAction.new("processes_set_cpu_affinity", None)
-        action.connect("activate", self.on_process_cpu_affinity_item_clicked)
-        MainWindow.main_window.add_action(action)
-
-        # "Details" action
-        action = Gio.SimpleAction.new("processes_details", None)
-        action.connect("activate", self.on_details_item_clicked)
-        MainWindow.main_window.add_action(action)
-
-        # Accelerators for right click menu actions
-        application = MainWindow.main_window.get_application()
-        application.set_accels_for_action("win.processes_pause_process", ["<Control>S"])
-        application.set_accels_for_action("win.processes_continue_process", ["<Control>C"])
-        application.set_accels_for_action("win.processes_end_process", ["<Control>E"])
-        application.set_accels_for_action("win.processes_end_process_immediately", ["<Control>K"])
-        application.set_accels_for_action("win.processes_set_cpu_affinity", ["<Control>R"])
-        application.set_accels_for_action("win.processes_details", ["Return", "KP_Enter"])
+        self.treeview, frame = Common.treeview(self.tab_frame, self)
+        self.treeview.config(selectmode="extended")
+        self.treeview.config(padding=[-10,0,0,0])
+        self.treeview.bind('<Control-s>', lambda e: self.on_process_manage_items_activate("pause_process"))
+        self.treeview.bind('<Control-S>', lambda e: self.on_process_manage_items_activate("pause_process"))
+        self.treeview.bind('<Control-c>', lambda e: self.on_process_manage_items_activate("continue_process"))
+        self.treeview.bind('<Control-C>', lambda e: self.on_process_manage_items_activate("continue_process"))
+        self.treeview.bind('<Control-e>', lambda e: self.on_process_manage_items_activate("end_process"))
+        self.treeview.bind('<Control-E>', lambda e: self.on_process_manage_items_activate("end_process"))
+        self.treeview.bind('<Control-k>', lambda e: self.on_process_manage_items_activate("end_immediately_process"))
+        self.treeview.bind('<Control-K>', lambda e: self.on_process_manage_items_activate("end_immediately_process"))
+        self.treeview.bind('<Control-p>', self.on_change_priority_item_clicked)
+        self.treeview.bind('<Control-P>', self.on_change_priority_item_clicked)
+        self.treeview.bind('<Control-r>', self.on_set_cpu_affinity_item_clicked)
+        self.treeview.bind('<Control-R>', self.on_set_cpu_affinity_item_clicked)
 
 
-    def right_click_menu(self):
+    def right_click_menu_gui(self):
         """
         Generate right click menu GUI.
         """
 
-        # Menu models
-        process_management_menu_section = Gio.Menu.new()
-        process_management_menu_section.append(_tr("Pause Process"), "win.processes_pause_process")
-        process_management_menu_section.append(_tr("Continue Process"), "win.processes_continue_process")
-        process_management_menu_section.append(_tr("End Process"), "win.processes_end_process")
-        process_management_menu_section.append(_tr("End Process Immediately"), "win.processes_end_process_immediately")
-        process_management_menu_section_item = Gio.MenuItem.new()
-        process_management_menu_section_item.set_section(process_management_menu_section)
+        # Do not generate a new menu if it is generated before.
+        if hasattr(self, "right_click_menu") == False:
+            self.right_click_menu = tk.Menu(self.treeview, tearoff=False, bd=3, activebackground="gray")
+            self.right_click_menu.add_command(label=_tr("Pause Process"), accelerator="(Ctrl+S)", command=lambda: self.on_process_manage_items_activate("pause_process"))
+            self.right_click_menu.add_command(label=_tr("Continue Process"), accelerator="(Ctrl+C)", command=lambda: self.on_process_manage_items_activate("continue_process"))
+            self.right_click_menu.add_command(label=_tr("End Process"), accelerator="(Ctrl+E)", command=lambda: self.on_process_manage_items_activate("end_process"))
+            self.right_click_menu.add_command(label=_tr("End Process Immediately"), accelerator="(Ctrl+K)", command=lambda: self.on_process_manage_items_activate("end_immediately_process"))
+            self.right_click_menu.add_separator()
+            self.right_click_menu.add_command(label=_tr("Change Priority"), accelerator="(Ctrl+P)", command=self.on_change_priority_item_clicked)
+            self.right_click_menu.add_separator()
+            self.right_click_menu.add_command(label=_tr("Set CPU Affinity"), accelerator="(Ctrl+R)", command=self.on_set_cpu_affinity_item_clicked)
+            self.right_click_menu.add_separator()
+            self.right_click_menu.add_command(label=_tr("Details"), accelerator="(Enter)", command=self.on_details_item_activate)
 
-        priority_options_submenu_section = Gio.Menu.new()
-        priority_very_high_menu_item = Gio.MenuItem()
-        priority_very_high_menu_item.set_attribute_value(Gio.MENU_ATTRIBUTE_LABEL, GLib.Variant("s", _tr("Very High")))
-        priority_very_high_menu_item.set_attribute_value(Gio.MENU_ATTRIBUTE_ACTION, GLib.Variant("s", "win.processes_priority_group"))
-        priority_very_high_menu_item.set_attribute_value(Gio.MENU_ATTRIBUTE_TARGET, GLib.Variant("s", "processes_priority_very_high"))
-        priority_options_submenu_section.append_item(priority_very_high_menu_item)
-        priority_high_menu_item = Gio.MenuItem()
-        priority_high_menu_item.set_attribute_value(Gio.MENU_ATTRIBUTE_LABEL, GLib.Variant("s", _tr("High")))
-        priority_high_menu_item.set_attribute_value(Gio.MENU_ATTRIBUTE_ACTION, GLib.Variant("s", "win.processes_priority_group"))
-        priority_high_menu_item.set_attribute_value(Gio.MENU_ATTRIBUTE_TARGET, GLib.Variant("s", "processes_priority_high"))
-        priority_options_submenu_section.append_item(priority_high_menu_item)
-        priority_normal_menu_item = Gio.MenuItem()
-        priority_normal_menu_item.set_attribute_value(Gio.MENU_ATTRIBUTE_LABEL, GLib.Variant("s", _tr("Normal")))
-        priority_normal_menu_item.set_attribute_value(Gio.MENU_ATTRIBUTE_ACTION, GLib.Variant("s", "win.processes_priority_group"))
-        priority_normal_menu_item.set_attribute_value(Gio.MENU_ATTRIBUTE_TARGET, GLib.Variant("s", "processes_priority_normal"))
-        priority_options_submenu_section.append_item(priority_normal_menu_item)
-        priority_low_menu_item = Gio.MenuItem()
-        priority_low_menu_item.set_attribute_value(Gio.MENU_ATTRIBUTE_LABEL, GLib.Variant("s", _tr("Low")))
-        priority_low_menu_item.set_attribute_value(Gio.MENU_ATTRIBUTE_ACTION, GLib.Variant("s", "win.processes_priority_group"))
-        priority_low_menu_item.set_attribute_value(Gio.MENU_ATTRIBUTE_TARGET, GLib.Variant("s", "processes_priority_low"))
-        priority_options_submenu_section.append_item(priority_low_menu_item)
-        priority_very_low_menu_item = Gio.MenuItem()
-        priority_very_low_menu_item.set_attribute_value(Gio.MENU_ATTRIBUTE_LABEL, GLib.Variant("s", _tr("Very Low")))
-        priority_very_low_menu_item.set_attribute_value(Gio.MENU_ATTRIBUTE_ACTION, GLib.Variant("s", "win.processes_priority_group"))
-        priority_very_low_menu_item.set_attribute_value(Gio.MENU_ATTRIBUTE_TARGET, GLib.Variant("s", "processes_priority_very_low"))
-        priority_options_submenu_section.append_item(priority_very_low_menu_item)
-        priority_options_submenu_section_item = Gio.MenuItem.new()
-        priority_options_submenu_section_item.set_section(priority_options_submenu_section)
+        # Add/remove "Expand All/Collapse All"" options to menu if processes are listed as tree/list.
+        if Config.show_processes_as_tree == 1:
+            if self.right_click_menu.index(tk.END) == 9:
+                self.right_click_menu.insert_command(0, label=_tr("Expand All"), command=self.treeview_expand_all_rows)
+                self.right_click_menu.insert_command(1, label=_tr("Collapse All"), command=self.treeview_collapse_all_rows)
+                self.right_click_menu.insert_separator(2)
+                # Set properties again. It is reset after menu item added or removed.
+                self.right_click_menu.config(bd=3, activebackground="gray", relief="raised")
+        # Delete the first three options. Indexes are updated after inserting/removing options.
+        else:
+            # Prevent removing the other options if "Expand All/Collapse All"" options are not added.
+            # Last option index is 12 if "Expand All/Collapse All"" options are added.
+            if self.right_click_menu.index(tk.END) == 12:
+                self.right_click_menu.delete(0)
+                self.right_click_menu.delete(0)
+                self.right_click_menu.delete(0)
+                self.right_click_menu.config(bd=3, activebackground="gray", relief="raised")
 
-        priority_custom_value_submenu_section = Gio.Menu.new()
-        priority_custom_value_submenu_section.append(_tr("Custom Value..."), "win.processes_priority_custom_value")
-        priority_custom_value_submenu_section_item = Gio.MenuItem.new()
-        priority_custom_value_submenu_section_item.set_section(priority_custom_value_submenu_section)
+        self.right_click_menu.bind("<FocusOut>", self.right_click_menu_close)
 
-        priority_submenu = Gio.Menu.new()
-        priority_submenu.append_item(priority_options_submenu_section_item)
-        priority_submenu.append_item(priority_custom_value_submenu_section_item)
+        self.treeview.bind("<Button-3>", self.on_right_click)
+        self.treeview.bind("<Double-1>", self.treeview_double_click_event)
+        self.treeview.bind("<Return>", self.treeview_enter_press_event)
+        # Treeview "FocusOut" signal may not close right click menu if certain areas of the GUI is clicked. The following signal is used for fixing this issue.
+        self.treeview.winfo_toplevel().bind("<Button-1>", self.right_click_menu_close)
 
-        priority_menu_section = Gio.Menu.new()
-        priority_menu_section.append_submenu(_tr("Change Priority"), priority_submenu)
-        priority_menu_section_item = Gio.MenuItem.new()
-        priority_menu_section_item.set_section(priority_menu_section)
-
-        cpu_affinity_menu_section = Gio.Menu.new()
-        cpu_affinity_menu_section.append(_tr("Set CPU Affinity"), "win.processes_set_cpu_affinity")
-        cpu_affinity_menu_section_item = Gio.MenuItem.new()
-        cpu_affinity_menu_section_item.set_section(cpu_affinity_menu_section)
-
-        details_menu_section = Gio.Menu.new()
-        details_menu_section.append(_tr("Details"), "win.processes_details")
-        details_menu_section_item = Gio.MenuItem.new()
-        details_menu_section_item.set_section(details_menu_section)
-
-        right_click_menu_model = Gio.Menu.new()
-        right_click_menu_model.append_item(process_management_menu_section_item)
-        right_click_menu_model.append_item(priority_menu_section_item)
-        right_click_menu_model.append_item(cpu_affinity_menu_section_item)
-        right_click_menu_model.append_item(details_menu_section_item)
-
-        # Popover menu
-        self.right_click_menu_po = Gtk.PopoverMenu()
-        self.right_click_menu_po.set_menu_model(right_click_menu_model)
-        #self.right_click_menu_po.set_parent(self.treeview)
-        self.right_click_menu_po.set_parent(MainWindow.main_window)
-        self.right_click_menu_po.set_position(Gtk.PositionType.BOTTOM)
-        self.right_click_menu_po.set_has_arrow(False)
+        return self.right_click_menu
 
 
-    def search_customization_menu_gui(self, val=None):
+    def treeview_expand_all_rows(self):
+        for child in self.treeview.get_children():
+            self.treeview.item(child, open=True)
+
+    def treeview_collapse_all_rows(self):
+        for child in self.treeview.get_children():
+            self.treeview.item(child, open=False)
+
+
+    def on_change_priority_item_clicked(self, event=None):
+
+        self.get_selection()
+
+        process_name_pid_dict = {}
+        for pid in self.selected_process_pid_list:
+            process_name_pid_dict[pid] = self.rows_data_dict[pid]["name"]
+
+        # Get PIDs of the processes
+        selected_process_pids = list(process_name_pid_dict.keys())
+
+        # Get process current priority value if one process is selected.
+        if len(self.selected_process_pid_list) == 1:
+            selected_process_nice = Libsysmon.get_process_priority(str(self.selected_process_pid_list[0]))
+            if selected_process_nice == "-":
+                return
+        else:
+            selected_process_nice = 0
+
+        # Get process name and PID text for dialog.
+        process_name_pid_text = ""
+        for pid in self.selected_process_pid_list:
+            process_name_pid_text = process_name_pid_text + "\n" + self.rows_data_dict[pid]["name"] + " (" + pid + ")"
+
+        # Window
+        self.priority_window, frame = Common.window(MainWindow.main_window, _tr("Change Priority"))
+
+        # Frame (Main)
+        frame.rowconfigure(2, weight=1)
+
+        label = Common.static_information_label(frame, _tr("Change priority of these processes") + ":")
+        label.grid(row=0, column=0, columnspan=2, sticky="w", padx=0, pady=(0, 4))
+
+        label = Common.static_information_label(frame, _tr("Smaller value means higher process priority") + ":")
+        label.grid(row=1, column=0, columnspan=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Frame
+        frame = ttk.Frame(frame, style="Card.TFrame")
+        frame.grid(row=2, column=0, columnspan=2, sticky="nsew", padx=10, pady=10)
+        frame.columnconfigure(0, weight=1)
+        frame.rowconfigure(0, weight=1)
+
+        label = Common.dynamic_information_label(frame)
+        label.grid(row=0, column=0, sticky="w", padx=0, pady=(0, 4))
+        label.config(text=process_name_pid_text)
+
+        self.priority_var = tk.IntVar()
+        self.priority_slider = tk.Scale(frame, from_=-20, to=19, orient="horizontal", variable=self.priority_var, command=self.show_priority_text, length=250, showvalue=True)
+        self.priority_slider.grid(row=3, column=0, columnspan=2, sticky="ew", padx=0, pady=(0, 4))
+
+        self.priority_var.set(selected_process_nice)
+
+        self.show_priority_text_label = Common.dynamic_information_label(frame)
+        self.show_priority_text_label.grid(row=4, column=0, columnspan=2, sticky="ew", padx=0, pady=10)
+
+        cancel_button = ttk.Button(frame, text =_tr("Cancel"), command=self.cancel_priority_button)
+        cancel_button.grid(row=5, column=0, sticky="ew", padx=5, pady=(0, 4))
+
+        change_priority_button = ttk.Button(frame, text =_tr("Change Priority"), command=self.on_change_priority_button)
+        change_priority_button.grid(row=5, column=1, sticky="ew", padx=5, pady=(0, 4))
+
+        self.show_priority_text(selected_process_nice)
+
+
+    def show_priority_text(self, selected_process_nice):
+
+        selected_process_nice = int(selected_process_nice)
+
+        if selected_process_nice <= -11 and selected_process_nice >= -20:
+            priority_text = _tr("Very High")
+        if selected_process_nice < 0 and selected_process_nice > -11:
+            priority_text = _tr("High")
+        if selected_process_nice == 0:
+            priority_text = _tr("Normal")
+        if selected_process_nice < 11 and selected_process_nice > 0:
+            priority_text = _tr("Low")
+        if selected_process_nice <= 19 and selected_process_nice >= 11:
+            priority_text = _tr("Very Low")
+
+        self.show_priority_text_label.config(text=priority_text)
+
+
+    def on_change_priority_button(self):
+
+        Libsysmon.change_process_priority(self.selected_process_pid_list, str(self.priority_var.get()))
+        self.priority_window.destroy()
+
+
+    def cancel_priority_button(self):
+        self.priority_window.destroy()
+
+
+    def on_set_cpu_affinity_item_clicked(self, event=None):
+
+        self.get_selection()
+
+        # Get process current CPU affinity value if one process is selected.
+        if len(self.selected_process_pid_list) == 1:
+            selected_process_cpu_affinity = Libsysmon.get_process_cpu_affinity(str(self.selected_process_pid_list[0]))
+            if selected_process_cpu_affinity == "-":
+                return
+        else:
+            selected_process_cpu_affinity = "-"
+
+        # Get process name and PID text for dialog.
+        process_name_pid_text = ""
+        for pid in self.selected_process_pid_list:
+            process_name_pid_text = process_name_pid_text + "\n" + self.rows_data_dict[pid]["name"] + " (" + pid + ")"
+
+        # Window
+        self.cpu_affinity_window, frame = Common.window(MainWindow.main_window, _tr("Set CPU Affinity"))
+
+        frame.rowconfigure(2, weight=1)
+
+        label = Common.static_information_label(frame, _tr("Processes") + ":")
+        label.grid(row=0, column=0, columnspan=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Frame
+        frame1 = ttk.Frame(frame, style="Card.TFrame")
+        frame1.grid(row=1, column=0, columnspan=2, sticky="nsew", padx=10, pady=10)
+        """frame1.columnconfigure(0, weight=1)
+        frame1.rowconfigure(0, weight=1)"""
+
+        label = Common.dynamic_information_label(frame1)
+        label.grid(row=0, column=0, columnspan=2, sticky="w", padx=0, pady=(0, 4))
+        label.config(text=process_name_pid_text)
+
+        frame2 = ttk.Frame(frame, style="Card.TFrame")
+        frame2.grid(row=2, column=0, columnspan=2, sticky="nsew", padx=10, pady=10)
+
+        select_all_button = ttk.Button(frame2, text =_tr("Select All"), command=self.cpu_affinity_select_all_button)
+        select_all_button.grid(row=0, column=1, rowspan=2, sticky="nsew", padx=10, pady=10)
+
+        select_none_button = ttk.Button(frame2, text =_tr("Select None"), command=self.cpu_affinity_select_none_button)
+        select_none_button.grid(row=2, column=1, rowspan=2, sticky="nsew", padx=10, pady=10)
+
+
+        number_of_all_logical_cores = Libsysmon.get_number_of_all_logical_cores()
+        self.cpu_affinity_dict = {}
+        for i in range(number_of_all_logical_cores):
+            cpu_affinity_var = tk.IntVar()
+            cpu_affinity_cb = Common.checkbutton(frame2, "core"+str(i), cpu_affinity_var, command=None)
+            cpu_affinity_cb.grid(row=i, column=0, sticky="w", padx=0, pady=2)
+
+            if selected_process_cpu_affinity == "-":
+                cpu_affinity_var.set(0)
+            if selected_process_cpu_affinity != "-":
+                if i in selected_process_cpu_affinity:
+                    cpu_affinity_var.set(1)
+            self.cpu_affinity_dict["core"+str(i)] = {"variable": cpu_affinity_var, "checkbutton": cpu_affinity_cb}
+
+        cancel_button = ttk.Button(frame, text =_tr("Cancel"), command=self.cancel_cpu_affinity_button)
+        cancel_button.grid(row=3, column=0, sticky="ew", padx=5, pady=(0, 4))
+
+        change_cpu_affinity_button = ttk.Button(frame, text =_tr("Set CPU Affinity"), command=self.on_change_cpu_affinity_button)
+        change_cpu_affinity_button.grid(row=3, column=1, sticky="ew", padx=5, pady=(0, 4))
+
+
+    def cpu_affinity_select_all_button(self):
+        for core in self.cpu_affinity_dict:
+            checkbutton_var = self.cpu_affinity_dict[core]["variable"]
+            checkbutton_var.set(1)
+
+    def cpu_affinity_select_none_button(self):
+        for core in self.cpu_affinity_dict:
+            checkbutton_var = self.cpu_affinity_dict[core]["variable"]
+            checkbutton_var.set(0)
+
+
+    def on_change_cpu_affinity_button(self):
+
+        cpu_core_list = []
+        for core in self.cpu_affinity_dict:
+            core_int = int(core.strip("core"))
+            if self.cpu_affinity_dict[core]["variable"].get() == 1:
+                cpu_core_list.append(core_int)
+
+        Libsysmon.set_process_cpu_affinity(self.selected_process_pid_list, cpu_core_list)
+        self.cpu_affinity_window.destroy()
+
+
+    def cancel_cpu_affinity_button(self):
+
+        self.cpu_affinity_window.destroy()
+
+
+    def on_process_manage_items_activate(self, action_name):
         """
-        Generate search customizations popover menu GUI.
+        Pause, continue, end, end immediately processes.
         """
 
-        # Prevent generating menu on every MenuButton click
-        if hasattr(self, "search_menu_po") == True:
+        self.get_selection()
+
+        process_name_pid_dict = {}
+        for pid in self.selected_process_pid_list:
+            process_name_pid_dict[pid] = self.rows_data_dict[pid]["name"]
+
+        # Get PIDs of the processes
+        selected_process_pids = list(process_name_pid_dict.keys())
+
+        # Get process name and PID text for dialog.
+        process_name_pid_text = ""
+        for pid in self.selected_process_pid_list:
+            process_name_pid_text = process_name_pid_text + "\n" + self.rows_data_dict[pid]["name"] + " (" + pid + ")"
+
+        # Pause Process
+        if action_name == "pause_process":
+            process_command = ["kill", "-19"] + selected_process_pids
+            process_command_pkexec = ["pkexec", "kill", "-19"] + selected_process_pids
+
+        # Continue Process
+        if action_name == "continue_process":
+            process_command = ["kill", "-18"] + selected_process_pids
+            process_command_pkexec = ["pkexec", "kill", "-18"] + selected_process_pids
+
+        # End Process
+        if action_name == "end_process":
+            process_command = ["kill", "-15"] + selected_process_pids
+            process_command_pkexec = ["pkexec", "kill", "-15"] + selected_process_pids
+            process_dialog_message = _tr("Do you want to end these processes?")
+
+        # End Process Immediately
+        if action_name == "end_immediately_process":
+            process_command = ["kill", "-9"] + selected_process_pids
+            process_command_pkexec = ["pkexec", "kill", "-9"] + selected_process_pids
+            process_dialog_message = _tr("Do you want to end these processes immediately?")
+
+        if Libsysmon.get_environment_type == "flatpak":
+            process_command = ["flatpak-spawn", "--host"] + process_command
+            process_command_pkexec = ["flatpak-spawn", "--host"] + process_command_pkexec
+
+        if action_name in ["pause_process", "continue_process"]:
+
+            # Try to end the process without using root privileges.
+            try:
+                (subprocess.check_output(process_command, stderr=subprocess.STDOUT, shell=False)).decode()
+            except subprocess.CalledProcessError:
+                # End the process if root privileges are given.
+                try:
+                    (subprocess.check_output(process_command_pkexec, stderr=subprocess.STDOUT, shell=False)).decode()
+                # Prevent errors if wrong password is used or polkit dialog is closed by user.
+                except subprocess.CalledProcessError:
+                    pass
+
+        # Show warning dialog if process is tried to be ended.
+        if Config.warn_before_stopping_processes == 1 and action_name in ["end_process", "end_immediately_process"]:
+            answer = messagebox.askyesno("Warning", process_dialog_message + "\n\n" + process_name_pid_text + "\n")
+            if answer == True:
+                # Try to end the process without using root privileges.
+                try:
+                    (subprocess.check_output(process_command, stderr=subprocess.STDOUT, shell=False)).decode()
+                except subprocess.CalledProcessError:
+                    # End the process if root privileges are given.
+                    try:
+                        (subprocess.check_output(process_command_pkexec, stderr=subprocess.STDOUT, shell=False)).decode()
+                    # Prevent errors if wrong password is used or polkit dialog is closed by user.
+                    except subprocess.CalledProcessError:
+                        pass
+
+
+    def get_selection2(self, event):
+
+        self.selected_row_names = []
+        region = self.treeview.identify_region(event.x, event.y)
+        # Prevent running code if rows are not clicked.
+        if region in ["cell", "tree"]:
+            #self.selected_row_id = self.treeview.identify_row(event.y)
+            self.selected_row_ids = self.treeview.selection()
+            # Get right clicked row id.
+            if self.selected_row_ids != ():
+                # Select the row visually if right clicked on a row.
+                # Get data of the selected row.
+                for self.selected_row_id in self.selected_row_ids:
+                    self.treeview.selection_set(self.selected_row_id)
+                    self.selected_row_names.append(self.treeview.item(self.selected_row_id, "values")[0])
+
+        return self.selected_row_names
+
+
+    def on_right_click2(self, event):
+
+        self.get_selection(event)
+        # Show menu on mouse coordinates
+        self.right_click_menu.post(event.x_root, event.y_root)
+        self.right_click_menu.focus_set()
+
+
+    def get_selection(self, event=None):
+
+        selected_rows = self.treeview.selection()
+
+        if not selected_rows:
             return
 
-        # Popover
-        self.search_menu_po = Gtk.Popover()
+        self.selected_row_names = []
+        for item in selected_rows:
+            # -1 is used in order to get values from treeview.
+            pid = self.treeview.item(item)['values'][Config.processes_columns_shown.index("pid") - 1]
+            self.selected_row_names.append(str(pid))
+            self.selected_process_pid_list = list(self.selected_row_names)
 
-        # Grid (main)
-        main_grid = Common.menu_main_grid()
-        self.search_menu_po.set_child(main_grid)
 
-        # Label (Search:)
-        label = Common.title_label(_tr("Search...").strip("...") + ":")
-        main_grid.attach(label, 0, 0, 1, 1)
+    def on_right_click(self, event):
 
-        # CheckButton (All)
-        self.search_process_all_cb = Common.checkbutton(_tr("All"), None)
-        main_grid.attach(self.search_process_all_cb, 0, 1, 1, 1)
+        clicked_row = self.treeview.identify_row(event.y)
+        
+        if clicked_row:
+            # Clear previous selection if right clicked row is not selected.
+            if clicked_row not in self.treeview.selection():
+                self.treeview.selection_set(clicked_row)
+            self.right_click_menu_gui()
+            self.right_click_menu.post(event.x_root, event.y_root)
 
-        # CheckButton (Name)
-        self.search_process_name_cb = Common.checkbutton(_tr("Name"), self.search_process_all_cb)
-        main_grid.attach(self.search_process_name_cb, 0, 2, 1, 1)
 
-        # CheckButton (Command Line)
-        self.search_process_command_line_cb = Common.checkbutton(_tr("Command Line"), self.search_process_all_cb)
-        main_grid.attach(self.search_process_command_line_cb, 0, 3, 1, 1)
+    def right_click_menu_close(self, event):
+        """
+        Close right click menu if clicked another part of the GUI.
+        """
 
-        # CheckButton (PID)
-        self.search_process_pid_cb = Common.checkbutton(_tr("PID"), self.search_process_all_cb)
-        main_grid.attach(self.search_process_pid_cb, 0, 4, 1, 1)
+        self.right_click_menu.unpost()
 
-        # Set Popover of MenuButton
-        self.search_customization_menubutton.set_popover(self.search_menu_po)
 
-        # Set GUI once.
-        self.search_popover_set_gui()
+    def on_details_item_activate(self):
+        """
+        Show process details window.
+        """
 
-        # Connect signals
-        self.search_process_all_cb.connect("toggled", self.on_search_menu_cb_toggled)
-        self.search_process_name_cb.connect("toggled", self.on_search_menu_cb_toggled)
-        self.search_process_command_line_cb.connect("toggled", self.on_search_menu_cb_toggled)
-        self.search_process_pid_cb.connect("toggled", self.on_search_menu_cb_toggled)
+        """self.selected_row_names = []
+        self.selected_row_ids = self.treeview.selection()
+        # Get right clicked row id.
+        if self.selected_row_ids != ():
+            # Select the row visually if right clicked on a row.
+            self.treeview.selection_set(self.selected_row_ids)
+            # Get data of the selected row.
+            for self.selected_row_id in self.selected_row_ids: 
+                self.selected_row_names.append(self.treeview.item(self.selected_row_id, "values")[0])
+        self.selected_process_pid_list = list(self.selected_row_names)"""
+        self.get_selection()
+        from .ProcessesDetails import ProcessesDetails
+        ProcessesDetails.process_details_show_process_details()
+
+
+    def treeview_double_click_event(self, event):
+
+        region = self.treeview.identify_region(event.x, event.y)
+        # Prevent running code if rows are not clicked.
+        if region in ["cell", "tree"]:
+            self.get_selection()
+            #self.selected_process_pid_list = list(self.selected_row_names)
+            from .ProcessesDetails import ProcessesDetails
+            ProcessesDetails.process_details_show_process_details()
+
+
+    def treeview_enter_press_event(self, event=None):
+        #def bilgi_ver(event=None):
+        # 1. Önce seçili olanları al
+        secili_itemlar = self.treeview.selection()
+        
+        # 2. Eğer seçim yoksa ama odaklanılmış (üzerine gelinmiş) bir satır varsa onu al
+        if not secili_itemlar:
+            odaktaki_item = self.treeview.focus()
+            if odaktaki_item:
+                secili_itemlar = (odaktaki_item,)
+        
+        # Eğer ikisi de boşsa fonksiyondan çık
+        if not secili_itemlar:
+            return
+
+        self.get_selection()
+        from .ProcessesDetails import ProcessesDetails
+        ProcessesDetails.process_details_show_process_details()
 
 
     def search_popover_set_gui(self):
@@ -351,24 +546,17 @@ class Processes:
         Select the default search option checkbutton.
         """
 
-        self.search_process_all_cb.set_active(True)
+        self.search_process_name_cb.set_active(True)
 
 
-    def on_search_menu_cb_toggled(self, widget):
+    def on_search_menu_cb_toggled(self, search_type):
         """
         Search again if process search type (process name or command line) is changed.
         """
 
-        if widget == self.search_process_all_cb:
-            self.process_search_type = "all"
-        elif widget == self.search_process_name_cb:
-            self.process_search_type = "name"
-        elif widget == self.search_process_command_line_cb:
-            self.process_search_type = "command_line"
-        elif widget == self.search_process_pid_cb:
-            self.process_search_type = "pid"
+        self.process_search_type = search_type
 
-        self.on_searchentry_changed(self.searchentry)
+        Common.searchentry_placeholder_text(self)
 
 
     def priority_custom_value_gui(self):
@@ -397,26 +585,9 @@ class Processes:
 
         # Label
         label = Gtk.Label()
-        label.set_label(_tr("Change priority of these processes") + ":\n(" + _tr("Smaller value means higher process priority") + ")")
+        label.set_label(_tr("Change priority of these process:\n(Smaller value means higher process priority)"))
         label.set_halign(Gtk.Align.START)
         main_grid.attach(label, 0, 0, 1, 1)
-
-        # ScrolledWindow (for process name and PID Label)
-        scrolledwindow = Common.window_main_scrolledwindow()
-        scrolledwindow.set_size_request(-1, 150)
-        main_grid.attach(scrolledwindow, 0, 1, 1, 1)
-
-        # Viewport (for process name and PID Label)
-        viewport = Gtk.Viewport()
-        scrolledwindow.set_child(viewport)
-
-        # Grid (for process name and PID Label)
-        grid = Gtk.Grid.new()
-        grid.set_margin_top(10)
-        grid.set_margin_bottom(10)
-        grid.set_margin_start(10)
-        grid.set_margin_end(10)
-        viewport.set_child(grid)
 
         # Label (process name and PID)
         self.priority_process_name_and_pid_label = Gtk.Label()
@@ -424,7 +595,7 @@ class Processes:
         self.priority_process_name_and_pid_label.set_label("--")
         self.priority_process_name_and_pid_label.set_ellipsize(Pango.EllipsizeMode.END)
         self.priority_process_name_and_pid_label.set_halign(Gtk.Align.START)
-        grid.attach(self.priority_process_name_and_pid_label, 0, 0, 1, 1)
+        main_grid.attach(self.priority_process_name_and_pid_label, 0, 1, 1, 1)
 
         # Adjustment (for scale)
         self.adjustment = Gtk.Adjustment()
@@ -435,10 +606,6 @@ class Processes:
         self.scale.set_draw_value(True)
         self.scale.set_digits(0)
         main_grid.attach(self.scale, 0, 2, 1, 1)
-
-        # Show min and max values of the Scale
-        self.scale.add_mark(-20, Gtk.PositionType.BOTTOM, "-20")
-        self.scale.add_mark(19, Gtk.PositionType.BOTTOM, "19")
 
         # Grid (buttons)
         grid = Gtk.Grid.new()
@@ -474,732 +641,32 @@ class Processes:
             self.priority_custom_value_window.set_visible(False)
 
         if widget == self.priority_custom_value_change_priority_button:
-            # Get new priority (nice value) of the process
+            # Get right clicked process pid and name.
+            selected_process_pid = self.selected_process_pid
+
+            # Get new priority (nice value) of the process.
             selected_process_nice = str(int(self.adjustment.get_value()))
-            Libsysmon.change_process_priority(self.selected_process_pid_list, selected_process_nice)
-            self.priority_custom_value_window.set_visible(False)
 
-
-    def set_cpu_affinity_window_gui(self):
-        """
-        Generate process CPU affinity window GUI.
-        """
-
-        # Window
-        self.cpu_affinity_window = Gtk.Window()
-        self.cpu_affinity_window.set_default_size(400, -1)
-        self.cpu_affinity_window.set_title(_tr("Set CPU Affinity"))
-        self.cpu_affinity_window.set_icon_name("system-monitoring-center")
-        self.cpu_affinity_window.set_transient_for(MainWindow.main_window)
-        self.cpu_affinity_window.set_resizable(False)
-        self.cpu_affinity_window.set_modal(True)
-        self.cpu_affinity_window.set_hide_on_close(True)
-
-        # Main grid
-        main_grid = Gtk.Grid.new()
-        main_grid.set_margin_top(10)
-        main_grid.set_margin_bottom(10)
-        main_grid.set_margin_start(10)
-        main_grid.set_margin_end(10)
-        main_grid.set_row_spacing(10)
-        self.cpu_affinity_window.set_child(main_grid)
-
-        # Label
-        label = Gtk.Label()
-        label.set_label(_tr("Processes") + ":")
-        label.set_halign(Gtk.Align.START)
-        main_grid.attach(label, 0, 0, 1, 1)
-
-        # ScrolledWindow (for process name and PID Label)
-        scrolledwindow = Common.window_main_scrolledwindow()
-        scrolledwindow.set_size_request(-1, 150)
-        main_grid.attach(scrolledwindow, 0, 1, 1, 1)
-
-        # Viewport (for process name and PID Label)
-        viewport = Gtk.Viewport()
-        scrolledwindow.set_child(viewport)
-
-        # Grid (for process name and PID Label)
-        grid = Gtk.Grid.new()
-        grid.set_margin_top(10)
-        grid.set_margin_bottom(10)
-        grid.set_margin_start(10)
-        grid.set_margin_end(10)
-        viewport.set_child(grid)
-
-        # Label (process name and PID)
-        self.cpu_affinity_process_name_and_pid_label = Gtk.Label()
-        self.cpu_affinity_process_name_and_pid_label.set_selectable(True)
-        self.cpu_affinity_process_name_and_pid_label.set_label("--")
-        self.cpu_affinity_process_name_and_pid_label.set_ellipsize(Pango.EllipsizeMode.END)
-        self.cpu_affinity_process_name_and_pid_label.set_halign(Gtk.Align.START)
-        grid.attach(self.cpu_affinity_process_name_and_pid_label, 0, 0, 1, 1)
-
-        # ScrolledWindow (for CPU core CheckButtons)
-        scrolledwindow = Common.window_main_scrolledwindow()
-        scrolledwindow.set_size_request(-1, 150)
-        main_grid.attach(scrolledwindow, 0, 2, 1, 1)
-
-        # Viewport (for CPU core CheckButtons)
-        viewport = Gtk.Viewport()
-        scrolledwindow.set_child(viewport)
-
-        # Grid (for CPU core CheckButtons)
-        grid = Gtk.Grid.new()
-        grid.set_margin_top(10)
-        grid.set_margin_bottom(10)
-        grid.set_margin_start(10)
-        grid.set_margin_end(10)
-        viewport.set_child(grid)
-
-        self.cpu_affinity_select_all_button = Gtk.Button()
-        self.cpu_affinity_select_all_button.set_label(_tr("Select All"))
-        self.cpu_affinity_select_all_button.set_halign(Gtk.Align.CENTER)
-        grid.attach(self.cpu_affinity_select_all_button, 0, 0, 1, 1)
-
-        self.cpu_affinity_select_none_button = Gtk.Button()
-        self.cpu_affinity_select_none_button.set_label(_tr("Select None"))
-        self.cpu_affinity_select_none_button.set_halign(Gtk.Align.CENTER)
-        grid.attach(self.cpu_affinity_select_none_button, 1, 0, 1, 1)
-
-        number_of_all_logical_cores = Libsysmon.get_number_of_all_logical_cores()
-        for i in range(number_of_all_logical_cores):
-            checkbutton = Common.checkbutton("cpu" + str(i), None)
-            grid.attach(checkbutton, 0, i+1, 1, 1)
-            checkbutton.connect("toggled", self.on_cpu_affinity_cores_checkbutton_clicked)
-
-        # Grid (buttons)
-        grid = Gtk.Grid.new()
-        grid.set_column_homogeneous(True)
-        grid.set_margin_top(10)
-        grid.set_margin_bottom(10)
-        grid.set_margin_start(10)
-        grid.set_margin_end(10)
-        grid.set_column_spacing(50)
-        main_grid.attach(grid, 0, 3, 1, 1)
-
-        # Button (Cancel)
-        self.cpu_affinity_cancel_button = Gtk.Button()
-        self.cpu_affinity_cancel_button.set_label(_tr("Cancel"))
-        grid.attach(self.cpu_affinity_cancel_button, 0, 0, 1, 1)
-
-        # Button (Change Priority)
-        self.cpu_affinity_set_cpu_affinity_button = Gtk.Button()
-        self.cpu_affinity_set_cpu_affinity_button.set_label(_tr("Set CPU Affinity"))
-        grid.attach(self.cpu_affinity_set_cpu_affinity_button, 1, 0, 1, 1)
-
-        # Signals (buttons)
-        self.cpu_affinity_select_all_button.connect("clicked", self.on_cpu_affinity_select_all_none_buttons_clicked)
-        self.cpu_affinity_select_none_button.connect("clicked", self.on_cpu_affinity_select_all_none_buttons_clicked)
-        self.cpu_affinity_cancel_button.connect("clicked", self.on_cpu_affinity_window_buttons_clicked)
-        self.cpu_affinity_set_cpu_affinity_button.connect("clicked", self.on_cpu_affinity_window_buttons_clicked)
-
-
-    def on_cpu_affinity_select_all_none_buttons_clicked(self, widget):
-        """
-        Select all/none of the CPU cores for CPU affinity.
-        """
-
-        number_of_all_logical_cores = Libsysmon.get_number_of_all_logical_cores()
-        parent_grid = self.cpu_affinity_select_all_button.get_parent()
-
-        if widget == self.cpu_affinity_select_all_button:
-            for i in range(number_of_all_logical_cores):
-                checkbutton = parent_grid.get_child_at(0, i+1)
-                checkbutton.set_active(True)
-            self.cpu_affinity_set_cpu_affinity_button.set_sensitive(True)
-
-        elif widget == self.cpu_affinity_select_none_button:
-            for i in range(number_of_all_logical_cores):
-                checkbutton = parent_grid.get_child_at(0, i+1)
-                checkbutton.set_active(False)
-            self.cpu_affinity_set_cpu_affinity_button.set_sensitive(False)
-
-
-    def on_cpu_affinity_cores_checkbutton_clicked(self, widget):
-        """
-        Set sensitive/insensitive "Set CPU Affinity" button if any/none CPU cores are selected.
-        """
-
-        number_of_all_logical_cores = Libsysmon.get_number_of_all_logical_cores()
-        parent_grid = self.cpu_affinity_select_all_button.get_parent()
-
-        checkbutton_active_list = []
-        for i in range(number_of_all_logical_cores):
-            checkbutton = parent_grid.get_child_at(0, i+1)
-            checkbutton_active_list.append(checkbutton.get_active())
-
-        if list(set(checkbutton_active_list)) == [False]:
-            self.cpu_affinity_set_cpu_affinity_button.set_sensitive(False)
-        else:
-            self.cpu_affinity_set_cpu_affinity_button.set_sensitive(True)
-
-
-    def on_cpu_affinity_window_buttons_clicked(self, widget):
-        """
-        Close the process CPU affinity window or change CPU affinity.
-        """
-
-        if widget == self.cpu_affinity_cancel_button:
-            self.cpu_affinity_window.set_visible(False)
-
-        if widget == self.cpu_affinity_set_cpu_affinity_button:
-            number_of_all_logical_cores = Libsysmon.get_number_of_all_logical_cores()
-            parent_grid = self.cpu_affinity_select_all_button.get_parent()
-
-            cpu_affinity_core_list = []
-            for i in range(number_of_all_logical_cores):
-                checkbutton = parent_grid.get_child_at(0, i+1)
-                if checkbutton.get_active() == True:
-                    cpu_affinity_core_list.append(i)
-
-            Libsysmon.set_process_cpu_affinity(self.selected_process_pid_list, cpu_affinity_core_list)
-            self.cpu_affinity_window.set_visible(False)
-
-
-    def on_process_manage_items_clicked(self, action, parameter):
-        """
-        Pause, continue, end, end immediately processes.
-        """
-
-        # Stop running the function if process managing keyboard shortcuts are pressed or
-        # right clicked on column titles without selecting a process.
-        if len(self.selected_process_pid_list) == 0:
-            return
-
-        # Stop running the function if the action is called by using keyboard shortcuts when another tab is opened.
-        # Because keyboard shortcuts are defined for window instead of treeview for a simpler code.
-        if Config.current_main_tab != 1:
-            return
-
-        # Get right clicked process names.
-        selected_process_name_list = []
-        for selected_process_pid in self.selected_process_pid_list:
-            selected_process_name = self.tab_data_rows[self.pid_list.index(selected_process_pid)][2]
-            selected_process_name_list.append(selected_process_name)
-
-        if action.get_name() == "processes_pause_process":
-            manage_option = "pause_process"
-            process_dialog_message = _tr("Do you want to pause these processes?")
-        elif action.get_name() == "processes_continue_process":
-            manage_option = "continue_process"
-        elif action.get_name() == "processes_end_process":
-            manage_option = "end_process"
-            process_dialog_message = _tr("Do you want to end these processes?")
-        elif action.get_name() == "processes_end_process_immediately":
-            manage_option = "end_process_immediately"
-            process_dialog_message = _tr("Do you want to end these processes immediately?")
-
-        if action.get_name() in ["processes_continue_process"]:
-            Libsysmon.manage_process(self.selected_process_pid_list, manage_option)
-
-        if action.get_name() in ["processes_pause_process", "processes_end_process", "processes_end_process_immediately"]:
-            # Show warning dialog if process is tried to be ended.
-            if Config.warn_before_stopping_processes == 1:
-                selected_process_pid_name_text = ""
-                for i, selected_process_pid in enumerate(self.selected_process_pid_list):
-                    if selected_process_pid_name_text != "":
-                        selected_process_pid_name_text = selected_process_pid_name_text + "\n"
-                    selected_process_pid_name_text = selected_process_pid_name_text + f'{selected_process_name_list[i]} - (PID: {selected_process_pid})'
-                messagedialog = Gtk.MessageDialog(transient_for=MainWindow.main_window,
-                                                  modal=True,
-                                                  title="",
-                                                  message_type=Gtk.MessageType.WARNING,
-                                                  buttons=Gtk.ButtonsType.YES_NO,
-                                                  text=process_dialog_message,
-                                                  secondary_text="")
-
-                # Get Box widget of the MessageDialog for appending custom content (ScrolledWindow, etc.).
-                message_area = messagedialog.get_message_area()
-
-                # ScrolledWindow (for process name and PID Label)
-                scrolledwindow = Common.window_main_scrolledwindow()
-                scrolledwindow.set_size_request(-1, 150)
-                message_area.append(scrolledwindow)
-
-                # Viewport (for process name and PID Label)
-                viewport = Gtk.Viewport()
-                scrolledwindow.set_child(viewport)
-
-                # Grid (for process name and PID Label)
-                grid = Gtk.Grid.new()
-                grid.set_margin_top(10)
-                grid.set_margin_bottom(10)
-                grid.set_margin_start(10)
-                grid.set_margin_end(10)
-                viewport.set_child(grid)
-
-                # Label (process name and PID)
-                process_manage_process_name_and_pid_label = Gtk.Label()
-                process_manage_process_name_and_pid_label.set_selectable(True)
-                process_manage_process_name_and_pid_label.set_label("--")
-                process_manage_process_name_and_pid_label.set_ellipsize(Pango.EllipsizeMode.END)
-                process_manage_process_name_and_pid_label.set_halign(Gtk.Align.START)
-                grid.attach(process_manage_process_name_and_pid_label, 0, 0, 1, 1)
-
-                process_manage_process_name_and_pid_label.set_label(selected_process_pid_name_text)
-
-                messagedialog.connect("response", self.on_messagedialog_response, self.selected_process_pid_list, manage_option)
-                messagedialog.present()
-
-
-    def on_messagedialog_response(self, widget, response, process_pid_list, manage_option):
-        """
-        End process if "YES" button on the dialog is clicked.
-        """
-
-        if response == Gtk.ResponseType.YES:
-            Libsysmon.manage_process(process_pid_list, manage_option)
-
-        messagedialog = widget
-        messagedialog.set_visible(False)
-
-
-    def set_priority_menu_option(self):
-        """
-        Set process priority (nice) option on the right click menu.
-        """
-
-        # Unselect all priority option RadioButtons if multiple processes are selected.
-        if len(self.selected_process_pid_list) > 1:
-            self.priority_action.set_state(GLib.Variant("s", ""))
-            return
-
-        # Get process current priority value if one process is selected.
-        if len(self.selected_process_pid_list) == 1:
-            selected_process_nice = Libsysmon.get_process_priority(str(self.selected_process_pid_list[0]))
-            if selected_process_nice == "-":
-                return
-        else:
-            selected_process_nice = 0
-
-        # Set menu GUI
-        if selected_process_nice <= -11 and selected_process_nice >= -20:
-            self.priority_action.set_state(GLib.Variant("s", "processes_priority_very_high"))
-        if selected_process_nice < 0 and selected_process_nice > -11:
-            self.priority_action.set_state(GLib.Variant("s", "processes_priority_high"))
-        if selected_process_nice == 0:
-            self.priority_action.set_state(GLib.Variant("s", "processes_priority_normal"))
-        if selected_process_nice < 11 and selected_process_nice > 0:
-            self.priority_action.set_state(GLib.Variant("s", "processes_priority_low"))
-        if selected_process_nice <= 19 and selected_process_nice >= 11:
-            self.priority_action.set_state(GLib.Variant("s", "processes_priority_very_low"))
-
-
-    def on_change_priority_item_clicked(self, action, parameter):
-        """
-        Change process priority (nice).
-        """
-
-        # Stop running the function if the action is called by using keyboard shortcuts when another tab is opened.
-        # Because keyboard shortcuts are defined for window instead of treeview for a simpler code.
-        if Config.current_main_tab != 1:
-            return
-
-        if action.get_name() == "processes_priority_group":
-
-            if parameter == GLib.Variant("s", "processes_priority_very_high"):
-                action.set_state(GLib.Variant("s", "processes_priority_very_high"))
-                priority_option = "priority_very_high"
-            elif parameter == GLib.Variant("s", "processes_priority_high"):
-                action.set_state(GLib.Variant("s", "processes_priority_high"))
-                priority_option = "priority_high"
-            elif parameter == GLib.Variant("s", "processes_priority_normal"):
-                action.set_state(GLib.Variant("s", "processes_priority_normal"))
-                priority_option = "priority_normal"
-            elif parameter == GLib.Variant("s", "processes_priority_low"):
-                action.set_state(GLib.Variant("s", "processes_priority_low"))
-                priority_option = "priority_low"
-            elif parameter == GLib.Variant("s", "processes_priority_very_low"):
-                action.set_state(GLib.Variant("s", "processes_priority_very_low"))
-                priority_option = "priority_very_low"
-
-            Libsysmon.change_process_priority(self.selected_process_pid_list, priority_option)
-
-        if action.get_name() == "processes_priority_custom_value":
-
-            selected_process_name_list = Common.get_selected_process_names(self)
-
-            # Get process current priority value if one process is selected.
-            if len(self.selected_process_pid_list) == 1:
-                selected_process_nice = Libsysmon.get_process_priority(str(self.selected_process_pid_list[0]))
-                if selected_process_nice == "-":
+            # Define commands for the process.
+            priority_command = ["renice", "-n", selected_process_nice, "-p", selected_process_pid]
+            priority_command_pkexec = ["pkexec", "renice", "-n", selected_process_nice, "-p", selected_process_pid]
+
+            if Config.environment_type == "flatpak":
+                priority_command = ["flatpak-spawn", "--host"] + priority_command
+                priority_command_pkexec = ["flatpak-spawn", "--host"] + priority_command_pkexec
+
+            # Try to change priority (nice value) of the process.
+            try:
+                (subprocess.check_output(priority_command, stderr=subprocess.STDOUT, shell=False)).decode()
+            except subprocess.CalledProcessError:
+                # Try to change priority (nice value) of the process if root privileges are required.
+                try:
+                    (subprocess.check_output(priority_command_pkexec, stderr=subprocess.STDOUT, shell=False)).decode()
+                # Prevent errors if wrong password is used or polkit dialog is closed by user.
+                except subprocess.CalledProcessError:
                     return
-            else:
-                selected_process_nice = 0
 
-            # Show process custom priority window.
-            try:
-                self.priority_custom_value_window.present()
-            except AttributeError:
-                # Avoid generating menu multiple times on every click.
-                self.priority_custom_value_gui()
-                self.priority_custom_value_window.present()
-
-            # Set adjustment widget by using process priority (nice value).
-            self.adjustment.configure(selected_process_nice, -20, 19, 1, 0, 0)
-
-            # Show process name and PID on a label.
-            selected_process_name_pid_text = Common.get_process_name_pid_list_text(self, selected_process_name_list)
-            self.priority_process_name_and_pid_label.set_label(selected_process_name_pid_text)
-
-
-    def on_process_cpu_affinity_item_clicked(self, action, parameter):
-        """
-        Show process CPU affinity window.
-        """
-
-        if Config.current_main_tab != 1:
-            return
-
-        selected_process_name_list = Common.get_selected_process_names(self)
-
-        # Get process current CPU affinity value if one process is selected.
-        if len(self.selected_process_pid_list) == 1:
-            selected_process_cpu_affinity = Libsysmon.get_process_cpu_affinity(str(self.selected_process_pid_list[0]))
-            if selected_process_cpu_affinity == "-":
-                return
-        else:
-            selected_process_cpu_affinity = "-"
-
-        # Show process CPU affinity window.
-        try:
-            self.cpu_affinity_window.present()
-        except AttributeError:
-            # Avoid generating menu multiple times on every click.
-            self.set_cpu_affinity_window_gui()
-            self.cpu_affinity_window.present()
-
-        # Set CPU core CheckButtons
-        number_of_all_logical_cores = Libsysmon.get_number_of_all_logical_cores()
-        parent_grid = self.cpu_affinity_select_all_button.get_parent()
-        if selected_process_cpu_affinity == "-":
-            for i in range(number_of_all_logical_cores):
-                checkbutton = parent_grid.get_child_at(0, i+1)
-                #checkbutton.set_inconsistent(True)
-                checkbutton.set_active(False)
-                self.cpu_affinity_set_cpu_affinity_button.set_sensitive(False)
-        else:
-            for i in range(number_of_all_logical_cores):
-                checkbutton = parent_grid.get_child_at(0, i+1)
-                if i in selected_process_cpu_affinity:
-                    checkbutton.set_active(True)
-                else:
-                    checkbutton.set_active(False)
-            self.cpu_affinity_set_cpu_affinity_button.set_sensitive(True)
-
-        # Show process name and PID on a label.
-        selected_process_name_pid_text = Common.get_process_name_pid_list_text(self, selected_process_name_list)
-        self.cpu_affinity_process_name_and_pid_label.set_label(selected_process_name_pid_text)
-
-
-    def on_details_item_clicked(self, action, parameter):
-        """
-        Show process details window.
-        """
-
-        # Stop running the function if the action is called by using keyboard shortcuts when another tab is opened.
-        # Because keyboard shortcuts are defined for window instead of treeview for a simpler code.
-        if Config.current_main_tab != 1:
-            return
-
-        from . import ProcessesDetails
-        ProcessesDetails.process_details_show_process_details()
-
-
-    def on_searchentry_changed(self, widget):
-        """
-        Called by searchentry when text is changed.
-        """
-
-        process_search_text = self.searchentry.get_text().lower()
-
-        treeview = self.treeview
-        sort_model = treeview.get_model()
-        filter_model = sort_model.get_model()
-        treestore = filter_model.get_model()
-
-        pid_list = self.pid_list
-
-        global cmdline_list
-
-        # Get PID, iter, shown, expanded information from sort model before changing search text.
-        pid_piter_sort_model_before_dict = self.get_sort_model_piter_information(treeview, sort_model)
-
-        # Show/hide iters (rows) by using search text.
-        for piter in self.piter_list:
-            if piter == None:
-                continue
-            if self.process_search_type == "all":
-                process_name_in_model = treestore.get_value(piter, self.filter_column)
-                process_pid_in_model = treestore.get_value(piter, 4)
-                process_command_line_in_model = cmdline_list[pid_list.index(process_pid_in_model)]
-                process_data_text_in_model = f'{process_name_in_model}{process_pid_in_model}{process_command_line_in_model}'
-            elif self.process_search_type == "name":
-                process_data_text_in_model = treestore.get_value(piter, self.filter_column)
-            elif self.process_search_type == "command_line":
-                process_pid_in_model = treestore.get_value(piter, 4)
-                process_data_text_in_model = cmdline_list[pid_list.index(process_pid_in_model)]
-            elif self.process_search_type == "pid":
-                process_data_text_in_model = f'{treestore.get_value(piter, 4)}'
-
-            if process_search_text in process_data_text_in_model.lower():
-                pid = treestore.get_value(piter, 4)
-                treestore.set_value(piter, 0, True)
-                piter = treestore.iter_parent(piter)
-            else:
-                treestore.set_value(piter, 0, False)
-
-        # Get PID, iter, shown, expanded information from sort model after changing search text.
-        pid_piter_sort_model_after_dict = self.get_sort_model_piter_information(treeview, sort_model)
-
-        # Expand rows after search text change if if is expanded before or it is made shown again.
-        for pid in pid_piter_sort_model_after_dict:
-            piter = pid_piter_sort_model_after_dict[pid]["piter"]
-            if pid not in pid_piter_sort_model_before_dict:
-                treeview.expand_row(sort_model.get_path(piter), False)
-                continue
-            if pid_piter_sort_model_before_dict[pid]["expanded"] == True:
-                treeview.expand_row(sort_model.get_path(piter), False)
-
-
-    def get_sort_model_piter_information(self, treeview, sort_model):
-        """
-        Get PID, iter, shown, expanded information from treeview sort model.
-        """
-
-        pid_piter_sort_model_dict = {}
-        # Get PID, iter, shown, expanded information for for root rows.
-        list_current = []
-        for i, row in enumerate(sort_model):
-            piter = sort_model.get_iter(i)
-            pid = sort_model.get_value(piter, 4)
-            sub_dict = {}
-            sub_dict["piter"] = piter
-            sub_dict["shown"] = sort_model.get_value(piter, 0)
-            sub_dict["expanded"] = treeview.row_expanded(sort_model.get_path(piter))
-            pid_piter_sort_model_dict[pid] = sub_dict
-            list_current.append(piter)
-        list_current = list(list_current)
-        list_next = []
-        # Get PID, iter, shown, expanded information for for children rows.
-        while list_current != []:
-            for piter in list_current:
-                children_count = sort_model.iter_n_children(piter)
-                for i in range(children_count):
-                    piter_child = sort_model.iter_nth_child(piter, i)
-                    if piter_child == None:
-                        continue
-                    pid = sort_model.get_value(piter_child, 4)
-                    sub_dict = {}
-                    sub_dict["piter"] = piter_child
-                    sub_dict["shown"] = sort_model.get_value(piter_child, 0)
-                    sub_dict["expanded"] = treeview.row_expanded(sort_model.get_path(piter_child))
-                    pid_piter_sort_model_dict[pid] = sub_dict
-                    list_next.append(piter_child)
-            list_current = list(list_next)
-            list_next = []
-
-        return pid_piter_sort_model_dict
-
-
-    def treeview_selection_changed(self, widget):
-        """
-        Get selected rows.
-        """
-
-        try:
-            self.path_list_prev = list(self.path_list)
-        except AttributeError:
-            pass
-
-        model, self.path_list = self.selection.get_selected_rows()
-        self.get_pids_from_paths()
-
-        self.multiple_process_information_summation_gui()
-
-
-    def multiple_process_information_summation_gui(self):
-        """
-        Add/Remove Grid and labels for showing process information (CPU, memory, disk read speed, etc.)
-        if multiple processes are selected.
-        """
-
-        # Remove Grid and labels if selection is changed.
-        if self.tab_grid.get_child_at(0, 2) != None:
-            self.tab_grid.remove(self.multiple_process_information_grid)
-        self.dynamic_information_column_label_dict = {}
-
-        if Config.show_multiple_processes_summation != 1:
-            return
-
-        # Prevent adding widgets if multiple processes are not selected.
-        selected_process_count = len(self.selected_process_pid_list)
-        if selected_process_count < 2:
-            return
-
-        # Grid
-        self.multiple_process_information_grid = Gtk.Grid()
-        self.multiple_process_information_grid.set_row_homogeneous(True)
-        self.multiple_process_information_grid.set_column_spacing(20)
-        self.tab_grid.attach(self.multiple_process_information_grid, 0, 2, 1, 1)
-
-        summable_column_number = 0
-
-        # Label (Processes ([COUNT]))
-        static_information_label = Gtk.Label()
-        self.multiple_process_information_grid.attach(static_information_label, summable_column_number, 0, 1, 1)
-        static_information_label.set_margin_end(20)
-        static_information_label.set_text(_tr("Processes") + ": " + str(selected_process_count))
-
-        # Label (Total:)
-        dynamic_information_label = Gtk.Label()
-        self.multiple_process_information_grid.attach(dynamic_information_label, summable_column_number, 1, 1, 1)
-        dynamic_information_label.set_halign(Gtk.Align.END)
-        dynamic_information_label.set_margin_end(20)
-        dynamic_information_label.set_text(_tr("Total") + ":")
-
-        # Labels (Column titles and column value summations)
-        for column_shown in self.treeview_columns_shown:
-            column_title = self.row_data_list[column_shown][1]
-            if column_title not in self.summable_column_dict:
-                continue
-
-            summable_column_number = summable_column_number + 1
-
-            # Label ([COLUMN TITLE])
-            static_information_label = Common.static_information_label(column_title)
-            self.multiple_process_information_grid.attach(static_information_label, summable_column_number, 0, 1, 1)
-
-            # Label ([COLUMN VALUE SUMMATION])
-            dynamic_information_label = Common.static_information_label("--")
-            self.multiple_process_information_grid.attach(dynamic_information_label, summable_column_number, 1, 1, 1)
-            self.dynamic_information_column_label_sub_dict = {"column_title": column_title, "label": dynamic_information_label}
-            self.dynamic_information_column_label_dict[column_shown] = self.dynamic_information_column_label_sub_dict
-
-        self.multiple_process_information_summation_set_values()
-
-
-    def multiple_process_information_summation_set_values(self):
-        """
-        Update labels for showing process information (CPU, memory, disk read speed, etc.)
-        if multiple processes are selected.
-        """
-
-        global processes_cpu_precision, processes_cpu_divide_by_core
-        global processes_memory_data_precision, processes_memory_data_unit
-        global processes_disk_data_precision, processes_disk_data_unit, processes_disk_speed_bit
-
-        for column_shown in sorted(list(self.dynamic_information_column_label_dict.keys())):
-            column_title = self.dynamic_information_column_label_dict[column_shown]["column_title"]
-            data_name = self.summable_column_dict[column_title]
-            label =  self.dynamic_information_column_label_dict[column_shown]["label"]
-
-            # Get process information summation
-            process_data_summation = 0
-            for pid in self.selected_process_pid_list:
-                row_data_dict = self.rows_data_dict[pid]
-                process_data = row_data_dict[data_name]
-                process_data_summation = process_data_summation + process_data
-
-            # Set label values
-            if data_name in ["cpu_usage"]:
-                label.set_text(f'{process_data_summation:.{processes_cpu_precision}f} %')
-            elif data_name in ["memory_rss", "memory_vms", "memory_shared", "read_data", "written_data", "memory"]:
-                label.set_text(f'{Libsysmon.data_unit_converter("data", "none", process_data_summation, processes_memory_data_unit, processes_memory_data_precision)}')
-            elif data_name in ["read_speed", "write_speed"]:
-                label.set_text(f'{Libsysmon.data_unit_converter("speed", processes_disk_speed_bit, process_data_summation, processes_disk_data_unit, processes_disk_data_precision)}/s')
-
-
-    def on_treeview_pressed(self, event, count, x, y):
-        """
-        Mouse single right click and double left click events (button press).
-        Details window is shown when double clicked.
-        """
-
-        # Show details window if double clicked on a row
-        if int(event.get_button()) == 1 and int(count) == 2:
-            from . import ProcessesDetails
-            ProcessesDetails.process_details_show_process_details()
-
-
-    def get_pids_from_paths(self):
-        """
-        Get process PIDs from selected treeview paths.
-        """
-
-        model = self.treeview.get_model()
-
-        treeiter_list = []
-        for path in self.path_list:
-            treeiter = model.get_iter(path)
-            treeiter_list.append(treeiter)
-
-        self.selected_process_pid_list = []
-        for treeiter in treeiter_list:
-            if treeiter == None:
-                continue
-            try:
-                selected_process_pid = model[treeiter][:][4]
-            # It gives error such as "ValueError: [True, 'system-monitoring-center-process-symbolic', 'python3', 2411, 'user', 'Running', 1.6633495783351964, 98824192, 548507648, 45764608, 0, 16384, 0, 5461, 0, 4, 1727, 1000, 1000, '/usr/bin/python3.9'] is not in list" rarely.
-            # It is handled in this situation.
-            except ValueError:
-                continue
-            self.selected_process_pid_list.append(selected_process_pid)
-
-
-    def on_treeview_released(self, event, count, x, y):
-        """
-        Mouse single right click event (button release).
-        Right click menu is opened.
-        """
-
-        # Remember and reselect previous row selection if right clicked on selection of multiple rows.
-        # Otherwise, TreeSelection selects only right clicked row.
-        # Also block "changed" signal of TreeSelection for preventing calling selection functions multiple times.
-        with self.selection.handler_block(self.selection_changed_signal_handler):
-            if hasattr(Processes, "path_list_prev") and \
-                self.path_list != self.path_list_prev and \
-                len(self.path_list_prev) > 1 and \
-                len(self.path_list) == 1 and \
-                self.path_list[0] in self.path_list_prev:
-                    for path in self.path_list_prev:
-                        self.selection.select_path(path)
-                    self.path_list = list(self.path_list_prev)
-                    self.get_pids_from_paths()
-
-        # Show multiple process summmation GUI again after reselecting (remembering) of multiple processes.
-        self.multiple_process_information_summation_gui()
-
-        # Show right click menu if right clicked on a row
-        if int(event.get_button()) == 3:
-
-            # Stop running the function if process managing keyboard shortcuts are pressed or
-            # right clicked on column titles without selecting a process.
-            if len(self.selected_process_pid_list) == 0:
-                return
-
-            rectangle = Gdk.Rectangle()
-            rectangle.x = int(x)
-            rectangle.y = int(y)
-            rectangle.width = 1
-            rectangle.height = 1
-            # Convert teeview coordinates to window coordinates. Because popovermenu is set for window instead of treeview.
-            treeview_x_coord, treeview_y_coord = self.treeview.translate_coordinates(MainWindow.main_window,0,0)
-            rectangle.x = rectangle.x + treeview_x_coord
-            rectangle.y = rectangle.y + treeview_y_coord
-
-            # New coordinates have to be set for popovermenu on every popup.
-            self.right_click_menu_po.set_pointing_to(rectangle)
-            self.right_click_menu_po.popup()
-            self.set_priority_menu_option()
-
-
-    def on_treeview_released_button1(self, event, count, x, y):
-        """
-        Mouse single left click event (button release).
-        """
-        pass
+            self.priority_custom_value_window.set_visible(False)
 
 
     def initial_func(self):
@@ -1207,78 +674,52 @@ class Processes:
         Initial code which which is not wanted to be run in every loop.
         """
 
-        # data list explanation:
-        # row_data_list = [
-        #                 [treeview column number, treeview column title, internal column count, cell renderer count, treeview column sort column id, [data type 1, data type 2, ...], [cell renderer type 1, cell renderer type 2, ...], [cell attribute 1, cell attribute 2, ...], [cell renderer data 1, cell renderer data 2, ...], [cell left/right alignment 1, cell left/right alignment 2, ...], [set expand 1 {if cell will allocate unused space} cell expand 2, ...], [cell function 1, cell function 2, ...]]
-        #                 .
-        #                 .
-        #                 ]
-        self.row_data_list = [
-                             [0, _tr('Name'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
-                             [1, _tr('PID'), 2, 1, 2, [str, int], ['internal_column', 'CellRendererText'], ['no_cell_attribute', 'text'], [0, 1], ['no_cell_alignment', 1.0], [False, False], ['no_cell_function', 'no_cell_function']],
-                             [2, _tr('User'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                             [3, _tr('Status'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                             [4, _tr('CPU'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent]],
-                             [5, _tr('Memory (RSS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_rss]],
-                             [6, _tr('Memory (VMS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_vms]],
-                             [7, _tr('Memory (Shared)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_shared]],
-                             [8, _tr('Read Data'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_read_data]],
-                             [9, _tr('Written Data'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_write_data]],
-                             [10, _tr('Read Speed'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_read_speed]],
-                             [11, _tr('Write Speed'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_disk_write_speed]],
-                             [12, _tr('Priority'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                             [13, _tr('Threads'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                             [14, _tr('PPID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                             [15, _tr('UID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                             [16, _tr('GID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                             [17, _tr('Start Time'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [0.0], [False], [cell_data_function_start_time]],
-                             [18, _tr('Command Line'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                             [19, _tr('CPU Time'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_time]],
-                             [20, _tr('Memory'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory]],
-                             [21, _tr('CPU') + " - " + _tr('Recursive'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_cpu_usage_percent_recursive]],
-                             [22, _tr('Memory (RSS)') + " - " + _tr('Recursive'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_rss_recursive]],
-                             [23, _tr('Memory') + " - " + _tr('Recursive'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_recursive]],
-                             [24, _tr('GPU'), 1, 1, 1, [float], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_gpu_usage_percent]],
-                             [25, _tr('GPU Memory'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_memory_gpu]]
-                             ]
-
-        self.summable_column_dict = {_tr('CPU'): "cpu_usage", _tr('Memory (RSS)'): "memory_rss", _tr('Memory (VMS)'): "memory_vms",
-                                     _tr('Memory (Shared)'): "memory_shared", _tr('Read Data'): "read_data",
-                                     _tr('Written Data'): "written_data", _tr('Read Speed'): "read_speed",
-                                     _tr('Write Speed'): "write_speed", _tr('Memory'): "memory"}
-
-        # Prevent errors and empty tab list if a version of the application with less number of columns
-        # than the previous one is run.
-        Common.reset_tab_settings(self)
+        self.column_dict = {"name": {"column_title": _tr("Name"), "column_type": str, "converted_data": "no"},
+                            "pid": {"column_title": _tr("PID"), "column_type": int, "converted_data": "no"},
+                            "username": {"column_title": _tr("User"), "column_type": str, "converted_data": "no"},
+                            "status": {"column_title": _tr("Status"), "column_type": str, "converted_data": "no"},
+                            "cpu_usage": {"column_title": _tr("CPU"), "column_type": float, "converted_data": "yes"},
+                            "memory": {"column_title": _tr("Memory"), "column_type": int, "converted_data": "yes"},
+                            "memory_rss": {"column_title": _tr("Memory (RSS)"), "column_type": int, "converted_data": "yes"},
+                            "memory_vms": {"column_title": _tr("Memory (VMS)"), "column_type": int, "converted_data": "yes"},
+                            "memory_shared": {"column_title": _tr("Memory (Shared)"), "column_type": int, "converted_data": "yes"},
+                            "read_data": {"column_title": _tr("Read Data"), "column_type": int, "converted_data": "yes"},
+                            "written_data": {"column_title": _tr("Written Data"), "column_type": int, "converted_data": "yes"},
+                            "read_speed": {"column_title": _tr("Read Speed"), "column_type": float, "converted_data": "yes"},
+                            "write_speed": {"column_title": _tr("Write Speed"), "column_type": float, "converted_data": "yes"},
+                            "nice": {"column_title": _tr("Priority"), "column_type": int, "converted_data": "no"},
+                            "threads": {"column_title": _tr("Threads"), "column_type": int, "converted_data": "no"},
+                            "ppid": {"column_title": _tr("PPID"), "column_type": int, "converted_data": "no"},
+                            "uid": {"column_title": _tr("UID"), "column_type": int, "converted_data": "no"},
+                            "gid": {"column_title": _tr("GID"), "column_type": int, "converted_data": "no"},
+                            "start_time": {"column_title": _tr("Start Time"), "column_type": float, "converted_data": "yes"},
+                            "path": {"column_title": _tr("Path"), "column_type": str, "converted_data": "no"},
+                            "command_line": {"column_title": _tr("Command Line"), "column_type": str, "converted_data": "no"},
+                            "cpu_time": {"column_title": _tr("CPU Time"), "column_type": float, "converted_data": "yes"},
+                            "cpu_recursive": {"column_title": _tr('CPU') + " - " + _tr('Recursive'), "column_type": float, "converted_data": "yes"},
+                            "memory_rss_recursive": {"column_title": _tr('Memory (RSS)') + " - " + _tr('Recursive'), "column_type": int, "converted_data": "yes"},
+                            "memory_recursive": {"column_title": _tr('Memory') + " - " + _tr('Recursive'), "column_type": int, "converted_data": "yes"}
+                            }
 
         # Define data unit conversion function objects in for lower CPU usage.
-        global data_unit_converter
+        global data_unit_converter, cpu_time_converter
         data_unit_converter = Libsysmon.data_unit_converter
+        cpu_time_converter = Libsysmon.cpu_time_converter
 
-        self.tab_data_rows_prev = []
-        self.pid_list_prev = []
-        self.piter_list = []
-        self.show_processes_as_tree_prev = Config.show_processes_as_tree
-        self.treeview_columns_shown_prev = []
-        self.data_row_sorting_column_prev = ""
-        self.data_row_sorting_order_prev = ""
-        self.data_column_order_prev = []
-        self.data_column_widths_prev = []
+        process_status_translation_list = [_tr("Running"), _tr("Sleeping"), _tr("Waiting"), _tr("Idle"), _tr("Zombie"), _tr("Stopped"), _tr("Dead")]
+
+        pid_list_prev = []
+        self.piter_dict = {}
+        self.selected_data_rows_prev = {}
+        self.rows_additional_data_dict_prev = {}
         self.rows_data_dict_prev = {}
+        self.row_id_list_prev = []
+        self.image_dict = {}
+        self.treeview_columns_shown_prev = []
 
-        global number_of_clock_ticks, application_image_dict
-        number_of_clock_ticks = Libsysmon.number_of_clock_ticks
+        #self.number_of_clock_ticks = Libsysmon.number_of_clock_ticks
         self.system_boot_time = Libsysmon.get_system_boot_time()
         self.username_uid_dict = Libsysmon.get_username_uid_dict()
-        application_image_dict = Libsysmon.get_application_name_image_dict()
-
-        # Define process status text list for translation
-        process_status_list = [_tr("Running"), _tr("Sleeping"), _tr("Waiting"), _tr("Idle"), _tr("Zombie"), _tr("Stopped")]
-
-        # Search filter is "Process Name". "-1" is used because "row_data_list" has internal column count and
-        # it has to be converted to Python index. For example, if there are 3 internal columns but index is 2 for the last
-        # internal column number for the relevant treeview column.
-        self.filter_column = self.row_data_list[0][2] - 1
 
         self.initial_already_run = 1
 
@@ -1288,473 +729,244 @@ class Processes:
         Get and show information on the GUI on every loop.
         """
 
-        # Run initial function of the module if this is the first loop of the module.
-        if self.initial_already_run == 0:
-            self.initial_func()
-
         update_interval = Config.update_interval
 
         # Get configrations one time per floop instead of getting them multiple times (hundreds of times for many of them) in every loop which causes high CPU usage.
-        global processes_cpu_precision, processes_cpu_divide_by_core
+        global processes_cpu_precision
         global processes_memory_data_precision, processes_memory_data_unit
         global processes_disk_data_precision, processes_disk_data_unit, processes_disk_speed_bit
-        global processes_gpu_precision, processes_gpu_memory_data_precision, processes_gpu_memory_data_unit
         processes_cpu_precision = Config.processes_cpu_precision
-        processes_cpu_divide_by_core = Config.processes_cpu_divide_by_core
         processes_memory_data_precision = Config.processes_memory_data_precision
         processes_memory_data_unit = Config.processes_memory_data_unit
         processes_disk_data_precision = Config.processes_disk_data_precision
         processes_disk_data_unit = Config.processes_disk_data_unit
         processes_disk_speed_bit = Config.processes_disk_speed_bit
-        processes_gpu_precision = Config.processes_gpu_precision
-        processes_gpu_memory_data_precision = Config.processes_gpu_memory_data_precision
-        processes_gpu_memory_data_unit = Config.processes_gpu_memory_data_unit
+
+        try:
+            self.treeview_columns_shown_prev = list(self.treeview_columns_shown)
+            self.row_sorting_column_prev = self.row_sorting_column
+            self.row_sorting_order_prev = self.row_sorting_order
+        except AttributeError:
+            self.treeview_columns_shown_prev = []
+            self.row_sorting_column_prev = 0
+            self.row_sorting_order_prev = 0
 
         # Define global variables and get treeview columns, sort column/order, column widths, etc.
-        self.treeview_columns_shown = Config.processes_treeview_columns_shown
-        self.data_row_sorting_column = Config.processes_data_row_sorting_column
-        self.data_row_sorting_order = Config.processes_data_row_sorting_order
-        self.data_column_order = Config.processes_data_column_order
-        self.data_column_widths = Config.processes_data_column_widths
+        self.treeview_columns_shown = Config.processes_columns_shown
+        self.row_sorting_column = Config.processes_row_sorting_column
+        self.row_sorting_order = Config.processes_row_sorting_order
         self.show_processes_of_all_users = Config.show_processes_of_all_users
-        self.hide_kernel_threads = Config.hide_kernel_threads
         self.show_processes_as_tree = Config.show_processes_as_tree
-        # For obtaining lower CPU usage
-        treeview_columns_shown = self.treeview_columns_shown
-        treeview_columns_shown = set(treeview_columns_shown)
+        self.processes_cpu_divide_by_core = Config.processes_cpu_divide_by_core
+        self.hide_kernel_threads = Config.hide_kernel_threads
 
-        # Define lists for appending some performance data for calculating max values to determine cell background color.
-        # "0" values are added for preventing errors if the lists are empty.
-        cpu_usage_list = [0]
-        memory_rss_list = [0]
-        memory_vms_list = [0]
-        memory_shared_list = [0]
-        memory_list = [0]
-        disk_read_data_list = [0]
-        disk_write_data_list = [0]
-        disk_read_speed_list = [0]
-        disk_write_speed_list = [0]
-        cpu_usage_recursive_list = [0]
-        memory_rss_recursive_list = [0]
-        memory_recursive_list = [0]
-        gpu_usage_list = [0]
-        memory_gpu_list = [0]
+        # Clear all rows in order to prevent multiple additions if certain settings are changed.
+        reset_treeview_rows = 0
+        try:
+            if self.show_processes_of_all_users != self.show_processes_of_all_users_prev:
+                reset_treeview_rows = 1
+            if self.show_processes_as_tree != self.show_processes_as_tree_prev:
+                reset_treeview_rows = 1
+            if self.hide_kernel_threads != self.hide_kernel_threads_prev:
+                reset_treeview_rows = 1
+            if self.processes_cpu_divide_by_core != self.processes_cpu_divide_by_core_prev:
+                reset_treeview_rows = 1
+            if processes_memory_data_unit != self.processes_memory_data_unit_prev:
+                reset_treeview_rows = 1
+            if processes_disk_data_unit != self.processes_disk_data_unit_prev:
+                reset_treeview_rows = 1
+            if processes_disk_speed_bit != self.processes_disk_speed_bit_prev:
+                reset_treeview_rows = 1
+        except AttributeError:
+            reset_treeview_rows = 0
+
+        if reset_treeview_rows == 1:
+            for row in self.treeview.get_children():
+                self.treeview.delete(row)
 
         # Get process information
-        global cmdline_list, application_image_dict
+        global cmdline_list
         process_list = []
         if self.show_processes_of_all_users == 1:
             processes_of_user = "all"
         else:
             processes_of_user = "current"
-        if processes_cpu_divide_by_core == 1:
+        if self.processes_cpu_divide_by_core == 1:
             cpu_usage_divide_by_cores = "yes"
         else:
             cpu_usage_divide_by_cores = "no"
         detail_level = "medium"
-        self.rows_data_dict = Libsysmon.get_processes_information(process_list, processes_of_user, self.hide_kernel_threads, cpu_usage_divide_by_cores, detail_level, self.rows_data_dict_prev, self.system_boot_time, self.username_uid_dict)
-        self.rows_data_dict_prev = dict(self.rows_data_dict)
-        pid_list = self.rows_data_dict["pid_list"]
-        ppid_list = self.rows_data_dict["ppid_list"]
-        username_list = self.rows_data_dict["username_list"]
-        cmdline_list = self.rows_data_dict["cmdline_list"]
-        if 24 in treeview_columns_shown or 25 in treeview_columns_shown:
-            """try:
-                gpu_information_dict = Libsysmon.get_process_gpu_information()
-            except Exception:
-                gpu_information_dict = {}"""
-            gpu_information_dict = {}
 
-        # Get and append process data
-        tab_data_rows = []
-        for pid in pid_list:
-            row_data_dict = self.rows_data_dict[pid]
-            process_name = row_data_dict["name"]
-            ppid = row_data_dict["ppid"]
-            # Get process image
-            if ppid == 2 or pid == 2:
-                process_image = "system-monitoring-center-process-symbolic"
-            else:
-                process_image = "application-x-executable"
-                if process_name in application_image_dict:
-                    process_image = application_image_dict[process_name]
-            process_commandline = row_data_dict["command_line"]
-            tab_data_row = [True, process_image, process_name, process_commandline]
-            if 1 in treeview_columns_shown:
-                tab_data_row.append(pid)
-            if 2 in treeview_columns_shown:
-                tab_data_row.append(row_data_dict["username"])
-            if 3 in treeview_columns_shown:
-                tab_data_row.append(_tr(row_data_dict["status"]))
-            if 4 in treeview_columns_shown or 21 in treeview_columns_shown:
-                cpu_usage = row_data_dict["cpu_usage"]
-                cpu_usage_list.append(cpu_usage)
-                if 4 in treeview_columns_shown:
-                    tab_data_row.append(cpu_usage)
-            if 5 in treeview_columns_shown or 20 in treeview_columns_shown or 22 in treeview_columns_shown or 23 in treeview_columns_shown:
-                memory_rss = row_data_dict["memory_rss"]
-                memory_rss_list.append(memory_rss)
-                if 5 in treeview_columns_shown:
-                    tab_data_row.append(memory_rss)
-            if 6 in treeview_columns_shown:
-                memory_vms = row_data_dict["memory_vms"]
-                tab_data_row.append(memory_vms)
-                memory_vms_list.append(memory_vms)
-            if 7 in treeview_columns_shown or 20 in treeview_columns_shown or 23 in treeview_columns_shown:
-                memory_shared = row_data_dict["memory_shared"]
-                memory_shared_list.append(memory_shared)
-                if 7 in treeview_columns_shown:
-                    tab_data_row.append(memory_shared)
-            if 8 in treeview_columns_shown:
-                process_read_bytes = row_data_dict["read_data"]
-                tab_data_row.append(process_read_bytes)
-                disk_read_data_list.append(process_read_bytes)
-            if 9 in treeview_columns_shown:
-                process_write_bytes = row_data_dict["written_data"]
-                tab_data_row.append(process_write_bytes)
-                disk_write_data_list.append(process_write_bytes)
-            if 10 in treeview_columns_shown:
-                disk_read_speed = row_data_dict["read_speed"]
-                tab_data_row.append(disk_read_speed)
-                disk_read_speed_list.append(disk_read_speed)
-            if 11 in treeview_columns_shown:
-                disk_write_speed = row_data_dict["write_speed"]
-                tab_data_row.append(disk_write_speed)
-                disk_write_speed_list.append(disk_write_speed)
-            if 12 in treeview_columns_shown:
-                tab_data_row.append(row_data_dict["nice"])
-            if 13 in treeview_columns_shown:
-                tab_data_row.append(row_data_dict["number_of_threads"])
-            if 14 in treeview_columns_shown:
-                tab_data_row.append(ppid)
-            if 15 in treeview_columns_shown:
-                tab_data_row.append(row_data_dict["uid"])
-            if 16 in treeview_columns_shown:
-                tab_data_row.append(row_data_dict["gid"])
-            if 17 in treeview_columns_shown:
-                tab_data_row.append(row_data_dict["start_time"])
-            if 18 in treeview_columns_shown:
-                tab_data_row.append(process_commandline)
-            if 19 in treeview_columns_shown:
-                tab_data_row.append(row_data_dict["cpu_time"])
-            if 20 in treeview_columns_shown or 23 in treeview_columns_shown:
-                memory = row_data_dict["memory"]
-                memory_list.append(memory)
-                if 20 in treeview_columns_shown:
-                    tab_data_row.append(memory)
-            if 24 in treeview_columns_shown:
-                try:
-                    gpu_usage = gpu_information_dict[pid]["gpu_usage"]
-                except Exception:
-                    gpu_usage = 0
-                tab_data_row.append(gpu_usage)
-                gpu_usage_list.append(gpu_usage)
-            if 25 in treeview_columns_shown:
-                try:
-                    gpu_memory = gpu_information_dict[pid]["gpu_memory"]
-                except Exception:
-                    gpu_memory = 0
-                tab_data_row.append(gpu_memory)
-                memory_gpu_list.append(gpu_memory)
+        self.rows_data_dict, self.rows_additional_data_dict = Libsysmon.get_processes_information(process_list, processes_of_user, self.hide_kernel_threads, cpu_usage_divide_by_cores, detail_level, self.rows_data_dict_prev, self.rows_additional_data_dict_prev, self.system_boot_time, self.username_uid_dict)
+        self.row_id_list = list(self.rows_data_dict.keys())
+        #self.row_id_list = [str(x) for x in self.row_id_list]
+        pid_list = self.rows_additional_data_dict["pid_list"]
+        ppid_list = self.rows_additional_data_dict["ppid_list"]
+        username_list = self.rows_additional_data_dict["username_list"]
+        cmdline_list = self.rows_additional_data_dict["cmdline_list"]
 
-            # Append process data into a list
-            tab_data_rows.append(tab_data_row)
-
-        # Remove first element (0) from "list_of_cell_coloring_data_lists" if data is appended to them.
-        list_of_cell_coloring_data_lists = [
-                                            cpu_usage_list,
-                                            memory_rss_list,
-                                            memory_vms_list,
-                                            memory_shared_list,
-                                            memory_list,
-                                            disk_read_data_list,
-                                            disk_write_data_list,
-                                            disk_read_speed_list,
-                                            disk_write_speed_list,
-                                            cpu_usage_recursive_list,
-                                            memory_rss_recursive_list,
-                                            memory_recursive_list,
-                                            gpu_usage_list,
-                                            memory_gpu_list
-                                            ]
-
-        for cell_coloring_data_list in list_of_cell_coloring_data_lists:
-            if cell_coloring_data_list != [0]:
-                del cell_coloring_data_list[0]
-
-        tab_data_rows, cpu_usage_recursive_list, memory_rss_recursive_list, memory_recursive_list = self.recursive_cpu_memory_usage(tab_data_rows, treeview_columns_shown, pid_list, ppid_list, cpu_usage_list, memory_rss_list, memory_list)
-
-        self.tab_data_rows = tab_data_rows
         self.pid_list = pid_list
+        self.ppid_list = ppid_list
+        self.cmdline_list = cmdline_list
 
-        # Convert set to list (it was set before getting process information)
-        treeview_columns_shown = sorted(list(treeview_columns_shown))
+        Common.add_columns_and_reset_rows_and_columns(self)
 
-        reset_row_unique_data_list_prev = Common.treeview_add_remove_columns(self)
-        if reset_row_unique_data_list_prev == "yes":
-            self.pid_list_prev = []
-        Common.treeview_reorder_columns_sort_rows_set_column_widths(self)
+        process_image = tk.PhotoImage(file=MainWindow.image_path + "smc-process-row.png").subsample(3, 3)
 
-        # Append treestore items (rows) as tree or list structure depending on user preferences.
-        if self.show_processes_as_tree != self.show_processes_as_tree_prev:                       # Check if "show_processes_as_tree" setting has been changed since last loop and redefine "piter_list" in order to prevent resetting it in every loop which will cause high CPU consumption because piter_list and treestore content would have been appended/builded from zero.
-            self.pid_list_prev = []                                                               # Redefine (clear) "pid_list_prev" list. Thus code will recognize this and data will be appended into treestore and piter_list from zero.
-            self.treestore.clear()                                                                # Clear treestore because items will be appended from zero (in tree or list structure).
-            self.piter_list = []
+        # Get CPU, Memory (RSS) and Memory recursive data of all processes.
+        if "cpu_recursive" in self.treeview_columns_shown:
+            cpu_usage_dict = {}
+            for process_pid in self.row_id_list:
+                row_data_dict = self.rows_data_dict[str(process_pid)]
+                cpu_usage_dict[int(process_pid)] = row_data_dict["cpu_usage"]
+            cpu_recursive_dict = Libsysmon.get_recursive_data(pid_list, ppid_list, cpu_usage_dict)
+        if "memory_rss_recursive" in self.treeview_columns_shown:
+            memory_rss_dict = {}
+            for process_pid in self.row_id_list:
+                row_data_dict = self.rows_data_dict[str(process_pid)]
+                memory_rss_dict[int(process_pid)] = row_data_dict["memory_rss"]
+            memory_rss_recursive_dict = Libsysmon.get_recursive_data(pid_list, ppid_list, memory_rss_dict)
+        if "memory_recursive" in self.treeview_columns_shown:
+            memory_dict = {}
+            for process_pid in self.row_id_list:
+                row_data_dict = self.rows_data_dict[str(process_pid)]
+                memory_dict[int(process_pid)] = row_data_dict["memory"]
+            memory_recursive_dict = Libsysmon.get_recursive_data(pid_list, ppid_list, memory_dict)
 
-        # Prevent errors if no rows are found.
-        if len(tab_data_rows[0]) == 0:
-            return
+        selected_data_rows_raw = {}
+        selected_data_rows = {}
+        for process_pid in self.row_id_list:
+            #process_pid = int(process_pid)
+            row_data_dict = self.rows_data_dict[process_pid]
+            if process_pid not in self.image_dict:
+                self.image_dict[process_pid] = process_image
+            selected_data_row_raw = []
+            selected_data_row = []
+            for column_shown in self.treeview_columns_shown:
+                if column_shown == "name":
+                    selected_data_row.append(row_data_dict["name"])
+                    selected_data_row_raw.append(row_data_dict["name"])
+                elif column_shown == "pid":
+                    selected_data_row.append(row_data_dict["pid"])
+                    selected_data_row_raw.append(row_data_dict["pid"])
+                elif column_shown == "username":
+                    selected_data_row.append(row_data_dict["username"])
+                    selected_data_row_raw.append(row_data_dict["username"])
+                elif column_shown == "status":
+                    selected_data_row.append(row_data_dict["status"])
+                    selected_data_row_raw.append(row_data_dict["status"])
+                elif column_shown == "cpu_usage":
+                    converted_data = f'{row_data_dict["cpu_usage"]:.{processes_cpu_precision}f} %'
+                    selected_data_row.append(converted_data)
+                    selected_data_row_raw.append(row_data_dict["cpu_usage"])
+                elif column_shown == "memory":
+                    converted_data = f'{data_unit_converter("data", "none", row_data_dict["memory"], processes_memory_data_unit, processes_memory_data_precision)}' 
+                    selected_data_row.append(converted_data)
+                    selected_data_row_raw.append(row_data_dict["memory"])
+                elif column_shown == "memory_rss":
+                    converted_data = f'{data_unit_converter("data", "none", row_data_dict["memory_rss"], processes_memory_data_unit, processes_memory_data_precision)}' 
+                    selected_data_row.append(converted_data)
+                    selected_data_row_raw.append(row_data_dict["memory_rss"])
+                elif column_shown == "memory_vms":
+                    converted_data = f'{data_unit_converter("data", "none", row_data_dict["memory_vms"], processes_memory_data_unit, processes_memory_data_precision)}' 
+                    selected_data_row.append(converted_data)
+                    selected_data_row_raw.append(row_data_dict["memory_vms"])
+                elif column_shown == "memory_shared":
+                    converted_data = f'{data_unit_converter("data", "none", row_data_dict["memory_shared"], processes_memory_data_unit, processes_memory_data_precision)}' 
+                    selected_data_row.append(converted_data)
+                    selected_data_row_raw.append(row_data_dict["memory_shared"])
+                elif column_shown == "read_data":
+                    converted_data = f'{data_unit_converter("data", "none", row_data_dict["memory_shared"], processes_disk_data_unit, processes_disk_data_precision)}' 
+                    selected_data_row.append(converted_data)
+                    selected_data_row_raw.append(row_data_dict["read_data"])
+                elif column_shown == "written_data":
+                    converted_data = f'{data_unit_converter("data", "none", row_data_dict["memory_shared"], processes_disk_data_unit, processes_disk_data_precision)}'  
+                    selected_data_row.append(converted_data)
+                    selected_data_row_raw.append(row_data_dict["written_data"])
+                elif column_shown == "read_speed":
+                    converted_data = f'{data_unit_converter("speed", processes_disk_speed_bit, row_data_dict["read_speed"], processes_disk_data_unit, processes_disk_data_precision)}/s'
+                    selected_data_row.append(converted_data)
+                    selected_data_row_raw.append(row_data_dict["read_speed"])
+                elif column_shown == "write_speed":
+                    converted_data = f'{data_unit_converter("speed", processes_disk_speed_bit, row_data_dict["write_speed"], processes_disk_data_unit, processes_disk_data_precision)}/s'
+                    selected_data_row.append(converted_data)
+                    selected_data_row_raw.append(row_data_dict["write_speed"])
+                elif column_shown == "nice":
+                    selected_data_row.append(row_data_dict["nice"])
+                    selected_data_row_raw.append(row_data_dict["nice"])
+                elif column_shown == "threads":
+                    selected_data_row.append(row_data_dict["number_of_threads"])
+                    selected_data_row_raw.append(row_data_dict["number_of_threads"])
+                elif column_shown == "ppid":
+                    selected_data_row.append(row_data_dict["ppid"])
+                    selected_data_row_raw.append(row_data_dict["ppid"])
+                elif column_shown == "uid":
+                    selected_data_row.append(row_data_dict["uid"])
+                    selected_data_row_raw.append(row_data_dict["uid"])
+                elif column_shown == "gid":
+                    selected_data_row.append(row_data_dict["gid"])
+                    selected_data_row_raw.append(row_data_dict["gid"])
+                elif column_shown == "start_time":
+                    if row_data_dict["start_time"] != 0:
+                        converted_data = datetime.fromtimestamp(row_data_dict["start_time"]).strftime("%H:%M:%S %d.%m.%Y")
+                    if row_data_dict["start_time"] == 0:
+                        converted_data = "-"
+                    selected_data_row.append(converted_data)
+                    selected_data_row_raw.append(row_data_dict["start_time"])
+                elif column_shown == "path":
+                    selected_data_row.append(row_data_dict["path"])
+                    selected_data_row_raw.append(row_data_dict["path"])
+                elif column_shown == "command_line":
+                    selected_data_row.append(row_data_dict["command_line"])
+                    selected_data_row_raw.append(row_data_dict["command_line"])
+                elif column_shown == "cpu_time":
+                    converted_data = cpu_time_converter(row_data_dict["cpu_time"])
+                    selected_data_row.append(converted_data)
+                    selected_data_row_raw.append(row_data_dict["cpu_time"])
+                elif column_shown == "cpu_recursive":
+                    cpu_recursive = cpu_recursive_dict[int(process_pid)]
+                    converted_data = f'{cpu_recursive:.{processes_cpu_precision}f} %'
+                    selected_data_row.append(converted_data)
+                    selected_data_row_raw.append(cpu_recursive)
+                elif column_shown == "memory_rss_recursive":
+                    memory_rss_recursive = memory_rss_recursive_dict[int(process_pid)]
+                    converted_data = f'{data_unit_converter("data", "none", memory_rss_recursive, processes_memory_data_unit, processes_memory_data_precision)}'
+                    selected_data_row.append(converted_data)
+                    selected_data_row_raw.append(memory_rss_recursive)
+                elif column_shown == "memory_recursive":
+                    memory_recursive = memory_recursive_dict[int(process_pid)]
+                    converted_data = f'{data_unit_converter("data", "none", memory_recursive, processes_memory_data_unit, processes_memory_data_precision)}'
+                    selected_data_row.append(converted_data)
+                    selected_data_row_raw.append(memory_recursive)
 
-        deleted_rows, new_rows, updated_existing_row_index = Common.get_new_deleted_updated_rows(pid_list, self.pid_list_prev)
-        Common.update_treestore_rows(self, self.rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, pid_list, self.pid_list_prev, self.show_processes_as_tree, self.show_processes_of_all_users)
-        Common.searchentry_update_placeholder_text(self, _tr("Processes"))
+            selected_data_rows[process_pid] = selected_data_row
+            selected_data_rows_raw[process_pid] = selected_data_row_raw
 
-        # Expand all treeview rows (if treeview items are in tree structured, not list) if this is the first loop
-        # of the Processes tab. It expands treeview rows (and children) in all loops if this control is not made.
-        # "First loop" control is made by checking if pid_list_prev is empty.
-        if self.pid_list_prev == []:
-            self.treeview.expand_all()
 
-        self.pid_list_prev = self.pid_list
-        self.tab_data_rows_prev = self.tab_data_rows
+        new_rows, deleted_rows, existing_rows = Common.get_new_removed_updated_rows(self.row_id_list, self.row_id_list_prev)
+
+        self.piter_dict = Common.add_remove_update_treeview_rows(self.treeview, self.piter_dict, self.selected_data_rows_prev, self.image_dict, selected_data_rows, selected_data_rows_raw, new_rows, deleted_rows, existing_rows, pid_list, ppid_list, self.show_processes_as_tree)
+
+        self.row_count = len(self.row_id_list)
+        self.row_information = _tr("Processes")
+        self.selected_data_rows = selected_data_rows
+        self.selected_data_rows_raw = selected_data_rows_raw
+        Common.searchentry_placeholder_text(self)
+
+        self.rows_data_dict_prev = dict(self.rows_data_dict)
+        self.row_id_list_prev = self.row_id_list
+        self.selected_data_rows_prev = self.selected_data_rows
+        self.rows_additional_data_dict_prev = dict(self.rows_additional_data_dict)
+
+        self.show_processes_of_all_users_prev = self.show_processes_of_all_users
         self.show_processes_as_tree_prev = self.show_processes_as_tree
-        self.treeview_columns_shown_prev = self.treeview_columns_shown
-        self.data_row_sorting_column_prev = self.data_row_sorting_column
-        self.data_row_sorting_order_prev = self.data_row_sorting_order
-        self.data_column_order_prev = self.data_column_order
-        self.data_column_widths_prev = self.data_column_widths
+        self.hide_kernel_threads_prev = self.hide_kernel_threads
+        self.processes_cpu_divide_by_core_prev = self.processes_cpu_divide_by_core
+        self.processes_memory_data_unit_prev = processes_memory_data_unit
+        self.processes_disk_data_unit_prev = processes_disk_data_unit
+        self.processes_disk_speed_bit_prev = processes_disk_speed_bit
 
-        # Get max values of some performance data for setting cell background colors depending on relative performance data.
-        global max_value_cpu_usage_list, max_value_memory_rss_list, max_value_memory_vms_list, max_value_memory_shared_list, max_value_memory_list
-        global max_value_disk_read_data_list, max_value_disk_write_data_list, max_value_disk_read_speed_list, max_value_disk_write_speed_list
-        global max_value_cpu_usage_recursive_list, max_value_memory_rss_recursive_list, max_value_memory_recursive_list
-        global max_value_gpu_usage_list, max_value_memory_gpu_list
-        max_value_cpu_usage_list = max(cpu_usage_list)
-        max_value_memory_rss_list = max(memory_rss_list)
-        max_value_memory_vms_list = max(memory_vms_list)
-        max_value_memory_shared_list = max(memory_shared_list)
-        max_value_memory_list = max(memory_list)
-        max_value_disk_read_data_list = max(disk_read_data_list)
-        max_value_disk_write_data_list = max(disk_write_data_list)
-        max_value_disk_read_speed_list = max(disk_read_speed_list)
-        max_value_disk_write_speed_list = max(disk_write_speed_list)
-        max_value_cpu_usage_recursive_list = max(cpu_usage_recursive_list)
-        max_value_memory_rss_recursive_list = max(memory_rss_recursive_list)
-        max_value_memory_recursive_list = max(memory_recursive_list)
-        max_value_gpu_usage_list = max(gpu_usage_list)
-        max_value_memory_gpu_list = max(memory_gpu_list)
-
-        # Show/Hide treeview expander arrows. If "child rows" are not used and there is no need for these expanders (they would be shown as empty spaces in this situation).
-        if self.show_processes_as_tree == 1:
-            self.treeview.set_show_expanders(True)
-        else:
-            self.treeview.set_show_expanders(False)
-
-        # Show/Hide treeview tree lines
-        if Config.show_tree_lines == 1:
-            self.treeview.set_enable_tree_lines(True)
-        else:
-            self.treeview.set_enable_tree_lines(False)
-
-        # Update multiple process information summation labels
-        self.multiple_process_information_summation_set_values()
-
-
-    def recursive_cpu_memory_usage(self, tab_data_rows, treeview_columns_shown, pid_list, ppid_list, cpu_usage_list, memory_rss_list, memory_list):
-        """
-        Get recursive CPU usage percentage, recursive memory (RSS) and recursive memory information of processes.
-        """
-
-        # Define lists before rest of the function for avoiding errors.
-        cpu_usage_recursive_list = [0]
-        memory_rss_recursive_list = [0]
-        memory_recursive_list = [0]
-
-        # Do not run rest of the function for avoiding high CPU usage because of getting PID-child PID dictionary.
-        if 21 not in treeview_columns_shown and \
-           22 not in treeview_columns_shown and \
-           23 not in treeview_columns_shown:
-            return tab_data_rows, cpu_usage_recursive_list, memory_rss_recursive_list, memory_recursive_list
-
-        # Get PID-child PID dictionary
-        pid_child_pid_dict = {}
-        for i, ppid in enumerate(ppid_list):
-            pid = pid_list[i]
-            if ppid not in pid_child_pid_dict:
-                pid_child_pid_dict[ppid] = [pid]
-            else:
-                pid_child_pid_dict[ppid].append(pid)
-        # Append PIDs of sub-branches to PIDs of parent branches in order to
-        # generate branches from their roots to end of their all sub-branches.
-        pid_child_pid_dict_prev = {}
-        while pid_child_pid_dict != pid_child_pid_dict_prev:
-            pid_child_pid_dict_prev = dict(pid_child_pid_dict)
-            for ppid in pid_child_pid_dict:
-                for pid in pid_child_pid_dict[ppid][:]:
-                    if pid in pid_child_pid_dict:
-                        pid_child_pid_dict[ppid] = list(pid_child_pid_dict[ppid]) + list(pid_child_pid_dict[pid])
-                # Remove duplicated PIDs and information for 0th PID in the dictionary
-                pid_child_pid_dict_scratch = dict(pid_child_pid_dict)
-                pid_child_pid_dict = {}
-                for pid in pid_child_pid_dict_scratch:
-                    if pid == "0":
-                        continue
-                    pid_child_pid_dict[pid] = sorted(list(set(pid_child_pid_dict_scratch[pid])), key=int)
-
-        treeview_columns_shown = sorted(list(treeview_columns_shown))
-
-        # Get recursive CPU usage percentage of processes
-        if 21 in treeview_columns_shown:
-            cpu_total_data_column_index = treeview_columns_shown.index(21) + 3
-            for i, pid in enumerate(pid_list):
-                process_cpu_usage_total = cpu_usage_list[i]
-                if pid in pid_child_pid_dict:
-                    child_pid_list = pid_child_pid_dict[pid]
-                    for child_pid in child_pid_list:
-                        child_pid_index = pid_list.index(child_pid)
-                        cpu_usage = cpu_usage_list[child_pid_index]
-                        process_cpu_usage_total = process_cpu_usage_total + cpu_usage
-                cpu_usage_recursive_list.append(process_cpu_usage_total)
-                tab_data_rows[i].insert(cpu_total_data_column_index, process_cpu_usage_total)
-
-        # Get recursive memory (RSS) usage of processes
-        if 22 in treeview_columns_shown:
-            memory_rss_total_data_column_index = treeview_columns_shown.index(22) + 3
-            for i, pid in enumerate(pid_list):
-                process_memory_rss_total = memory_rss_list[i]
-                if pid in pid_child_pid_dict:
-                    child_pid_list = pid_child_pid_dict[pid]
-                    for child_pid in child_pid_list:
-                        child_pid_index = pid_list.index(child_pid)
-                        memory_rss = memory_rss_list[child_pid_index]
-                        process_memory_rss_total = process_memory_rss_total + memory_rss
-                memory_rss_recursive_list.append(process_memory_rss_total)
-                tab_data_rows[i].insert(memory_rss_total_data_column_index, process_memory_rss_total)
-
-        # Get recursive memory usage of processes
-        if 23 in treeview_columns_shown:
-            memory_total_data_column_index = treeview_columns_shown.index(23) + 3
-            for i, pid in enumerate(pid_list):
-                process_memory_total = memory_list[i]
-                if pid in pid_child_pid_dict:
-                    child_pid_list = pid_child_pid_dict[pid]
-                    for child_pid in child_pid_list:
-                        child_pid_index = pid_list.index(child_pid)
-                        memory = memory_list[child_pid_index]
-                        process_memory_total = process_memory_total + memory
-                memory_recursive_list.append(process_memory_total)
-                tab_data_rows[i].insert(memory_total_data_column_index, process_memory_total)
-
-        return tab_data_rows, cpu_usage_recursive_list, memory_rss_recursive_list, memory_recursive_list
-
-
-# ----------------------------------- Processes - Treeview Cell Functions (defines functions for treeview cell for setting data precisions and/or data units) -----------------------------------
-def cell_data_function_cpu_usage_percent(tree_column, cell, tree_model, iter, data):
-    value = tree_model.get(iter, data)[0]
-    cell.set_property('text', f'{value:.{processes_cpu_precision}f} %')
-    cell_backround_color(cell, value, max_value_cpu_usage_list)
-
-def cell_data_function_memory_rss(tree_column, cell, tree_model, iter, data):
-    value = tree_model.get(iter, data)[0]
-    cell.set_property('text', data_unit_converter("data", "none", value, processes_memory_data_unit, processes_memory_data_precision))
-    cell_backround_color(cell, value, max_value_memory_rss_list)
-
-def cell_data_function_memory_vms(tree_column, cell, tree_model, iter, data):
-    value = tree_model.get(iter, data)[0]
-    cell.set_property('text', data_unit_converter("data", "none", value, processes_memory_data_unit, processes_memory_data_precision))
-    cell_backround_color(cell, value, max_value_memory_vms_list)
-
-def cell_data_function_memory_shared(tree_column, cell, tree_model, iter, data):
-    value = tree_model.get(iter, data)[0]
-    cell.set_property('text', data_unit_converter("data", "none", value, processes_memory_data_unit, processes_memory_data_precision))
-    cell_backround_color(cell, value, max_value_memory_shared_list)
-
-def cell_data_function_memory(tree_column, cell, tree_model, iter, data):
-    value = tree_model.get(iter, data)[0]
-    cell.set_property('text', data_unit_converter("data", "none", value, processes_memory_data_unit, processes_memory_data_precision))
-    cell_backround_color(cell, value, max_value_memory_list)
-
-def cell_data_function_disk_read_data(tree_column, cell, tree_model, iter, data):
-    value = tree_model.get(iter, data)[0]
-    cell.set_property('text', data_unit_converter("data", "none", value, processes_disk_data_unit, processes_disk_data_precision))
-    cell_backround_color(cell, value, max_value_disk_read_data_list)
-
-def cell_data_function_disk_write_data(tree_column, cell, tree_model, iter, data):
-    value = tree_model.get(iter, data)[0]
-    cell.set_property('text', data_unit_converter("data", "none", value, processes_disk_data_unit, processes_disk_data_precision))
-    cell_backround_color(cell, value, max_value_disk_write_data_list)
-
-def cell_data_function_disk_read_speed(tree_column, cell, tree_model, iter, data):
-    value = tree_model.get(iter, data)[0]
-    cell.set_property('text', f'{data_unit_converter("speed", processes_disk_speed_bit, value, processes_disk_data_unit, processes_disk_data_precision)}/s')
-    cell_backround_color(cell, value, max_value_disk_read_speed_list)
-
-def cell_data_function_disk_write_speed(tree_column, cell, tree_model, iter, data):
-    value = tree_model.get(iter, data)[0]
-    cell.set_property('text', f'{data_unit_converter("speed", processes_disk_speed_bit, value, processes_disk_data_unit, processes_disk_data_precision)}/s')
-    cell_backround_color(cell, value, max_value_disk_write_speed_list)
-
-def cell_data_function_cpu_time(tree_column, cell, tree_model, iter, data):
-    global number_of_clock_ticks
-    time_days = tree_model.get(iter, data)[0]/number_of_clock_ticks/60/60/24
-    time_days_int = int(time_days)
-    time_hours = (time_days -time_days_int) * 24
-    time_hours_int = int(time_hours)
-    time_minutes = (time_hours - time_hours_int) * 60
-    time_minutes_int = int(time_minutes)
-    time_seconds = (time_minutes - time_minutes_int) * 60
-    if time_days_int == 0 and time_hours_int == 0:
-        cpu_time = f'{time_minutes_int:02}:{time_seconds:05.2f}'
-    elif time_days_int == 0:
-        cpu_time = f'{time_hours_int:02}:{time_minutes_int:02}:{time_seconds:05.2f}'
-    else:
-        cpu_time = f'{time_days_int:02}:{time_hours_int:02}:{time_minutes_int:02}:{time_seconds:05.2f}'
-    cell.set_property('text', cpu_time)
-
-def cell_data_function_start_time(tree_column, cell, tree_model, iter, data):
-    cell.set_property('text', datetime.fromtimestamp(tree_model.get(iter, data)[0]).strftime("%d.%m.%Y %H:%M:%S"))
-
-def cell_data_function_cpu_usage_percent_recursive(tree_column, cell, tree_model, iter, data):
-    value = tree_model.get(iter, data)[0]
-    cell.set_property('text', f'{value:.{processes_cpu_precision}f} %')
-    cell_backround_color(cell, value, max_value_cpu_usage_recursive_list)
-
-def cell_data_function_memory_rss_recursive(tree_column, cell, tree_model, iter, data):
-    value = tree_model.get(iter, data)[0]
-    cell.set_property('text', data_unit_converter("data", "none", value, processes_memory_data_unit, processes_memory_data_precision))
-    cell_backround_color(cell, value, max_value_memory_rss_recursive_list)
-
-def cell_data_function_memory_recursive(tree_column, cell, tree_model, iter, data):
-    value = tree_model.get(iter, data)[0]
-    cell.set_property('text', data_unit_converter("data", "none", value, processes_memory_data_unit, processes_memory_data_precision))
-    cell_backround_color(cell, value, max_value_memory_recursive_list)
-
-def cell_data_function_gpu_usage_percent(tree_column, cell, tree_model, iter, data):
-    value = tree_model.get(iter, data)[0]
-    cell.set_property('text', f'{value:.{processes_gpu_precision}f} %')
-    cell_backround_color(cell, value, max_value_gpu_usage_list)
-
-def cell_data_function_memory_gpu(tree_column, cell, tree_model, iter, data):
-    value = tree_model.get(iter, data)[0]
-    cell.set_property('text', data_unit_converter("data", "none", value, processes_gpu_memory_data_unit, processes_gpu_memory_data_precision))
-    cell_backround_color(cell, value, max_value_memory_gpu_list)
-
-def cell_backround_color(cell, value, max_value):
-    color = Gdk.RGBA()
-    color.red = 0.7
-    color.green = 0.35
-    color.blue = 0.05
-    if value > 0.7 * max_value:
-        color.alpha = 0.45
-    elif value <= 0.7 * max_value and value > 0.4 * max_value:
-        color.alpha = 0.35
-    elif value <= 0.4 * max_value and value > 0.2 * max_value:
-        color.alpha = 0.25
-    elif value <= 0.2 * max_value and value > 0.1 * max_value:
-        color.alpha = 0.15
-    elif value <= 0.1 * max_value:
-        color.alpha = 0.0
-    cell.set_property('background-rgba', color)
+        Common.sort_columns_on_every_loop(self)
 
 
 Processes = Processes()

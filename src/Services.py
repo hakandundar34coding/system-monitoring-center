@@ -1,10 +1,5 @@
-import gi
-gi.require_version('Gtk', '4.0')
-gi.require_version('Gdk', '4.0')
-gi.require_version('GLib', '2.0')
-gi.require_version('Gio', '2.0')
-gi.require_version('GObject', '2.0')
-from gi.repository import Gtk, Gdk, GLib, Gio, GObject
+import tkinter as tk
+from tkinter import ttk
 
 import os
 import subprocess
@@ -34,126 +29,158 @@ class Services:
         Generate tab GUI.
         """
 
-        self.tab_grid = Common.tab_grid()
+        self.tab_frame = ttk.Frame(MainWindow.services_tab_main_frame)
+        self.tab_frame.grid(row=0, column=0, sticky="nsew", padx=0, pady=0)
+        self.tab_frame.columnconfigure(0, weight=1)
+        self.tab_frame.rowconfigure(1, weight=1)
 
-        self.tab_title_grid()
+        self.tab_title_frame()
 
-        self.tab_info_grid()
-
-        # Label (Note: This tab is not reloaded automatically. Manually reload for changes.)
-        label = Common.static_information_label_no_ellipsize(_tr("Note: This tab is not reloaded automatically. Manually reload for changes."))
-        self.tab_grid.attach(label, 0, 2, 1, 1)
+        self.information_frame()
 
         self.gui_signals()
 
-        self.right_click_menu()
+        self.right_click_menu_gui()
+
+        # Label (Note: This tab is not reloaded automatically. Manually reload for changes.)
+        label = Common.static_information_label(self.tab_frame, _tr("Note: This tab is not reloaded automatically. Manually reload for changes."))
+        label.grid(row=2, column=0, sticky="w", padx=0, pady=1)
 
 
-    def tab_title_grid(self):
+    def tab_title_frame(self):
         """
         Generate tab name label, refresh button, searchentry.
         """
 
         # Grid (tab title)
-        grid = Gtk.Grid()
-        grid.set_column_spacing(5)
-        self.tab_grid.attach(grid, 0, 0, 1, 1)
+        frame = ttk.Frame(self.tab_frame)
+        frame.grid(row=0, column=0, sticky="new", padx=0, pady=(0, 10))
+        frame.columnconfigure(1, weight=1)
 
         # Label (Services)
-        label = Common.tab_title_label(_tr("Services"))
-        grid.attach(label, 0, 0, 1, 1)
+        label = Common.tab_title_label(frame, _tr("Services"))
+
+        # Grid (search widgets)
+        search_frame = ttk.Frame(frame)
+        search_frame.columnconfigure(0, weight=1)
+        search_frame.grid(row=0, column=1, sticky="ew", padx=0, pady=0)
 
         # SearchEntry
-        self.searchentry = Common.searchentry(self.on_searchentry_changed)
-        grid.attach(self.searchentry, 1, 0, 1, 1)
-
-        # Button (refresh tab)
-        self.refresh_button = Common.refresh_button(self.on_refresh_button_clicked)
-        grid.attach(self.refresh_button, 2, 0, 1, 1)
+        self.searchentry, self.searchentry_text_var = Common.searchentry(search_frame, self)
+        self.searchentry.grid(row=0, column=0, sticky="nsew", padx=0, pady=0)
 
 
-    def tab_info_grid(self):
+    def information_frame(self):
         """
         Generate information GUI objects.
         """
 
-        # ScrolledWindow
-        scrolledwindow = Gtk.ScrolledWindow()
-        scrolledwindow.set_hexpand(True)
-        scrolledwindow.set_vexpand(True)
-        self.tab_grid.attach(scrolledwindow, 0, 1, 1, 1)
-
         # TreeView
-        self.treeview = Gtk.TreeView()
-        self.treeview.set_activate_on_single_click(True)
-        self.treeview.set_show_expanders(False)
-        self.treeview.set_fixed_height_mode(True)
-        self.treeview.set_headers_clickable(True)
-        self.treeview.set_enable_search(True)
-        self.treeview.set_search_column(2)
-        self.treeview.set_tooltip_column(2)
-        scrolledwindow.set_child(self.treeview)
+        self.treeview, frame = Common.treeview(self.tab_frame, self)
 
 
     def gui_signals(self):
         """
         Connect GUI signals.
         """
+        return
 
-        # Treeview signals
-        self.treeview.connect("columns-changed", Common.on_columns_changed, self)
 
-        # Treeview mouse events.
-        treeview_mouse_event = Gtk.GestureClick()
-        treeview_mouse_event.connect("pressed", self.on_treeview_pressed)
-        treeview_mouse_event.connect("released", self.on_treeview_released)
-        self.treeview.add_controller(treeview_mouse_event)
+    def right_click_menu_gui(self):
+        """
+        Generate right click menu GUI.
+        """
 
-        treeview_mouse_event_right_click = Gtk.GestureClick()
-        treeview_mouse_event_right_click.set_button(3)
-        treeview_mouse_event_right_click.connect("pressed", self.on_treeview_pressed)
-        self.treeview.add_controller(treeview_mouse_event_right_click)
+        self.right_click_menu = tk.Menu(self.treeview, tearoff=False, bd=3, activebackground="gray")
+        self.right_click_menu.add_command(label=_tr("Start"), command=lambda: self.on_service_manage_items_activate("start"))
+        self.right_click_menu.add_command(label=_tr("Stop"), command=lambda: self.on_service_manage_items_activate("stop"))
+        self.right_click_menu.add_command(label=_tr("Restart"), command=lambda: self.on_service_manage_items_activate("restart"))
+        self.right_click_menu.add_command(label=_tr("Reload"), command=lambda: self.on_service_manage_items_activate("reload"))
+        self.right_click_menu.add_command(label=_tr("Enable"), command=lambda: self.on_service_manage_items_activate("enable"))
+        self.right_click_menu.add_command(label=_tr("Disable"), command=lambda: self.on_service_manage_items_activate("disable"))
+        self.right_click_menu.add_command(label=_tr("Mask"), command=lambda: self.on_service_manage_items_activate("mask"))
+        self.right_click_menu.add_command(label=_tr("Unmask"), command=lambda: self.on_service_manage_items_activate("unmask"))
+        self.right_click_menu.add_separator()
+        self.right_click_menu.add_command(label=_tr("Help"), command=self.on_service_help_item_activate)
+        self.right_click_menu.add_separator()
+        self.right_click_menu.add_command(label=_tr("Details"), accelerator="(Enter)", command=self.on_details_item_activate)
 
-        # SeachEntry focus action and accelerator
-        Common.searchentry_focus_action_and_accelerator(MainWindow)
+        self.right_click_menu.bind("<FocusOut>", self.right_click_menu_close)
 
-        # Right click menu actions
-        # "Start" action
-        action = Gio.SimpleAction.new("services_start_service", None)
-        action.connect("activate", self.on_service_manage_items_activate)
-        MainWindow.main_window.add_action(action)
-        # "Stop" action
-        action = Gio.SimpleAction.new("services_stop_service", None)
-        action.connect("activate", self.on_service_manage_items_activate)
-        MainWindow.main_window.add_action(action)
-        # "Restart" action
-        action = Gio.SimpleAction.new("services_restart_service", None)
-        action.connect("activate", self.on_service_manage_items_activate)
-        MainWindow.main_window.add_action(action)
-        # "Reload" action
-        action = Gio.SimpleAction.new("services_reload_service", None)
-        action.connect("activate", self.on_service_manage_items_activate)
-        MainWindow.main_window.add_action(action)
-        # "Enable" action
-        action = Gio.SimpleAction.new("services_enable_service", None)
-        action.connect("activate", self.on_service_manage_items_activate)
-        MainWindow.main_window.add_action(action)
-        # "Disable" action
-        action = Gio.SimpleAction.new("services_disable_service", None)
-        action.connect("activate", self.on_service_manage_items_activate)
-        MainWindow.main_window.add_action(action)
-        # "Mask" action
-        self.mask_service_action = Gio.SimpleAction.new_stateful("services_mask_service", None, GLib.Variant("b", False))
-        self.mask_service_action.connect("activate", self.on_service_manage_items_activate)
-        MainWindow.main_window.add_action(self.mask_service_action)
-        # "Help" action
-        action = Gio.SimpleAction.new("services_help", None)
-        action.connect("activate", self.on_service_help_item_activate)
-        MainWindow.main_window.add_action(action)
-        # "Details" action
-        action = Gio.SimpleAction.new("services_details", None)
-        action.connect("activate", self.on_service_details_item_activate)
-        MainWindow.main_window.add_action(action)
+        self.treeview.bind("<Button-3>", self.on_right_click)
+        self.treeview.bind("<Double-1>", self.treeview_double_click_event)
+        # Treeview "FocusOut" signal may not close right click menu if certain areas of the GUI is clicked. The following signal is used for fixing this issue.
+        self.treeview.winfo_toplevel().bind("<Button-1>", self.right_click_menu_close)
+
+        return self.right_click_menu
+
+
+    def get_selection(self, event):
+
+        self.selected_row_id = self.treeview.identify_row(event.y)
+        # Get right clicked row id.
+        if self.selected_row_id:
+            # Select the row visually if right clicked on a row.
+            self.treeview.selection_set(self.selected_row_id)
+            # Get data of the selected row.
+            self.selected_row_name = self.treeview.item(self.selected_row_id, "text")
+
+        return self.selected_row_name
+
+
+    def on_right_click(self, event):
+
+        self.get_selection(event)
+        # Show menu on mouse coordinates
+        self.right_click_menu.post(event.x_root, event.y_root)
+        self.right_click_menu.focus_set()
+
+
+    def right_click_menu_close(self, event):
+        """
+        Close right click menu if clicked another part of the GUI.
+        """
+
+        self.right_click_menu.unpost()
+
+
+    def on_service_manage_items_activate(self, action_name):
+        """
+        Start, stop, restart, enable, disable, mask (hide), unmask services.
+        """
+        
+        self.selected_row_name = self.get_selection(event)
+        # Manage the selected service and get errors.
+        systemctl_error = Libsysmon.manage_service(self.selected_row_name, action_name)
+
+        # Show information dialog if there are errors in the command output.
+        if systemctl_error != "-":
+            message_text = systemctl_error
+            if message_text != "":
+                self.service_dialog_label.config(text=message_text)
+
+
+    def service_information_gui(self):
+        """
+        Generate information window for service action outputs.
+        """
+
+        # Window (Information)
+        self.service_dialog, frame = Common.window(MainWindow.main_window, _tr("Information"))
+        self.service_dialog.minsize(750, 100)
+        self.service_dialog.maxsize(1100, 150)
+
+        # Label ()
+        self.service_dialog_label = Common.bold_label(frame, text="")
+        self.service_dialog_label.grid(row=0, column=0, sticky="ns", padx=20, pady=20)
+
+
+    def on_service_help_item_activate(self):
+        """
+        Show services help window.
+        """
+
+        self.services_help_window_gui()
 
 
     def services_help_window_gui(self):
@@ -161,346 +188,125 @@ class Services:
         Services tab help window GUI.
         """
 
-        # Window
-        self.services_help_window = Gtk.Window()
-        self.services_help_window.set_default_size(600, 500)
-        self.services_help_window.set_title(_tr("Help") + " (" + _tr("Services") + ")")
-        self.services_help_window.set_icon_name("system-monitoring-center")
-        self.services_help_window.set_transient_for(MainWindow.main_window)
-        self.services_help_window.set_modal(True)
-        self.services_help_window.set_hide_on_close(True)
+        # Window (Service Help)
+        self.services_help_window, frame = Common.window(MainWindow.main_window, _tr("Help"))
+        self.services_help_window.minsize(1000, 300)
+        self.services_help_window.maxsize(1100, 1000)
 
-        # ScrolledWindow
-        scrolledwindow = Common.window_main_scrolledwindow()
-        self.services_help_window.set_child(scrolledwindow)
+        # Frame (main)
+        main_frame = ttk.Frame(self.services_help_window, style="Card.TFrame")
+        main_frame.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
 
-        # Viewport
-        viewport = Gtk.Viewport()
-        scrolledwindow.set_child(viewport)
-
-        # Main grid
-        main_grid = Common.window_main_grid()
-        viewport.set_child(main_grid)
-
-        # Information labels
         # Label (Start)
-        label = Common.static_information_bold_label(_tr("Start") + ":")
-        main_grid.attach(label, 0, 0, 1, 1)
-        # Label (Start - help text)
-        label = Common.static_information_label_wrap_selectable(_tr("Starts a service.") + " " + _tr("This action does not affect a service after system reboot."))
-        main_grid.attach(label, 0, 1, 1, 1)
+        start_label = Common.bold_label(frame, text=_tr("Start") + ":")
+        start_label.grid(row=0, column=0, sticky="nsew", padx=0, pady=4)
+
+        # Label (Start - Help)
+        start_help_label = Common.static_information_label(frame, text=_tr("Starts a service.") + " " + _tr("This action does not affect a service after system reboot."))
+        start_help_label.grid(row=1, column=0, sticky="nsew", padx=0, pady=4)
 
         # Separator
-        separator = Common.settings_window_separator()
-        main_grid.attach(separator, 0, 2, 1, 1)
+        separator = ttk.Separator(frame, orient="horizontal")
+        separator.grid(row=2, column=0, sticky="nsew", padx=0, pady=5)
 
         # Label (Stop)
-        label = Common.static_information_bold_label(_tr("Stop") + ":")
-        main_grid.attach(label, 0, 3, 1, 1)
-        # Label (Stop - help text)
-        label = Common.static_information_label_wrap_selectable(_tr("Stops a service.") + " " + _tr("This action does not affect a service after system reboot."))
-        main_grid.attach(label, 0, 4, 1, 1)
+        stop_label = Common.bold_label(frame, text=_tr("Stop") + ":")
+        stop_label.grid(row=3, column=0, sticky="nsew", padx=0, pady=4)
+
+        # Label (Stop - Help)
+        stop_help_label = Common.static_information_label(frame, text=_tr("Stops a service.") + " " + _tr("This action does not affect a service after system reboot."))
+        stop_help_label.grid(row=4, column=0, sticky="nsew", padx=0, pady=4)
 
         # Separator
-        separator = Common.settings_window_separator()
-        main_grid.attach(separator, 0, 5, 1, 1)
+        separator = ttk.Separator(frame, orient="horizontal")
+        separator.grid(row=5, column=0, sticky="nsew", padx=0, pady=5)
 
         # Label (Restart)
-        label = Common.static_information_bold_label(_tr("Restart") + ":")
-        main_grid.attach(label, 0, 6, 1, 1)
-        # Label (Restart - help text)
-        label = Common.static_information_label_wrap_selectable(_tr("Restarts a service."))
-        main_grid.attach(label, 0, 7, 1, 1)
+        restart_label = Common.bold_label(frame, text=_tr("Restart") + ":")
+        restart_label.grid(row=6, column=0, sticky="nsew", padx=0, pady=4)
+
+        # Label (Restart - Help)
+        restart_help_label = Common.static_information_label(frame, text=_tr("Restarts a service."))
+        restart_help_label.grid(row=7, column=0, sticky="nsew", padx=0, pady=4)
 
         # Separator
-        separator = Common.settings_window_separator()
-        main_grid.attach(separator, 0, 8, 1, 1)
+        separator = ttk.Separator(frame, orient="horizontal")
+        separator.grid(row=8, column=0, sticky="nsew", padx=0, pady=5)
 
         # Label (Reload)
-        label = Common.static_information_bold_label(_tr("Reload") + ":")
-        main_grid.attach(label, 0, 9, 1, 1)
-        # Label (Reload - help text)
-        label = Common.static_information_label_wrap_selectable(_tr("Reloads a service.") + " " + _tr("This action is not available for all services.") + " " + _tr("This action does not affect running process of a service."))
-        main_grid.attach(label, 0, 10, 1, 1)
+        reload_label = Common.bold_label(frame, text=_tr("Reload") + ":")
+        reload_label.grid(row=9, column=0, sticky="nsew", padx=0, pady=4)
+
+        # Label (Reload - Help)
+        reload_help_label = Common.static_information_label(frame, text=_tr("Reloads a service.") + " " + _tr("This action is not available for all services.") + " " + _tr("This action does not affect running process of a service."))
+        reload_help_label.grid(row=10, column=0, sticky="nsew", padx=0, pady=4)
 
         # Separator
-        separator = Common.settings_window_separator()
-        main_grid.attach(separator, 0, 11, 1, 1)
+        separator = ttk.Separator(frame, orient="horizontal")
+        separator.grid(row=11, column=0, sticky="nsew", padx=0, pady=5)
 
         # Label (Enable)
-        label = Common.static_information_bold_label(_tr("Enable") + ":")
-        main_grid.attach(label, 0, 12, 1, 1)
-        # Label (Enable - help text)
-        label = Common.static_information_label_wrap_selectable(_tr("Enables a service.") + " " + _tr("This action affects a service after system reboot."))
-        main_grid.attach(label, 0, 13, 1, 1)
+        enable_label = Common.bold_label(frame, text=_tr("Enable") + ":")
+        enable_label.grid(row=12, column=0, sticky="nsew", padx=0, pady=4)
+
+        # Label (Enable - Help)
+        enable_help_label = Common.static_information_label(frame, text=_tr("Enables a service.") + " " + _tr("This action affects a service after system reboot."))
+        enable_help_label.grid(row=13, column=0, sticky="nsew", padx=0, pady=4)
 
         # Separator
-        separator = Common.settings_window_separator()
-        main_grid.attach(separator, 0, 14, 1, 1)
+        separator = ttk.Separator(frame, orient="horizontal")
+        separator.grid(row=14, column=0, sticky="nsew", padx=0, pady=5)
 
         # Label (Disable)
-        label = Common.static_information_bold_label(_tr("Disable") + ":")
-        main_grid.attach(label, 0, 15, 1, 1)
-        # Label (Disable - help text)
-        label = Common.static_information_label_wrap_selectable(_tr("Disables a service.") + " " + _tr("This action affects a service after system reboot.") + " " + _tr("This action does not affect running process of a service."))
-        main_grid.attach(label, 0, 16, 1, 1)
+        disable_label = Common.bold_label(frame, text=_tr("Disable") + ":")
+        disable_label.grid(row=15, column=0, sticky="nsew", padx=0, pady=4)
+
+        # Label (Disable - Help)
+        disable_help_label = Common.static_information_label(frame, text=_tr("Disables a service.") + " " + _tr("This action affects a service after system reboot.") + " " + _tr("This action does not affect running process of a service."))
+        disable_help_label.grid(row=16, column=0, sticky="nsew", padx=0, pady=4)
 
         # Separator
-        separator = Common.settings_window_separator()
-        main_grid.attach(separator, 0, 17, 1, 1)
+        separator = ttk.Separator(frame, orient="horizontal")
+        separator.grid(row=17, column=0, sticky="nsew", padx=0, pady=5)
 
         # Label (Mask)
-        label = Common.static_information_bold_label(_tr("Mask") + ":")
-        main_grid.attach(label, 0, 18, 1, 1)
-        # Label (Mask - help text)
-        label = Common.static_information_label_wrap_selectable(_tr("Disables a service completely.") + " " + _tr("A masked service can not be started, restarted, reloaded or enabled."))
-        main_grid.attach(label, 0, 19, 1, 1)
+        mask_label = Common.bold_label(frame, text=_tr("Mask") + ":")
+        mask_label.grid(row=18, column=0, sticky="nsew", padx=0, pady=4)
+
+        # Label (Mask - Help)
+        mask_help_label = Common.static_information_label(frame, text=_tr("Disables a service completely.") + " " + _tr("A masked service can not be started, restarted, reloaded or enabled."))
+        mask_help_label.grid(row=19, column=0, sticky="nsew", padx=0, pady=4)
 
         # Separator
-        separator = Common.settings_window_separator()
-        main_grid.attach(separator, 0, 20, 1, 1)
+        separator = ttk.Separator(frame, orient="horizontal")
+        separator.grid(row=20, column=0, sticky="nsew", padx=0, pady=5)
 
         # Label (Unmask)
-        label = Common.static_information_bold_label(_tr("Unmask") + ":")
-        main_grid.attach(label, 0, 21, 1, 1)
-        # Label (Unmask - help text)
-        label = Common.static_information_label_wrap_selectable(_tr("Unmasks a service.") + " " + _tr("A service can be started, restarted, reloaded (if it is available) or enabled after unmasking."))
-        main_grid.attach(label, 0, 22, 1, 1)
+        unmask_label = Common.bold_label(frame, text=_tr("Unmask") + ":")
+        unmask_label.grid(row=21, column=0, sticky="nsew", padx=0, pady=4)
+
+        # Label (Unmask - Help)
+        unmask_help_label = Common.static_information_label(frame, text=_tr("Unmasks a service.") + " " + _tr("A service can be started, restarted, reloaded (if it is available) or enabled after unmasking."))
+        unmask_help_label.grid(row=22, column=0, sticky="nsew", padx=0, pady=4)
 
 
-    def right_click_menu(self):
-        """
-        Generate right click menu GUI.
-        """
-
-        # Menu models
-        service_manage_menu_section = Gio.Menu.new()
-        service_manage_menu_section.append(_tr("Start"), "win.services_start_service")
-        service_manage_menu_section.append(_tr("Stop"), "win.services_stop_service")
-        service_manage_menu_section.append(_tr("Restart"), "win.services_restart_service")
-        service_manage_menu_section.append(_tr("Reload"), "win.services_reload_service")
-        service_manage_menu_section.append(_tr("Enable"), "win.services_enable_service")
-        service_manage_menu_section.append(_tr("Disable"), "win.services_disable_service")
-
-        mask_service_menu_item = Gio.MenuItem()
-        mask_service_menu_item.set_attribute_value(Gio.MENU_ATTRIBUTE_LABEL, GLib.Variant("s", _tr("Mask")))
-        mask_service_menu_item.set_attribute_value(Gio.MENU_ATTRIBUTE_ACTION, GLib.Variant("s", "win.services_mask_service"))
-        #mask_service_menu_item.set_attribute_value(Gio.MENU_ATTRIBUTE_TARGET, GLib.Variant("b", False))
-        service_manage_menu_section.append_item(mask_service_menu_item)
-        service_manage_menu_section_item = Gio.MenuItem.new()
-        service_manage_menu_section_item.set_section(service_manage_menu_section)
-
-        help_menu_section = Gio.Menu.new()
-        help_menu_section.append(_tr("Help"), "win.services_help")
-        help_menu_section_item = Gio.MenuItem.new()
-        help_menu_section_item.set_section(help_menu_section)
-
-        details_menu_section = Gio.Menu.new()
-        details_menu_section.append(_tr("Details"), "win.services_details")
-        details_menu_section_item = Gio.MenuItem.new()
-        details_menu_section_item.set_section(details_menu_section)
-
-        right_click_menu_model = Gio.Menu.new()
-        right_click_menu_model.append_item(service_manage_menu_section_item)
-        right_click_menu_model.append_item(help_menu_section_item)
-        right_click_menu_model.append_item(details_menu_section_item)
-
-        # Popover menu
-        self.right_click_menu_po = Gtk.PopoverMenu()
-        self.right_click_menu_po.set_menu_model(right_click_menu_model)
-        #self.right_click_menu_po.set_parent(self.treeview)
-        self.right_click_menu_po.set_parent(MainWindow.main_window)
-        self.right_click_menu_po.set_position(Gtk.PositionType.BOTTOM)
-        self.right_click_menu_po.set_has_arrow(False)
-
-
-    def set_mask_menu_option(self):
-        """
-        Set "Mask" option on the right click menu.
-        """
-
-        # Get selected service name
-        service_name = self.selected_service_name
-
-        self.service_mask_status = Libsysmon.get_service_mask_state(service_name)
-
-        # Set menu option
-        if self.service_mask_status == "masked":
-            self.mask_service_action.set_state(GLib.Variant("b", True))
-        else:
-            self.mask_service_action.set_state(GLib.Variant("b", False))
-
-
-    def on_service_manage_items_activate(self, action, parameter):
-        """
-        Start, stop, restart, enable, disable, mask (hide), unmask services.
-        """
-
-        # Get right clicked service name
-        service_name = self.selected_service_name
-
-        if action.get_name() == "services_start_service":
-            action_name = "start"
-        elif action.get_name() == "services_stop_service":
-            action_name = "stop"
-        elif action.get_name() == "services_restart_service":
-            action_name = "restart"
-        elif action.get_name() == "services_reload_service":
-            action_name = "reload"
-        elif action.get_name() == "services_enable_service":
-            action_name = "enable"
-        elif action.get_name() == "services_disable_service":
-            action_name = "disable"
-        elif action.get_name() == "services_mask_service":
-            if self.service_mask_status != "masked":
-                action_name = "mask"
-            elif self.service_mask_status == "masked":
-                action_name = "unmask"
-
-        systemctl_error = Libsysmon.manage_service(service_name, action_name)
-
-        # Show information dialog if there are errors in the command output.
-        if systemctl_error != "-":
-            message_text = _tr("Information")
-            secondary_text = systemctl_error
-            if secondary_text != "":
-                self.messagedialog_gui(message_text, secondary_text)
-
-
-    def messagedialog_gui(self, message_text, secondary_text):
-        """
-        Generate messagedialog GUI and show it.
-        """
-
-        messagedialog = Gtk.MessageDialog(transient_for=MainWindow.main_window,
-                                               modal=True,
-                                               title="",
-                                               message_type=Gtk.MessageType.INFO,
-                                               buttons=Gtk.ButtonsType.CLOSE,
-                                               text=message_text,
-                                               secondary_text=secondary_text
-                                               )
-
-        messagedialog.connect("response", self.on_messagedialog_response)
-        messagedialog.present()
-
-
-    def on_messagedialog_response(self, widget, response):
-        """
-        Hide the dialog if "OK" button is clicked.
-        """
-
-        if response == Gtk.ResponseType.OK:
-            pass
-
-        messagedialog = widget
-        messagedialog.set_visible(False)
-
-
-    def on_service_help_item_activate(self, action, parameter):
-        """
-        Show services help window.
-        """
-
-        try:
-            self.services_help_window.present()
-        except AttributeError:
-            # Avoid generating window multiple times on every button click.
-            self.services_help_window_gui()
-            self.services_help_window.present()
-
-
-    def on_service_details_item_activate(self, action, parameter):
+    def on_details_item_activate(self):
         """
         Show service details window.
         """
 
         from .ServicesDetails import ServicesDetails
-        ServicesDetails.service_details_window.present()
+        ServicesDetails.window_gui()
 
 
-    def on_searchentry_changed(self, widget):
-        """
-        Called by searchentry when text is changed.
-        """
+    def treeview_double_click_event(self, event):
 
-        service_search_text = self.searchentry.get_text().lower()
-        # Set visible/hidden services
-        for piter in self.piter_list:
-            self.treestore.set_value(piter, 0, False)
-            service_data_text_in_model = self.treestore.get_value(piter, self.filter_column)
-            if service_search_text in str(service_data_text_in_model).lower():
-                self.treestore.set_value(piter, 0, True)
-
-
-    def on_treeview_pressed(self, event, count, x, y):
-        """
-        Mouse single right click and double left click events (button press).
-        Right click menu is opened when right clicked. Details window is shown when double clicked.
-        """
-
-        # Convert coordinates for getting path.
-        x_bin, y_bin = self.treeview.convert_widget_to_bin_window_coords(x,y)
-
-        # Get right/double clicked row data
-        try:
-            path, _, _, _ = self.treeview.get_path_at_pos(int(x_bin), int(y_bin))
-        # Prevent errors when right clicked on an empty area on the treeview.
-        except TypeError:
-            return
-        model = self.treeview.get_model()
-        treeiter = model.get_iter(path)
-
-        # Get right/double clicked service name
-        if treeiter == None:
-            return
-        try:
-            self.selected_service_name = self.service_list[self.tab_data_rows.index(model[treeiter][:])]
-        except ValueError:
-            return
-
-        # Show right click menu if right clicked on a row
-        if int(event.get_button()) == 3:
-            rectangle = Gdk.Rectangle()
-            rectangle.x = int(x)
-            rectangle.y = int(y)
-            rectangle.width = 1
-            rectangle.height = 1
-            # Convert teeview coordinates to window coordinates. Because popovermenu is set for window instead of treeview.
-            treeview_x_coord, treeview_y_coord = self.treeview.translate_coordinates(MainWindow.main_window,0,0)
-            rectangle.x = rectangle.x + treeview_x_coord
-            rectangle.y = rectangle.y + treeview_y_coord
-
-            # New coordinates have to be set for popovermenu on every popup.
-            self.right_click_menu_po.set_pointing_to(rectangle)
-            self.right_click_menu_po.popup()
-            self.set_mask_menu_option()
-
-        # Show details window if double clicked on a row
-        if int(event.get_button()) == 1 and int(count) == 2:
+        region = self.treeview.identify_region(event.x, event.y)
+        # Prevent running code if rows are not clicked.
+        if region in ["cell", "tree"]:
+            self.selected_row_name = self.get_selection(event)
             from .ServicesDetails import ServicesDetails
-            ServicesDetails.service_details_window.present()
-
-
-    def on_treeview_released(self, event, count, x, y):
-        """
-        Mouse single left click event (button release).
-        Update teeview column/row width/sorting/order.
-        """
-
-        # Check if left mouse button is used
-        if int(event.get_button()) == 1:
-            pass
-
-
-    def on_refresh_button_clicked(self, widget):
-        """
-        Refresh data on the tab.
-        """
-
-        self.loop_already_run = 0
-
-        self.loop_func()
+            ServicesDetails.window_gui()
 
 
     def initial_func(self):
@@ -508,36 +314,29 @@ class Services:
         Initial code which which is not wanted to be run in every loop.
         """
 
-        self.row_data_list = [
-                             [0, _tr('Name'), 3, 2, 3, [bool, str, str], ['internal_column', 'CellRendererPixbuf', 'CellRendererText'], ['no_cell_attribute', 'icon_name', 'text'], [0, 1, 2], ['no_cell_alignment', 0.0, 0.0], ['no_set_expand', False, False], ['no_cell_function', 'no_cell_function', 'no_cell_function']],
-                             [1, _tr('State'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                             [2, _tr('Main PID'), 1, 1, 1, [int], ['CellRendererText'], ['text'], [0], [1.0], [False], ['no_cell_function']],
-                             [3, _tr('Active State'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                             [4, _tr('Load State'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                             [5, _tr('Sub-State'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']],
-                             [6, _tr('Memory (RSS)'), 1, 1, 1, [GObject.TYPE_INT64], ['CellRendererText'], ['text'], [0], [1.0], [False], [cell_data_function_ram]],
-                             [7, _tr('Description'), 1, 1, 1, [str], ['CellRendererText'], ['text'], [0], [0.0], [False], ['no_cell_function']]
-                             ]
-
-        Common.reset_tab_settings(self)
+        self.column_dict = {"service_name": {"column_title": _tr("Name"), "column_type": str, "converted_data": "no"},
+                            "unit_file_state": {"column_title": _tr("State"), "column_type": str, "converted_data": "no"},
+                            "main_pid": {"column_title": _tr("Main PID"), "column_type": int, "converted_data": "no"},
+                            "active_state": {"column_title": _tr("Active State"), "column_type": str, "converted_data": "no"},
+                            "load_state": {"column_title": _tr("Load State"), "column_type": str, "converted_data": "no"},
+                            "sub_state": {"column_title": _tr("Sub-State"), "column_type": str, "converted_data": "no"},
+                            "memory_current": {"column_title": _tr("Memory (RSS)"), "column_type": int, "converted_data": "yes"},
+                            "description": {"column_title": _tr("Description"), "column_type": str, "converted_data": "no"}
+                            }
 
         # Define data unit conversion function objects in for lower CPU usage.
         global data_unit_converter
         data_unit_converter = Libsysmon.data_unit_converter
 
-        self.tab_data_rows_prev = []
-        self.service_list_prev = []
-        self.piter_list = []
+        self.piter_dict = {}
+        self.selected_data_rows_prev = {}
+        self.rows_data_dict_prev = {}
+        self.row_id_list_prev = []
+        self.image_dict = {}
         self.treeview_columns_shown_prev = []
-        self.data_row_sorting_column_prev = ""
-        self.data_row_sorting_order_prev = ""
-        self.data_column_order_prev = []
-        self.data_column_widths_prev = []
 
         service_state_translation_list = [_tr("Enabled"), _tr("Disabled"), _tr("Masked"), _tr("Unmasked"), _tr("Static"), _tr("Generated"), _tr("Enabled-runtime"), _tr("Indirect"), _tr("Active"), _tr("Inactive"), _tr("Loaded"), _tr("Dead"), _tr("Exited"), _tr("Running")]
         services_other_text_translation_list = [_tr("Yes"), _tr("No")]
-
-        self.filter_column = self.row_data_list[0][2] - 1
 
         self.initial_already_run = 1
 
@@ -552,7 +351,7 @@ class Services:
 
         # Switch to System tab and prevent errors if systemd is not used on the system.
         if Config.init_system != "systemd":
-            MainWindow.performance_tb.set_active(True)
+            MainWindow.performance_tab_main_frame.tkraise()
             return
 
         # Prevent running rest of the code if Services tab is opened again.
@@ -564,88 +363,87 @@ class Services:
             pass
         self.loop_already_run = 1
 
-        # Get GUI obejcts one time per floop instead of getting them multiple times
-        global services_treeview
-
         # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
         global services_memory_data_precision, services_memory_data_unit
         services_memory_data_precision = Config.services_memory_data_precision
         services_memory_data_unit = Config.services_memory_data_unit
 
+        try:
+            self.treeview_columns_shown_prev = list(self.treeview_columns_shown)
+            self.row_sorting_column_prev = self.row_sorting_column
+            self.row_sorting_order_prev = self.row_sorting_order
+        except AttributeError:
+            self.treeview_columns_shown_prev = []
+            self.row_sorting_column_prev = 0
+            self.row_sorting_order_prev = 0
+
         # Define global variables and get treeview columns, sort column/order, column widths, etc.
-        self.treeview_columns_shown = Config.services_treeview_columns_shown
-        self.data_row_sorting_column = Config.services_data_row_sorting_column
-        self.data_row_sorting_order = Config.services_data_row_sorting_order
-        self.data_column_order = Config.services_data_column_order
-        self.data_column_widths = Config.services_data_column_widths
-        # For obtaining lower CPU usage
-        treeview_columns_shown = self.treeview_columns_shown
-        treeview_columns_shown = set(treeview_columns_shown)
+        self.treeview_columns_shown = Config.services_columns_shown
+        self.row_sorting_column = Config.services_row_sorting_column
+        self.row_sorting_order = Config.services_row_sorting_order
 
         rows_data_dict = Libsysmon.get_services_information()
-        self.rows_data_dict_prev = dict(rows_data_dict)
-        service_list = rows_data_dict["service_list"]
+        self.row_id_list = list(rows_data_dict.keys())
 
-        # Get and append process data
-        tab_data_rows = []
-        for service_name in service_list:
+        Common.add_columns_and_reset_rows_and_columns(self)
+
+        service_image = tk.PhotoImage(file=MainWindow.image_path + "smc-service-row.png").subsample(3, 3)
+
+        selected_data_rows_raw = {}
+        selected_data_rows = {}
+        for service_name in self.row_id_list:
             row_data_dict = rows_data_dict[service_name]
-            tab_data_row = [True, "system-monitoring-center-services-symbolic", service_name]
-            if 1 in treeview_columns_shown:
-                tab_data_row.append(row_data_dict["unit_file_state"])
-            if 2 in treeview_columns_shown:
-                tab_data_row.append(row_data_dict["main_pid"])
-            if 3 in treeview_columns_shown:
-                tab_data_row.append(row_data_dict["active_state"])
-            if 4 in treeview_columns_shown:
-                tab_data_row.append(row_data_dict["load_state"])
-            if 5 in treeview_columns_shown:
-                tab_data_row.append(row_data_dict["sub_state"])
-            if 6 in treeview_columns_shown:
-                tab_data_row.append(row_data_dict["memory_current"])
-            if 7 in treeview_columns_shown:
-                tab_data_row.append(row_data_dict["description"])
+            if service_name not in self.image_dict:
+                self.image_dict[service_name] = service_image
+            selected_data_row_raw = []
+            selected_data_row = []
+            for column_shown in self.treeview_columns_shown:
+                if column_shown == "service_name":
+                    selected_data_row.append(row_data_dict["service_name"])
+                    selected_data_row_raw.append(row_data_dict["service_name"])
+                if column_shown == "unit_file_state":
+                    selected_data_row.append(row_data_dict["unit_file_state"])
+                    selected_data_row_raw.append(row_data_dict["unit_file_state"])
+                if column_shown == "main_pid":
+                    selected_data_row.append(row_data_dict["main_pid"])
+                    selected_data_row_raw.append(row_data_dict["main_pid"])
+                if column_shown == "active_state":
+                    selected_data_row.append(row_data_dict["active_state"])
+                    selected_data_row_raw.append(row_data_dict["active_state"])
+                if column_shown == "load_state":
+                    selected_data_row.append(row_data_dict["load_state"])
+                    selected_data_row_raw.append(row_data_dict["load_state"])
+                if column_shown == "sub_state":
+                    selected_data_row.append(row_data_dict["sub_state"])
+                    selected_data_row_raw.append(row_data_dict["sub_state"])
+                if column_shown == "memory_current":
+                    if row_data_dict["memory_current"] == -1:
+                        converted_data = "-"
+                    else:
+                        converted_data = f'{data_unit_converter("data", "none", row_data_dict["memory_current"], services_memory_data_unit, services_memory_data_precision)}'
+                    selected_data_row.append(converted_data)
+                    selected_data_row_raw.append(row_data_dict["memory_current"])
+                if column_shown == "description":
+                    selected_data_row.append(row_data_dict["description"])
+                    selected_data_row_raw.append(row_data_dict["description"])
 
-            # Append process data into a list
-            tab_data_rows.append(tab_data_row)
+            selected_data_rows[service_name] = selected_data_row
+            selected_data_rows_raw[service_name] = selected_data_row_raw
 
-        self.tab_data_rows = tab_data_rows
-        self.service_list = service_list
+        new_rows, deleted_rows, existing_rows = Common.get_new_removed_updated_rows(self.row_id_list, self.row_id_list_prev)
 
-        # Convert set to list (it was set before getting process information)
-        treeview_columns_shown = sorted(list(treeview_columns_shown))
+        self.piter_dict = Common.add_remove_update_treeview_rows(self.treeview, self.piter_dict, self.selected_data_rows_prev, self.image_dict, selected_data_rows, selected_data_rows_raw, new_rows, deleted_rows, existing_rows)
 
-        reset_row_unique_data_list_prev = Common.treeview_add_remove_columns(self)
-        if reset_row_unique_data_list_prev == "yes":
-            self.service_list_prev = []
-        Common.treeview_reorder_columns_sort_rows_set_column_widths(self)
+        self.row_count = len(self.row_id_list)
+        self.row_information = _tr("Services")
+        self.selected_data_rows = selected_data_rows
+        Common.searchentry_placeholder_text(self)
 
-        rows_data_dict = {}
+        self.rows_data_dict_prev = dict(rows_data_dict)
+        self.row_id_list_prev = self.row_id_list
+        self.selected_data_rows_prev = self.selected_data_rows
 
-        # Prevent errors if no rows are found.
-        if len(tab_data_rows[0]) == 0:
-            return
-
-        deleted_rows, new_rows, updated_existing_row_index = Common.get_new_deleted_updated_rows(service_list, self.service_list_prev)
-        Common.update_treestore_rows(self, rows_data_dict, deleted_rows, new_rows, updated_existing_row_index, service_list, self.service_list_prev, 0, 1)
-        Common.searchentry_update_placeholder_text(self, _tr("Services"))
-
-        self.service_list_prev = self.service_list
-        self.tab_data_rows_prev = self.tab_data_rows
-        self.treeview_columns_shown_prev = self.treeview_columns_shown
-        self.data_row_sorting_column_prev = self.data_row_sorting_column
-        self.data_row_sorting_order_prev = self.data_row_sorting_order
-        self.data_column_order_prev = self.data_column_order
-        self.data_column_widths_prev = self.data_column_widths
-
-
-# ----------------------------------- Services - Treeview Cell Functions -----------------------------------
-def cell_data_function_ram(tree_column, cell, tree_model, iter, data):
-    cell_data = tree_model.get(iter, data)[0]
-    if cell_data == -1:
-        cell.set_property('text', "-")
-    if cell_data != -1:
-        cell.set_property('text', f'{data_unit_converter("data", "none", cell_data, services_memory_data_unit, services_memory_data_precision)}')
+        Common.sort_columns_on_every_loop(self)
 
 
 Services = Services()

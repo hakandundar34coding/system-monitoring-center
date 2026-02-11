@@ -2,17 +2,13 @@ Source: system-monitoring-center
 Section: utils
 Priority: optional
 Maintainer: Hakan Dündar <hakandundar34coding@gmail.com>
-Build-Depends: debhelper-compat (= 12),
-               desktop-file-utils,
-               gtk-update-icon-cache,
+Build-Depends: debhelper-compat (= 13),
+               python3,
+               python3-setuptools,
+               dh-python,
                meson (>=0.59),
-               appstream-util (>=0.7.14),
-               libglib2.0-dev-bin (>=2.58.3),
-               itstool,
-               pkg-config,
-               python3-cairo,
-               python3-gi (>=3.30.0)
-Standards-Version: 4.6.0
+               appstream-util (>=0.7.14)
+Standards-Version: 4.6.1
 Homepage: https://github.com/hakandundar34coding/system-monitoring-center
 
 Package: system-monitoring-center
@@ -20,16 +16,13 @@ Architecture: all
 Depends: ${misc:Depends},
          ${python3:Depends},
          dmidecode,
-         gir1.2-adw-1,
-         gir1.2-glib-2.0,
-         gir1.2-gtk-4.0,
-         gir1.2-pango-1.0,
          hwdata,
          iproute2,
          python3 (>=3.6),
+         python3-tk,
+         python3-pil,
+         python3-pil.imagetk,
          python3-cairo,
-         python3-gi,
-         python3-gi-cairo,
          util-linux (>=2.31)
 Description: Multi-featured system monitor
  Provides information about CPU/RAM/Disk/Network/GPU performance, sensors,

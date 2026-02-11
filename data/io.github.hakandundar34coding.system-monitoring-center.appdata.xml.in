@@ -14,7 +14,6 @@
   <content_rating type="oars-1.1"/>
   <description>
     <p>Multi-featured system monitor</p>
-    <p>*** Announcement (31.10.2023): End of support for System Monitoring Center ***</p>
     <p>Features:</p>
     <ul>
       <li>Detailed system performance and usage usage monitoring/managing features</li>
@@ -29,7 +28,6 @@
       <li>Optimized for low CPU usage</li>
       <li>Customization menus for almost all tabs</li>
       <li>Supports ARM architecture</li>
-      <li>Hardware accelerated GUI</li>
       <li>Free and open source</li>
     </ul>
     <p>Notes for Limitations:</p>
