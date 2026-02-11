@@ -1,9 +1,12 @@
 # System Monitoring Center
 
-### v3.0.0 (26.01.2026)
-  * New: Tk (Tkinter) GUI toolkit is used instead of GTK4
+### v3.0.0 (11.02.2026)
+  * New: Tk (Tkinter) is used for application GUI
+  * All tab settings are moved to Settings window
+  * Settings simplifications (removed color, precision settings)
+  * Simplified remember selected tab settings
+  * Multiprocessing is disabled for >= Python 3.14 (Services)
   * Several code simplifications
-  * Several improvements (code, GUI, translations, etc.)
 
 ### v2.26.0 (31.10.2023)
   * New: Portage package count (System tab)
