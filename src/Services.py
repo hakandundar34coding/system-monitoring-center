@@ -191,102 +191,102 @@ class Services:
         # Window (Service Help)
         self.services_help_window, frame = Common.window(MainWindow.main_window, _tr("Help"))
         self.services_help_window.minsize(1000, 300)
-        self.services_help_window.maxsize(1100, 1000)
+        self.services_help_window.maxsize(1300, 1000)
 
         # Frame (main)
         main_frame = ttk.Frame(self.services_help_window, style="Card.TFrame")
         main_frame.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
 
         # Label (Start)
-        start_label = Common.bold_label(frame, text=_tr("Start") + ":")
+        start_label = Common.bold_label(main_frame, text=_tr("Start") + ":")
         start_label.grid(row=0, column=0, sticky="nsew", padx=0, pady=4)
 
         # Label (Start - Help)
-        start_help_label = Common.static_information_label(frame, text=_tr("Starts a service.") + " " + _tr("This action does not affect a service after system reboot."))
+        start_help_label = Common.static_information_label(main_frame, text=_tr("Starts a service.") + " " + _tr("This action does not affect a service after system reboot."))
         start_help_label.grid(row=1, column=0, sticky="nsew", padx=0, pady=4)
 
         # Separator
-        separator = ttk.Separator(frame, orient="horizontal")
+        separator = ttk.Separator(main_frame, orient="horizontal")
         separator.grid(row=2, column=0, sticky="nsew", padx=0, pady=5)
 
         # Label (Stop)
-        stop_label = Common.bold_label(frame, text=_tr("Stop") + ":")
+        stop_label = Common.bold_label(main_frame, text=_tr("Stop") + ":")
         stop_label.grid(row=3, column=0, sticky="nsew", padx=0, pady=4)
 
         # Label (Stop - Help)
-        stop_help_label = Common.static_information_label(frame, text=_tr("Stops a service.") + " " + _tr("This action does not affect a service after system reboot."))
+        stop_help_label = Common.static_information_label(main_frame, text=_tr("Stops a service.") + " " + _tr("This action does not affect a service after system reboot."))
         stop_help_label.grid(row=4, column=0, sticky="nsew", padx=0, pady=4)
 
         # Separator
-        separator = ttk.Separator(frame, orient="horizontal")
+        separator = ttk.Separator(main_frame, orient="horizontal")
         separator.grid(row=5, column=0, sticky="nsew", padx=0, pady=5)
 
         # Label (Restart)
-        restart_label = Common.bold_label(frame, text=_tr("Restart") + ":")
+        restart_label = Common.bold_label(main_frame, text=_tr("Restart") + ":")
         restart_label.grid(row=6, column=0, sticky="nsew", padx=0, pady=4)
 
         # Label (Restart - Help)
-        restart_help_label = Common.static_information_label(frame, text=_tr("Restarts a service."))
+        restart_help_label = Common.static_information_label(main_frame, text=_tr("Restarts a service."))
         restart_help_label.grid(row=7, column=0, sticky="nsew", padx=0, pady=4)
 
         # Separator
-        separator = ttk.Separator(frame, orient="horizontal")
+        separator = ttk.Separator(main_frame, orient="horizontal")
         separator.grid(row=8, column=0, sticky="nsew", padx=0, pady=5)
 
         # Label (Reload)
-        reload_label = Common.bold_label(frame, text=_tr("Reload") + ":")
+        reload_label = Common.bold_label(main_frame, text=_tr("Reload") + ":")
         reload_label.grid(row=9, column=0, sticky="nsew", padx=0, pady=4)
 
         # Label (Reload - Help)
-        reload_help_label = Common.static_information_label(frame, text=_tr("Reloads a service.") + " " + _tr("This action is not available for all services.") + " " + _tr("This action does not affect running process of a service."))
+        reload_help_label = Common.static_information_label(main_frame, text=_tr("Reloads a service.") + " " + _tr("This action is not available for all services.") + " " + _tr("This action does not affect running process of a service."))
         reload_help_label.grid(row=10, column=0, sticky="nsew", padx=0, pady=4)
 
         # Separator
-        separator = ttk.Separator(frame, orient="horizontal")
+        separator = ttk.Separator(main_frame, orient="horizontal")
         separator.grid(row=11, column=0, sticky="nsew", padx=0, pady=5)
 
         # Label (Enable)
-        enable_label = Common.bold_label(frame, text=_tr("Enable") + ":")
+        enable_label = Common.bold_label(main_frame, text=_tr("Enable") + ":")
         enable_label.grid(row=12, column=0, sticky="nsew", padx=0, pady=4)
 
         # Label (Enable - Help)
-        enable_help_label = Common.static_information_label(frame, text=_tr("Enables a service.") + " " + _tr("This action affects a service after system reboot."))
+        enable_help_label = Common.static_information_label(main_frame, text=_tr("Enables a service.") + " " + _tr("This action affects a service after system reboot."))
         enable_help_label.grid(row=13, column=0, sticky="nsew", padx=0, pady=4)
 
         # Separator
-        separator = ttk.Separator(frame, orient="horizontal")
+        separator = ttk.Separator(main_frame, orient="horizontal")
         separator.grid(row=14, column=0, sticky="nsew", padx=0, pady=5)
 
         # Label (Disable)
-        disable_label = Common.bold_label(frame, text=_tr("Disable") + ":")
+        disable_label = Common.bold_label(main_frame, text=_tr("Disable") + ":")
         disable_label.grid(row=15, column=0, sticky="nsew", padx=0, pady=4)
 
         # Label (Disable - Help)
-        disable_help_label = Common.static_information_label(frame, text=_tr("Disables a service.") + " " + _tr("This action affects a service after system reboot.") + " " + _tr("This action does not affect running process of a service."))
+        disable_help_label = Common.static_information_label(main_frame, text=_tr("Disables a service.") + " " + _tr("This action affects a service after system reboot.") + " " + _tr("This action does not affect running process of a service."))
         disable_help_label.grid(row=16, column=0, sticky="nsew", padx=0, pady=4)
 
         # Separator
-        separator = ttk.Separator(frame, orient="horizontal")
+        separator = ttk.Separator(main_frame, orient="horizontal")
         separator.grid(row=17, column=0, sticky="nsew", padx=0, pady=5)
 
         # Label (Mask)
-        mask_label = Common.bold_label(frame, text=_tr("Mask") + ":")
+        mask_label = Common.bold_label(main_frame, text=_tr("Mask") + ":")
         mask_label.grid(row=18, column=0, sticky="nsew", padx=0, pady=4)
 
         # Label (Mask - Help)
-        mask_help_label = Common.static_information_label(frame, text=_tr("Disables a service completely.") + " " + _tr("A masked service can not be started, restarted, reloaded or enabled."))
+        mask_help_label = Common.static_information_label(main_frame, text=_tr("Disables a service completely.") + " " + _tr("A masked service can not be started, restarted, reloaded or enabled."))
         mask_help_label.grid(row=19, column=0, sticky="nsew", padx=0, pady=4)
 
         # Separator
-        separator = ttk.Separator(frame, orient="horizontal")
+        separator = ttk.Separator(main_frame, orient="horizontal")
         separator.grid(row=20, column=0, sticky="nsew", padx=0, pady=5)
 
         # Label (Unmask)
-        unmask_label = Common.bold_label(frame, text=_tr("Unmask") + ":")
+        unmask_label = Common.bold_label(main_frame, text=_tr("Unmask") + ":")
         unmask_label.grid(row=21, column=0, sticky="nsew", padx=0, pady=4)
 
         # Label (Unmask - Help)
-        unmask_help_label = Common.static_information_label(frame, text=_tr("Unmasks a service.") + " " + _tr("A service can be started, restarted, reloaded (if it is available) or enabled after unmasking."))
+        unmask_help_label = Common.static_information_label(main_frame, text=_tr("Unmasks a service.") + " " + _tr("A service can be started, restarted, reloaded (if it is available) or enabled after unmasking."))
         unmask_help_label.grid(row=22, column=0, sticky="nsew", padx=0, pady=4)
 
 
