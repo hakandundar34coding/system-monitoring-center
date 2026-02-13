@@ -30,7 +30,6 @@ cleanup:
 modules:
 
   - pypi-dependencies.json
-  - python3-Pillow.json
   - tkinter.json
 
   # For using hardware database of "hwdata"
