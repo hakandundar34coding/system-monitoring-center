@@ -1,2 +1,3 @@
+Pillow
 pycairo
 sv-ttk
