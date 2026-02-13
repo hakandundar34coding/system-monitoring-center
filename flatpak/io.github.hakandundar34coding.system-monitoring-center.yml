@@ -29,42 +29,9 @@ cleanup:
 
 modules:
 
-  # For drawing Cairo graphics
-  - name: pycairo
-    buildsystem: meson
-    sources:
-      - type: archive
-        url: https://github.com/pygobject/pycairo/archive/v1.29.0/pycairo-v1.29.0.tar.gz
-        sha256: 25c6a8a5a488afdd21208b5a71f95796891cceb2ee94f2ec1c51fdf0735eab0b
-        x-checker-data:
-          type: anitya
-          project-id: 13166
-          stable-only: true
-          url-template: https://github.com/pygobject/pycairo/archive/v$version/pycairo-v$version.tar.gz
-
-
-
-  # Tkinter theme
-  - name: sun-valley-theme
-    buildsystem: simple
-    build-commands:
-      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
-        --prefix=${FLATPAK_DEST} sun-valley-ttk-theme --no-build-isolation
-    sources:
-      - type: shell
-        commands:
-          - pip3 download sun-valley-ttk-theme
-
-  # For showing images on the GUI
-  - name: Pillow
-    buildsystem: simple
-    build-commands:
-      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
-        --prefix=${FLATPAK_DEST} "Pillow>=12.1.0" --no-build-isolation
-    sources:
-      - type: file
-        url: https://files.pythonhosted.org/packages/d0/02/d52c733a2452ef1ffcc123b68e6606d07276b0e358db70eabad7e40042b7/pillow-12.1.0.tar.gz
-        sha256: 5c5ae0a06e9ea030ab786b0251b32c7e4ce10e58d983c0d5c56029455180b5b9
+  - pypi-dependencies.json
+  - python3-Pillow.json
+  - tkinner.json
 
   # For using hardware database of "hwdata"
   - name: hwdata
@@ -91,7 +58,5 @@ modules:
   - name: system-monitoring-center
     buildsystem: meson
     sources:
-      - type: git
-        url: https://github.com/hakandundar34coding/system-monitoring-center.git
-        commit: 0bf6e6c1f5da448de623cbae275fd882d6fc10e7
-
+      - type: dir
+        path: ../

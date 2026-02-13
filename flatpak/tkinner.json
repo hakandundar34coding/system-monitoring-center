@@ -1,0 +1,61 @@
+{
+    "//note": "The `tkinter` module is missing from the Freedesktop Sdk's Python installation",
+    "name": "tkinter",
+    "buildsystem": "simple",
+    "build-commands": [
+        "pip3 install --prefix=${FLATPAK_DEST} --no-build-isolation ."
+    ],
+    "sources": [
+        {
+            "type": "git",
+            "url": "https://github.com/iwalton3/tkinter-standalone",
+            "commit": "88aa05075d90d393a29a484bce676e237d311082"
+        },
+        {
+            "type": "patch",
+            "path": "tkinter-build.patch"
+        }
+    ],
+    "modules": [
+        {
+            "name": "tcl",
+            "buildsystem": "autotools",
+            "subdir": "unix",
+            "post-install": [
+                "chmod 755 /app/lib/libtcl*.so"
+            ],
+            "cleanup": [
+                "/bin",
+                "/lib/pkgconfig",
+                "/man"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://prdownloads.sourceforge.net/tcl/tcl8.6.17-src.tar.gz",
+                    "sha256": "a3903371efcce8a405c5c245d029e9f6850258a60fa3761c4d58995610949b31"
+                }
+            ]
+        },
+        {
+            "name": "tk",
+            "buildsystem": "autotools",
+            "subdir": "unix",
+            "post-install": [
+                "chmod 755 /app/lib/libtk*.so"
+            ],
+            "cleanup": [
+                "/bin",
+                "/lib/pkgconfig",
+                "/man"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://prdownloads.sourceforge.net/tcl/tk8.6.17-src.tar.gz",
+                    "sha256": "e4982df6f969c08bf9dd858a6891059b4a3f50dc6c87c10abadbbe2fc4838946"
+                }
+            ]
+        }
+    ]
+}
