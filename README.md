@@ -14,7 +14,7 @@
 
 <p align="center">
     <strong>
-        <a href="https://github.com/hakandundar34coding/system-monitoring-center/tree/smc_v1">SMC v1 (GTK3)</a>  |  <a href="https://github.com/hakandundar34coding/system-monitoring-center/tree/smc_v2">SMC v2 (GTK3/4)</a>  |  <a href="https://github.com/hakandundar34coding/system-monitoring-center">SMC v3 (Tk)</a>
+        <a href="https://github.com/hakandundar34coding/system-monitoring-center/tree/smc_v1">SMC v1.43.12 (GTK3)</a> | <a href="https://github.com/hakandundar34coding/system-monitoring-center/tree/smc_v2">SMC v2.26.0 (GTK3/4)</a> | <a href="https://github.com/hakandundar34coding/system-monitoring-center">SMC v3 (Tk)</a>
     </strong>
 </p>
 
@@ -49,7 +49,7 @@
         <img src="https://img.shields.io/badge/GUI-Tk (Tkinter)-52a381">
     </a>
     <a href="https://github.com/rdbende/Sun-Valley-ttk-theme">
-        <img src="https://img.shields.io/badge/Theme-(sv_ttk)-52a381">
+        <img src="https://img.shields.io/badge/Theme-sv-ttk-52a381">
     </a>
 </p>
 
