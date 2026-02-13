@@ -23,9 +23,12 @@ finish-args:
 cleanup:
   - /include
   - /lib/pkgconfig
+  - /man
   - /share/man
   - /share/pkgconfig
   - /share/bash-completion
+  - '*.la'
+  - '*.a'
 
 modules:
 
