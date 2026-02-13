@@ -565,7 +565,7 @@ class MainWindow():
 
         # Label (description)
         smc_label1 = tk.Label(frame, text=_tr("Multi-featured system monitor"))
-        smc_label1.grid(row=3, column=0, sticky="ns", padx=0, pady=5)
+        smc_label1.grid(row=3, column=0, sticky="ns", padx=0, pady=10)
 
         # Label (web page)
         web_page_label = Common.link_label(frame, _tr("Web Page"), "https://github.com/hakandundar34coding/system-monitoring-center")
@@ -580,8 +580,8 @@ class MainWindow():
         translators_label.grid(row=6, column=0, sticky="ns", padx=0, pady=4)
 
         # Label (license)
-        license_label = tk.Label(frame, text=_tr("This program comes with absolutely no warranty.\nSee the GNU General Public License, version 3 or later for details."))
-        license_label.grid(row=7, column=0, sticky="ns", padx=1, pady=0)
+        license_label = tk.Label(frame, text=_tr("This program comes with absolutely no warranty.\nSee the GNU General Public License, version 3 or later for details."), wraplength=400, justify="center")
+        license_label.grid(row=7, column=0, sticky="ns", padx=1, pady=(10, 0))
 
         # Label (license link)
         license_link_label = Common.link_label(frame, "GPLv3", "https://www.gnu.org/licenses/gpl-3.0.html")
