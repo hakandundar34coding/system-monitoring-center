@@ -49,7 +49,7 @@
         <img src="https://img.shields.io/badge/GUI-Tk (Tkinter)-52a381">
     </a>
     <a href="https://github.com/rdbende/Sun-Valley-ttk-theme">
-        <img src="https://img.shields.io/badge/Theme-sv-ttk-52a381">
+        <img src="https://img.shields.io/badge/Theme-sv_ttk-52a381">
     </a>
 </p>
 
