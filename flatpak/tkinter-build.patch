@@ -1,0 +1,184 @@
+commit 3bbb09a0598fc976d2bf8dac932b27740086c1bd
+Author: Hubert Figuière <hub@figuiere.net>
+Date:   Sun Dec 21 17:49:43 2025 -0500
+
+    Port to Python 3.13
+    
+    Signed-off-by: Hubert Figuière <hub@figuiere.net>
+
+diff --git a/_tkinter.c b/_tkinter.c
+index e537707..dfc5789 100644
+--- a/_tkinter.c
++++ b/_tkinter.c
+@@ -21,7 +21,6 @@ Copyright (C) 1994 Steen Lumholt.
+ 
+ */
+ 
+-#define PY_SSIZE_T_CLEAN
+ #ifndef Py_BUILD_CORE_BUILTIN
+ #  define Py_BUILD_CORE_MODULE 1
+ #endif
+@@ -32,6 +31,9 @@ Copyright (C) 1994 Steen Lumholt.
+ #  include "pycore_fileutils.h"   // _Py_stat()
+ #endif
+ 
++#include "pycore_long.h"          // _PyLong_IsNegative()
++#include "pycore_sysmodule.h"     // _PySys_GetOptionalAttrString()
++
+ #ifdef MS_WINDOWS
+ #include <windows.h>
+ #endif
+@@ -135,7 +137,7 @@ _get_tcl_lib_path()
+         struct stat stat_buf;
+         int stat_return_value;
+ 
+-        prefix = PyUnicode_FromWideChar(Py_GetPrefix(), -1);
++        (void) _PySys_GetOptionalAttrString("base_prefix", &prefix);
+         if (prefix == NULL) {
+             return NULL;
+         }
+@@ -143,9 +145,11 @@ _get_tcl_lib_path()
+         /* Check expected location for an installed Python first */
+         tcl_library_path = PyUnicode_FromString("\\tcl\\tcl" TCL_VERSION);
+         if (tcl_library_path == NULL) {
++            Py_DECREF(prefix);
+             return NULL;
+         }
+         tcl_library_path = PyUnicode_Concat(prefix, tcl_library_path);
++        Py_DECREF(prefix);
+         if (tcl_library_path == NULL) {
+             return NULL;
+         }
+@@ -959,7 +963,8 @@ AsObj(PyObject *value)
+                                 (unsigned char *)(void *)&wideValue,
+                                 sizeof(wideValue),
+                                 PY_LITTLE_ENDIAN,
+-                                /* signed */ 1) == 0) {
++                                /* signed */ 1,
++                                /* with_exceptions */ 1) == 0) {
+             return Tcl_NewWideIntObj(wideValue);
+         }
+         PyErr_Clear();
+@@ -1988,7 +1993,7 @@ _tkinter_tkapp_getboolean(TkappObject *self, PyObject *arg)
+     int v;
+ 
+     if (PyLong_Check(arg)) { /* int or bool */
+-        return PyBool_FromLong(Py_SIZE(arg) != 0);
++        return PyBool_FromLong(!_PyLong_IsZero((PyLongObject *)arg));
+     }
+ 
+     if (PyTclObject_Check(arg)) {
+diff --git a/clinic/_tkinter.c.h b/clinic/_tkinter.c.h
+index 9103565..f43510d 100644
+--- a/clinic/_tkinter.c.h
++++ b/clinic/_tkinter.c.h
+@@ -2,6 +2,8 @@
+ preserve
+ [clinic start generated code]*/
+ 
++#include "pycore_modsupport.h"    // _PyArg_BadArgument()
++
+ PyDoc_STRVAR(_tkinter_tkapp_eval__doc__,
+ "eval($self, script, /)\n"
+ "--\n"
+@@ -426,7 +428,7 @@ _tkinter_tkapp_createfilehandler(TkappObject *self, PyObject *const *args, Py_ss
+         goto exit;
+     }
+     file = args[0];
+-    mask = _PyLong_AsInt(args[1]);
++    mask = PyLong_AsInt(args[1]);
+     if (mask == -1 && PyErr_Occurred()) {
+         goto exit;
+     }
+@@ -490,7 +492,7 @@ _tkinter_tkapp_createtimerhandler(TkappObject *self, PyObject *const *args, Py_s
+     if (!_PyArg_CheckPositional("createtimerhandler", nargs, 2, 2)) {
+         goto exit;
+     }
+-    milliseconds = _PyLong_AsInt(args[0]);
++    milliseconds = PyLong_AsInt(args[0]);
+     if (milliseconds == -1 && PyErr_Occurred()) {
+         goto exit;
+     }
+@@ -524,7 +526,7 @@ _tkinter_tkapp_mainloop(TkappObject *self, PyObject *const *args, Py_ssize_t nar
+     if (nargs < 1) {
+         goto skip_optional;
+     }
+-    threshold = _PyLong_AsInt(args[0]);
++    threshold = PyLong_AsInt(args[0]);
+     if (threshold == -1 && PyErr_Occurred()) {
+         goto exit;
+     }
+@@ -558,7 +560,7 @@ _tkinter_tkapp_dooneevent(TkappObject *self, PyObject *const *args, Py_ssize_t n
+     if (nargs < 1) {
+         goto skip_optional;
+     }
+-    flags = _PyLong_AsInt(args[0]);
++    flags = PyLong_AsInt(args[0]);
+     if (flags == -1 && PyErr_Occurred()) {
+         goto exit;
+     }
+@@ -741,29 +743,29 @@ _tkinter_create(PyObject *module, PyObject *const *args, Py_ssize_t nargs)
+     if (nargs < 4) {
+         goto skip_optional;
+     }
+-    interactive = _PyLong_AsInt(args[3]);
+-    if (interactive == -1 && PyErr_Occurred()) {
++    interactive = PyObject_IsTrue(args[3]);
++    if (interactive < 0) {
+         goto exit;
+     }
+     if (nargs < 5) {
+         goto skip_optional;
+     }
+-    wantobjects = _PyLong_AsInt(args[4]);
+-    if (wantobjects == -1 && PyErr_Occurred()) {
++    wantobjects = PyObject_IsTrue(args[4]);
++    if (wantobjects < 0) {
+         goto exit;
+     }
+     if (nargs < 6) {
+         goto skip_optional;
+     }
+-    wantTk = _PyLong_AsInt(args[5]);
+-    if (wantTk == -1 && PyErr_Occurred()) {
++    wantTk = PyObject_IsTrue(args[5]);
++    if (wantTk < 0) {
+         goto exit;
+     }
+     if (nargs < 7) {
+         goto skip_optional;
+     }
+-    sync = _PyLong_AsInt(args[6]);
+-    if (sync == -1 && PyErr_Occurred()) {
++    sync = PyObject_IsTrue(args[6]);
++    if (sync < 0) {
+         goto exit;
+     }
+     if (nargs < 8) {
+@@ -814,7 +816,7 @@ _tkinter_setbusywaitinterval(PyObject *module, PyObject *arg)
+     PyObject *return_value = NULL;
+     int new_val;
+ 
+-    new_val = _PyLong_AsInt(arg);
++    new_val = PyLong_AsInt(arg);
+     if (new_val == -1 && PyErr_Occurred()) {
+         goto exit;
+     }
+diff --git a/setup.py b/setup.py
+index f379305..cf7b6ad 100644
+--- a/setup.py
++++ b/setup.py
+@@ -3,11 +3,11 @@ from distutils.core import setup, Extension
+ module1 = Extension('_tkinter',
+                     libraries=['tcl8.6', 'tk8.6'],
+                     sources=['_tkinter.c'],
+-                    include_dirs=['/app/include/'])
++                    include_dirs=['/app/include/', '/usr/include/python3.13/internal/'])
+ 
+ setup(
+     name='tkinter-standalone',
+-    version='3.11',
++    version='3.13',
+     description='Tkinter packaged as an external package for flatpak.',
+     ext_modules=[module1],
+     packages=["tkinter"]
