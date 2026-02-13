@@ -85,6 +85,18 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="3.0.0" date="2026-02-11">
+      <description>
+        <ul>
+          <li>New: Tk (Tkinter) is used for application GUI</li>
+          <li>All tab settings are moved to Settings window</li>
+          <li>Settings simplifications (removed color, precision settings)</li>
+          <li>Simplified remember selected tab settings</li>
+          <li>Multiprocessing is disabled for >= Python 3.14 (Services)</li>
+          <li>Several code simplifications</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.26.0" date="2023-10-31">
       <description>
         <ul>
