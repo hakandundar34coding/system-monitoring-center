@@ -5,12 +5,9 @@ sdk: org.gnome.Sdk
 command: system-monitoring-center
 
 finish-args:
-  # For X11 shared memory access (higher performance for X11)
   - --share=ipc
-  # For Wayland access
+  - --socket=x11
   - --socket=wayland
-  # For X11 fallback
-  - --socket=fallback-x11
   # For monitoring data download/upload speed on network cards
   - --device=all
   # For monitoring data download/upload speed on network cards
@@ -23,9 +20,12 @@ finish-args:
 cleanup:
   - /include
   - /lib/pkgconfig
+  - /man
   - /share/man
   - /share/pkgconfig
   - /share/bash-completion
+  - '*.la'
+  - '*.a'
 
 modules:
 

@@ -25,9 +25,7 @@
                 "chmod 755 /app/lib/libtcl*.so"
             ],
             "cleanup": [
-                "/bin",
-                "/lib/pkgconfig",
-                "/man"
+                "/bin"
             ],
             "sources": [
                 {
@@ -46,8 +44,7 @@
             ],
             "cleanup": [
                 "/bin",
-                "/lib/pkgconfig",
-                "/man"
+                "/lib/tk*/demos"
             ],
             "sources": [
                 {
