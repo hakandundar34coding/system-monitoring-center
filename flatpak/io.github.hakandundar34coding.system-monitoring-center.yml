@@ -26,6 +26,8 @@ cleanup:
   - /share/bash-completion
   - '*.la'
   - '*.a'
+cleanup-commands:
+  - "python3 -m compileall --invalidation-mode=unchecked-hash /app"
 
 modules:
 
