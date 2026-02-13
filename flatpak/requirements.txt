@@ -1,3 +1,4 @@
+pybind11
 Pillow
 pycairo
 sv-ttk
