@@ -31,40 +31,36 @@ modules:
 
   # For drawing Cairo graphics
   - name: pycairo
-    buildsystem: meson
-    sources:
-      - type: archive
-        url: https://github.com/pygobject/pycairo/archive/v1.29.0/pycairo-v1.29.0.tar.gz
-        sha256: 25c6a8a5a488afdd21208b5a71f95796891cceb2ee94f2ec1c51fdf0735eab0b
-        x-checker-data:
-          type: anitya
-          project-id: 13166
-          stable-only: true
-          url-template: https://github.com/pygobject/pycairo/archive/v$version/pycairo-v$version.tar.gz
-
-
-
-  # Tkinter theme
-  - name: sun-valley-theme
     buildsystem: simple
     build-commands:
-      - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
-        --prefix=${FLATPAK_DEST} sun-valley-ttk-theme --no-build-isolation
+      - pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\"
+        --prefix=${FLATPAK_DEST} "pycairo>=1.29.0" --no-build-isolation
     sources:
-      - type: shell
-        commands:
-          - pip3 download sun-valley-ttk-theme
+      - type: file
+        url: https://files.pythonhosted.org/packages/22/d9/1728840a22a4ef8a8f479b9156aa2943cd98c3907accd3849fb0d5f82bfd/pycairo-1.29.0.tar.gz
+        sha256: f3f7fde97325cae80224c09f12564ef58d0d0f655da0e3b040f5807bd5bd3142
 
   # For showing images on the GUI
   - name: Pillow
     buildsystem: simple
     build-commands:
       - pip3 install --verbose --exists-action=i --no-index --find-links="file://${PWD}"
-        --prefix=${FLATPAK_DEST} "Pillow>=12.1.0" --no-build-isolation
+        --prefix=${FLATPAK_DEST} "Pillow>=12.1.1" --no-build-isolation
     sources:
       - type: file
-        url: https://files.pythonhosted.org/packages/d0/02/d52c733a2452ef1ffcc123b68e6606d07276b0e358db70eabad7e40042b7/pillow-12.1.0.tar.gz
-        sha256: 5c5ae0a06e9ea030ab786b0251b32c7e4ce10e58d983c0d5c56029455180b5b9
+        url: https://files.pythonhosted.org/packages/1f/42/5c74462b4fd957fcd7b13b04fb3205ff8349236ea74c7c375766d6c82288/pillow-12.1.1.tar.gz
+        sha256: 9ad8fa5937ab05218e2b6a4cff30295ad35afd2f83ac592e68c0d871bb0fdbc4
+
+  # Tkinter theme
+  - name: sv-ttk
+    buildsystem: simple
+    build-commands:
+      - pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\"
+        --prefix=${FLATPAK_DEST} "sv-ttk>=2.6.1" --no-build-isolation
+    sources:
+      - type: file
+        url: https://files.pythonhosted.org/packages/4e/ca/9625914e7a7e58ce9f0d8d6a5eb29975bab077ce58a36cf86f863d188cd3/sv_ttk-2.6.1.tar.gz
+        sha256: 47589d5e20398cf404e8362f24f3ed48f3830cd0ace056d83354fa25d8e4fe48
 
   # For using hardware database of "hwdata"
   - name: hwdata
@@ -93,5 +89,5 @@ modules:
     sources:
       - type: git
         url: https://github.com/hakandundar34coding/system-monitoring-center.git
-        commit: 0bf6e6c1f5da448de623cbae275fd882d6fc10e7
+        commit: 459962485276f0e31251fefa2663e9c2fc50d3ba
 
