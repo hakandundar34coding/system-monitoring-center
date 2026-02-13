@@ -31,7 +31,7 @@ modules:
 
   - pypi-dependencies.json
   - python3-Pillow.json
-  - tkinner.json
+  - tkinter.json
 
   # For using hardware database of "hwdata"
   - name: hwdata
