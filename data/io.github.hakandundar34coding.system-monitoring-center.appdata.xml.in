@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2023 Hakan Dündar -->
-<component>
-  <id type="desktop">io.github.hakandundar34coding.system-monitoring-center.desktop</id>
+<component type="desktop-application">
+  <id>io.github.hakandundar34coding.system-monitoring-center</id>
   <launchable type="desktop-id">io.github.hakandundar34coding.system-monitoring-center.desktop</launchable>
   <metadata_license>CC0-1.0</metadata_license>
-  <name>System Monitoring Center</name>
-  <developer_name>Hakan Dündar</developer_name>
   <project_license>GPL-3.0</project_license>
+  <name>System Monitoring Center</name>
   <summary>Multi-featured system monitor</summary>
+  <developer id="io.github.hakandundar34coding">
+    <name>Hakan Dündar</name>
+  </developer>
   <url type="homepage">https://github.com/hakandundar34coding/system-monitoring-center</url>
   <url type="bugtracker">https://github.com/hakandundar34coding/system-monitoring-center/issues</url>
   <url type="translate">https://github.com/hakandundar34coding/system-monitoring-center/blob/master/docs/translations.md</url>
+  <url type="vcs-browser">https://github.com/hakandundar34coding/system-monitoring-center</url>
+  <provides>
+    <id>io.github.hakandundar34coding.system-monitoring-center.desktop</id>
+  </provides>
+  <replaces>
+    <id>io.github.hakandundar34coding.system-monitoring-center.desktop</id>
+  </replaces>
   <content_rating type="oars-1.1"/>
   <description>
-    <p>Multi-featured system monitor</p>
+    <p>A multi-featured, low-resource system monitor that lets you easily track and manage CPU, RAM, disk, network, and GPU usage</p>
     <p>Features:</p>
     <ul>
       <li>Detailed system performance and usage usage monitoring/managing features</li>
@@ -48,16 +57,10 @@
       <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/summary_tab_dark_system_theme.png</image>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/summary_tab_white_system_theme.png</image>
-    </screenshot>
-    <screenshot>
       <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/cpu_tab_dark_system_theme.png</image>
     </screenshot>
     <screenshot>
       <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/cpu_tab_white_system_theme.png</image>
-    </screenshot>
-    <screenshot>
-      <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/cpu_tab_per_core_dark_system_theme.png</image>
     </screenshot>
     <screenshot>
       <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/memory_tab_white_system_theme.png</image>
@@ -78,25 +81,22 @@
       <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/processes_list_view_dark_system_theme.png</image>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/processes_tree_view_white_system_theme.png</image>
-    </screenshot>
-    <screenshot>
       <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/services_tab_dark_system_theme.png</image>
-    </screenshot>
-    <screenshot>
-      <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/system_tab_dark_system_theme.png</image>
-    </screenshot>
-    <screenshot>
-      <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/settings_dark_system_theme.png</image>
-    </screenshot>
-    <screenshot>
-      <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/process_details__dark_system_theme_1.png</image>
-    </screenshot>
-    <screenshot>
-      <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/process_details__dark_system_theme_2.png</image>
     </screenshot>
   </screenshots>
   <releases>
+    <release version="3.0.0" date="2026-02-11">
+      <description>
+        <ul>
+          <li>New: Tk (Tkinter) is used for application GUI</li>
+          <li>All tab settings are moved to Settings window</li>
+          <li>Settings simplifications (removed color, precision settings)</li>
+          <li>Simplified remember selected tab settings</li>
+          <li>Multiprocessing is disabled for >= Python 3.14 (Services)</li>
+          <li>Several code simplifications</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.26.0" date="2023-10-31">
       <description>
         <ul>
