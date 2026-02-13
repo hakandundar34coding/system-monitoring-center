@@ -2657,16 +2657,19 @@ def get_network_link_quality(selected_network_card, network_card_connected):
     network_link_quality = "-"
     # Translated value have to be used by using gettext constant. Not "Yes".
     if selected_network_card.startswith("wl") == True and network_card_connected == _tr("Yes"):
-        with open("/proc/net/wireless") as reader:
-            proc_net_wireless_output_lines = reader.read().strip().split("\n")
-        for line in proc_net_wireless_output_lines:
-            line_splitted = line.split()
-            if selected_network_card == line_splitted[0].split(":")[0]:
-                # Remove "." at the end of the signal value.
-                network_link_quality = line_splitted[2].split(".")[0]
-                if network_link_quality != "-":
-                    network_link_quality = f'{network_link_quality} (link)'
-                break
+        try:
+            with open("/proc/net/wireless") as reader:
+                proc_net_wireless_output_lines = reader.read().strip().split("\n")
+            for line in proc_net_wireless_output_lines:
+                line_splitted = line.split()
+                if selected_network_card == line_splitted[0].split(":")[0]:
+                    # Remove "." at the end of the signal value.
+                    network_link_quality = line_splitted[2].split(".")[0]
+                    if network_link_quality != "-":
+                        network_link_quality = f'{network_link_quality} (link)'
+                    break
+        except FileNotFoundError:
+            network_link_quality = "-"
 
     return network_link_quality
 
