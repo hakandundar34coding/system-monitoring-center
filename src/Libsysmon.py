@@ -178,10 +178,12 @@ def get_gnome_theme():
 
     import subprocess
 
-    cmd = ["gsettings", "get", "org.gnome.desktop.interface", "color-scheme"]
+    command_list = ["gsettings", "get", "org.gnome.desktop.interface", "color-scheme"]
+    if get_environment_type() == "flatpak":
+        command_list = ["flatpak-spawn", "--host"] + command_list
     
     try:
-        gnome_theme_output = (subprocess.check_output(["gsettings", "get", "org.gnome.desktop.interface", "color-scheme"], shell=False)).decode("utf-8").strip().strip("'")
+        gnome_theme_output = (subprocess.check_output(command_list, shell=False)).decode("utf-8").strip().strip("'")
     except Exception as e:
         print(e)
         gnome_theme = "-"
@@ -206,9 +208,12 @@ def get_kde_theme():
     if shutil.which("kreadconfig5"):
         cmd_tool = "kreadconfig5"
 
+    command_list = [cmd_tool, "--group", "General", "--key", "ColorScheme"]
+    if get_environment_type() == "flatpak":
+        command_list = ["flatpak-spawn", "--host"] + command_list
+
     try:
-        #kde_theme_output = (subprocess.check_output(["qdbus", "org.kde.KWin", "/org/kde/KWin", "org.kde.KWin.supportInformation"], shell=False)).decode("utf-8").strip()
-        kde_theme_output = (subprocess.check_output([cmd_tool, "--group", "General", "--key", "ColorScheme"], shell=False)).decode("utf-8").strip()
+        kde_theme_output = (subprocess.check_output(command_list, shell=False)).decode("utf-8").strip()
     except Exception as e:
         print(e)
         kde_theme = "-"
