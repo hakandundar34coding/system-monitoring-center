@@ -7,7 +7,6 @@ command: system-monitoring-center
 finish-args:
   - --share=ipc
   - --socket=x11
-  - --socket=wayland
   # For monitoring data download/upload speed on network cards
   - --device=all
   # For monitoring data download/upload speed on network cards
@@ -26,8 +25,6 @@ cleanup:
   - /share/bash-completion
   - '*.la'
   - '*.a'
-cleanup-commands:
-  - "python3 -m compileall --invalidation-mode=unchecked-hash /app"
 
 modules:
 
