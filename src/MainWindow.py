@@ -29,6 +29,9 @@ def language_translation_support():
         else:
             # For installed code
             localedir = "/usr/share/locale"
+            # For Flatpak installation
+            if os.getenv('FLATPAK_ID') != None:
+                localedir = current_dir + "/../../locale/"
     if Config.language == "system":
         application_language = os.environ.get("LANG")
     else:
