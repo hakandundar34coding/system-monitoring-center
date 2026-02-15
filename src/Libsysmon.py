@@ -5499,7 +5499,7 @@ def get_desktop_environment_and_version_window_manager_display_manager():
     # it not detected because it has no separate package or process.).
     if window_manager == "-":
         if current_desktop_environment.upper() == "GNOME":
-            if current_desktop_environment_version.split(".")[0] in ["3", "40", "41", "42", "43", "44", "45", "46", "47", "48"]:
+            if current_desktop_environment_version.split(".")[0] in ["3", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49"]:
                 window_manager = "mutter"
 
     # Get current display manager information
