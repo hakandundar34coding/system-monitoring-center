@@ -719,7 +719,6 @@ class Processes:
 
         #self.number_of_clock_ticks = Libsysmon.number_of_clock_ticks
         self.system_boot_time = Libsysmon.get_system_boot_time()
-        self.username_uid_dict = Libsysmon.get_username_uid_dict()
 
         self.initial_already_run = 1
 
@@ -796,6 +795,8 @@ class Processes:
         else:
             cpu_usage_divide_by_cores = "no"
         detail_level = "medium"
+
+        self.username_uid_dict = Libsysmon.get_username_uid_dict()
 
         self.rows_data_dict, self.rows_additional_data_dict = Libsysmon.get_processes_information(process_list, processes_of_user, self.hide_kernel_threads, cpu_usage_divide_by_cores, detail_level, self.rows_data_dict_prev, self.rows_additional_data_dict_prev, self.system_boot_time, self.username_uid_dict)
         self.row_id_list = list(self.rows_data_dict.keys())
