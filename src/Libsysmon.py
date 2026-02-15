@@ -5075,19 +5075,11 @@ def get_os_name_version_codename_based_on():
     Get OS name, version, version code name and OS based on information.
     """
 
-    # Read "/etc/os-release" file for getting OS name, version and based on information.
+    command_list = ["cat", "/etc/os-release"]
     if get_environment_type() == "flatpak":
-        try:
-            with open("/var/run/host/etc/os-release") as reader:
-                os_release_output = reader.read()
-        except FileNotFoundError:
-            # Read "os-release" file on NixOS.
-            # It is not read by using "/var/run/host/etc/os-release" path even though there is a link of this file.
-            with open("/var/run/host/etc/static/os-release") as reader:
-                os_release_output = reader.read()
-    else:
-        with open("/etc/os-release") as reader:
-            os_release_output = reader.read()
+        command_list = ["flatpak-spawn", "--host"] + command_list
+
+    os_release_output = (subprocess.check_output(command_list, shell=False)).decode().strip()
 
     os_release_output_lines = os_release_output.strip().split("\n")
 
@@ -5118,12 +5110,10 @@ def get_os_name_version_codename_based_on():
     # Append Debian version to the based on information if OS is based on Debian.
     if os_based_on == "Debian":
         debian_version = "-"
+        command_list = ["cat", "/etc/debian_version"]
         if get_environment_type() == "flatpak":
-            with open("/var/run/host/etc/debian_version") as reader:
-                debian_version = reader.read().strip()
-        else:
-            with open("/etc/debian_version") as reader:
-                debian_version = reader.read().strip()
+            command_list = ["flatpak-spawn", "--host"] + command_list
+        debian_version = (subprocess.check_output(command_list, shell=False)).decode().strip()
         os_based_on = os_based_on + " (" + debian_version + ")"
 
     # Append Ubuntu version to the based on information if OS is based on Ubuntu.
