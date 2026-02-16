@@ -4453,11 +4453,9 @@ def get_etc_group_dict():
     Get user group name, GID information from "/etc/group" file.
     """
 
-    environment_type = get_environment_type()
-
-    if environment_type == "flatpak":
-        with open("/var/run/host/etc/group") as reader:
-            etc_group_lines = reader.read().strip().split("\n")
+    if get_environment_type() == "flatpak":
+        command_list = ["flatpak-spawn", "--host", "cat", "/etc/group"]
+        etc_group_lines = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE)).stdout.decode().strip().split("\n")
     else:
         with open("/etc/group") as reader:
             etc_group_lines = reader.read().strip().split("\n")
