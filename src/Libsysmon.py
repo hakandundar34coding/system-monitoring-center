@@ -4144,13 +4144,10 @@ def get_process_exe_cwd_open_files(process_pid, fd_ls_output):
     return process_exe, process_cwd, process_open_files
 
 
-def get_username_uid_dict():
+def get_etc_passwd_lines():
     """
-    Get usernames and UIDs.
+    Get "/etc/passwd" file content.
     """
-
-    environment_type = get_environment_type()
-
 
     if get_environment_type() == "flatpak":
         command_list = ["flatpak-spawn", "--host", "cat", "/etc/passwd"]
@@ -4161,6 +4158,16 @@ def get_username_uid_dict():
     else:
         with open("/etc/passwd") as reader:
             etc_passwd_lines = reader.read().strip().split("\n")
+
+    return etc_passwd_lines
+
+
+def get_username_uid_dict():
+    """
+    Get usernames and UIDs.
+    """
+
+    etc_passwd_lines = get_etc_passwd_lines()
 
     username_uid_dict = {}
     for line in etc_passwd_lines:
@@ -4423,14 +4430,7 @@ def get_etc_passwd_dict():
     Get username, UID, user full name, user termninal information from "/etc/passwd" file.
     """
 
-    environment_type = get_environment_type()
-
-    if environment_type == "flatpak":
-        with open("/var/run/host/etc/passwd") as reader:
-            etc_passwd_lines = reader.read().strip().split("\n")
-    else:
-        with open("/etc/passwd") as reader:
-            etc_passwd_lines = reader.read().strip().split("\n")
+    etc_passwd_lines = get_etc_passwd_lines()
 
     etc_passwd_dict = {}
     for line in etc_passwd_lines:
