@@ -4636,7 +4636,7 @@ def get_services_information():
     services_data_dict = {}
     service_unit_file_list_usr_lib_systemd = []
     service_unit_file_list_lib_systemd = []
-    if environment_type == "flatpak":
+    """if environment_type == "flatpak":
         if os.path.isdir("/var/run/host/usr/lib/systemd/system/") == True:
             service_unit_files_dir = "/var/run/host/usr/lib/systemd/system/"
             service_unit_file_list_usr_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]
@@ -4654,7 +4654,25 @@ def get_services_information():
             service_unit_file_list_usr_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]
         if os.path.realpath("/lib/systemd/system/") + "/" == "/lib/systemd/system/":
             service_unit_files_dir = "/lib/systemd/system/"
-            service_unit_file_list_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]
+            service_unit_file_list_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]"""
+
+
+
+    command_list = ["ls", "/usr/lib/systemd/system/"]
+    if get_environment_type() == "flatpak":
+        command_list = ["flatpak-spawn", "--host"] + command_list
+    service_unit_file_list_usr_lib_systemd_scratch = (subprocess.check_output(command_list, shell=False)).decode().strip().split()
+    service_unit_file_list_usr_lib_systemd = [filename for filename in service_unit_file_list_usr_lib_systemd_scratch if filename.endswith(".service")]
+    service_unit_files_dir = "/usr/lib/systemd/system/"
+
+    command_list = ["ls", "/lib/systemd/system/"]
+    if get_environment_type() == "flatpak":
+        command_list = ["flatpak-spawn", "--host"] + command_list
+    service_unit_file_list_lib_systemd_scratch = (subprocess.check_output(command_list, shell=False)).decode().strip().split()
+    service_unit_file_list_lib_systemd = [filename for filename in service_unit_file_list_lib_systemd_scratch if filename.endswith(".service")]
+    service_unit_files_dir = "/lib/systemd/system/"
+
+
 
     # Get user services
     current_user_name = os.environ.get('USER')
