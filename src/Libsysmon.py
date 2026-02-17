@@ -4152,9 +4152,6 @@ def get_etc_passwd_lines():
     if get_environment_type() == "flatpak":
         command_list = ["flatpak-spawn", "--host", "cat", "/etc/passwd"]
         etc_passwd_lines = (subprocess.run(command_list, shell=False, stdout=subprocess.PIPE)).stdout.decode().strip().split("\n")
-        """if environment_type == "flatpak":
-            with open("/var/run/host/etc/passwd") as reader:
-                etc_passwd_lines = reader.read().strip().split("\n")"""
     else:
         with open("/etc/passwd") as reader:
             etc_passwd_lines = reader.read().strip().split("\n")
