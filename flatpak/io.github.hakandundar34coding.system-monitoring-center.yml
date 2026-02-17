@@ -13,8 +13,6 @@ finish-args:
   - --share=network
   # For host OS commands access (such as 'systemctl' for service details, 'ls /proc' for process list, 'ps' for process information, etc.)
   - --talk-name=org.freedesktop.Flatpak
-  # For reading several files (systemd service files, process information in '/proc' folder, etc.) of host OS
-  -  --filesystem=host-etc:ro
 
 cleanup:
   - /include
@@ -58,5 +56,5 @@ modules:
     sources:
       - type: git
         url: https://github.com/hakandundar34coding/system-monitoring-center.git
-        commit: 5e419a9894315943867a7255d4d59c8cbaed7d9b
+        commit: debb6cada8ffa8a915b4e28bbea9f7d18bc63f81
 
