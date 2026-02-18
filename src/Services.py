@@ -335,7 +335,7 @@ class Services:
         self.image_dict = {}
         self.treeview_columns_shown_prev = []
 
-        service_state_translation_list = [_tr("Enabled"), _tr("Disabled"), _tr("Masked"), _tr("Unmasked"), _tr("Static"), _tr("Generated"), _tr("Enabled-runtime"), _tr("Indirect"), _tr("Active"), _tr("Inactive"), _tr("Loaded"), _tr("Dead"), _tr("Exited"), _tr("Running")]
+        service_state_translation_list = [_tr("Enabled"), _tr("Disabled"), _tr("Masked"), _tr("Unmasked"), _tr("Static"), _tr("Generated"), _tr("Enabled-runtime"), _tr("Indirect"), _tr("Active"), _tr("Inactive"), _tr("Loaded"), _tr("Dead"), _tr("Exited"), _tr("Running"), _tr("Not-found")]
         services_other_text_translation_list = [_tr("Yes"), _tr("No")]
 
         self.initial_already_run = 1
@@ -402,20 +402,27 @@ class Services:
                     selected_data_row.append(row_data_dict["service_name"])
                     selected_data_row_raw.append(row_data_dict["service_name"])
                 if column_shown == "unit_file_state":
-                    selected_data_row.append(row_data_dict["unit_file_state"])
-                    selected_data_row_raw.append(row_data_dict["unit_file_state"])
+                    if row_data_dict["unit_file_state"] == "":
+                        data = "-"
+                    else:
+                        data = _tr(row_data_dict["unit_file_state"])
+                    selected_data_row.append(data)
+                    selected_data_row_raw.append(data)
                 if column_shown == "main_pid":
                     selected_data_row.append(row_data_dict["main_pid"])
                     selected_data_row_raw.append(row_data_dict["main_pid"])
                 if column_shown == "active_state":
-                    selected_data_row.append(row_data_dict["active_state"])
-                    selected_data_row_raw.append(row_data_dict["active_state"])
+                    data = _tr(row_data_dict["active_state"])
+                    selected_data_row.append(data)
+                    selected_data_row_raw.append(data)
                 if column_shown == "load_state":
-                    selected_data_row.append(row_data_dict["load_state"])
-                    selected_data_row_raw.append(row_data_dict["load_state"])
+                    data = _tr(row_data_dict["load_state"])
+                    selected_data_row.append(data)
+                    selected_data_row_raw.append(data)
                 if column_shown == "sub_state":
-                    selected_data_row.append(row_data_dict["sub_state"])
-                    selected_data_row_raw.append(row_data_dict["sub_state"])
+                    data = _tr(row_data_dict["sub_state"])
+                    selected_data_row.append(data)
+                    selected_data_row_raw.append(data)
                 if column_shown == "memory_current":
                     if row_data_dict["memory_current"] == -1:
                         converted_data = "-"
