@@ -402,6 +402,7 @@ class Services:
                     selected_data_row.append(row_data_dict["service_name"])
                     selected_data_row_raw.append(row_data_dict["service_name"])
                 if column_shown == "unit_file_state":
+                    # Prevent translation problems if text is "".
                     if row_data_dict["unit_file_state"] == "":
                         translated_data = "-"
                     else:

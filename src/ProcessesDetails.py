@@ -602,6 +602,8 @@ class ProcessesDetails:
         """
 
         self.process_details_window.after_cancel(self.loop_id)
+        global processes_details_object_list
+        processes_details_object_list.remove(self)
         self.process_details_window.destroy()
         self = None
 
