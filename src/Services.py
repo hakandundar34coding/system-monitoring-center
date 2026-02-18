@@ -403,26 +403,26 @@ class Services:
                     selected_data_row_raw.append(row_data_dict["service_name"])
                 if column_shown == "unit_file_state":
                     if row_data_dict["unit_file_state"] == "":
-                        data = "-"
+                        translated_data = "-"
                     else:
-                        data = _tr(row_data_dict["unit_file_state"])
-                    selected_data_row.append(data)
-                    selected_data_row_raw.append(data)
+                        translated_data = _tr(row_data_dict["unit_file_state"])
+                    selected_data_row.append(translated_data)
+                    selected_data_row_raw.append(translated_data)
                 if column_shown == "main_pid":
                     selected_data_row.append(row_data_dict["main_pid"])
                     selected_data_row_raw.append(row_data_dict["main_pid"])
                 if column_shown == "active_state":
-                    data = _tr(row_data_dict["active_state"])
-                    selected_data_row.append(data)
-                    selected_data_row_raw.append(data)
+                    translated_data = _tr(row_data_dict["active_state"])
+                    selected_data_row.append(translated_data)
+                    selected_data_row_raw.append(translated_data)
                 if column_shown == "load_state":
-                    data = _tr(row_data_dict["load_state"])
-                    selected_data_row.append(data)
-                    selected_data_row_raw.append(data)
+                    translated_data = _tr(row_data_dict["load_state"])
+                    selected_data_row.append(translated_data)
+                    selected_data_row_raw.append(translated_data)
                 if column_shown == "sub_state":
-                    data = _tr(row_data_dict["sub_state"])
-                    selected_data_row.append(data)
-                    selected_data_row_raw.append(data)
+                    translated_data = _tr(row_data_dict["sub_state"])
+                    selected_data_row.append(translated_data)
+                    selected_data_row_raw.append(translated_data)
                 if column_shown == "memory_current":
                     if row_data_dict["memory_current"] == -1:
                         converted_data = "-"

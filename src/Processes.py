@@ -854,8 +854,9 @@ class Processes:
                     selected_data_row.append(row_data_dict["username"])
                     selected_data_row_raw.append(row_data_dict["username"])
                 elif column_shown == "status":
-                    selected_data_row.append(row_data_dict["status"])
-                    selected_data_row_raw.append(row_data_dict["status"])
+                    translated_data = _tr(row_data_dict["status"])
+                    selected_data_row.append(translated_data)
+                    selected_data_row_raw.append(translated_data)
                 elif column_shown == "cpu_usage":
                     converted_data = f'{row_data_dict["cpu_usage"]:.{processes_cpu_precision}f} %'
                     selected_data_row.append(converted_data)

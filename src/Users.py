@@ -254,8 +254,9 @@ class Users:
                     selected_data_row.append(row_data_dict["full_name"])
                     selected_data_row_raw.append(row_data_dict["full_name"])
                 if column_shown == "logged_in":
-                    selected_data_row.append(row_data_dict["logged_in"])
-                    selected_data_row_raw.append(row_data_dict["logged_in"])
+                    translated_data = _tr(row_data_dict["logged_in"])
+                    selected_data_row.append(translated_data)
+                    selected_data_row_raw.append(translated_data)
                 if column_shown == "uid":
                     selected_data_row.append(row_data_dict["uid"])
                     selected_data_row_raw.append(row_data_dict["uid"])
