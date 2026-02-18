@@ -4632,98 +4632,44 @@ def get_services_information():
 
     environment_type = get_environment_type()
 
-    services_data_dict = {}
-    service_unit_file_list_usr_lib_systemd = []
-    service_unit_file_list_lib_systemd = []
-    """if environment_type == "flatpak":
-        if os.path.isdir("/var/run/host/usr/lib/systemd/system/") == True:
-            service_unit_files_dir = "/var/run/host/usr/lib/systemd/system/"
-            service_unit_file_list_usr_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]
-        # There is no access to "/run" folder of the host OS in Flatpak environment.
-        if (subprocess.check_output(["flatpak-spawn", "--host", "realpath", "/lib/systemd/system/"], shell=False)).decode().strip() + "/" == "/lib/systemd/system/":
-            service_unit_files_dir = "/lib/systemd/system/"
-            service_unit_file_list_lib_systemd_scratch = (subprocess.check_output(["flatpak-spawn", "--host", "ls", service_unit_files_dir], shell=False)).decode().strip().split()
-            service_unit_file_list_lib_systemd = []
-            for file in service_unit_file_list_lib_systemd_scratch:
-                if file.endswith(".service") == True:
-                    service_unit_file_list_lib_systemd.append(file)
-    else:
-        if os.path.isdir("/usr/lib/systemd/system/") == True:
-            service_unit_files_dir = "/usr/lib/systemd/system/"
-            service_unit_file_list_usr_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]
-        if os.path.realpath("/lib/systemd/system/") + "/" == "/lib/systemd/system/":
-            service_unit_files_dir = "/lib/systemd/system/"
-            service_unit_file_list_lib_systemd = [filename for filename in os.listdir(service_unit_files_dir) if filename.endswith(".service")]"""
-
-
-
-    command_list = ["ls", "/usr/lib/systemd/system/"]
-    if get_environment_type() == "flatpak":
-        command_list = ["flatpak-spawn", "--host"] + command_list
-    service_unit_file_list_usr_lib_systemd_scratch = (subprocess.check_output(command_list, shell=False)).decode().strip().split()
-    service_unit_file_list_usr_lib_systemd = [filename for filename in service_unit_file_list_usr_lib_systemd_scratch if filename.endswith(".service")]
-    service_unit_files_dir = "/usr/lib/systemd/system/"
-
-    command_list = ["ls", "/lib/systemd/system/"]
-    if get_environment_type() == "flatpak":
-        command_list = ["flatpak-spawn", "--host"] + command_list
-    service_unit_file_list_lib_systemd_scratch = (subprocess.check_output(command_list, shell=False)).decode().strip().split()
-    service_unit_file_list_lib_systemd = [filename for filename in service_unit_file_list_lib_systemd_scratch if filename.endswith(".service")]
-    service_unit_files_dir = "/lib/systemd/system/"
-
-
-
-    # Get user services
-    current_user_name = os.environ.get('USER')
-    service_unit_files_dir_user = "/home/" + current_user_name + "/.config/systemd/user/"
-    try:
-        service_unit_file_list_user = [filename for filename in os.listdir(service_unit_files_dir_user) if filename.endswith(".service")]
-    except Exception:
-        service_unit_file_list_user = []
-
-    # Merge service file lists from different folders.
-    service_unit_file_list = service_unit_file_list_usr_lib_systemd + service_unit_file_list_lib_systemd + service_unit_file_list_user
-
-    # Remove duplicated service names
-    service_unit_file_list = sorted(list(set(service_unit_file_list)))
-
-    try:
-        if environment_type == "flatpak":
-            # There is no access to "/run" folder of the host OS in Flatpak environment.
-            service_files_from_run_systemd_list = (subprocess.check_output(["flatpak-spawn", "--host", "ls", "/run/systemd/units/"], shell=False)).decode().strip().split()
-        else:
-            service_files_from_run_systemd_list = [filename.split("invocation:", 1)[-1] for filename in os.listdir("/run/systemd/units/")]    # "/run/systemd/units/" directory contains loaded and non-dead services.
-    except FileNotFoundError:
-        service_files_from_run_systemd_list = []
-
+    # Get services from "systemctl list-units"
+    command_list = ["systemctl", "list-units", "--type=service", "--all", "--no-pager"]
     if environment_type == "flatpak":
-        service_unit_files_dir_scratch = service_unit_files_dir.split("/var/run/host")[-1]
-        service_unit_file_real_path_list = (subprocess.check_output(["flatpak-spawn", "--host", "ls", "-l", service_unit_files_dir_scratch], shell=False)).decode().strip().split("\n")
-        for service_file in service_unit_file_real_path_list:
-            if " -> " in service_file and "/dev/null" not in service_file:
-                file = service_file.split(" -> ")[0].split()[-1].strip()
-                if file in service_unit_file_list:
-                    service_unit_file_list.remove(file)
-    else:
-        for file in service_unit_file_list[:]:                                                # "[:]" is used for iterating over copy of the list because elements are removed during iteration. Otherwise incorrect operations (incorrect element removals) are performed on the list.
-            if os.path.islink(service_unit_files_dir + file) == True and os.path.realpath(service_unit_files_dir + file) != "/dev/null":    # Some service files are link to other ".service" files in the same directory. These links are removed from the list. Not all link files are removed. Link files with "/dev/null" are kept in the list.
-                service_unit_file_list.remove(file)
+        command_list = ["flatpak-spawn", "--host"] + command_list
+    systemctl_output_lines = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
 
-    # Get all service names (joining service names from "systemctl list-unit-files ..." and "systemctl list-units ..."). Some services are run multiple times. For example there is one instance of "user@.service" from ""systemctl list-unit-files ..." command but there are two loaded services (user@1000.service and user@1001.service) per logged in user. There are several examples for this situation. "user@.service" is removed from list, "user@1000.service" and "user@1001.service" appended into list for getting information for all services correctly.
-    service_list = []
-    for service_unit_file in service_unit_file_list:
-        if "@" not in service_unit_file:
-            service_list.append(service_unit_file)
+    # Delete header and footer lines.
+    del systemctl_output_lines[0]
+    del systemctl_output_lines[-7:]
+
+    service_list_units = []
+    for service in systemctl_output_lines:
+        service_name = service.strip("● ").split()[0]
+        service_list_units.append(service_name)
+
+    # Get services from "systemctl list-unit-files"
+    command_list = ["systemctl", "list-unit-files", "--type=service", "--no-pager"]
+    if environment_type == "flatpak":
+        command_list = ["flatpak-spawn", "--host"] + command_list
+    systemctl_output_lines = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
+
+    # Delete header and footer lines.
+    del systemctl_output_lines[0]
+    del systemctl_output_lines[-2:]
+
+    service_list_unit_files = []
+    for service in systemctl_output_lines:
+        service_name = service.strip().split()[0]
+        service_list_unit_files.append(service_name)
+
+    # Add all services in one list.
+    service_list = list(service_list_units)
+    for service in service_list_unit_files:
+        service_name = service.strip(".service")
+        if service_name.endswith("@") == True:
             continue
-        else:
-            service_unit_file_split = service_unit_file.split("@")[0]
-            for service_loaded in service_files_from_run_systemd_list:
-                if "@" in service_loaded:
-                    service_loaded = service_loaded.split("invocation:")[-1]
-                    if service_unit_file_split == service_loaded.split("@")[0]:
-                        service_list.append(service_loaded)
-                        continue
-    service_list = sorted(service_list, key=str.lower)
+        if service not in service_list:
+            service_list.append(service)
 
     # Generate "unit_files_command_parameter_list". This list will be used for constructing commandline for getting
     # service data per service file.
@@ -4764,6 +4710,7 @@ def get_services_information():
             systemctl_show_command_lines = start_processes_func(number_of_logical_cores, unit_files_command)
 
     # Get service information by processing command output
+    services_data_dict = {}
     for i, service_name in enumerate(service_list):
         systemctl_show_command_lines_split = systemctl_show_command_lines[i]
         # Get service ID
@@ -4805,9 +4752,6 @@ def get_services_information():
 
         # Add service sub-dictionary to dictionary
         services_data_dict[service_name] = service_data_dict
-
-    # Add service related lists and variables
-    #services_data_dict["service_list"] = service_list
 
     return services_data_dict
 
