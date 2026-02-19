@@ -1,5 +1,16 @@
 # System Monitoring Center
 
+### v3.10 (19.02.2026)
+  * Improvements for getting service list (Services)
+  * Minor GUI improvements (About dialog)
+  * Minor code simplifications (System, Processes)
+  * Changes for Flatpak packaging
+  * Fix: Error if connection quality is not get
+  * Fix: Light/Dark theme detection (Flatpak)
+  * Fix system language detection (Flatpak)
+  * Fix: translations in Processes,Users,Services columns
+  * Fix: max number of process details window
+
 ### v3.0.0 (11.02.2026)
   * New: Tk (Tkinter) is used for application GUI
   * All tab settings are moved to Settings window

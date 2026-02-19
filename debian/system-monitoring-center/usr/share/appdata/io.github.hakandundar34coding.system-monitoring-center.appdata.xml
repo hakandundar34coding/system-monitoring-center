@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2023 Hakan Dündar -->
+<component type="desktop-application">
+  <id>io.github.hakandundar34coding.system-monitoring-center</id>
+  <launchable type="desktop-id">io.github.hakandundar34coding.system-monitoring-center.desktop</launchable>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0</project_license>
+  <name>System Monitoring Center</name>
+  <name xml:lang="zh-Hant-TW">系統監控中心</name>
+  <name xml:lang="zh-Hans-CN">系统监视中心</name>
+  <name xml:lang="tr">Sistem Gözlem Merkezi</name>
+  <name xml:lang="ru-RU">Центр мониторинга системы</name>
+  <name xml:lang="pt-PT">Centro de Monitorização do Sistema</name>
+  <name xml:lang="pt-BR">Central de Monitoramento do Sistema</name>
+  <name xml:lang="pl">Centrum Monitorowania Systemu</name>
+  <name xml:lang="hu">Rendszermegfigyelő központ</name>
+  <name xml:lang="fr">Centre de surveillance du système</name>
+  <name xml:lang="fa">مرکز دیده‌ بانی رایانه</name>
+  <name xml:lang="es">Centro de Monitoreo del Sistema</name>
+  <name xml:lang="de">Systemüberwachungszentrum</name>
+  <name xml:lang="cs">Centrum monitorování systému</name>
+  <summary>Multi-featured system monitor</summary>
+  <summary xml:lang="zh-Hant-TW">多功能系統監控中心</summary>
+  <summary xml:lang="zh-Hans-CN">多功能系统监视器</summary>
+  <summary xml:lang="tr">Çok özellikli sistem gözlemcisi</summary>
+  <summary xml:lang="ru-RU">Многофункциональный системный монитор</summary>
+  <summary xml:lang="pt-PT">Monitor de sistema multi-recursos</summary>
+  <summary xml:lang="pt-BR">Monitor de Sistema com vários recursos</summary>
+  <summary xml:lang="pl">Wielofunkcyjny monitor systemu</summary>
+  <summary xml:lang="hu">Többcélú rendszerfigyelő</summary>
+  <summary xml:lang="fr">Moniteur système multi-fonctions</summary>
+  <summary xml:lang="es">Monitor del sistema con múltiples funciones</summary>
+  <summary xml:lang="de">Multifunktioneller Systemmonitor</summary>
+  <summary xml:lang="cs">Multifunkční systémový monitor</summary>
+  <developer id="io.github.hakandundar34coding">
+    <name>Hakan Dündar</name>
+  </developer>
+  <url type="homepage">https://github.com/hakandundar34coding/system-monitoring-center</url>
+  <url type="bugtracker">https://github.com/hakandundar34coding/system-monitoring-center/issues</url>
+  <url type="translate">https://github.com/hakandundar34coding/system-monitoring-center/blob/master/docs/translations.md</url>
+  <url type="vcs-browser">https://github.com/hakandundar34coding/system-monitoring-center</url>
+  <provides>
+    <id>io.github.hakandundar34coding.system-monitoring-center.desktop</id>
+  </provides>
+  <replaces>
+    <id>io.github.hakandundar34coding.system-monitoring-center.desktop</id>
+  </replaces>
+  <content_rating type="oars-1.1"/>
+  <description>
+    <p>A multi-featured, low-resource system monitor that lets you easily track and manage CPU, RAM, disk, network, and GPU usage</p>
+    <p>Features:</p>
+    <ul>
+      <li>Detailed system performance and usage usage monitoring/managing features</li>
+      <li>Monitoring CPU, RAM, Disk, Network, GPU hardware/usage information</li>
+      <li>Monitoring and managing processes and services (systemd)</li>
+      <li>Monitoring users, sensors and general system information</li>
+      <li>Supports PolicyKit. No need to run the application with "sudo"</li>
+      <li>Hardware selection options (selecting CPU cores, disks, network cards, GPUs)</li>
+      <li>Plotting performance data of multiple devices at the same time</li>
+      <li>Interactive charts for querying performance data on any point</li>
+      <li>Option for showing processes as tree or list</li>
+      <li>Optimized for low CPU usage</li>
+      <li>Customization menus for almost all tabs</li>
+      <li>Supports ARM architecture</li>
+      <li>Free and open source</li>
+    </ul>
+    <p>Notes for Limitations:</p>
+    <ul>
+      <li>GPU usage information availability depends on vendor/driver.</li>
+      <li>GPU load is not tracked if GPU tab is switched off (for lower CPU usage).</li>
+      <li>Virtual machines may not provide CPU min-max frequencies, sensors and RAM hardware information.</li>
+      <li>Non-Flatpak versions of the application has higher performance (start speed, CPU, RAM usage).</li>
+    </ul>
+    <p>Notes for Flatpak Support:</p>
+    <ul>
+      <li>Flatpak version of the application uses some permissions (like not sandboxed) to access performance/system information of the host OS.</li>
+      <li>Flatpak package of the application may be installed for system-wide instead of user-specific for avoiding source code modifications.</li>
+    </ul>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/summary_tab_dark_system_theme.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/cpu_tab_dark_system_theme.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/cpu_tab_white_system_theme.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/memory_tab_white_system_theme.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/disk_tab_menu_white_system_theme.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/network_tab_dark_system_theme.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/gpu_tab_dark_system_theme.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/sensors_tab_dark_system_theme.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/processes_list_view_dark_system_theme.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/services_tab_dark_system_theme.png</image>
+    </screenshot>
+  </screenshots>
+  <releases>
+    <release version="3.0.0" date="2026-02-11">
+      <description>
+        <ul>
+          <li>New: Tk (Tkinter) is used for application GUI</li>
+          <li>All tab settings are moved to Settings window</li>
+          <li>Settings simplifications (removed color, precision settings)</li>
+          <li>Simplified remember selected tab settings</li>
+          <li>Multiprocessing is disabled for &gt;= Python 3.14 (Services)</li>
+          <li>Several code simplifications</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.26.0" date="2023-10-31">
+      <description>
+        <ul>
+          <li>New: Portage package count (System tab)</li>
+          <li>Add: Dialog for end of support announcement for SMC v2.x.x</li>
+          <li>Disabled GPU usage and GPU memory columns (Processes tab)</li>
+          <li>Minor improvements (code, translations, etc.)</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.25.1" date="2023-10-13">
+      <description>
+        <ul>
+          <li>Fix: High memory consumption in some cases (AMD GPUs)</li>
+          <li>Disabled external tool usage for video engine load (AMD GPU)</li>
+          <li>Disabled external tool usage for GPU info. columns (AMD GPU)</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.25.0" date="2023-10-13">
+      <description>
+        <ul>
+          <li>New: Temperature unit option (Sensors tab)</li>
+          <li>New: Chinese (Simplified) translations</li>
+          <li>Minor improvements (stability, code, GUI, etc.)</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.24.0" date="2023-10-06">
+      <description>
+        <ul>
+          <li>New: Video encoding/decoding engine load for AMD GPUs</li>
+          <li>New: GPU usage and GPU memory columns (AMD GPUs only)</li>
+          <li>New: Option for hiding kernel threads (Processes tab)</li>
+          <li>New: Show F5 shortcut of Refresh action (main menu)</li>
+          <li>Updated dependency versions (Flatpak)</li>
+          <li>Fix: Empty lists if old version of the application is run</li>
+          <li>Minor improvements (performance, translations, etc.)</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.23.0" date="2023-09-29">
+      <description>
+        <ul>
+          <li>New: Process info. summation of multiple process selection</li>
+          <li>New: Refresh action (main menu)</li>
+          <li>New: F5 key shortcut for refreshing current tab</li>
+          <li>New: RAM cached and swap cached values (Memory tab)</li>
+          <li>Fix: Alignment of performance summary on headerbar</li>
+          <li>Minor improvements (GUI, translations)</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.22.2" date="2023-09-23">
+      <description>
+        <ul>
+          <li>Fix: Blocking code when spinner is used on some systems</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.22.1" date="2023-09-17">
+      <description>
+        <ul>
+          <li>Fix: Listing processes if .desktop files are broken link</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.22.0" date="2023-09-17">
+      <description>
+        <ul>
+          <li>New: CPU, memory, GPU hardware information (System tab)</li>
+          <li>Updated translations (pt_PT, tr, ru_RU)</li>
+          <li>Updated dependency versions (Flatpak)</li>
+          <li>Minor improvements</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.21.2" date="2023-09-05">
+      <description>
+        <ul>
+          <li>Updated translations</li>
+          <li>Minor improvements (performance, code, etc.)</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.21.1" date="2023-08-13">
+      <description>
+        <ul>
+          <li>Minor improvements</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.21.0" date="2023-08-12">
+      <description>
+        <ul>
+          <li>New: CPU cache options for core and socket (CPU tab)</li>
+          <li>Improvements for CPU cache values (CPU tab)</li>
+          <li>Improvements for showing processes using max CPU (CPU tab)</li>
+          <li>Minor improvements (Summary tab)</li>
+          <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.20.2" date="2023-08-05">
+      <description>
+        <ul>
+          <li>Updated Russian translations</li>
+          <li>Fix: GPU performance information for some old GPUs</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.20.1" date="2023-08-04">
+      <description>
+        <ul>
+          <li>Removed unused code that prevents listing processes</li>
+          <li>Fix: GPU performance information for some old GPUs</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.20.0" date="2023-08-04">
+      <description>
+        <ul>
+          <li>New: Option for showing processes using max CPU (CPU tab)</li>
+          <li>New: Process search option for name+cmdline+pid (Proceses)</li>
+          <li>New: Option for searching processes by PID (Processes tab)</li>
+          <li>Changed: Default process search option as name+cmdline+pid</li>
+          <li>Updated Russian translations</li>
+          <li>Updated dependency versions (Flatpak)</li>
+          <li>Fix: Listing processes if sorting column is removed</li>
+          <li>Fix: GPU performance information for some old GPUs</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.19.0" date="2023-07-29">
+      <description>
+        <ul>
+          <li>New: Show GPU usage option (Summary tab)</li>
+          <li>Updated Portuguese (Portugal) translations</li>
+          <li>Fix: Listing user specific services (Services tab)</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.18.3" date="2023-07-20">
+      <description>
+        <ul>
+          <li>Updated Russian translations</li>
+          <li>Fix: Errors when getting process status on some kernels</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.18.2" date="2023-07-17">
+      <description>
+        <ul>
+          <li>Fix: Error when getting information of some GPUs</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.18.1" date="2023-07-16">
+      <description>
+        <ul>
+          <li>Fix: Showing GPU information of some GPUs</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.18.0" date="2023-07-10">
+      <description>
+        <ul>
+          <li>New: GPU memory, video encoding/decoding graphs (GPU tab)</li>
+          <li>New: GPU details window (GPU tab)</li>
+          <li>New: GPU max power value (GPU tab)</li>
+          <li>New: Process CPU affinity (Processes right click menu)</li>
+          <li>New: Services help window (Services right click menu)</li>
+          <li>New: APK package (Linux) count (System tab)</li>
+          <li>Improved: GPU usage percentage of AMD GPUs</li>
+          <li>GUI Improvements for Process Custom Priority window</li>
+          <li>Fix: Errors if psproc package is not installed (CPU tab)</li>
+          <li>Several improvements (GUI, code, translations, etc.)</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.17.3" date="2023-07-10">
+      <description>
+        <ul>
+          <li>Improved: Selected disk and network card names (Summary tab)</li>
+          <li>Minor improvements (code, etc.)</li>
+          <li>Updated Russian translations</li>
+          <li>Fix: Detecting system disk if it is encrypted</li>
+          <li>Fix: Errors if procps is not installed (CPU, System tabs)</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.17.2" date="2023-07-06">
+      <description>
+        <ul>
+          <li>Minor improvements</li>
+          <li>Fix: RAM capacity if physical capacity is not detected</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.17.1" date="2023-07-02">
+      <description>
+        <ul>
+          <li>Updated translation files</li>
+          <li>Fix: Device selection by using unified device-tab list</li>
+          <li>Fix: Running loop function for every System tab switch</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.17.0" date="2023-07-01">
+      <description>
+        <ul>
+          <li>New: Window opacity option</li>
+          <li>Updated translation files</li>
+          <li>Updated dependency versions (Flatpak)</li>
+          <li>Fix: Confusions if multiple columns have same title</li>
+          <li>Fix: GPU usage for AMD GPUs</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.16.1" date="2023-06-27">
+      <description>
+        <ul>
+          <li>Several improvements (code, etc.)</li>
+          <li>Fix: Confusions if multiple columns have same title</li>
+          <li>Fix: Show process details if right Enter is pressed</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.16.0" date="2023-06-20">
+      <description>
+        <ul>
+          <li>New: Setting app. language independent of system</li>
+          <li>Fix: Rendering text for some languages (graphics)</li>
+          <li>Fix: Listing processes with some cmdline characters</li>
+          <li>Minor improvements (Performance, GUI, code)</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.15.1" date="2023-06-11">
+      <description>
+        <ul>
+          <li>Minor performance improvements for Processes tab</li>
+          <li>Fix: Recursive CPU,Memory,Memory-RSS columns</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.15.0" date="2023-06-06">
+      <description>
+        <ul>
+          <li>New: Recursive CPU,Memory,Memory-RSS columns (Processes)</li>
+          <li>New: Multiple process selection and operations</li>
+          <li>Updated Portuguese(Brazilian,Portugal), Russian translations</li>
+          <li>Updated dependency versions (Flatpak)</li>
+          <li>Improvements for lower CPU usage (Processes)</li>
+          <li>Changed: Command line column instead of path (Processes)</li>
+          <li>Fix: User names of some processes</li>
+          <li>Fix: Number of processes of users</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.14.0" date="2023-05-19">
+      <description>
+        <ul>
+          <li>New: CPU time column option (Processes)</li>
+          <li>New: Divide CPU usage by core count option (Processes)</li>
+          <li>Improvements for OS information of some systems</li>
+          <li>Updated dependencies</li>
+          <li>Updated translations</li>
+          <li>Fix: Searching processes if processes are listed as tree</li>
+          <li>Fix: Showing processes if .desktop files are not read</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.13.0" date="2023-05-08">
+      <description>
+        <ul>
+          <li>New: Ctrl+F shortcut for focus of search entries</li>
+          <li>New: Chinese (Traditional) translations</li>
+          <li>Improvements for unified tab-device selection list behavior</li>
+          <li>Updated dependency versions (Flatpak)</li>
+          <li>Fix: Process sorting column (Processes tab)</li>
+          <li>Fix: Sorting processes by name (Processes tab)</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.12.0" date="2023-04-25">
+      <description>
+        <ul>
+          <li>New: Support for encrypted disks (Disk tab)</li>
+          <li>Performance improvements for Disk tab</li>
+          <li>Changed: Process tooltip from commandline instead of name</li>
+          <li>Fix: Remembering column order, width on several tabs</li>
+          <li>Minor GUI improvements</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.11.0" date="2023-04-21">
+      <description>
+        <ul>
+          <li>New: Process search options (name and command line)</li>
+          <li>Improvements for computer type on virtual machines</li>
+          <li>Improvements for Summary tab graphics</li>
+          <li>Updated dependency versions (Flatpak)</li>
+          <li>Fix: Expanding process tree if a process starts/ends</li>
+          <li>Fix: Window position after window size changes</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.10.0" date="2023-04-01">
+      <description>
+        <ul>
+          <li>Updated dependency versions (Flatpak)</li>
+          <li>Fix: Error when Services tab is open w/o systemd</li>
+          <li>Fix: Empty service list on some systems</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.9.0" date="2023-03-23">
+      <description>
+        <ul>
+          <li>Reduced CPU usage for some cases (tab resets, etc.)</li>
+          <li>Updated dependency versions (Flatpak)</li>
+          <li>Fix: Getting processes if error exists in shell output</li>
+          <li>Fix: Dependencies for .deb packaging</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.8.1" date="2023-03-08">
+      <description>
+        <ul>
+          <li>Fix: Errors for style definitions (GTK 4.10)</li>
+          <li>Fix: GUI images when app. is run from source code</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.8.0" date="2023-03-03">
+      <description>
+        <ul>
+          <li>Changed build system and project structure</li>
+          <li>Removed code for Python package of the application</li>
+          <li>Updated dependencies (Flatpak)</li>
+          <li>Updated Russian translations</li>
+          <li>Minor improvements</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.7.0" date="2023-02-18">
+      <description>
+        <ul>
+          <li>New: Changing graph point count (Process Details)</li>
+          <li>Minor improvements for graphics (Summary tab)</li>
+          <li>Code changes for OOP (Sensors tab)</li>
+          <li>Updated dependencies (Flatpak)</li>
+          <li>Updated French translations</li>
+          <li>Fix: Showing the previous notebook tab (Services tab)</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.6.0" date="2023-01-30">
+      <description>
+        <ul>
+          <li>Updated French translations</li>
+          <li>Fix: Version number</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.5.0" date="2023-01-24">
+      <description>
+        <ul>
+          <li>New: Vertically resizable unified tab-device list</li>
+          <li>New: French translations</li>
+          <li>Improvements for detection of new device vendor-model</li>
+          <li>GUI Improvements for showing long disk names (device list)</li>
+          <li>GUI improvements for dimmed graph labels</li>
+          <li>Improvements for zram device information (Disk tab)</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.4.1" date="2023-01-09">
+      <description>
+        <ul>
+          <li>Fix: Update device list (unified tab-device list)</li>
+          <li>Fix: Process name of the application (Flatpak)</li>
+          <li>Code simplifications for Performance functions</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.4.0" date="2023-01-02">
+      <description>
+        <ul>
+          <li>New: Spanish translations</li>
+          <li>Updated Russian translations</li>
+          <li>Improved read,write,download,upload speed accuracy</li>
+          <li>Fix: GUI freeze when some online drives are connected</li>
+          <li>Minor improvements (code simplifications, project files, etc.)</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.3.0" date="2022-12-26">
+      <description>
+        <ul>
+          <li>Updated Portuguese (Portugal) translations</li>
+          <li>Updated dependency version (Flatpak)</li>
+          <li>Fix: Show processes of current user</li>
+          <li>Minor improvements (bug fix, code simplifications, etc.)</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.2.0" date="2022-12-05">
+      <description>
+        <ul>
+          <li>New: Adw. theme is set for the GUI</li>
+          <li>Visual improvements for Summary tab graphics</li>
+          <li>Visual improvements for Processes tab list</li>
+          <li>Updated Portuguese (Portugal) translations</li>
+          <li>Improvements for detecting desktop environment</li>
+          <li>Improvements for detecting window manager</li>
+          <li>Code simplifications, bug fixes, etc.</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.1.0" date="2022-11-28">
+      <description>
+        <ul>
+          <li>New: Cell colors for process CPU,memory,disk data</li>
+          <li>Improvements for system integration</li>
+          <li>Updated: Portuguese (Portugal) translations</li>
+          <li>Minor GUI improvements for menus</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.0.3" date="2022-11-23">
+      <description>
+        <ul>
+          <li>Fix: Disk capacity (mass storage) information</li>
+          <li>Fix: Info. when process stopped is (Process details window)</li>
+          <li>Several code simplifications</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.0.2" date="2022-11-21">
+      <description>
+        <ul>
+          <li>Fix: Resetting all settings when GPU tab is opened</li>
+          <li>Fix: Window size when when default tab is changed</li>
+          <li>Fix: Hiding Services tab if systemd is not used</li>
+          <li>Several code simplifications</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.0.1" date="2022-11-20">
+      <description>
+        <ul>
+          <li>Fix: Application crash after changing remembering last tabs</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.0.0" date="2022-11-20">
+      <description>
+        <ul>
+          <li>New: GTK4 GUI toolkit is used instead of GTK3</li>
+          <li>New: Design changes for main/tab customization/right click menus</li>
+          <li>New: Light/Dark GUI option</li>
+          <li>New: Monitor resolution and refresh rate for multiple monitors</li>
+          <li>Fix: Several GTK3 bugs are removed by switching to GTK4</li>
+          <li>Several code simplifications</li>
+          <li>Several improvements (code, GUI, translations, etc.)</li>
+        </ul>
+      </description>
+    </release>
+    <release version="1.33.0" date="2022-11-07">
+      <description>
+        <ul>
+          <li>Improved: CPU usage of user processes for Flatpak</li>
+          <li>Improved: Process shared memory support for Flatpak</li>
+          <li>Improved: Physical RAM of some ARM devices for Flatpak</li>
+          <li>Improvements for lower CPU usage (Processes tab)</li>
+          <li>Improvements for lower CPU usage (Process details)</li>
+          <li>Fix: Disk information for Flatpak</li>
+          <li>Minor improvements (GUI, translations, etc.)</li>
+        </ul>
+      </description>
+    </release>
+    <release version="1.32.0" date="2022-11-04">
+      <description>
+        <ul>
+          <li>Simplified main menu</li>
+          <li>Replaced several GUI images with built-in GTK images</li>
+          <li>Fix: Getting disk/process information for old distributions</li>
+          <li>Minor improvements (GUI, translations, etc.)</li>
+        </ul>
+      </description>
+    </release>
+    <release version="1.31.0" date="2022-11-03">
+      <description>
+        <ul>
+          <li>Improved: Process details window support for Flatpak</li>
+          <li>Improved: Process right click menu for Flatpak</li>
+          <li>Changed: Process details windows count limit: 8 (Flatpak: 3)</li>
+          <li>Updated: German translations</li>
+          <li>Removed: Parent/child process list (Process details window)</li>
+          <li>Fix: GUI images for Flatpak</li>
+          <li>Minor improvements (GUI, translations, etc.)</li>
+        </ul>
+      </description>
+    </release>
+    <release version="1.30.1" date="2022-10-29">
+      <description>
+        <ul>
+          <li>Fix: Application shortcut generation</li>
+        </ul>
+      </description>
+    </release>
+    <release version="1.30.0" date="2022-10-29">
+      <description>
+        <ul>
+          <li>Improved: Processes tab information support for Flatpak</li>
+          <li>Improved: Disk usage data support for Flatpak</li>
+          <li>Improved: User information support for Flatpak</li>
+          <li>Improved: SSID name support for Flatpak</li>
+          <li>Improved: Display manager info. support for Flatpak</li>
+          <li>Fix: Closing user account details window if deleted</li>
+          <li>Fix: Detection of dark system theme for Flatpak</li>
+          <li>Minor improvements (start speed, code etc.)</li>
+        </ul>
+      </description>
+    </release>
+    <release version="1.29.0" date="2022-10-23">
+      <description>
+        <ul>
+          <li>New: Flatpak packaging</li>
+        </ul>
+      </description>
+    </release>
+    <release version="1.28.0" date="2022-10-11">
+      <description>
+        <ul>
+          <li>New: Option for language selection</li>
+          <li>New: Chinese (Simplified) translations</li>
+          <li>Minor improvements (GUI, translations, etc.)</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+</component>

@@ -1,0 +1,450 @@
+import os
+
+
+class Config:
+
+    def __init__(self):
+
+        # Define configration file and directory.
+        # "XDG_CONFIG_HOME" may not be defined on several distributions.
+        user_config_folder = config_dir = os.environ.get("XDG_CONFIG_HOME", os.environ.get("HOME") + "/.config")
+        self.config_folder_path = user_config_folder + "/system-monitoring-center/"
+        self.config_file_path = self.config_folder_path + "config.txt"
+
+        # Define read-only values
+        # number_precision_list data info: [[ordering number, used in the code to get data, data unit, precision number], ...]
+        self.number_precision_list = [[0, '0', 0], [1, '0.0', 1], [2, '0,00', 2], [3, '0,000', 3]]
+
+        # Read settings
+        self.config_read_func()
+
+
+    def config_read_func(self):
+        """
+        Read settings (when the application is started) from the configration file.
+        """
+
+        # Define variables to read config data
+        # This value is used for resetting all settings. There is no relationship between this value and application version.
+        # This integer value is increased "1" in the new application release if resetting is wanted by the developer.
+        # Code reads this value from the config file and compares with the value in the code.
+        # All settings are reset if integer value of this value is bigger than the value in the config file.
+        # There is no action if integer value of this value is smaller than the value in the config file.
+        self.reset_all_settings_with_new_release_value = 6
+        self.config_variables = []
+        self.config_values = []
+
+        # Read the config file
+        try:
+            with open(self.config_file_path) as reader:
+                config_lines = reader.read().split("\n")
+        except Exception:
+            # Generate config folder if it does not exist.
+            if os.path.exists(self.config_folder_path) == False:
+                os.makedirs(self.config_folder_path)
+            # Read/reset default config data and save to file
+            self.config_default_reset_all_func()
+            self.config_save_func()
+            return
+
+        # Add config names and values into separate lists
+        for line in config_lines:
+            if " = " in line:
+                line_split = line.split(" = ")
+                self.config_variables.append(line_split[0])
+                self.config_values.append(line_split[1])
+
+        # Read/reset default config data before getting values from the lists which is read from file because some new settings may be added and they may not be present in the config file.
+        # Default values are read and modified by the user defined values if they are available.
+        self.config_default_reset_all_func()
+
+        # Get config data from the lists which is read from file
+        try:
+            self.config_get_values_func()
+        except Exception:
+            pass
+
+        # Reset user config data if relevant setting is changed by the developer
+        if self.reset_all_settings_with_new_release < self.reset_all_settings_with_new_release_value:
+            self.config_default_reset_all_func()
+            self.config_save_func()
+
+
+    def config_default_reset_all_func(self):
+        """
+        Run functions for all default settings.
+        """
+
+        self.config_default_general_func()
+        self.config_default_performance_summary_func()
+        self.config_default_performance_cpu_func()
+        self.config_default_performance_memory_func()
+        self.config_default_performance_disk_func()
+        self.config_default_performance_network_func()
+        self.config_default_performance_gpu_func()
+        self.config_default_performance_sensors_func()
+        self.config_default_processes_func()
+        self.config_default_users_func()
+        self.config_default_services_func()
+
+
+    def config_default_general_func(self):
+        """
+        Set default settings (General).
+        """
+
+        self.reset_all_settings_with_new_release = self.reset_all_settings_with_new_release_value 
+        self.language = "system"
+        self.light_dark_theme = "system"
+        self.update_interval = 0.75
+        self.chart_data_history = 150
+        self.default_main_tab = 0
+        self.performance_tab_default_sub_tab = 0
+        self.performance_summary_on_the_headerbar = 1
+        self.remember_last_opened_tabs = 0
+        self.remember_last_selected_hardware = 0
+        self.remember_window_size = "0x0"
+        self.main_window_opacity = 1.0
+
+
+    def config_default_performance_summary_func(self):
+        """
+        Set default settings (Summary tab).
+        """
+
+        self.summary_show_gpu_usage = 0
+
+
+    def config_default_performance_cpu_func(self):
+        """
+        Set default settings (CPU tab).
+        """
+
+        self.chart_line_color_cpu_percent = [0.29, 0.78, 0.0, 1.0]
+        self.show_cpu_usage_per_core = 0
+        self.performance_cpu_usage_percent_precision = 0
+        self.show_processes_using_max_cpu = 0
+        self.show_cpu_cache_type = "socket"
+        self.selected_cpu_core = ""
+
+
+    def config_default_performance_memory_func(self):
+        """
+        Set default settings (Memory tab).
+        """
+
+        self.chart_line_color_memory_percent = [0.27, 0.49, 1.0, 1.0]
+        self.show_memory_usage_per_memory = 0
+        self.performance_memory_data_precision = 1
+        self.performance_memory_data_unit = 0
+
+
+    def config_default_performance_disk_func(self):
+        """
+        Set default settings (Disk tab).
+        """
+
+        self.chart_line_color_disk_speed_usage = [1.0, 0.44, 0.17, 1.0]
+        self.show_disk_usage_per_disk = 0
+        self.performance_disk_data_precision = 1
+        self.performance_disk_data_unit = 0
+        self.performance_disk_speed_bit = 0
+        self.plot_disk_read_speed = 1
+        self.plot_disk_write_speed = 1
+        self.hide_loop_ramdisk_zram_disks = 1
+        self.selected_disk = ""
+
+
+    def config_default_performance_network_func(self):
+        """
+        Set default settings (Network tab).
+        """
+
+        self.chart_line_color_network_speed_data = [0.56, 0.30, 0.78, 1.0]
+        self.show_network_usage_per_network_card = 0
+        self.performance_network_data_precision = 1
+        self.performance_network_data_unit = 0
+        self.performance_network_speed_bit = 0
+        self.plot_network_download_speed = 1
+        self.plot_network_upload_speed = 1
+        self.selected_network_card = ""
+
+
+    def config_default_performance_gpu_func(self):
+        """
+        Set default settings (GPU tab).
+        """
+
+        self.chart_line_color_fps = [1.0, 0.09, 0.09, 1.0]
+        self.selected_gpu = ""
+
+
+    def config_default_performance_sensors_func(self):
+        """
+        Set default settings (Sensors tab).
+        """
+
+        self.sensors_columns_shown = ["device_name", "sensor_name", "current_value", "max_value", "critical_value"]
+        self.sensors_row_sorting_column = "device_name"
+        self.sensors_row_sorting_order = 0
+        self.temperature_unit = "celsius"
+
+
+    def config_default_processes_func(self):
+        """
+        Set default settings (Processes tab).
+        """
+
+        self.show_processes_of_all_users = 1
+        self.hide_kernel_threads = 0
+        self.show_processes_as_tree = 0
+        self.show_tree_lines = 0
+        self.show_multiple_processes_summation = 1
+        self.processes_cpu_precision = 0
+        self.processes_cpu_divide_by_core = 1
+        self.processes_memory_data_precision = 1
+        self.processes_memory_data_unit = 0
+        self.processes_disk_data_precision = 1
+        self.processes_disk_data_unit = 0
+        self.processes_disk_speed_bit = 0
+        self.processes_gpu_precision = 0
+        self.processes_gpu_memory_data_precision = 1
+        self.processes_gpu_memory_data_unit = 0
+        self.warn_before_stopping_processes = 1
+        self.processes_columns_shown = ["name", "pid", "username", "cpu_usage", "memory_rss", "write_speed", "read_speed"]
+        self.processes_row_sorting_column = "name"
+        self.processes_row_sorting_order = 0
+
+
+    def config_default_users_func(self):
+        """
+        Set default settings (Users tab).
+        """
+
+        self.users_cpu_precision = 0
+        self.users_columns_shown = ["user_name", "logged_in", "uid", "process_count", "home_directory", "group_name", "cpu_usage"]
+        self.users_row_sorting_column = "user_name"
+        self.users_row_sorting_order = 0
+
+
+    def config_default_services_func(self):
+        """
+        Set default settings (Services tab).
+        """
+
+        self.services_memory_data_precision = 1
+        self.services_memory_data_unit = 0
+        self.services_columns_shown = ["service_name", "unit_file_state", "main_pid", "active_state", "load_state", "sub_state", "memory_current", "description"]
+        self.services_row_sorting_column = "service_name"
+        self.services_row_sorting_order = 0
+
+
+    def config_get_values_func(self):
+        """
+        Read settings from the configration file.
+        Adding a new setting:
+
+        if "new_setting" in config_variables:
+            self.new_setting = int(config_values[config_variables.index("new_setting")])
+        else:
+            pass
+        """
+
+        config_variables = self.config_variables
+        config_values = self.config_values
+
+        self.reset_all_settings_with_new_release = int(config_values[config_variables.index("reset_all_settings_with_new_release")])
+        self.language = config_values[config_variables.index("language")]
+        self.light_dark_theme = config_values[config_variables.index("light_dark_theme")]
+        self.update_interval = float(config_values[config_variables.index("update_interval")])
+        self.chart_data_history = int(config_values[config_variables.index("chart_data_history")])
+        self.default_main_tab = int(config_values[config_variables.index("default_main_tab")])
+        self.performance_tab_default_sub_tab = int(config_values[config_variables.index("performance_tab_default_sub_tab")])
+        self.performance_summary_on_the_headerbar = int(config_values[config_variables.index("performance_summary_on_the_headerbar")])
+        self.remember_last_opened_tabs = int(config_values[config_variables.index("remember_last_opened_tabs")])
+        self.remember_last_selected_hardware = int(config_values[config_variables.index("remember_last_selected_hardware")])
+        self.remember_window_size = config_values[config_variables.index("remember_window_size")]
+        self.main_window_opacity = float(config_values[config_variables.index("main_window_opacity")])
+        self.summary_show_gpu_usage = int(config_values[config_variables.index("summary_show_gpu_usage")])
+
+        self.chart_line_color_cpu_percent = [float(value) for value in config_values[config_variables.index("chart_line_color_cpu_percent")].strip("[]").split(", ")]
+        self.show_cpu_usage_per_core = int(config_values[config_variables.index("show_cpu_usage_per_core")])
+        self.performance_cpu_usage_percent_precision = int(config_values[config_variables.index("performance_cpu_usage_percent_precision")])
+        self.selected_cpu_core = config_values[config_variables.index("selected_cpu_core")]
+        self.show_processes_using_max_cpu = int(config_values[config_variables.index("show_processes_using_max_cpu")])
+        self.show_cpu_cache_type = config_values[config_variables.index("show_cpu_cache_type")]
+
+        self.chart_line_color_memory_percent = [float(value) for value in config_values[config_variables.index("chart_line_color_memory_percent")].strip("[]").split(", ")]
+        self.show_memory_usage_per_memory = int(config_values[config_variables.index("show_memory_usage_per_memory")])
+        self.performance_memory_data_precision = int(config_values[config_variables.index("performance_memory_data_precision")])
+        self.performance_memory_data_unit = int(config_values[config_variables.index("performance_memory_data_unit")])
+
+        self.chart_line_color_disk_speed_usage = [float(value) for value in config_values[config_variables.index("chart_line_color_disk_speed_usage")].strip("[]").split(", ")]
+        self.show_disk_usage_per_disk = int(config_values[config_variables.index("show_disk_usage_per_disk")])
+        self.performance_disk_data_precision = int(config_values[config_variables.index("performance_disk_data_precision")])
+        self.performance_disk_data_unit = int(config_values[config_variables.index("performance_disk_data_unit")])
+        self.performance_disk_speed_bit = int(config_values[config_variables.index("performance_disk_speed_bit")])
+        self.plot_disk_read_speed = int(config_values[config_variables.index("plot_disk_read_speed")])
+        self.plot_disk_write_speed = int(config_values[config_variables.index("plot_disk_write_speed")])
+        self.hide_loop_ramdisk_zram_disks = int(config_values[config_variables.index("hide_loop_ramdisk_zram_disks")])
+        self.selected_disk = config_values[config_variables.index("selected_disk")]
+
+        self.chart_line_color_network_speed_data = [float(value) for value in config_values[config_variables.index("chart_line_color_network_speed_data")].strip("[]").split(", ")]
+        self.show_network_usage_per_network_card = int(config_values[config_variables.index("show_network_usage_per_network_card")])
+        self.performance_network_data_precision = int(config_values[config_variables.index("performance_network_data_precision")])
+        self.performance_network_data_unit = int(config_values[config_variables.index("performance_network_data_unit")])
+        self.performance_network_speed_bit = int(config_values[config_variables.index("performance_network_speed_bit")])
+        self.plot_network_download_speed = int(config_values[config_variables.index("plot_network_download_speed")])
+        self.plot_network_upload_speed = int(config_values[config_variables.index("plot_network_upload_speed")])
+        self.selected_network_card = config_values[config_variables.index("selected_network_card")]
+
+        self.chart_line_color_fps = [float(value) for value in config_values[config_variables.index("chart_line_color_fps")].strip("[]").split(", ")]
+        self.selected_gpu = config_values[config_variables.index("selected_gpu")]
+
+        self.temperature_unit = config_values[config_variables.index("temperature_unit")]
+
+        self.show_processes_of_all_users = int(config_values[config_variables.index("show_processes_of_all_users")])
+        self.show_processes_as_tree = int(config_values[config_variables.index("show_processes_as_tree")])
+        self.show_tree_lines = int(config_values[config_variables.index("show_tree_lines")])
+        self.processes_cpu_precision = int(config_values[config_variables.index("processes_cpu_precision")])
+        self.processes_memory_data_precision = int(config_values[config_variables.index("processes_memory_data_precision")])
+        self.processes_memory_data_unit = int(config_values[config_variables.index("processes_memory_data_unit")])
+        self.processes_disk_data_precision = int(config_values[config_variables.index("processes_disk_data_precision")])
+        self.processes_disk_data_unit = int(config_values[config_variables.index("processes_disk_data_unit")])
+        self.processes_disk_speed_bit = int(config_values[config_variables.index("processes_disk_speed_bit")])
+        self.warn_before_stopping_processes = int(config_values[config_variables.index("warn_before_stopping_processes")])
+        self.processes_columns_shown = [value for value in config_values[config_variables.index("processes_columns_shown")].strip("[]").split(", ")]
+        self.processes_row_sorting_column = config_values[config_variables.index("processes_row_sorting_column")]
+        self.processes_row_sorting_order = int(config_values[config_variables.index("processes_row_sorting_order")])
+        self.processes_cpu_divide_by_core = int(config_values[config_variables.index("processes_cpu_divide_by_core")])
+        self.show_multiple_processes_summation = int(config_values[config_variables.index("show_multiple_processes_summation")])
+        self.hide_kernel_threads = int(config_values[config_variables.index("hide_kernel_threads")])
+        self.processes_gpu_precision = int(config_values[config_variables.index("processes_gpu_precision")])
+        self.processes_gpu_memory_data_precision = int(config_values[config_variables.index("processes_gpu_memory_data_precision")])
+        self.processes_gpu_memory_data_unit = int(config_values[config_variables.index("processes_gpu_memory_data_unit")])
+
+        self.users_columns_shown = [value for value in config_values[config_variables.index("users_columns_shown")].strip("[]").split(", ")]
+        self.users_row_sorting_column = config_values[config_variables.index("users_row_sorting_column")]
+        self.users_row_sorting_order = int(config_values[config_variables.index("users_row_sorting_order")])
+
+        self.services_columns_shown = [value for value in config_values[config_variables.index("services_columns_shown")].strip("[]").split(", ")]
+        self.services_row_sorting_column = config_values[config_variables.index("services_row_sorting_column")]
+        self.services_row_sorting_order = int(config_values[config_variables.index("services_row_sorting_order")])
+
+
+    def config_save_func(self):
+        """
+        Write settings into the configration file.
+        Adding a new setting:
+
+        config_write_text = config_write_text + "new_setting = " + str(self.new_value) + "\n"
+        """
+
+        config_write_text = ""
+        config_write_text = config_write_text + "[General - General]" + "\n"
+        config_write_text = config_write_text + "reset_all_settings_with_new_release = " + str(self.reset_all_settings_with_new_release) + "\n"
+        config_write_text = config_write_text + "language = " + str(self.language) + "\n"
+        config_write_text = config_write_text + "light_dark_theme = " + str(self.light_dark_theme) + "\n"
+        config_write_text = config_write_text + "update_interval = " + str(self.update_interval) + "\n"
+        config_write_text = config_write_text + "chart_data_history = " + str(self.chart_data_history) + "\n"
+        config_write_text = config_write_text + "default_main_tab = " + str(self.default_main_tab) + "\n"
+        config_write_text = config_write_text + "performance_tab_default_sub_tab = " + str(self.performance_tab_default_sub_tab) + "\n"
+        config_write_text = config_write_text + "performance_summary_on_the_headerbar = " + str(self.performance_summary_on_the_headerbar) + "\n"
+        config_write_text = config_write_text + "remember_last_opened_tabs = " + str(self.remember_last_opened_tabs) + "\n"
+        config_write_text = config_write_text + "remember_last_selected_hardware = " + str(self.remember_last_selected_hardware) + "\n"
+        config_write_text = config_write_text + "remember_window_size = " + str(self.remember_window_size) + "\n"
+        config_write_text = config_write_text + "main_window_opacity = " + str(self.main_window_opacity) + "\n"
+        config_write_text = config_write_text + "\n"
+
+        config_write_text = config_write_text + "[Performance Tab - Summary]" + "\n"
+        config_write_text = config_write_text + "summary_show_gpu_usage = " + str(self.summary_show_gpu_usage) + "\n"
+        config_write_text = config_write_text + "\n"
+
+        config_write_text = config_write_text + "[Performance Tab - CPU]" + "\n"
+        config_write_text = config_write_text + "chart_line_color_cpu_percent = " + str(self.chart_line_color_cpu_percent) + "\n"
+        config_write_text = config_write_text + "show_cpu_usage_per_core = " + str(self.show_cpu_usage_per_core) + "\n"
+        config_write_text = config_write_text + "performance_cpu_usage_percent_precision = " + str(self.performance_cpu_usage_percent_precision) + "\n"
+        config_write_text = config_write_text + "show_processes_using_max_cpu = " + str(self.show_processes_using_max_cpu) + "\n"
+        config_write_text = config_write_text + "show_cpu_cache_type = " + str(self.show_cpu_cache_type) + "\n"
+        config_write_text = config_write_text + "selected_cpu_core = " + str(self.selected_cpu_core) + "\n"
+        config_write_text = config_write_text + "\n"
+
+        config_write_text = config_write_text + "[Performance Tab - Memory]" + "\n"
+        config_write_text = config_write_text + "chart_line_color_memory_percent = " + str(self.chart_line_color_memory_percent) + "\n"
+        config_write_text = config_write_text + "show_memory_usage_per_memory = " + str(self.show_memory_usage_per_memory) + "\n"
+        config_write_text = config_write_text + "performance_memory_data_precision = " + str(self.performance_memory_data_precision) + "\n"
+        config_write_text = config_write_text + "performance_memory_data_unit = " + str(self.performance_memory_data_unit) + "\n"
+        config_write_text = config_write_text + "\n"
+
+        config_write_text = config_write_text + "[Performance Tab - Disk]" + "\n"
+        config_write_text = config_write_text + "chart_line_color_disk_speed_usage = " + str(self.chart_line_color_disk_speed_usage) + "\n"
+        config_write_text = config_write_text + "show_disk_usage_per_disk = " + str(self.show_disk_usage_per_disk) + "\n"
+        config_write_text = config_write_text + "performance_disk_data_precision = " + str(self.performance_disk_data_precision) + "\n"
+        config_write_text = config_write_text + "performance_disk_data_unit = " + str(self.performance_disk_data_unit) + "\n"
+        config_write_text = config_write_text + "performance_disk_speed_bit = " + str(self.performance_disk_speed_bit) + "\n"
+        config_write_text = config_write_text + "plot_disk_read_speed = " + str(self.plot_disk_read_speed) + "\n"
+        config_write_text = config_write_text + "plot_disk_write_speed = " + str(self.plot_disk_write_speed) + "\n"
+        config_write_text = config_write_text + "selected_disk = " + str(self.selected_disk) + "\n"
+        config_write_text = config_write_text + "hide_loop_ramdisk_zram_disks = " + str(self.hide_loop_ramdisk_zram_disks) + "\n"
+        config_write_text = config_write_text + "\n"
+
+        config_write_text = config_write_text + "[Performance Tab - Network]" + "\n"
+        config_write_text = config_write_text + "chart_line_color_network_speed_data = " + str(self.chart_line_color_network_speed_data) + "\n"
+        config_write_text = config_write_text + "show_network_usage_per_network_card = " + str(self.show_network_usage_per_network_card) + "\n"
+        config_write_text = config_write_text + "performance_network_data_precision = " + str(self.performance_network_data_precision) + "\n"
+        config_write_text = config_write_text + "performance_network_data_unit = " + str(self.performance_network_data_unit) + "\n"
+        config_write_text = config_write_text + "performance_network_speed_bit = " + str(self.performance_network_speed_bit) + "\n"
+        config_write_text = config_write_text + "plot_network_download_speed = " + str(self.plot_network_download_speed) + "\n"
+        config_write_text = config_write_text + "plot_network_upload_speed = " + str(self.plot_network_upload_speed) + "\n"
+        config_write_text = config_write_text + "selected_network_card = " + str(self.selected_network_card) + "\n"
+        config_write_text = config_write_text + "\n"
+
+        config_write_text = config_write_text + "[Performance Tab - GPU]" + "\n"
+        config_write_text = config_write_text + "chart_line_color_fps = " + str(self.chart_line_color_fps) + "\n"
+        config_write_text = config_write_text + "selected_gpu = " + str(self.selected_gpu) + "\n"
+        config_write_text = config_write_text + "\n"
+
+        config_write_text = config_write_text + "[Performance Tab - Sensors]" + "\n"
+        config_write_text = config_write_text + "temperature_unit = " + str(self.temperature_unit) + "\n"
+        config_write_text = config_write_text + "\n"
+
+        config_write_text = config_write_text + "[Processes Tab]" + "\n"
+        config_write_text = config_write_text + "show_processes_of_all_users = " + str(self.show_processes_of_all_users) + "\n"
+        config_write_text = config_write_text + "hide_kernel_threads = " + str(self.hide_kernel_threads) + "\n"
+        config_write_text = config_write_text + "show_processes_as_tree = " + str(self.show_processes_as_tree) + "\n"
+        config_write_text = config_write_text + "show_tree_lines = " + str(self.show_tree_lines) + "\n"
+        config_write_text = config_write_text + "show_multiple_processes_summation = " + str(self.show_multiple_processes_summation) + "\n"
+        config_write_text = config_write_text + "processes_cpu_precision = " + str(self.processes_cpu_precision) + "\n"
+        config_write_text = config_write_text + "processes_cpu_divide_by_core = " + str(self.processes_cpu_divide_by_core) + "\n"
+        config_write_text = config_write_text + "processes_memory_data_precision = " + str(self.processes_memory_data_precision) + "\n"
+        config_write_text = config_write_text + "processes_memory_data_unit = " + str(self.processes_memory_data_unit) + "\n"
+        config_write_text = config_write_text + "processes_disk_data_precision = " + str(self.processes_disk_data_precision) + "\n"
+        config_write_text = config_write_text + "processes_disk_data_unit = " + str(self.processes_disk_data_unit) + "\n"
+        config_write_text = config_write_text + "processes_disk_speed_bit = " + str(self.processes_disk_speed_bit) + "\n"
+        config_write_text = config_write_text + "processes_gpu_precision = " + str(self.processes_gpu_precision) + "\n"
+        config_write_text = config_write_text + "processes_gpu_memory_data_precision = " + str(self.processes_gpu_memory_data_precision) + "\n"
+        config_write_text = config_write_text + "processes_gpu_memory_data_unit = " + str(self.processes_gpu_memory_data_unit) + "\n"
+        config_write_text = config_write_text + "warn_before_stopping_processes = " + str(self.warn_before_stopping_processes) + "\n"
+        config_write_text = config_write_text + "processes_columns_shown = " + str(', '.join(self.processes_columns_shown)) + "\n"
+        config_write_text = config_write_text + "processes_row_sorting_column = " + str(self.processes_row_sorting_column) + "\n"
+        config_write_text = config_write_text + "processes_row_sorting_order = " + str(self.processes_row_sorting_order) + "\n"
+        config_write_text = config_write_text + "\n"
+
+        config_write_text = config_write_text + "[Users Tab]" + "\n"
+        config_write_text = config_write_text + "users_columns_shown = " + str(', '.join(self.users_columns_shown)) + "\n"
+        config_write_text = config_write_text + "users_row_sorting_column = " + str(self.users_row_sorting_column) + "\n"
+        config_write_text = config_write_text + "users_row_sorting_order = " + str(self.users_row_sorting_order) + "\n"
+        config_write_text = config_write_text + "\n"
+
+        config_write_text = config_write_text + "[Services Tab]" + "\n"
+        config_write_text = config_write_text + "services_columns_shown = " + str(', '.join(self.services_columns_shown)) + "\n"
+        config_write_text = config_write_text + "services_row_sorting_column = " + str(self.services_row_sorting_column) + "\n"
+        config_write_text = config_write_text + "services_row_sorting_order = " + str(self.services_row_sorting_order) + "\n"
+        config_write_text = config_write_text + "\n"
+
+        with open(self.config_file_path, "w") as writer:
+            writer.write(config_write_text)
+
+
+Config = Config()
+
