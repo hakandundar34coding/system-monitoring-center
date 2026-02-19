@@ -1,6 +1,6 @@
 # System Monitoring Center
 
-### v3.10 (19.02.2026)
+### v3.1.0 (19.02.2026)
   * Improvements for getting service list (Services)
   * Minor GUI improvements (About dialog)
   * Minor code simplifications (System, Processes)
