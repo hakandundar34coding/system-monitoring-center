@@ -620,21 +620,23 @@ def on_searchentry_changed(searchentry_text_var, TabObject):
                 filtered_rows[row] = piter_dict[row]
                 try:
                     treeview.reattach(piter_dict[row], "", "end")
-                except KeyError:
+                except (KeyError, tk.TclError) as me:
                     pass
         if TabObject.process_search_type == "command_line":
             if search_text in command_line.lower():
                 filtered_rows[row] = piter_dict[row]
                 try:
                     treeview.reattach(piter_dict[row], "", "end")
-                except KeyError:
+                # tk.TclError is for preventing errors if computer is opened after suspend.
+                except (KeyError, tk.TclError) as me:
                     pass
         if TabObject.process_search_type == "pid":
             if search_text in str(pid):
                 filtered_rows[row] = piter_dict[row]
                 try:
                     treeview.reattach(piter_dict[row], "", "end")
-                except KeyError:
+                # tk.TclError is for preventing errors if computer is opened after suspend.
+                except (KeyError, tk.TclError) as me:
                     pass
 
     # Move rows to generate Treeview tree
@@ -664,8 +666,13 @@ def on_searchentry_changed(searchentry_text_var, TabObject):
                         treeview.move(piter, piter_dict[parent_id], "end")
                     else:
                         treeview.move(piter, "", "end")
-                except (ValueError, IndexError):
-                    treeview.move(piter, "", "end")
+                # tk.TclError is for preventing errors if computer is opened after suspend.
+                except (ValueError, IndexError, tk.TclError):
+                    try:
+                        treeview.move(piter, "", "end")
+                    # For preventing errors if computer is opened after suspend.
+                    except tk.TclError:
+                        pass
             else:
                 try:
                     treeview.detach(piter)
@@ -999,12 +1006,20 @@ def add_remove_update_treeview_rows(treeview, piter_dict, selected_data_rows_pre
             data_row_dict_prev = selected_data_rows_prev[row]
             if data_row_dict != data_row_dict_prev:
                 piter = piter_dict[row]
-                treeview.item(piter, image=image_dict[row], text=data_row_dict[0], values=tuple(data_row_dict[1:]), tags=data_rows_raw_dict[row][1:])
+                try:
+                    treeview.item(piter, image=image_dict[row], text=data_row_dict[0], values=tuple(data_row_dict[1:]), tags=data_rows_raw_dict[row][1:])
+                # For preventing errors if computer is opened after suspend.
+                except tk.TclError:
+                    pass
     # Remove rows
     if len(deleted_rows) > 0:
         for row in deleted_rows:
             piter = piter_dict[row]
-            treeview.delete(piter)
+            try:
+                treeview.delete(piter)
+            # For preventing errors if computer is opened after suspend.
+            except tk.TclError:
+                pass
     # Add rows
     if len(new_rows) > 0:
         for row in new_rows:
@@ -1094,7 +1109,7 @@ def treeview_sort_column(treeview, column_id, reverse, TabObject):
     try:
         treeview.heading(column_id, command=lambda: treeview_sort_column(treeview, column_id, not reverse, TabObject))
     except tk.TclError:
-        # Sütun o anda silinmişse sessizce çık
+        # Exit if column is deleted.
         return
 
 
