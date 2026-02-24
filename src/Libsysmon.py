@@ -5258,15 +5258,15 @@ def get_installed_system_packages():
     # Get number of APT (deb) packages if available.
     try:
         # Check if "python3" is installed in order to determine package type of the system.
+        command_list = ["dpkg", "-s", "python3"]
         if environment_type == "flatpak":
-            apt_packages_available = (subprocess.check_output(["flatpak-spawn", "--host", "dpkg", "-s", "python3"], shell=False)).decode().strip()
-        else:
-            apt_packages_available = (subprocess.check_output(["dpkg", "-s", "python3"], shell=False)).decode().strip()
+            command_list = ["flatpak-spawn", "--host"] + command_list
+        apt_packages_available = (subprocess.check_output(command_list, shell=False)).decode().strip()
         if "Package: python3" in apt_packages_available:
+            command_list = ["dpkg", "--list"]
             if environment_type == "flatpak":
-                number_of_installed_apt_packages = (subprocess.check_output(["flatpak-spawn", "--host", "dpkg", "--list"], shell=False)).decode().strip().count("\nii  ")
-            else:
-                number_of_installed_apt_packages = (subprocess.check_output(["dpkg", "--list"], shell=False)).decode().strip().count("\nii  ")
+                command_list = ["flatpak-spawn", "--host"] + command_list
+            number_of_installed_apt_packages = (subprocess.check_output(command_list, shell=False)).decode().strip().count("\nii  ")
             system_packages_count = f'{number_of_installed_apt_packages} (APT)'
     # It gives "FileNotFoundError" if first element of the command (program name) can not be found on the system. It gives "subprocess.CalledProcessError" if there are any errors relevant with the parameters (commands later than the first one).
     except (FileNotFoundError, subprocess.CalledProcessError) as e:
@@ -5275,16 +5275,15 @@ def get_installed_system_packages():
     # Get number of RPM packages if available.
     if apt_packages_available == "-":
         try:
+            command_list = ["rpm", "-q", "python3"]
             if environment_type == "flatpak":
-                rpm_packages_available = (subprocess.check_output(["flatpak-spawn", "--host", "rpm", "-q", "python3"], shell=False)).decode().strip()
-            else:
-                rpm_packages_available = (subprocess.check_output(["rpm", "-q", "python3"], shell=False)).decode().strip()
+                command_list = ["flatpak-spawn", "--host"] + command_list
+            rpm_packages_available = (subprocess.check_output(command_list, shell=False)).decode().strip()
             if rpm_packages_available.startswith("python3-3."):
+                command_list = ["rpm", "-qa"]
                 if environment_type == "flatpak":
-                    number_of_installed_rpm_packages = (subprocess.check_output(["flatpak-spawn", "--host", "rpm", "-qa"], shell=False)).decode().strip().split("\n")
-                else:
-                    number_of_installed_rpm_packages = (subprocess.check_output(["rpm", "-qa"], shell=False)).decode().strip().split("\n")
-                # Differentiate empty line count
+                    command_list = ["flatpak-spawn", "--host"] + command_list
+                number_of_installed_rpm_packages = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
                 number_of_installed_rpm_packages = len(number_of_installed_rpm_packages) - number_of_installed_rpm_packages.count("")
                 system_packages_count = f'{number_of_installed_rpm_packages} (RPM)'
         except (FileNotFoundError, subprocess.CalledProcessError) as e:
@@ -5293,15 +5292,15 @@ def get_installed_system_packages():
     # Get number of pacman (Arch Linux) packages if available.
     if apt_packages_available == "-" and rpm_packages_available == "-":
         try:
+            command_list = ["pacman", "-Q", "python3"]
             if environment_type == "flatpak":
-                pacman_packages_available = (subprocess.check_output(["flatpak-spawn", "--host", "pacman", "-Q", "python3"], shell=False)).decode().strip()
-            else:
-                pacman_packages_available = (subprocess.check_output(["pacman", "-Q", "python3"], shell=False)).decode().strip()
+                command_list = ["flatpak-spawn", "--host"] + command_list
+            pacman_packages_available = (subprocess.check_output(command_list, shell=False)).decode().strip()
             if pacman_packages_available.startswith("python 3."):
+                command_list = ["pacman", "-Qq"]
                 if environment_type == "flatpak":
-                    number_of_installed_pacman_packages = (subprocess.check_output(["flatpak-spawn", "--host", "pacman", "-Qq"], shell=False)).decode().strip().split("\n")
-                else:
-                    number_of_installed_pacman_packages = (subprocess.check_output(["pacman", "-Qq"], shell=False)).decode().strip().split("\n")
+                    command_list = ["flatpak-spawn", "--host"] + command_list
+                number_of_installed_pacman_packages = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
                 # Differentiate empty line count
                 number_of_installed_pacman_packages = len(number_of_installed_pacman_packages) - number_of_installed_pacman_packages.count("")
                 system_packages_count = f'{number_of_installed_pacman_packages} (pacman)'
@@ -5311,15 +5310,15 @@ def get_installed_system_packages():
     # Get number of APK (Alpine Linux) packages if available.
     if apt_packages_available == "-" and rpm_packages_available == "-" and pacman_packages_available == "-":
         try:
+            command_list = ["apk", "list", "--installed", "python3"]
             if environment_type == "flatpak":
-                apk_packages_available = (subprocess.check_output(["flatpak-spawn", "--host", "apk", "list", "--installed", "python3"], shell=False)).decode().strip()
-            else:
-                apk_packages_available = (subprocess.check_output(["apk", "list", "--installed", "python3"], shell=False)).decode().strip()
+                command_list = ["flatpak-spawn", "--host"] + command_list
+            apk_packages_available = (subprocess.check_output(command_list, shell=False)).decode().strip()
             if apk_packages_available.startswith("python3-3."):
+                command_list = ["apk", "info"]
                 if environment_type == "flatpak":
-                    number_of_installed_apk_packages = (subprocess.check_output(["flatpak-spawn", "--host", "apk", "info"], shell=False)).decode().strip().split("\n")
-                else:
-                    number_of_installed_apk_packages = (subprocess.check_output(["apk", "info"], shell=False)).decode().strip().split("\n")
+                    command_list = ["flatpak-spawn", "--host"] + command_list
+                number_of_installed_apk_packages = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
                 # Differentiate empty line count
                 number_of_installed_apk_packages = len(number_of_installed_apk_packages) - number_of_installed_apk_packages.count("")
                 system_packages_count = f'{number_of_installed_apk_packages} (APK)'
@@ -5330,10 +5329,10 @@ def get_installed_system_packages():
     if apt_packages_available == "-" and rpm_packages_available == "-" and pacman_packages_available == "-" and apk_packages_available == "-":
         try:
             # Python3 is in core system, no need to check if it is available.
+            command_list = ["qlist", "-Iv"]
             if environment_type == "flatpak":
-                qlist_output = (subprocess.check_output(["flatpak-spawn", "--host", "qlist", "-Iv"], shell=False))
-            else:
-                qlist_output = (subprocess.check_output(["qlist", "-Iv"], shell=False))
+                command_list = ["flatpak-spawn", "--host"] + command_list
+            qlist_output = (subprocess.check_output(command_list, shell=False))
             installed_portage_packages = qlist_output.decode().strip().split("\n")
             number_of_installed_portage_packages = len(installed_portage_packages)
             system_packages_count = f'{number_of_installed_portage_packages} (Portage)'
