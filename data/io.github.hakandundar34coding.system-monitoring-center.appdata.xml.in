@@ -55,33 +55,43 @@
   <screenshots>
     <screenshot type="default">
       <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/summary_tab_dark_system_theme.png</image>
+      <caption>Summary tab, dark theme</caption>
     </screenshot>
     <screenshot>
       <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/cpu_tab_dark_system_theme.png</image>
+      <caption>CPU tab, dark theme</caption>
     </screenshot>
     <screenshot>
       <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/cpu_tab_white_system_theme.png</image>
+      <caption>CPU tab, light theme</caption>
     </screenshot>
     <screenshot>
       <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/memory_tab_white_system_theme.png</image>
+      <caption>Memory tab, light theme</caption>
     </screenshot>
     <screenshot>
       <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/disk_tab_menu_white_system_theme.png</image>
+      <caption>Disk tab, light theme</caption>
     </screenshot>
     <screenshot>
       <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/network_tab_dark_system_theme.png</image>
+      <caption>Network tab, dark theme</caption>
     </screenshot>
     <screenshot>
       <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/gpu_tab_dark_system_theme.png</image>
+      <caption>GPU tab, dark theme</caption>
     </screenshot>
     <screenshot>
       <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/sensors_tab_dark_system_theme.png</image>
+      <caption>Sensors tab, dark theme</caption>
     </screenshot>
     <screenshot>
       <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/processes_list_view_dark_system_theme.png</image>
+      <caption>Processes tab, dark theme</caption>
     </screenshot>
     <screenshot>
       <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/services_tab_dark_system_theme.png</image>
+      <caption>Services tab, dark theme</caption>
     </screenshot>
   </screenshots>
   <releases>
