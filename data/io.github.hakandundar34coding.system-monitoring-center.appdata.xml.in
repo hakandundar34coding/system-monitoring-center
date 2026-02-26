@@ -95,6 +95,21 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="3.1.0" date="2026-02-19">
+      <description>
+        <ul>
+          <li>Improvements for getting service list (Services)</li>
+          <li>Minor GUI improvements (About dialog)</li>
+          <li>Minor code simplifications (System, Processes)</li>
+          <li>Changes for Flatpak packaging</li>
+          <li>Fix: Error if connection quality is not get</li>
+          <li>Fix: Light/Dark theme detection (Flatpak)</li>
+          <li>Fix system language detection (Flatpak)</li>
+          <li>Fix: translations in Processes,Users,Services columns</li>
+          <li>Fix: max number of process details window</li>
+        </ul>
+      </description>
+    </release>
     <release version="3.0.0" date="2026-02-11">
       <description>
         <ul>
