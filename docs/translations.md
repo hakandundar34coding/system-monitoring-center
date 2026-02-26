@@ -5,7 +5,7 @@
 | cs             | Czech                  | 66%        |
 | de             | German                 | 68%        |
 | en             | English                | 100%       |
-| es             | Spanish                | 71%        |
+| es             | Spanish                | 100%       |
 | fa             | Persian                | 65%        |
 | fr             | French                 | 73%        |
 | hu             | Hungarian              | 66%        |
