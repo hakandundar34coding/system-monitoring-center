@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-18 14:45+0300\n"
-"PO-Revision-Date: 2026-02-25 21:00-0300\n"
+"PO-Revision-Date: 2026-02-26 10:57+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.6\n"
 
 #: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:2
 #: src/MainWindow.py:97 src/MainWindow.py:562
@@ -1293,6 +1293,3 @@ msgstr "Gestor de pantalla"
 #: src/UsersDetails.py:33
 msgid "User Details"
 msgstr "Detalles del usuario"
-
-#~ msgid "Graph Color"
-#~ msgstr "Color del gráfico"
