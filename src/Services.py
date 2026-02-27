@@ -149,7 +149,7 @@ class Services:
         Start, stop, restart, enable, disable, mask (hide), unmask services.
         """
         
-        self.selected_row_name = self.get_selection(event)
+        #self.selected_row_name = self.get_selection(event)
         # Manage the selected service and get errors.
         systemctl_error = Libsysmon.manage_service(self.selected_row_name, action_name)
 
