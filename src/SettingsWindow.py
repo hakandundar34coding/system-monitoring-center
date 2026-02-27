@@ -162,7 +162,7 @@ class SettingsWindow:
         label = Common.static_information_label(frame, text=_tr("Font Scale") + ":")
         label.grid(row=2, column=0, sticky="w", padx=0, pady=5)
         # SpinBox (Font Scale)
-        self.spinbox = ttk.Spinbox(frame, from_=0.7, to=1.4, increment=0.1, font=Common.font_normal, command=self.on_font_scale_sb_changed)
+        self.spinbox = ttk.Spinbox(frame, from_=0.7, to=1.4, increment=0.1, state="readonly", font=Common.font_normal, command=self.on_font_scale_sb_changed)
         self.spinbox.grid(row=2, column=1, sticky="w", padx=0, pady=5)
 
         # Separator
