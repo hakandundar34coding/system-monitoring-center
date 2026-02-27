@@ -1012,7 +1012,7 @@ class MainWindow():
         #self.device_list_sw.rowconfigure(0, minsize=130)
         self.device_list_sw.grid_propagate(0)
         # White dotted frames around the selection is hidden by using "activestyle".
-        listbox = tk.Listbox(self.device_list_sw, selectmode="browse", selectbackground="#353535", highlightcolor="#353535", activestyle="none") # #292929
+        listbox = tk.Listbox(self.device_list_sw, selectmode="browse", font=Common.font_normal, selectbackground="#353535", highlightcolor="#353535", activestyle="none") # #292929
         listbox.grid(row=0, column=0, sticky="nsew", padx=0, pady=0)
         tooltip = Common.tooltip(listbox, tooltip_text)
 
