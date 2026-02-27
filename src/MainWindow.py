@@ -160,6 +160,14 @@ class MainWindow():
         # Performance tab sub-tab (Summary, CPU, etc.) GUI
         self.performance_tab_sub_tabs()
 
+        # Define font size for all menus.
+        self.main_window.option_add("*Menu.font", Common.font_normal)
+        # Define font size for all dialogs.
+        self.main_window.option_add("*Dialog.msg.font", Common.font_normal)
+        #self.main_window.option_add("*Message.font", Common.font_normal)
+        # Define font size for all combobox lists.
+        self.main_window.option_add("*TCombobox*Listbox.font", Common.font_normal)
+
 
     def performance_summary_headerbar_gui(self):
         """
@@ -563,11 +571,11 @@ class MainWindow():
         name_label.grid(row=1, column=0, sticky="ns", padx=0, pady=0)
 
         # Label (application version)
-        version_label = tk.Label(frame, text=software_version)
+        version_label = Common.static_information_label(frame, software_version)
         version_label.grid(row=2, column=0, sticky="ns", padx=0, pady=4)
 
         # Label (description)
-        smc_label1 = tk.Label(frame, text=_tr("Multi-featured system monitor"))
+        smc_label1 = Common.static_information_label(frame, _tr("Multi-featured system monitor"))
         smc_label1.grid(row=3, column=0, sticky="ns", padx=0, pady=10)
 
         # Label (web page)
@@ -575,15 +583,16 @@ class MainWindow():
         web_page_label.grid(row=4, column=0, sticky="ns", padx=0, pady=0)
 
         # Label (copyright)
-        copyright_label = tk.Label(frame, text="© 2026 Hakan Dündar")
+        copyright_label = Common.static_information_label(frame, "© 2026 Hakan Dündar")
         copyright_label.grid(row=5, column=0, sticky="ns", padx=0, pady=4)
 
         # Label (translators)
-        translators_label = tk.Label(frame, text=translators)
+        translators_label = Common.static_information_label(frame, translators)
         translators_label.grid(row=6, column=0, sticky="ns", padx=0, pady=4)
 
         # Label (license)
-        license_label = tk.Label(frame, text=_tr("This program comes with absolutely no warranty.\nSee the GNU General Public License, version 3 or later for details."), wraplength=400, justify="center")
+        license_label = Common.static_information_label(frame, _tr("This program comes with absolutely no warranty.\nSee the GNU General Public License, version 3 or later for details."))
+        license_label.config(wraplength=400, justify="center")
         license_label.grid(row=7, column=0, sticky="ns", padx=1, pady=(10, 0))
 
         # Label (license link)

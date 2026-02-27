@@ -45,6 +45,8 @@ class SettingsWindow:
         style = ttk.Style()
         style.configure("TNotebook", tabposition="wn")
 
+        style.configure("TNotebook.Tab", font=Common.font_normal)
+
         notebook = ttk.Notebook(frame)
         notebook.grid(row=1, column=0, sticky="nsew", padx=10, pady=10)
         notebook.bind("<<NotebookTabChanged>>", self.on_notebook_tab_change)
@@ -139,83 +141,89 @@ class SettingsWindow:
         frame.grid(row=0, column=0, sticky="nsew", padx=25, pady=25)
 
         # Label (Language)
-        label = ttk.Label(frame, text=_tr("Language (Requires restart)") + ":")
+        label = Common.static_information_label(frame, text=_tr("Language (Requires restart)") + ":")
         label.grid(row=0, column=0, sticky="w", padx=0, pady=5)
         # ComboBox (Language)
-        self.language_cb = ttk.Combobox(frame, stat="readonly")
+        self.language_cb = Common.combobox(frame)
         self.language_cb.grid(row=0, column=1, sticky="ew", padx=0, pady=5)
         self.language_cb['values'] = list(self.language_dict.values())
         self.language_cb.bind("<<ComboboxSelected>>", self.on_language_cb_selected)
 
         # Label (Light/Dark theme)
-        label = ttk.Label(frame, text=_tr("Light/Dark theme") + ":")
+        label = Common.static_information_label(frame, text=_tr("Light/Dark theme") + ":")
         label.grid(row=1, column=0, sticky="w", padx=0, pady=5)
         # ComboBox (Light/Dark theme)
-        self.dark_light_theme_cb = ttk.Combobox(frame, stat="readonly")
+        self.dark_light_theme_cb = Common.combobox(frame)
         self.dark_light_theme_cb.grid(row=1, column=1, sticky="ew", padx=0, pady=5)
         self.dark_light_theme_cb['values'] = list(self.gui_theme_dict.keys())
         self.dark_light_theme_cb.bind("<<ComboboxSelected>>", self.on_dark_light_theme_cb_selected)
 
+        # Label (Font Scale)
+        label = Common.static_information_label(frame, text=_tr("Font Scale") + ":")
+        label.grid(row=2, column=0, sticky="w", padx=0, pady=5)
+        # SpinBox (Font Scale)
+        self.spinbox = ttk.Spinbox(frame, from_=0.7, to=1.4, increment=0.1, font=Common.font_normal, command=self.on_font_scale_sb_changed)
+        self.spinbox.grid(row=2, column=1, sticky="w", padx=0, pady=5)
+
         # Separator
         separator = ttk.Separator(frame, orient="horizontal")
-        separator.grid(row=2, column=0, columnspan=2, sticky="ew", padx=0, pady=10)
+        separator.grid(row=3, column=0, columnspan=2, sticky="ew", padx=0, pady=10)
 
         # Label (Update interval (seconds))
-        label = ttk.Label(frame, text=_tr("Update interval (seconds)") + ":")
-        label.grid(row=3, column=0, sticky="w", padx=0, pady=5)
+        label = Common.static_information_label(frame, text=_tr("Update interval (seconds)") + ":")
+        label.grid(row=4, column=0, sticky="w", padx=0, pady=5)
         # ComboBox (Update interval (seconds))
-        self.update_interval_cb = ttk.Combobox(frame, stat="readonly")
-        self.update_interval_cb.grid(row=3, column=1, sticky="ew", padx=0, pady=5)
+        self.update_interval_cb = Common.combobox(frame)
+        self.update_interval_cb.grid(row=4, column=1, sticky="ew", padx=0, pady=5)
         self.update_interval_cb['values'] = self.update_interval_list
         self.update_interval_cb.bind("<<ComboboxSelected>>", self.on_update_interval_cb_selected)
 
         # Label (Graph data history)
-        label = ttk.Label(frame, text=_tr("Graph data history") + ":")
-        label.grid(row=4, column=0, sticky="w", padx=0, pady=5)
+        label = Common.static_information_label(frame, text=_tr("Graph data history") + ":")
+        label.grid(row=5, column=0, sticky="w", padx=0, pady=5)
         # ComboBox (Graph data history)
-        self.chart_data_history_cb = ttk.Combobox(frame, stat="readonly")
-        self.chart_data_history_cb.grid(row=4, column=1, sticky="ew", padx=0, pady=5)
+        self.chart_data_history_cb = Common.combobox(frame)
+        self.chart_data_history_cb.grid(row=5, column=1, sticky="ew", padx=0, pady=5)
         self.chart_data_history_cb['values'] = self.chart_data_history_list
         self.chart_data_history_cb.bind("<<ComboboxSelected>>", self.on_chart_data_history_cb_selected)
 
         # Separator
         separator = ttk.Separator(frame, orient="horizontal")
-        separator.grid(row=5, column=0, columnspan=2, sticky="ew", padx=0, pady=10)
+        separator.grid(row=6, column=0, columnspan=2, sticky="ew", padx=0, pady=10)
 
         # CheckButton (Remember last opened tabs)
         self.remember_last_opened_tabs_var = tk.IntVar()
         self.remember_last_opened_tabs_cb = Common.checkbutton(frame, _tr("Remember last opened tabs"), self.remember_last_opened_tabs_var, self.on_remember_last_opened_tabs_cb_toggled)
-        self.remember_last_opened_tabs_cb.grid(row=6, column=0, columnspan=2, sticky="w", padx=0, pady=5)
+        self.remember_last_opened_tabs_cb.grid(row=7, column=0, columnspan=2, sticky="w", padx=0, pady=5)
 
         # CheckButton (Remember last selected devices)
         self.remember_last_selected_devices_var = tk.IntVar()
         self.remember_last_selected_devices_cb = Common.checkbutton(frame, _tr("Remember last selected devices"), self.remember_last_selected_devices_var, self.on_remember_last_selected_devices_cb_toggled)
-        self.remember_last_selected_devices_cb.grid(row=7, column=0, columnspan=2, sticky="w", padx=0, pady=5)
+        self.remember_last_selected_devices_cb.grid(row=8, column=0, columnspan=2, sticky="w", padx=0, pady=5)
 
         # CheckButton (Remember window size)
         self.remember_window_size_var = tk.IntVar()
         self.remember_window_size_cb = Common.checkbutton(frame, _tr("Remember window size"), self.remember_window_size_var, self.on_remember_window_size_cb_toggled)
-        self.remember_window_size_cb.grid(row=8, column=0, columnspan=2, sticky="w", padx=0, pady=5)
+        self.remember_window_size_cb.grid(row=9, column=0, columnspan=2, sticky="w", padx=0, pady=5)
 
         # Separator
         separator = ttk.Separator(frame, orient="horizontal")
-        separator.grid(row=9, column=0, columnspan=2, sticky="ew", padx=0, pady=10)
+        separator.grid(row=10, column=0, columnspan=2, sticky="ew", padx=0, pady=10)
 
         # Button (Reset)
-        self.reset_general_settings_button = Common.reset_button(frame)
-        self.reset_general_settings_button.grid(row=10, column=0, columnspan=2, padx=0, pady=5)
+        self.reset_general_settings_button = Common.button(frame, text =_tr("Reset"), command=self.on_reset_general_settings_button_clicked)
+        self.reset_general_settings_button.grid(row=11, column=0, columnspan=2, padx=0, pady=5)
 
         # Separator
         separator = ttk.Separator(frame, orient="horizontal")
-        separator.grid(row=11, column=0, columnspan=2, sticky="ew", padx=0, pady=10)
+        separator.grid(row=12, column=0, columnspan=2, sticky="ew", padx=0, pady=10)
 
         # Button (Reset all settings of the application)
-        self.reset_all_settings_button = tk.Button(frame, text=_tr("Reset all settings of the application"), bg="darkred", activebackground="#C20000")
-        self.reset_all_settings_button.grid(row=12, column=0, columnspan=2, sticky="ew", padx=0, pady=5)
+        self.reset_all_settings_button = tk.Button(frame, text=_tr("Reset all settings of the application"), bg="darkred", activebackground="#C20000", font=Common.font_normal)
+        self.reset_all_settings_button.grid(row=13, column=0, columnspan=2, sticky="ew", padx=0, pady=5)
 
         # Connect signals
         self.settings_window.after(1, self.general_settings_set_gui)
-        self.reset_general_settings_button.config(command=self.on_reset_general_settings_button_clicked)
         self.reset_all_settings_button.config(command=self.on_reset_all_settings_button_clicked)
 
 
@@ -227,6 +235,10 @@ class SettingsWindow:
 
     def on_dark_light_theme_cb_selected(self, event):
         Config.light_dark_theme = self.gui_theme_dict[self.dark_light_theme_cb.get()]
+        Config.config_save_func()
+
+    def on_font_scale_sb_changed(self):
+        Config.font_scale = float(self.spinbox.get())
         Config.config_save_func()
 
     def on_update_interval_cb_selected(self, event):
@@ -302,6 +314,7 @@ class SettingsWindow:
     def general_settings_set_gui(self):
         self.language_cb.current(list(self.language_dict.keys()).index(Config.language))
         self.dark_light_theme_cb.current(list(self.gui_theme_dict.values()).index(Config.light_dark_theme))
+        self.spinbox.set(Config.font_scale)
         self.update_interval_cb.current(self.update_interval_list.index(Config.update_interval))
         self.chart_data_history_cb.current(self.chart_data_history_list.index(Config.chart_data_history))
         self.remember_last_opened_tabs_var.set(Config.remember_last_opened_tabs)
@@ -603,7 +616,7 @@ class SettingsWindow:
         self.summary_gpu_usage_cb.grid(row=1, column=0, sticky="w", padx=0, pady=0)
 
         # Label - (This increases CPU usage.)
-        label = ttk.Label(frame, text=_tr("This increases CPU usage."))
+        label = Common.static_information_label(frame, text=_tr("This increases CPU usage."))
         label.grid(row=2, column=0, padx=0, pady=0)
 
         # Separator
@@ -611,12 +624,11 @@ class SettingsWindow:
         separator.grid(row=3, column=0, sticky="ew", padx=0, pady=10)
 
         # Button (Reset)
-        self.reset_summary_settings_button = Common.reset_button(frame)
+        self.reset_summary_settings_button = Common.button(frame, text =_tr("Reset"), command=self.on_reset_summary_settings_button_clicked)
         self.reset_summary_settings_button.grid(row=4, column=0, padx=0, pady=0)
 
         # Connect signals
         self.settings_window.after(1, self.summary_settings_set_gui)
-        self.reset_summary_settings_button.config(command=self.on_reset_summary_settings_button_clicked)
 
 
     def on_summary_gpu_usage_cb_toggled(self):
@@ -668,7 +680,7 @@ class SettingsWindow:
         self.show_processes_using_max_cpu_cb.grid(row=4, column=0, sticky="w", padx=0, pady=0)
 
         # Label - precision (CPU)
-        label = ttk.Label(frame, text=_tr("This increases CPU usage.") + "\n" + "(" + _tr("for all tabs") + ")")
+        label = Common.static_information_label(frame, text=_tr("This increases CPU usage.") + "\n" + "(" + _tr("for all tabs") + ")")
         label.grid(row=5, column=0, padx=0, pady=0)
 
         # Separator
@@ -693,12 +705,11 @@ class SettingsWindow:
         separator.grid(row=10, column=0, sticky="ew", padx=0, pady=10)
 
         # Button (Reset)
-        self.reset_cpu_settings_button = Common.reset_button(frame)
+        self.reset_cpu_settings_button = Common.button(frame, text =_tr("Reset"), command=self.on_reset_cpu_settings_button_clicked)
         self.reset_cpu_settings_button.grid(row=11, column=0, padx=0, pady=0)
 
         # Connect signals
         self.settings_window.after(1, self.cpu_settings_set_gui)
-        self.reset_cpu_settings_button.config(command=self.on_reset_cpu_settings_button_clicked)
 
 
     def on_cpu_usage_average_rb_toggled(self):
@@ -763,7 +774,7 @@ class SettingsWindow:
         label.grid(row=3, column=0, columnspan=2, sticky="w", padx=0, pady=0)
 
         # Label - (Show data as powers of:)
-        label = ttk.Label(frame, text=_tr("Show data as powers of") + ":")
+        label = Common.static_information_label(frame, text=_tr("Show data as powers of") + ":")
         label.grid(row=4, column=0, columnspan=2, padx=0, pady=0)
 
         # RadioButton (1024)
@@ -780,12 +791,11 @@ class SettingsWindow:
         separator.grid(row=6, column=0, columnspan=2, sticky="ew", padx=0, pady=10)
 
         # Button (Reset)
-        self.reset_memory_settings_button = Common.reset_button(frame)
+        self.reset_memory_settings_button = Common.button(frame, text =_tr("Reset"), command=self.on_reset_memory_settings_button_clicked)
         self.reset_memory_settings_button.grid(row=7, column=0, columnspan=2, padx=0, pady=0)
 
         # Connect signals
         self.settings_window.after(1, self.memory_settings_set_gui)
-        self.reset_memory_settings_button.config(command=self.on_reset_memory_settings_button_clicked)
 
 
     def on_memory_type_rb_toggled(self):
@@ -854,7 +864,7 @@ class SettingsWindow:
         label.grid(row=4, column=0, columnspan=2, sticky="w", padx=0, pady=0)
 
         # Label - (Show data as powers of:)
-        label = ttk.Label(frame, text=_tr("Show data as powers of") + ":")
+        label = Common.static_information_label(frame, text=_tr("Show data as powers of") + ":")
         label.grid(row=5, column=0, columnspan=2, padx=0, pady=0)
 
         # RadioButton (1024)
@@ -889,12 +899,11 @@ class SettingsWindow:
         separator.grid(row=11, column=0, columnspan=2, sticky="ew", padx=0, pady=10)
 
         # Button (Reset)
-        self.reset_disk_settings_button = Common.reset_button(frame)
+        self.reset_disk_settings_button = Common.button(frame, text =_tr("Reset"), command=self.on_reset_disk_settings_button_clicked)
         self.reset_disk_settings_button.grid(row=12, column=0, columnspan=2, padx=0, pady=0)
 
         # Connect signals
         self.settings_window.after(1, self.disk_settings_set_gui)
-        self.reset_disk_settings_button.config(command=self.on_reset_disk_settings_button_clicked)
 
 
     def on_disk_read_speed_cb_toggled(self):
@@ -983,7 +992,7 @@ class SettingsWindow:
         label.grid(row=4, column=0, columnspan=2, sticky="w", padx=0, pady=0)
 
         # Label - (Show data as powers of:)
-        label = ttk.Label(frame, text=_tr("Show data as powers of") + ":")
+        label = Common.static_information_label(frame, text=_tr("Show data as powers of") + ":")
         label.grid(row=5, column=0, columnspan=2, padx=0, pady=0)
 
         # RadioButton (1024)
@@ -1005,12 +1014,11 @@ class SettingsWindow:
         separator.grid(row=8, column=0, columnspan=2, sticky="ew", padx=0, pady=10)
 
         # Button (Reset)
-        self.reset_network_settings_button = Common.reset_button(frame)
+        self.reset_network_settings_button = Common.button(frame, text =_tr("Reset"), command=self.on_reset_network_settings_button_clicked)
         self.reset_network_settings_button.grid(row=9, column=0, columnspan=2, padx=0, pady=0)
 
         # Connect signals
         self.settings_window.after(1, self.network_settings_set_gui)
-        self.reset_network_settings_button.config(command=self.on_reset_network_settings_button_clicked)
 
 
     def on_download_speed_cb_toggled(self):
@@ -1080,19 +1088,18 @@ class SettingsWindow:
         separator.grid(row=2, column=0, columnspan=2, sticky="ew", padx=0, pady=10)
 
         # Button (Reset)
-        self.reset_sensors_settings_button = Common.reset_button(frame)
+        self.reset_sensors_settings_button = Common.button(frame, text =_tr("Reset"), command=self.on_reset_sensors_settings_button_clicked)
         self.reset_sensors_settings_button.grid(row=3, column=0, columnspan=2, padx=0, pady=0)
 
         # Connect signals
         self.settings_window.after(1, self.sensors_settings_set_gui)
-        self.reset_sensors_settings_button.config(command=self.on_sensors_settings_reset_button_clicked)
 
 
     def on_temperature_unit_rb_toggled(self):
         Config.temperature_unit = self.temperature_unit_var.get()
         Common.save_tab_settings(Sensors)
 
-    def on_sensors_settings_reset_button_clicked(self):
+    def on_reset_sensors_settings_button_clicked(self):
         # Load default settings
         Config.config_default_performance_sensors_func()
         Config.config_save_func()
@@ -1125,7 +1132,7 @@ class SettingsWindow:
         notebook.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
 
         # Button (Reset)
-        self.reset_processes_settings_button = Common.reset_button(frame)
+        self.reset_processes_settings_button = Common.button(frame, text =_tr("Reset"), command=self.on_reset_processes_settings_button_clicked)
         self.reset_processes_settings_button.grid(row=1, column=0, columnspan=2, padx=0, pady=0)
 
         # View Tab
@@ -1139,7 +1146,6 @@ class SettingsWindow:
 
         # Connect signals
         self.settings_window.after(1, self.processes_settings_set_gui)
-        self.reset_processes_settings_button.config(command=self.on_reset_processes_settings_button_clicked)
 
         # CheckButton (Show processes of all users)
         self.show_processes_of_all_users_var = tk.IntVar()
@@ -1161,7 +1167,7 @@ class SettingsWindow:
         separator.grid(row=4, column=0, columnspan=2, sticky="ew", padx=0, pady=10)
 
         # Label - (CPU)
-        label = ttk.Label(self.frame_processes_view_tab, text=_tr("CPU"))
+        label = Common.static_information_label(self.frame_processes_view_tab, text=_tr("CPU"))
         label.grid(row=5, column=0, columnspan=2, padx=0, pady=0)
 
         # CheckButton (Divide CPU usage by core count)
@@ -1170,11 +1176,11 @@ class SettingsWindow:
         self.processes_cpu_divide_by_core_cb.grid(row=6, column=0, columnspan=2, sticky="w", padx=0, pady=0)
 
         # Label - (Memory)
-        label = ttk.Label(self.frame_processes_view_tab, text=_tr("Memory"))
+        label = Common.static_information_label(self.frame_processes_view_tab, text=_tr("Memory"))
         label.grid(row=7, column=0, columnspan=2, padx=0, pady=0)
 
         # Label - (Show data as powers of:)
-        label = ttk.Label(self.frame_processes_view_tab, text=_tr("Show data as powers of") + ":")
+        label = Common.static_information_label(self.frame_processes_view_tab, text=_tr("Show data as powers of") + ":")
         label.grid(row=8, column=0, columnspan=2, padx=0, pady=0)
 
         # RadioButton (1024)
@@ -1186,12 +1192,12 @@ class SettingsWindow:
         self.memory_data_power_of_1000_rb = Common.radiobutton(self.frame_processes_view_tab, _tr("1000"), self.processes_memory_data_power_of_var, 1, self.on_memory_data_power_of_toggle)
         self.memory_data_power_of_1000_rb.grid(row=9, column=1, sticky="w", padx=0, pady=0)
 
-        # Label - (Disk
-        label = ttk.Label(self.frame_processes_view_tab, text=_tr("Disk"))
+        # Label - (Disk)
+        label = Common.static_information_label(self.frame_processes_view_tab, text=_tr("Disk"))
         label.grid(row=10, column=0, columnspan=2, padx=0, pady=0)
 
         # Label - (Show data as powers of:)
-        label = ttk.Label(self.frame_processes_view_tab, text=_tr("Show data as powers of") + ":")
+        label = Common.static_information_label(self.frame_processes_view_tab, text=_tr("Show data as powers of") + ":")
         label.grid(row=11, column=0, columnspan=32, padx=0, pady=0)
 
         # RadioButton (1024)
@@ -1602,15 +1608,14 @@ class SettingsWindow:
         separator.grid(row=6, column=0, columnspan=2, sticky="ew", padx=0, pady=10)
 
         # Button (Reset)
-        self.reset_users_settings_button = Common.reset_button(frame)
+        self.reset_users_settings_button = Common.button(frame, text =_tr("Reset"), command=self.on_reset_users_settings_button_clicked)
         self.reset_users_settings_button.grid(row=7, column=0, columnspan=2, padx=0, pady=(0, 10))
 
         # Connect signals
         self.settings_window.after(1, self.users_settings_set_gui)
-        self.reset_users_settings_button.config(command=self.on_users_settings_reset_button_clicked)
 
 
-    def on_users_settings_reset_button_clicked(self):
+    def on_reset_users_settings_button_clicked(self):
         # Load default settings
         Config.config_default_users_func()
         Config.config_save_func()
@@ -1754,13 +1759,12 @@ class SettingsWindow:
         separator.grid(row=4, column=0, columnspan=2, sticky="ew", padx=0, pady=10)
 
         # Button (Reset)
-        self.reset_services_settings_button = Common.reset_button(frame)
+        self.reset_services_settings_button = Common.button(frame, text =_tr("Reset"), command=self.on_reset_services_settings_button_clicked)
         self.reset_services_settings_button.grid(row=5, column=0, columnspan=2, padx=0, pady=(0, 10))
 
 
         # Connect signals
         self.settings_window.after(1, self.services_settings_set_gui)
-        self.reset_services_settings_button.config(command=self.on_reset_services_settings_button_clicked)
 
 
     def on_reset_services_settings_button_clicked(self):

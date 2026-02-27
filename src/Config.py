@@ -97,6 +97,7 @@ class Config:
         self.language = "system"
         self.light_dark_theme = "system"
         self.update_interval = 0.75
+        self.font_scale = 1.0
         self.chart_data_history = 150
         self.default_main_tab = 0
         self.performance_tab_default_sub_tab = 0
@@ -256,6 +257,12 @@ class Config:
         self.reset_all_settings_with_new_release = int(config_values[config_variables.index("reset_all_settings_with_new_release")])
         self.language = config_values[config_variables.index("language")]
         self.light_dark_theme = config_values[config_variables.index("light_dark_theme")]
+
+        if "font_scale" in config_variables:
+            self.font_scale = float(config_values[config_variables.index("font_scale")])
+        else:
+            pass
+
         self.update_interval = float(config_values[config_variables.index("update_interval")])
         self.chart_data_history = int(config_values[config_variables.index("chart_data_history")])
         self.default_main_tab = int(config_values[config_variables.index("default_main_tab")])
@@ -345,6 +352,7 @@ class Config:
         config_write_text = config_write_text + "reset_all_settings_with_new_release = " + str(self.reset_all_settings_with_new_release) + "\n"
         config_write_text = config_write_text + "language = " + str(self.language) + "\n"
         config_write_text = config_write_text + "light_dark_theme = " + str(self.light_dark_theme) + "\n"
+        config_write_text = config_write_text + "font_scale = " + str(self.font_scale) + "\n"
         config_write_text = config_write_text + "update_interval = " + str(self.update_interval) + "\n"
         config_write_text = config_write_text + "chart_data_history = " + str(self.chart_data_history) + "\n"
         config_write_text = config_write_text + "default_main_tab = " + str(self.default_main_tab) + "\n"

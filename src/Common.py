@@ -16,7 +16,7 @@ def get_system_font():
     Get system font and modified fonts.
     """
 
-    global font_system, font_bold_2x, font_bold_underlined, font_bold, font_underlined, font_small
+    global font_system, font_normal, font_bold_2x, font_bold_underlined, font_bold, font_underlined, font_small
 
     # Get system font
     font_system = tkinter.font.nametofont("TkDefaultFont")
@@ -30,12 +30,15 @@ def get_system_font():
     font_system_underline = font_system_config["underline"]
     font_system_overstrike = font_system_config["overstrike"]
 
+    font_scale = Config.font_scale
+
     # Get modified fonts
-    font_bold_2x = tkinter.font.Font(family=font_system_family, size=2*font_system_size, weight="bold", slant=font_system_slant, underline=font_system_underline, overstrike=font_system_overstrike)
-    font_bold = tkinter.font.Font(family=font_system_family, size=font_system_size, weight="bold", slant=font_system_slant, underline=font_system_underline, overstrike=font_system_overstrike)
-    font_bold_underlined = tkinter.font.Font(family=font_system_family, size=font_system_size, weight="bold", slant=font_system_slant, underline=1, overstrike=font_system_overstrike)
-    font_underlined = tkinter.font.Font(family=font_system_family, size=font_system_size, weight=font_system_weight, slant=font_system_slant, underline=1, overstrike=font_system_overstrike)
-    font_small = tkinter.font.Font(family=font_system_family, size=int(font_system_size*0.9), weight=font_system_weight, slant=font_system_slant, underline=font_system_underline, overstrike=font_system_overstrike)
+    font_normal = tkinter.font.Font(family=font_system_family, size=int(font_scale*font_system_size), weight=font_system_weight, slant=font_system_slant, underline=font_system_underline, overstrike=font_system_overstrike)
+    font_bold_2x = tkinter.font.Font(family=font_system_family, size=int(font_scale*2*font_system_size), weight="bold", slant=font_system_slant, underline=font_system_underline, overstrike=font_system_overstrike)
+    font_bold = tkinter.font.Font(family=font_system_family, size=int(font_scale*font_system_size), weight="bold", slant=font_system_slant, underline=font_system_underline, overstrike=font_system_overstrike)
+    font_bold_underlined = tkinter.font.Font(family=font_system_family, size=int(font_scale*font_system_size), weight="bold", slant=font_system_slant, underline=1, overstrike=font_system_overstrike)
+    font_underlined = tkinter.font.Font(family=font_system_family, size=int(font_scale*font_system_size), weight=font_system_weight, slant=font_system_slant, underline=1, overstrike=font_system_overstrike)
+    font_small = tkinter.font.Font(family=font_system_family, size=int(font_scale*0.9*font_system_size), weight=font_system_weight, slant=font_system_slant, underline=font_system_underline, overstrike=font_system_overstrike)
 
 
 def separate_thread(function, widget):
@@ -159,13 +162,10 @@ def device_kernel_name_label(container):
     Generate device kernel name information Label.
     """
 
-    """_text = ttk.Entry(container, text="--", font=("", 0))
-    _text.insert("--")
-    _text.grid(row=0, column=0, sticky="w")
-    _text.configure(bg=master.cget("bg"), relief="flat")
-    _text.configure(state="readonly")"""
+    if "font_system" not in globals():
+        get_system_font()
 
-    _label = ttk.Label(container, text="--")
+    _label = ttk.Label(container, text="--", font=font_normal)
     _label.grid(row=1, column=1, sticky="nw")
 
     return _label
@@ -176,7 +176,10 @@ def da_upper_lower_label(container, text):
     Generate Label above or below DrawingArea.
     """
 
-    _label = ttk.Label(container, text=text, foreground="gray")
+    if "font_system" not in globals():
+        get_system_font()
+
+    _label = ttk.Label(container, text=text, font=font_normal, foreground="gray")
 
     return _label
 
@@ -186,7 +189,10 @@ def static_information_label(container, text):
     Generate static information Label. This label is not updated.
     """
 
-    _label = ttk.Label(container, text=text, anchor='w')
+    if "font_system" not in globals():
+        get_system_font()
+
+    _label = ttk.Label(container, text=text, font=font_normal, anchor='w')
 
     return _label
 
@@ -370,7 +376,7 @@ def tooltip(widget, text):
 
         _tooltip.bind('<ButtonPress>', destroy_tooltip)
 
-        label = tk.Label(_tooltip, text=text, borderwidth=8, wraplength=400, justify="left")
+        label = tk.Label(_tooltip, text=text, font=font_normal, borderwidth=8, wraplength=400, justify="left")
         label.grid(row=0, column=0, sticky="nsew", padx=1, pady=1)
 
     def destroy_tooltip(event):
@@ -406,6 +412,9 @@ def radiobutton(container, text, variable, value, command):
 
     _radiobutton = ttk.Radiobutton(container, text=text, variable=variable, value=value, command=command)
 
+    style = ttk.Style()
+    style.configure("TRadiobutton", font=font_normal)
+
     return _radiobutton
 
 
@@ -413,12 +422,25 @@ def checkbutton(container, text, variable, command):
 
     _checkbutton = ttk.Checkbutton(container, text=text, variable=variable, command=command)
 
+    style = ttk.Style()
+    style.configure("TCheckbutton", font=font_normal)
+
     return _checkbutton
 
 
-def reset_button(container):
+def combobox(container):
 
-    _button = ttk.Button(container, text=_tr("Reset"))
+    _combobox = ttk.Combobox(container, stat="readonly", font=font_normal)
+
+    return _combobox
+
+
+def button(container, text, command):
+
+    _button = ttk.Button(container, text=text, command=command)
+
+    style = ttk.Style()
+    style.configure("TButton", font=font_normal)
 
     return _button
 
@@ -487,7 +509,7 @@ def searchentry(container, TabObject):
     _text_variable.trace_add("write", lambda name, index, mode, _text_variable=_text_variable: on_searchentry_changed(_text_variable, TabObject))
 
     # Entry
-    _searchentry = ttk.Entry(container, textvariable=_text_variable)
+    _searchentry = ttk.Entry(container, textvariable=_text_variable, font=font_normal)
     _searchentry.grid(row=0, column=0, sticky="nsew", padx=0, pady=0)
     _searchentry.delete(0, "end")
     #_searchentry.insert(0, " " + _tr("Search...") + " ")
@@ -745,6 +767,11 @@ def treeview(container, TabObject):
     treeview.configure(yscrollcommand=scrollbar_vertical.set)
     treeview.configure(xscrollcommand=scrollbar_horizontal.set)
 
+    # Define style for changing treeview row and title fonts.
+    style = ttk.Style()
+    style.configure("Treeview", font=font_normal)
+    style.configure("Treeview.Heading", font=font_normal)
+
     return treeview, frame
 
 
@@ -903,7 +930,7 @@ def treeview_row_tooltip(event):
     _treeview_tooltip.geometry("+" + str(event.x_root+15) + "+" + str(event.y_root+10))
     _treeview_tooltip.bind('<ButtonPress>', destroy_row_tooltip)
 
-    label = tk.Label(_treeview_tooltip, text=tool_tip_text, borderwidth=8, wraplength=400, justify="left")
+    label = tk.Label(_treeview_tooltip, text=tool_tip_text, font=font_normal, borderwidth=8, wraplength=400, justify="left")
     label.grid(row=0, column=0, sticky="nsew", padx=1, pady=1)
 
 

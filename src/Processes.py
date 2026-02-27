@@ -223,10 +223,10 @@ class Processes:
         self.show_priority_text_label = Common.dynamic_information_label(frame)
         self.show_priority_text_label.grid(row=4, column=0, columnspan=2, sticky="ew", padx=0, pady=10)
 
-        cancel_button = ttk.Button(frame, text =_tr("Cancel"), command=self.cancel_priority_button)
+        cancel_button = Common.button(frame, text =_tr("Cancel"), command=self.cancel_priority_button)
         cancel_button.grid(row=5, column=0, sticky="ew", padx=5, pady=(0, 4))
 
-        change_priority_button = ttk.Button(frame, text =_tr("Change Priority"), command=self.on_change_priority_button)
+        change_priority_button = Common.button(frame, text =_tr("Change Priority"), command=self.on_change_priority_button)
         change_priority_button.grid(row=5, column=1, sticky="ew", padx=5, pady=(0, 4))
 
         self.show_priority_text(selected_process_nice)
@@ -298,10 +298,10 @@ class Processes:
         frame2 = ttk.Frame(frame, style="Card.TFrame")
         frame2.grid(row=2, column=0, columnspan=2, sticky="nsew", padx=10, pady=10)
 
-        select_all_button = ttk.Button(frame2, text =_tr("Select All"), command=self.cpu_affinity_select_all_button)
+        select_all_button = Common.button(frame2, text =_tr("Select All"), command=self.cpu_affinity_select_all_button)
         select_all_button.grid(row=0, column=1, rowspan=2, sticky="nsew", padx=10, pady=10)
 
-        select_none_button = ttk.Button(frame2, text =_tr("Select None"), command=self.cpu_affinity_select_none_button)
+        select_none_button = Common.button(frame2, text =_tr("Select None"), command=self.cpu_affinity_select_none_button)
         select_none_button.grid(row=2, column=1, rowspan=2, sticky="nsew", padx=10, pady=10)
 
 
@@ -319,10 +319,10 @@ class Processes:
                     cpu_affinity_var.set(1)
             self.cpu_affinity_dict["core"+str(i)] = {"variable": cpu_affinity_var, "checkbutton": cpu_affinity_cb}
 
-        cancel_button = ttk.Button(frame, text =_tr("Cancel"), command=self.cancel_cpu_affinity_button)
+        cancel_button = Common.button(frame, text =_tr("Cancel"), command=self.cancel_cpu_affinity_button)
         cancel_button.grid(row=3, column=0, sticky="ew", padx=5, pady=(0, 4))
 
-        change_cpu_affinity_button = ttk.Button(frame, text =_tr("Set CPU Affinity"), command=self.on_change_cpu_affinity_button)
+        change_cpu_affinity_button = Common.button(frame, text =_tr("Set CPU Affinity"), command=self.on_change_cpu_affinity_button)
         change_cpu_affinity_button.grid(row=3, column=1, sticky="ew", padx=5, pady=(0, 4))
 
 
