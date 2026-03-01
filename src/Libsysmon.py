@@ -186,13 +186,13 @@ def get_gnome_theme():
 
     try:
         gnome_theme_output = (subprocess.check_output(command_list, shell=False)).decode("utf-8").strip().strip("'")
-
-        if gnome_theme_output in ["prefer-dark"]:
-            gnome_theme = "dark"
-        elif gnome_theme_output in ["prefer-light", "default"]:
-            gnome_theme = "light"
     except Exception as e:
         print(e)
+
+    if gnome_theme_output in ["prefer-dark"]:
+        gnome_theme = "dark"
+    elif gnome_theme_output in ["prefer-light", "default"]:
+        gnome_theme = "light"
 
     return gnome_theme
 
@@ -205,14 +205,12 @@ def get_kde_theme():
     import subprocess, shutil
 
     if get_environment_type() == "flatpak":
-        # shutil won't tell us about the host packages when running in flatpak
         cmd_tool = "kreadconfig6"
     elif shutil.which("kreadconfig6"):
         cmd_tool = "kreadconfig6"
     elif shutil.which("kreadconfig5"):
         cmd_tool = "kreadconfig5"
     else:
-        # no kconfig
         return "-"
 
     command_list = [cmd_tool, "--group", "General", "--key", "ColorScheme"]
@@ -221,7 +219,6 @@ def get_kde_theme():
 
     try:
         kde_theme_output = (subprocess.check_output(command_list, shell=False)).decode("utf-8").strip()
-
         kde_theme = "light"
         dark_indicators = ['dark', 'black', 'nocturnal', 'ocean']
         for theme_name in dark_indicators:
