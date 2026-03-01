@@ -181,17 +181,18 @@ def get_gnome_theme():
     command_list = ["gsettings", "get", "org.gnome.desktop.interface", "color-scheme"]
     if get_environment_type() == "flatpak":
         command_list = ["flatpak-spawn", "--host"] + command_list
-    
+
+    gnome_theme = "-"
+
     try:
         gnome_theme_output = (subprocess.check_output(command_list, shell=False)).decode("utf-8").strip().strip("'")
+
+        if gnome_theme_output in ["prefer-dark"]:
+            gnome_theme = "dark"
+        elif gnome_theme_output in ["prefer-light", "default"]:
+            gnome_theme = "light"
     except Exception as e:
         print(e)
-        gnome_theme = "-"
-
-    if gnome_theme_output in ["prefer-dark"]:
-        gnome_theme = "dark"
-    if gnome_theme_output in ["prefer-light", "default"]:
-        gnome_theme = "light"
 
     return gnome_theme
 
@@ -203,10 +204,16 @@ def get_kde_theme():
 
     import subprocess, shutil
 
-    if shutil.which("kreadconfig6"):
+    if get_environment_type() == "flatpak":
+        # shutil won't tell us about the host packages when running in flatpak
         cmd_tool = "kreadconfig6"
-    if shutil.which("kreadconfig5"):
+    elif shutil.which("kreadconfig6"):
+        cmd_tool = "kreadconfig6"
+    elif shutil.which("kreadconfig5"):
         cmd_tool = "kreadconfig5"
+    else:
+        # no kconfig
+        return "-"
 
     command_list = [cmd_tool, "--group", "General", "--key", "ColorScheme"]
     if get_environment_type() == "flatpak":
@@ -214,18 +221,16 @@ def get_kde_theme():
 
     try:
         kde_theme_output = (subprocess.check_output(command_list, shell=False)).decode("utf-8").strip()
-    except Exception as e:
-        print(e)
-        kde_theme = "-"
 
-        if kde_theme != "-":
-            kde_theme = "light"
+        kde_theme = "light"
         dark_indicators = ['dark', 'black', 'nocturnal', 'ocean']
-
         for theme_name in dark_indicators:
             if theme_name in kde_theme_output:
                 kde_theme = "dark"
                 break
+    except Exception as e:
+        print(e)
+        kde_theme = "-"
 
     return kde_theme
 
