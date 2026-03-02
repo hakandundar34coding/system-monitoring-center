@@ -188,6 +188,7 @@ def get_gnome_theme():
         gnome_theme_output = (subprocess.check_output(command_list, shell=False)).decode("utf-8").strip().strip("'")
     except Exception as e:
         print(e)
+        gnome_theme_output = "-"
 
     if gnome_theme_output in ["prefer-dark"]:
         gnome_theme = "dark"
