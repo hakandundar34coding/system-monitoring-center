@@ -6,7 +6,32 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0</project_license>
   <name>System Monitoring Center</name>
+  <name xml:lang="zh-Hant-TW">系統監控中心</name>
+  <name xml:lang="zh-Hans-CN">系统监视中心</name>
+  <name xml:lang="tr">Sistem Gözlem Merkezi</name>
+  <name xml:lang="ru-RU">Центр мониторинга системы</name>
+  <name xml:lang="pt-PT">Centro de Monitorização do Sistema</name>
+  <name xml:lang="pt-BR">Central de Monitoramento do Sistema</name>
+  <name xml:lang="pl">Centrum Monitorowania Systemu</name>
+  <name xml:lang="hu">Rendszermegfigyelő központ</name>
+  <name xml:lang="fr">Centre de surveillance du système</name>
+  <name xml:lang="fa">مرکز دیده‌ بانی رایانه</name>
+  <name xml:lang="es">Centro de Monitoreo del Sistema</name>
+  <name xml:lang="de">Systemüberwachungszentrum</name>
+  <name xml:lang="cs">Centrum monitorování systému</name>
   <summary>Multi-featured system monitor</summary>
+  <summary xml:lang="zh-Hant-TW">多功能系統監控中心</summary>
+  <summary xml:lang="zh-Hans-CN">多功能系统监视器</summary>
+  <summary xml:lang="tr">Çok özellikli sistem gözlemcisi</summary>
+  <summary xml:lang="ru-RU">Многофункциональный системный монитор</summary>
+  <summary xml:lang="pt-PT">Monitor de sistema multi-recursos</summary>
+  <summary xml:lang="pt-BR">Monitor de Sistema com vários recursos</summary>
+  <summary xml:lang="pl">Wielofunkcyjny monitor systemu</summary>
+  <summary xml:lang="hu">Többcélú rendszerfigyelő</summary>
+  <summary xml:lang="fr">Moniteur système multi-fonctions</summary>
+  <summary xml:lang="es">Monitor del sistema con múltiples funciones</summary>
+  <summary xml:lang="de">Multifunktioneller Systemmonitor</summary>
+  <summary xml:lang="cs">Multifunkční systémový monitor</summary>
   <developer id="io.github.hakandundar34coding">
     <name>Hakan Dündar</name>
   </developer>
@@ -130,7 +155,7 @@
           <li>All tab settings are moved to Settings window</li>
           <li>Settings simplifications (removed color, precision settings)</li>
           <li>Simplified remember selected tab settings</li>
-          <li>Multiprocessing is disabled for >= Python 3.14 (Services)</li>
+          <li>Multiprocessing is disabled for &gt;= Python 3.14 (Services)</li>
           <li>Several code simplifications</li>
         </ul>
       </description>

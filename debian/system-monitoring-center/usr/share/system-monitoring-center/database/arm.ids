@@ -1,0 +1,141 @@
+#
+#    List of ARM CPU IDs
+#    in a format similar to pci.ids/usb.ids.
+#
+#    Version: 2019.08.05
+#    Maintained by: Burt P. (pburt0@gmail.com)
+#    https://github.com/bp0/armids
+#
+# Syntax:
+# implementer  implementer_name
+#	part  part_name     <-- single tab
+#
+# <implementer> is two hex digits, <part> is three hex digits, keep in order.
+# Comments start with '#'.
+#
+# This file can be distributed under the GNU General Public License
+# (version 2 or higher).
+#
+# Based on lscpu-arm.c by Riku Voipio <riku.voipio@iki.fi>
+#
+# The information here is gathered from
+# - ARM manuals
+# - Linux kernel: arch/armX/include/asm/cputype.h
+# - GCC sources: config/arch/arch-cores.def
+# - Ancient wisdom
+#
+
+41 ARM
+	810 ARM810
+	920 ARM920
+	922 ARM922
+	926 ARM926
+	940 ARM940
+	946 ARM946
+	966 ARM966
+	a20 ARM1020
+	a22 ARM1022
+	a26 ARM1026
+	b02 ARM11 MPCore
+	b36 ARM1136
+	b56 ARM1156
+	b76 ARM1176
+	c05 Cortex-A5
+	c07 Cortex-A7
+	c08 Cortex-A8
+	c09 Cortex-A9
+	c0d Cortex-A17 # Originally A12
+	c0f Cortex-A15
+	c0e Cortex-A17
+	c14 Cortex-R4
+	c15 Cortex-R5
+	c17 Cortex-R7
+	c18 Cortex-R8
+	c20 Cortex-M0
+	c21 Cortex-M1
+	c23 Cortex-M3
+	c24 Cortex-M4
+	c27 Cortex-M7
+	c60 Cortex-M0+
+	d01 Cortex-A32
+	d03 Cortex-A53
+	d04 Cortex-A35
+	d05 Cortex-A55
+	d07 Cortex-A57
+	d08 Cortex-A72
+	d09 Cortex-A73
+	d0a Cortex-A75
+	d0b Cortex-A76
+	d0c Neoverse-N1
+	d0d Cortex-A77
+	d13 Cortex-R52
+	d20 Cortex-M23
+	d21 Cortex-M33
+	d4a Neoverse-E1
+42 Broadcom
+	00f Brahma B15
+	100 Brahma B53
+	516 ThunderX2
+43 Cavium
+	0a0 ThunderX
+	0a1 ThunderX 88XX
+	0a2 ThunderX 81XX
+	0a3 ThunderX 83XX
+	0af ThunderX2 99xx
+44 DEC
+	a10 SA110
+	a11 SA1100
+4e nVidia
+	000 Denver
+	003 Denver 2
+50 APM
+	000 X-Gene
+51 Qualcomm
+	00f Scorpion
+	02d Scorpion
+	04d Krait
+	06f Krait
+	201 Kryo
+	205 Kryo
+	211 Kryo
+	800 Falkor V1/Kryo
+	801 Kryo V2
+	802 Kryo 3xx gold
+	803 Kryo 3xx silver
+	805 Kryo 5xx silver
+	c00 Falkor
+	c01 Saphira
+53 Samsung
+	001 exynos-m1
+54 Texas Instruments
+56 Marvell
+	131 Feroceon 88FR131
+	581 PJ4/PJ4b
+	584 PJ4B-MP
+66 Faraday
+	526 FA526
+	626 FA626
+69 Intel
+	200 i80200
+	210 PXA250A
+	212 PXA210A
+	242 i80321-400
+	243 i80321-600
+	290 PXA250B/PXA26x
+	292 PXA210B
+	2c2 i80321-400-B0
+	2c3 i80321-600-B0
+	2d0 PXA250C/PXA255/PXA26x
+	2d2 PXA210C
+	2e3 i80219
+	411 PXA27x
+	41c IPX425-533
+	41d IPX425-400
+	41f IPX425-266
+	682 PXA32x
+	683 PXA930/PXA935
+	688 PXA30x
+	689 PXA31x
+	b11 SA1110
+	c12 IPX1200
+
