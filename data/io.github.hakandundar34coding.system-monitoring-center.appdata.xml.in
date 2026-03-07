@@ -104,7 +104,7 @@
           <li>Fix: device selection list font size</li>
           <li>Fix: managing services (restart, start, stop, etc.)</li>
           <li>Fix: system theme detection in some cases</li>
-          <li>Fix: errors after waking up after uspending computer</li>
+          <li>Fix: errors after waking up after suspending computer</li>
         </ul>
       </description>
     </release>
