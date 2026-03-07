@@ -6,7 +6,7 @@ system-monitoring-center (3.2.0) unstable; urgency=medium
   * Fix: device selection list font size
   * Fix: managing services (restart, start, stop, etc.)
   * Fix: system theme detection in some cases
-  * Fix: errors after waking up after uspending computer
+  * Fix: errors after waking up after suspending computer
 
  -- Hakan Dündar <hakandundar34@gmail.com>  Thu, 05 Mar 2026 10:50:00 +0300
 
