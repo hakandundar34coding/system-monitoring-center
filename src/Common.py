@@ -7,6 +7,7 @@ import locale
 
 from .Config import Config
 from .Performance import Performance
+from . import Libsysmon
 
 _tr = Config._tr
 
@@ -31,6 +32,9 @@ def get_system_font():
     font_system_overstrike = font_system_config["overstrike"]
 
     font_scale = Config.font_scale
+    # Font in Flatpak environment is smaller than font in native systems. Font scale is increased for Flatpak environments.
+    if Libsysmon.get_environment_type() == "flatpak":
+        font_scale = font_scale + 0.2
 
     # Get modified fonts
     font_normal = tkinter.font.Font(family=font_system_family, size=int(font_scale*font_system_size), weight=font_system_weight, slant=font_system_slant, underline=font_system_underline, overstrike=font_system_overstrike)
