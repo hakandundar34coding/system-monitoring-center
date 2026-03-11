@@ -119,22 +119,22 @@ class Processes:
         # Do not generate a new menu if it is generated before.
         if hasattr(self, "right_click_menu") == False:
             self.right_click_menu = tk.Menu(self.treeview, tearoff=False, bd=3, activebackground="gray")
-            self.right_click_menu.add_command(label=_tr("Pause Process"), accelerator="(Ctrl+S)", command=lambda: self.on_process_manage_items_activate("pause_process"))
-            self.right_click_menu.add_command(label=_tr("Continue Process"), accelerator="(Ctrl+C)", command=lambda: self.on_process_manage_items_activate("continue_process"))
-            self.right_click_menu.add_command(label=_tr("End Process"), accelerator="(Ctrl+E)", command=lambda: self.on_process_manage_items_activate("end_process"))
-            self.right_click_menu.add_command(label=_tr("End Process Immediately"), accelerator="(Ctrl+K)", command=lambda: self.on_process_manage_items_activate("end_immediately_process"))
+            self.right_click_menu.add_command(label=_tr("Pause Process"), accelerator="(Ctrl+S)", activebackground="gray", command=lambda: self.on_process_manage_items_activate("pause_process"))
+            self.right_click_menu.add_command(label=_tr("Continue Process"), accelerator="(Ctrl+C)", activebackground="gray", command=lambda: self.on_process_manage_items_activate("continue_process"))
+            self.right_click_menu.add_command(label=_tr("End Process"), accelerator="(Ctrl+E)", activebackground="gray", command=lambda: self.on_process_manage_items_activate("end_process"))
+            self.right_click_menu.add_command(label=_tr("End Process Immediately"), accelerator="(Ctrl+K)", activebackground="gray", command=lambda: self.on_process_manage_items_activate("end_immediately_process"))
             self.right_click_menu.add_separator()
-            self.right_click_menu.add_command(label=_tr("Change Priority"), accelerator="(Ctrl+P)", command=self.on_change_priority_item_clicked)
+            self.right_click_menu.add_command(label=_tr("Change Priority"), accelerator="(Ctrl+P)", activebackground="gray", command=self.on_change_priority_item_clicked)
             self.right_click_menu.add_separator()
-            self.right_click_menu.add_command(label=_tr("Set CPU Affinity"), accelerator="(Ctrl+R)", command=self.on_set_cpu_affinity_item_clicked)
+            self.right_click_menu.add_command(label=_tr("Set CPU Affinity"), accelerator="(Ctrl+R)", activebackground="gray", command=self.on_set_cpu_affinity_item_clicked)
             self.right_click_menu.add_separator()
-            self.right_click_menu.add_command(label=_tr("Details"), accelerator="(Enter)", command=self.on_details_item_activate)
+            self.right_click_menu.add_command(label=_tr("Details"), accelerator="(Enter)", activebackground="gray", command=self.on_details_item_activate)
 
         # Add/remove "Expand All/Collapse All"" options to menu if processes are listed as tree/list.
         if Config.show_processes_as_tree == 1:
             if self.right_click_menu.index(tk.END) == 9:
-                self.right_click_menu.insert_command(0, label=_tr("Expand All"), command=self.treeview_expand_all_rows)
-                self.right_click_menu.insert_command(1, label=_tr("Collapse All"), command=self.treeview_collapse_all_rows)
+                self.right_click_menu.insert_command(0, label=_tr("Expand All"), activebackground="gray", command=self.treeview_expand_all_rows)
+                self.right_click_menu.insert_command(1, label=_tr("Collapse All"), activebackground="gray", command=self.treeview_collapse_all_rows)
                 self.right_click_menu.insert_separator(2)
                 # Set properties again. It is reset after menu item added or removed.
                 self.right_click_menu.config(bd=3, activebackground="gray", relief="raised")

@@ -89,7 +89,7 @@ class Users:
         """
 
         self.right_click_menu = tk.Menu(self.treeview, tearoff=False, bd=3, activebackground="gray")
-        self.right_click_menu.add_command(label=_tr("Details"), accelerator="(Enter)", command=self.on_details_item_activate)
+        self.right_click_menu.add_command(label=_tr("Details"), accelerator="(Enter)", activebackground="gray", command=self.on_details_item_activate)
 
         self.right_click_menu.bind("<FocusOut>", self.right_click_menu_close)
 
