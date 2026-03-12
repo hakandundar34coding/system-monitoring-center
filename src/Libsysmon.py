@@ -5342,6 +5342,22 @@ def get_installed_system_packages():
         except (FileNotFoundError, subprocess.CalledProcessError) as e:
             portage_packages_available = "-"
 
+    # Get number of XBPS (Void Linux distribution) packages if available.
+    if apt_packages_available == "-" and rpm_packages_available == "-" and pacman_packages_available == "-" and apk_packages_available == "-" and portage_packages_available == "-":
+        try:
+            # Python3 is in core system, no need to check if it is available.
+            command_list = ["xbps-query", "-l"]
+            if environment_type == "flatpak":
+                command_list = ["flatpak-spawn", "--host"] + command_list
+            xbps_output = (subprocess.check_output(command_list, shell=False)).decode().strip().split("\n")
+            installed_xbps_packages = 0
+            for line in xbps_output:
+                if line.startswith("ii ") == True:
+                    installed_xbps_packages = installed_xbps_packages + 1
+            system_packages_count = f'{installed_xbps_packages} (XBPS)'
+        except (FileNotFoundError, subprocess.CalledProcessError) as e:
+            installed_xbps_packages = "-"
+
     return system_packages_count
 
 
