@@ -136,8 +136,6 @@ class Processes:
                 self.right_click_menu.insert_command(0, label=_tr("Expand All"), activebackground="gray", command=self.treeview_expand_all_rows)
                 self.right_click_menu.insert_command(1, label=_tr("Collapse All"), activebackground="gray", command=self.treeview_collapse_all_rows)
                 self.right_click_menu.insert_separator(2)
-                # Set properties again. It is reset after menu item added or removed.
-                self.right_click_menu.config(bd=3, activebackground="gray", relief="raised")
         # Delete the first three options. Indexes are updated after inserting/removing options.
         else:
             # Prevent removing the other options if "Expand All/Collapse All"" options are not added.
@@ -146,7 +144,9 @@ class Processes:
                 self.right_click_menu.delete(0)
                 self.right_click_menu.delete(0)
                 self.right_click_menu.delete(0)
-                self.right_click_menu.config(bd=3, activebackground="gray", relief="raised")
+
+        # Set properties again. It is reset after menu item added or removed.
+        self.right_click_menu.config(bd=3, activebackground="gray", relief="raised")
 
         self.right_click_menu.bind("<FocusOut>", self.right_click_menu_close)
 
