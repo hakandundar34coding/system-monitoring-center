@@ -115,6 +115,8 @@ class Users:
     def on_right_click(self, event):
 
         self.get_selection(event)
+        # Set properties again. It is reset after menu item added or removed. Also they are not displayed in some cases.
+        self.right_click_menu.config(bd=3, activebackground="gray", relief="raised")
         # Show menu on mouse coordinates
         self.right_click_menu.post(event.x_root, event.y_root)
         self.right_click_menu.focus_set()

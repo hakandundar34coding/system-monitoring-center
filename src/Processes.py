@@ -145,9 +145,6 @@ class Processes:
                 self.right_click_menu.delete(0)
                 self.right_click_menu.delete(0)
 
-        # Set properties again. It is reset after menu item added or removed.
-        self.right_click_menu.config(bd=3, activebackground="gray", relief="raised")
-
         self.right_click_menu.bind("<FocusOut>", self.right_click_menu_close)
 
         self.treeview.bind("<Button-3>", self.on_right_click)
@@ -155,8 +152,6 @@ class Processes:
         self.treeview.bind("<Return>", self.treeview_enter_press_event)
         # Treeview "FocusOut" signal may not close right click menu if certain areas of the GUI is clicked. The following signal is used for fixing this issue.
         self.treeview.winfo_toplevel().bind("<Button-1>", self.right_click_menu_close)
-
-        return self.right_click_menu
 
 
     def treeview_expand_all_rows(self):
@@ -473,7 +468,10 @@ class Processes:
     def on_right_click(self, event):
 
         clicked_row = self.treeview.identify_row(event.y)
-        
+
+        # Set properties again. It is reset after menu item added or removed. Also they are not displayed in some cases.
+        self.right_click_menu.config(bd=3, activebackground="gray", relief="raised")
+
         if clicked_row:
             # Clear previous selection if right clicked row is not selected.
             if clicked_row not in self.treeview.selection():

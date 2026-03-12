@@ -112,8 +112,6 @@ class Services:
         # Treeview "FocusOut" signal may not close right click menu if certain areas of the GUI is clicked. The following signal is used for fixing this issue.
         self.treeview.winfo_toplevel().bind("<Button-1>", self.right_click_menu_close)
 
-        return self.right_click_menu
-
 
     def get_selection(self, event):
 
@@ -131,6 +129,8 @@ class Services:
     def on_right_click(self, event):
 
         self.get_selection(event)
+        # Set properties again. It is reset after menu item added or removed. Also they are not displayed in some cases.
+        self.right_click_menu.config(bd=3, activebackground="gray", relief="raised")
         # Show menu on mouse coordinates
         self.right_click_menu.post(event.x_root, event.y_root)
         self.right_click_menu.focus_set()
