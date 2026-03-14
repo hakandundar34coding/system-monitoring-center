@@ -5245,7 +5245,7 @@ def get_current_gtk_version():
 
 def get_installed_system_packages():
     """
-    Get number of installed APT, RPM or pacman packages.
+    Get number of installed APT, RPM, pacman, APK, Portage and XBPS packages.
     """
 
     environment_type = get_environment_type()
@@ -5256,6 +5256,7 @@ def get_installed_system_packages():
     pacman_packages_available = "-"
     apk_packages_available = "-"
     portage_packages_available = "-"
+    xbps_packages_available = "-"
     system_packages_count = "-"
 
     # Get number of APT (deb) packages if available.
@@ -5345,7 +5346,6 @@ def get_installed_system_packages():
     # Get number of XBPS (Void Linux distribution) packages if available.
     if apt_packages_available == "-" and rpm_packages_available == "-" and pacman_packages_available == "-" and apk_packages_available == "-" and portage_packages_available == "-":
         try:
-            # Python3 is in core system, no need to check if it is available.
             command_list = ["xbps-query", "-l"]
             if environment_type == "flatpak":
                 command_list = ["flatpak-spawn", "--host"] + command_list
@@ -5356,7 +5356,7 @@ def get_installed_system_packages():
                     installed_xbps_packages = installed_xbps_packages + 1
             system_packages_count = f'{installed_xbps_packages} (XBPS)'
         except (FileNotFoundError, subprocess.CalledProcessError) as e:
-            installed_xbps_packages = "-"
+            xbps_packages_available = "-"
 
     return system_packages_count
 
