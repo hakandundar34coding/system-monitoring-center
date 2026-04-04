@@ -1,13 +1,10 @@
 # System Monitoring Center
 
-### v3.2.0 (05.03.2026)
-  * New: Font scale added (General Settings)
-  * Updated Spanish translations
-  * Minor changes (code, translations, packaging, etc.)
-  * Fix: device selection list font size
-  * Fix: managing services (restart, start, stop, etc.)
-  * Fix: system theme detection in some cases
-  * Fix: errors after waking up after suspending computer
+### v3.3.0 (04.04.2026)
+  * New: number of installed XBPS packages (System)
+  * Minor changes for number of installed packages
+  * Font size is increased for Flatpak installations
+  * Visual improvements for right click menus
 
 ### v3.1.0 (19.02.2026)
   * Improvements for getting service list (Services)

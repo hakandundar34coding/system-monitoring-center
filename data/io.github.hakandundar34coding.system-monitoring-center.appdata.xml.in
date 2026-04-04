@@ -95,6 +95,16 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="3.3.0" date="2026-04-04">
+      <description>
+        <ul>
+          <li>New: number of installed XBPS packages (System)</li>
+          <li>Minor changes for number of installed packages</li>
+          <li>Font size is increased for Flatpak installations</li>
+          <li>Visual improvements for right click menus</li>
+        </ul>
+      </description>
+    </release>
     <release version="3.2.0" date="2026-03-05">
       <description>
         <ul>

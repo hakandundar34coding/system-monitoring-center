@@ -1,3 +1,12 @@
+system-monitoring-center (3.3.0) unstable; urgency=medium
+
+  * New: number of installed XBPS packages (System)
+  * Minor changes for number of installed packages
+  * Font size is increased for Flatpak installations
+  * Visual improvements for right click menus
+
+ -- Hakan Dündar <hakandundar34@gmail.com>  Sat, 04 Apr 2026 13:00:00 +0300
+
 system-monitoring-center (3.2.0) unstable; urgency=medium
 
   * New: Font scale added (General Settings)
