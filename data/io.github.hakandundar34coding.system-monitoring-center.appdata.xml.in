@@ -58,6 +58,10 @@
       <caption>Summary tab, dark theme</caption>
     </screenshot>
     <screenshot>
+      <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/summary_tab_white_system_theme.png</image>
+      <caption>Summary tab, white theme</caption>
+    </screenshot>
+    <screenshot>
       <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/cpu_tab_dark_system_theme.png</image>
       <caption>CPU tab, dark theme</caption>
     </screenshot>
@@ -90,8 +94,16 @@
       <caption>Processes tab, dark theme</caption>
     </screenshot>
     <screenshot>
+      <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/processes_tree_view_light_system_theme.png</image>
+      <caption>Processes tab, light theme</caption>
+    </screenshot>
+    <screenshot>
       <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/services_tab_dark_system_theme.png</image>
       <caption>Services tab, dark theme</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/hakandundar34coding/system-monitoring-center/master/screenshots/system_tab_dark_system_theme.png</image>
+      <caption>System tab, dark theme</caption>
     </screenshot>
   </screenshots>
   <releases>
