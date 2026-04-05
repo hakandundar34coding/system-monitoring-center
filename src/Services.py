@@ -3,6 +3,7 @@ from tkinter import ttk
 
 import os
 import subprocess
+import threading
 
 from .Config import Config
 from .Performance import Performance
@@ -43,8 +44,8 @@ class Services:
         self.right_click_menu_gui()
 
         # Label (Note: This tab is not reloaded automatically. Manually reload for changes.)
-        label = Common.static_information_label(self.tab_frame, _tr("Note: This tab is not reloaded automatically. Manually reload for changes."))
-        label.grid(row=2, column=0, sticky="w", padx=0, pady=1)
+        self.processing_label = Common.static_information_label(self.tab_frame, _tr("Note: This tab is not reloaded automatically. Manually reload for changes."))
+        self.processing_label.grid(row=2, column=0, sticky="w", padx=0, pady=1)
 
 
     def tab_title_frame(self):
@@ -343,6 +344,14 @@ class Services:
 
     def loop_func(self):
         """
+        Get and show information on the GUI on every loop by using threading.
+        """
+
+        threading.Thread(target=self.loop_func2, daemon=True).start()
+
+
+    def loop_func2(self):
+        """
         Get and show information on the GUI on every loop.
         """
 
@@ -362,6 +371,9 @@ class Services:
         except AttributeError:
             pass
         self.loop_already_run = 1
+
+        # Show information about loading services. Because this operation takes several seconds.
+        MainWindow.main_window.after(0, lambda: self.processing_label.config(text=_tr("Loading") + "...", background="red"))
 
         # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
         global services_memory_data_precision, services_memory_data_unit
@@ -452,6 +464,9 @@ class Services:
         self.selected_data_rows_prev = self.selected_data_rows
 
         Common.sort_columns_on_every_loop(self)
+
+        # reset information status text after loading all services.
+        MainWindow.main_window.after(0, lambda: self.processing_label.config(text=_tr("Note: This tab is not reloaded automatically. Manually reload for changes."), background=""))
 
 
 Services = Services()
