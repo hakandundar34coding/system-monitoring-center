@@ -532,7 +532,7 @@ class MainWindow():
                             "fa": "MasterKia",
                             "fr": "Metoto Sakamoto",
                             "hu": "Kálmán Szalai",
-                            "pl": "ski007, K0RR, sdorpl",
+                            "pl": "ski007, K0RR, sdorpl, Artur Wdowik",
                             "pt_BR": "Bruno do Nascimento",
                             "pt_PT": "Hugo Carvalho, Ricardo Simões",
                             "ru_RU": "badcast, akorny",
