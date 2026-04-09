@@ -6,6 +6,15 @@
   * Font size is increased for Flatpak installations
   * Visual improvements for right click menus
 
+### v3.2.0 (05.03.2026)
+  * New: Font scale added (General Settings)
+  * Updated Spanish translations
+  * Minor changes (code, translations, packaging, etc.)
+  * Fix: device selection list font size
+  * Fix: managing services (restart, start, stop, etc.)
+  * Fix: system theme detection in some cases
+  * Fix: errors after waking up after suspending computer
+
 ### v3.1.0 (19.02.2026)
   * Improvements for getting service list (Services)
   * Minor GUI improvements (About dialog)
