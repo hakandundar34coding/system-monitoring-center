@@ -1,503 +1,509 @@
-#!/usr/bin/env python3
+import tkinter as tk
+from tkinter import ttk
 
-# ----------------------------------- Disk - Disk Tab Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
-def disk_import_func():
+import os
+import subprocess
 
-    global Gtk, GLib, Thread, os, subprocess
+from .Config import Config
+from .Performance import Performance
+from .MainWindow import MainWindow
+from . import Common
+from . import Libsysmon
 
-    import gi
-    gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk, GLib
-    from threading import Thread
-    import os
-    import subprocess
-
-
-    global Config, MainGUI, Performance
-    import Config, MainGUI, Performance
+_tr = Config._tr
 
 
-    # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
-    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
-    import locale
-    from locale import gettext as _tr
+class Disk:
 
-    # Define contstants for language translation support
-    global application_name
-    application_name = "system-monitoring-center"
-    translation_files_path = "/usr/share/locale"
-    system_current_language = os.environ.get("LANG")
+    def __init__(self):
 
-    # Define functions for language translation support
-    locale.bindtextdomain(application_name, translation_files_path)
-    locale.textdomain(application_name)
-    locale.setlocale(locale.LC_ALL, system_current_language)
+        self.name = "Disk"
+
+        self.tab_gui()
+
+        self.initial_already_run = 0
 
 
-# ----------------------------------- Disk - Disk GUI Function (the code of this module in order to avoid running them during module import and defines "Disk" tab GUI objects and functions/signals) -----------------------------------
-def disk_gui_func():
+    def tab_gui(self):
+        """
+        Generate tab GUI.
+        """
 
-    # Disk tab GUI objects - get from file
-    builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/DiskTab.ui")
+        self.tab_frame = ttk.Frame(MainWindow.disk_tab_main_frame)
+        self.tab_frame.grid(row=0, column=0, sticky="nsew", padx=0, pady=0)
+        self.tab_frame.columnconfigure(0, weight=1)
+        self.tab_frame.rowconfigure(1, weight=1)
 
-    # Disk tab GUI objects
-    global grid1301, drawingarea1301, drawingarea1302, button1301, label1301, label1302
-    global label1303, label1304, label1305, label1306, label1307, label1308, label1309, label1310, label1311, label1312
+        self.tab_title_frame()
 
-    # Disk tab GUI objects - get
-    grid1301 = builder.get_object('grid1301')
-    drawingarea1301 = builder.get_object('drawingarea1301')
-    drawingarea1302 = builder.get_object('drawingarea1302')
-    button1301 = builder.get_object('button1301')
-    label1301 = builder.get_object('label1301')
-    label1302 = builder.get_object('label1302')
-    label1303 = builder.get_object('label1303')
-    label1304 = builder.get_object('label1304')
-    label1305 = builder.get_object('label1305')
-    label1306 = builder.get_object('label1306')
-    label1307 = builder.get_object('label1307')
-    label1308 = builder.get_object('label1308')
-    label1309 = builder.get_object('label1309')
-    label1310 = builder.get_object('label1310')
-    label1311 = builder.get_object('label1311')
-    label1312 = builder.get_object('label1312')
+        self.da_frame()
+
+        self.information_frame()
 
 
-    # Disk tab GUI functions
-    def on_button1301_clicked(widget):
-        if 'DiskMenu' not in globals():
-            global DiskMenu
-            import DiskMenu
-            DiskMenu.disk_menus_import_func()
-            DiskMenu.disk_menus_gui_func()
-            DiskMenu.popover1301p.set_relative_to(button1301)                                 # Set widget that popover menu will display at the edge of.
-            DiskMenu.popover1301p.set_position(1)                                             # Show popover menu at the right edge of the caller button.
-        DiskMenu.popover1301p.popup()                                                         # Show Disk tab popover GUI
+    def tab_title_frame(self):
+        """
+        Generate tab name, device name labels.
+        """
 
-    # ----------------------------------- Disk - Plot Disk read/write speed data as a Line Chart ----------------------------------- 
-    def on_drawingarea1301_draw(drawingarea1301, chart1301):
+        # Grid (tab title)
+        frame = ttk.Frame(self.tab_frame)
+        frame.grid(row=0, column=0, sticky="new", padx=0, pady=(0, 10))
+        """frame.columnconfigure(0, weight=1)
+        frame.rowconfigure(0, weight=1)"""
 
-        chart_data_history = Config.chart_data_history
-        chart_x_axis = list(range(0, chart_data_history))
-        try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the Disk module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
-            disk_read_speed = Performance.disk_read_speed[Performance.selected_disk_number]
-            disk_write_speed = Performance.disk_write_speed[Performance.selected_disk_number]
+        # Label (Disk)
+        label = Common.tab_title_label(frame, _tr("Disk"))
+
+        # Label (device vendor-model label)
+        self.device_vendor_model_label = Common.device_vendor_model_label(frame)
+        tooltip = Common.tooltip(self.device_vendor_model_label, _tr("Vendor-Model"))
+
+        # Label (device kernel name)
+        self.device_kernel_name_label = Common.device_kernel_name_label(frame)
+        tooltip = Common.tooltip(self.device_kernel_name_label, _tr("Device Name In Kernel"))
+
+
+    def da_frame(self):
+        """
+        Generate tab drawingarea and related information labels.
+        """
+
+        # Frame (drawingarea)
+        frame = ttk.Frame(self.tab_frame)
+        frame.grid(row=1, column=0, sticky="nsew", padx=0, pady=(0, 10))
+        frame.columnconfigure(0, weight=1)
+        frame.rowconfigure(1, weight=1)
+
+        # Label (drawingarea upper-left)
+        self.da_upper_left_label = Common.da_upper_lower_label(frame, _tr("Read Speed") + " (-) & " + _tr("Write Speed") + " (-  -)")
+        self.da_upper_left_label.grid(row=0, column=0, sticky="w")
+
+        # Label (drawingarea upper-right)
+        self.da_upper_right_label  = Common.da_upper_lower_label(frame, "--")
+        self.da_upper_right_label .grid(row=0, column=1, sticky="e")
+
+        # Label (for showing graphics)
+        self.da_disk_speed = Common.drawingarea(frame, "da_disk_speed")
+        self.da_disk_speed.grid(row=1, column=0, columnspan=2, sticky="nsew", padx=0, pady=0)
+
+        # Label (drawingarea lower-right)
+        label = Common.da_upper_lower_label(frame, "0")
+        label.grid(row=2, column=1, sticky="e")
+
+
+    def information_frame(self):
+        """
+        Generate performance/information labels.
+        """
+
+        # Frame (performance/information labels)
+        performance_info_grid = ttk.Frame(self.tab_frame)
+        performance_info_grid.grid(row=2, column=0, sticky="nsew", padx=0, pady=0)
+        performance_info_grid.columnconfigure((0, 1), weight=1, uniform="equal")
+        performance_info_grid.rowconfigure((0, 1), weight=1, uniform="equal")
+        #performance_info_grid.rowconfigure(0, weight=1)
+
+        # Styled information widgets (Read Speed and Write Speed)
+        # ScrolledWindow (Read Speed and Write Speed)
+        _frame, self.read_speed_label, self.write_speed_label = Common.styled_information_scrolledwindow(performance_info_grid, _tr("Read Speed"), None, _tr("Write Speed"), None)
+        _frame.grid(row=0, column=0, sticky="nsew", padx=(0, 15), pady=(0, 5))
+
+        # Styled information widgets (Read Data and Written Data)
+        # ScrolledWindow (Read Data and Written Data)
+        _frame, self.read_data_label, self.write_data_label = Common.styled_information_scrolledwindow(performance_info_grid, _tr("Read Data"), _tr("Measured value since last system start"), _tr("Written Data"), _tr("Measured value since last system start"))
+        _frame.grid(row=1, column=0, sticky="nsew", padx=(0, 15), pady=(5, 0))
+
+        # Frame - Right information labels
+        performance_info_right_frame = ttk.Frame(performance_info_grid)
+        performance_info_right_frame.grid(row=0, column=1, rowspan=2, sticky="nsew", padx=0, pady=0)
+        performance_info_right_frame.columnconfigure((0, 1), weight=1, uniform="equal")
+
+        # Labels - Right information labels
+        # Label (System Disk)
+        label = Common.static_information_label(performance_info_right_frame, _tr("System Disk") + ":")
+        label.grid(row=0, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (System Disk)
+        self.system_disk_label = Common.dynamic_information_label(performance_info_right_frame)
+        self.system_disk_label.grid(row=0, column=1, sticky="w", padx=(4, 0), pady=(0, 4))
+
+        # Label (Used)
+        label = Common.static_information_label(performance_info_right_frame, _tr("Used") + ":")
+        label.grid(row=1, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label and DrawingArea (Used)
+        frame_label_and_da = ttk.Frame(performance_info_right_frame)
+        frame_label_and_da.grid(row=1, column=1, sticky="nsew", padx=0, pady=0)
+        # Moving widgets problem is fixed by using the following configurations.
+        frame_label_and_da.columnconfigure((0,1), weight=2, uniform="equal")
+        frame_label_and_da.columnconfigure(1, weight=1)
+        # DrawingArea (Used)
+        self.da_disk_usage = ttk.Label(frame_label_and_da)
+        self.da_disk_usage.grid(row=0, column=0, sticky="nsew", padx=0, pady=2)
+        # Label (Used (percent))
+        self.used_percent_label = Common.dynamic_information_label(frame_label_and_da)
+        self.used_percent_label.grid(row=0, column=1, sticky="e", padx=(4, 0), pady=(0, 4))
+
+        # Label (Free)
+        label = Common.static_information_label(performance_info_right_frame, _tr("Free") + ":")
+        label.grid(row=2, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Free)
+        self.free_label = Common.dynamic_information_label(performance_info_right_frame)
+        self.free_label.grid(row=2, column=1, sticky="w", padx=(4, 0), pady=(0, 4))
+
+        # Label (Used)
+        label = Common.static_information_label(performance_info_right_frame, _tr("Used") + ":")
+        label.grid(row=3, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Used)
+        self.used_label = Common.dynamic_information_label(performance_info_right_frame)
+        self.used_label.grid(row=3, column=1, sticky="w", padx=(4, 0), pady=(0, 4))
+
+        # Label (Capacity)
+        label = Common.static_information_label(performance_info_right_frame, _tr("Capacity") + ":")
+        label.grid(row=4, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Capacity)
+        self.capacity_label = Common.dynamic_information_label(performance_info_right_frame)
+        self.capacity_label.grid(row=4, column=1, sticky="w", padx=(4, 0), pady=(0, 4))
+
+        # Label (Details...)
+        label = Common.static_information_label(performance_info_right_frame, _tr("Details") + ":")
+        label.grid(row=5, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Show...)
+        self.details_label = Common.clickable_label(performance_info_right_frame, self.on_details_label_released)
+        self.details_label.grid(row=5, column=1, sticky="w", padx=(4, 0), pady=(0, 4))
+
+
+    def on_details_label_released(self, event):
+        """
+        Show Disk details window.
+        """
+
+        self.disk_details_window_gui()
+        self.disk_details_info_get()
+        self.disk_details_update()
+
+
+    def disk_details_window_gui(self):
+        """
+        Disk details window GUI.
+        """
+
+        # Window
+        self.disk_details_window, frame = Common.window(MainWindow.main_window, _tr("Disk"))
+
+        # Information labels
+        # Label (Disk)
+        label = Common.static_information_label(frame, _tr("Disk"))
+        label.grid(row=0, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Disk)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=0, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (Disk)
+        self.disk_details_disk_label = Common.dynamic_information_label(frame)
+        self.disk_details_disk_label.grid(row=0, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (Parent Name)
+        label = Common.static_information_label(frame, _tr("Parent Name"))
+        label.grid(row=1, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Parent Name)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=1, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (Parent Name)
+        self.disk_details_parent_disk_label = Common.dynamic_information_label(frame)
+        self.disk_details_parent_disk_label.grid(row=1, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (System Disk)
+        label = Common.static_information_label(frame, _tr("System Disk"))
+        label.grid(row=2, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (System Disk)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=2, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (System Disk)
+        self.disk_details_system_disk_label = Common.dynamic_information_label(frame)
+        self.disk_details_system_disk_label.grid(row=2, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (Type)
+        label = Common.static_information_label(frame, _tr("Type"))
+        label.grid(row=3, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Type)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=3, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (Type)
+        self.disk_details_disk_type_label = Common.dynamic_information_label(frame)
+        self.disk_details_disk_type_label.grid(row=3, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (File System)
+        label = Common.static_information_label(frame, _tr("File System"))
+        label.grid(row=4, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (File System)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=4, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (File System)
+        self.disk_details_file_system_label = Common.dynamic_information_label(frame)
+        self.disk_details_file_system_label.grid(row=4, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (Capacity)
+        label = Common.static_information_label(frame, _tr("Capacity"))
+        label.grid(row=5, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Capacity)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=5, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (Capacity)
+        self.disk_details_capacity_label = Common.dynamic_information_label(frame)
+        self.disk_details_capacity_label.grid(row=5, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (Capacity (Mass Storage))
+        label = Common.static_information_label(frame, _tr("Capacity") + "\n" + "(" + _tr("Mass Storage") + ")")
+        label.grid(row=6, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Capacity (Mass Storage))
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=6, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (Capacity (Mass Storage))
+        self.disk_details_capacity_mass_label = Common.dynamic_information_label(frame)
+        self.disk_details_capacity_mass_label.grid(row=6, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (Free)
+        label = Common.static_information_label(frame, _tr("Free"))
+        label.grid(row=7, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Free)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=7, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (Free)
+        self.disk_details_free_label = Common.dynamic_information_label(frame)
+        self.disk_details_free_label.grid(row=7, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (Used)
+        label = Common.static_information_label(frame, _tr("Used"))
+        label.grid(row=8, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Used)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=8, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (Used)
+        self.disk_details_used_label = Common.dynamic_information_label(frame)
+        self.disk_details_used_label.grid(row=8, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (Vendor-Model)
+        label = Common.static_information_label(frame, _tr("Vendor - Model"))
+        label.grid(row=9, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Vendor-Model)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=9, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (Vendor-Model)
+        self.disk_details_vendor_model_label = Common.dynamic_information_label(frame)
+        self.disk_details_vendor_model_label.grid(row=9, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (Label (File System))
+        label = Common.static_information_label(frame, _tr("Label (File System)"))
+        label.grid(row=10, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Label (File System))
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=10, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (Label (File System))
+        self.details_label_fs_label = Common.dynamic_information_label(frame)
+        self.details_label_fs_label.grid(row=10, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (Mount Point)
+        label = Common.static_information_label(frame, _tr("Mount Point"))
+        label.grid(row=11, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Mount Point)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=11, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (Mount Point)
+        self.disk_details_mount_point_label = Common.dynamic_information_label(frame)
+        self.disk_details_mount_point_label.grid(row=11, column=2, sticky="w", padx=0, pady=(0, 4))
+
+
+    def disk_details_info_get(self):
+        """
+        Get disk details information.
+        """
+
+        # Get selected disk name and pci.ids file content
+        selected_disk = self.selected_disk
+
+        # Get configrations one time per floop instead of getting them multiple times in every loop which causes high CPU usage.
+        performance_disk_data_precision = Config.performance_disk_data_precision
+        performance_disk_data_unit = Config.performance_disk_data_unit
+        disk_list = Performance.disk_list
+
+        # Get information
+        disk_type = Libsysmon.get_disk_type(selected_disk)
+        disk_parent_name = Libsysmon.get_disk_parent_name(selected_disk, disk_type, disk_list)
+        disk_file_system_information = Libsysmon.get_disk_file_system_information(disk_list)
+        disk_file_system, disk_capacity, disk_used, disk_free, disk_usage_percentage, disk_mount_point, encrypted_disk_name  = Libsysmon.get_disk_file_system_capacity_used_free_used_percent_mount_point(disk_file_system_information, disk_list, selected_disk)
+        if disk_file_system  == "fuseblk":
+            disk_file_system = Libsysmon.get_disk_file_system_fuseblk(selected_disk)
+        disk_if_system_disk = Libsysmon.get_disk_if_system_disk(selected_disk, Performance.system_disk_list)
+        disk_capacity_mass_storage = Libsysmon.get_disk_capacity_mass_storage(selected_disk)
+        disk_device_model_name = Libsysmon.get_disk_device_model_name(selected_disk, disk_type, disk_parent_name)
+        disk_label = Libsysmon.get_disk_label(selected_disk)
+
+        # Set Disk Details window title
+        self.disk_details_window.title(_tr("Disk") + ": " + selected_disk)
+
+        # Set label text by using storage/disk data
+        # Set label text by using storage/disk data
+        if encrypted_disk_name != "":
+            self.disk_details_disk_label.set_label(text=selected_disk + " - " + encrypted_disk_name)
+        else:
+            self.disk_details_disk_label.config(text=selected_disk)
+        self.disk_details_parent_disk_label.config(text=disk_parent_name)
+        self.disk_details_system_disk_label.config(text=disk_if_system_disk)
+        self.disk_details_disk_type_label.config(text=disk_type)
+        self.disk_details_file_system_label.config(text=disk_file_system)
+        self.disk_details_capacity_mass_label.config(text=f'{Libsysmon.data_unit_converter("data", "none", disk_capacity_mass_storage, performance_disk_data_unit, performance_disk_data_precision)}')
+        self.disk_details_capacity_label.config(text=f'{Libsysmon.data_unit_converter("data", "none", disk_capacity, performance_disk_data_unit, performance_disk_data_precision)}')
+        self.disk_details_free_label.config(text=f'{Libsysmon.data_unit_converter("data", "none", disk_free, performance_disk_data_unit, performance_disk_data_precision)}')
+        self.disk_details_used_label.config(text=f'{Libsysmon.data_unit_converter("data", "none", disk_used, performance_disk_data_unit, performance_disk_data_precision)}  ( {disk_usage_percentage:.0f}% )')
+        self.disk_details_vendor_model_label.config(text=disk_device_model_name)
+        self.details_label_fs_label.config(text=disk_label)
+        self.disk_details_mount_point_label.config(text=disk_mount_point)
+
+
+    def disk_details_update(self, *args):
+        """
+        Update swap memory information on the swap details window.
+        """
+
+        if self.disk_details_window.state() == "normal":
+            self.disk_details_info_get()
+            self.disk_details_window.after(int(Config.update_interval*1000), self.disk_details_update)
+
+
+    def initial_func(self):
+        """
+        Initial code which which is not wanted to be run in every loop.
+        """
+
+        disk_list = Performance.disk_list
+        selected_disk = Performance.selected_disk
+        # Definition to access to this variable from "DiskDetails" module.
+        self.selected_disk = selected_disk
+
+        # Check if disk exists in the disk list and if disk directory exists in order to prevent errors when disk is removed suddenly when the same disk is selected on the GUI. This error occurs because foreground thread and background thread are different for performance monitoring. Tracking of disk list changes is performed by background thread and there may be a time difference between these two threads. This situtation may cause errors when viewed list is removed suddenly. There may be a better way for preventing these errors/fixing this problem.
+        try:
+            check_value = "/sys/class/block/" + selected_disk
+        except Exception:
+            return
+
+        # Get information.
+        disk_type = Libsysmon.get_disk_type(selected_disk)
+        disk_parent_name = Libsysmon.get_disk_parent_name(selected_disk, disk_type, disk_list)
+        disk_device_model_name = Libsysmon.get_disk_device_model_name(selected_disk, disk_type, disk_parent_name)
+        if_system_disk = Libsysmon.get_disk_if_system_disk(selected_disk, Performance.system_disk_list)
+
+
+        # Show information on labels.
+        self.device_vendor_model_label.config(text=disk_device_model_name)
+        self.device_kernel_name_label.config(text=f'{selected_disk}  ({disk_type})')
+        self.system_disk_label.config(text=if_system_disk)
+
+        self.initial_already_run = 1
+
+
+    def loop_func(self):
+        """
+        Get and show information on the GUI on every loop.
+        """
+
+        if self.initial_already_run == 0:
+            self.initial_func()
+
+        disk_list = Performance.disk_list
+        selected_disk = Performance.selected_disk
+
+        # Run "initial_func" if selected disk is changed since the last loop.
+        try:                                                                                      
+            if self.selected_disk_prev != selected_disk:
+                self.initial_func()
+        # try-except is used in order to avoid error if this is first loop of the function.
         except AttributeError:
-            return
-        chart_line_color = Config.chart_line_color_disk_speed_usage
-        chart_background_color = Config.chart_background_color_all_charts
-
-        chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
-        chart_fill_below_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.15 * chart_line_color[3]]
-
-        chart1301_width = Gtk.Widget.get_allocated_width(drawingarea1301)
-        chart1301_height = Gtk.Widget.get_allocated_height(drawingarea1301)
-
-        chart1301.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
-        chart1301.rectangle(0, 0, chart1301_width, chart1301_height)
-        chart1301.fill()
-
-        chart1301.set_line_width(1)
-        chart1301.set_dash([4, 3])
-        chart1301.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
-        for i in range(3):
-            chart1301.move_to(0, chart1301_height/4*(i+1))
-            chart1301.line_to(chart1301_width, chart1301_height/4*(i+1))
-        for i in range(4):
-            chart1301.move_to(chart1301_width/5*(i+1), 0)
-            chart1301.line_to(chart1301_width/5*(i+1), chart1301_height)
-        chart1301.stroke()
-
-        chart1301_y_limit = 1.1 * ((max(max(disk_read_speed), max(disk_write_speed))) + 0.0000001)
-        if Config.plot_disk_read_speed == 1 and Config.plot_disk_write_speed == 0:
-            chart1301_y_limit = 1.1 * (max(disk_read_speed) + 0.0000001)
-        if Config.plot_disk_read_speed == 0 and Config.plot_disk_write_speed == 1:
-            chart1301_y_limit = 1.1 * (max(disk_write_speed) + 0.0000001)
-
-        chart1301.set_dash([], 0)
-        chart1301.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
-        chart1301.rectangle(0, 0, chart1301_width, chart1301_height)
-        chart1301.stroke()
-
-        if Config.plot_disk_read_speed == 1:
-            chart1301.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
-            chart1301.move_to(chart1301_width*chart_x_axis[0]/(chart_data_history-1), chart1301_height - chart1301_height*disk_read_speed[0]/chart1301_y_limit)
-            for i in range(len(chart_x_axis) - 1):
-                delta_x_chart1301a = (chart1301_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart1301_width * chart_x_axis[i]/(chart_data_history-1))
-                delta_y_chart1301a = (chart1301_height*disk_read_speed[i+1]/chart1301_y_limit) - (chart1301_height*disk_read_speed[i]/chart1301_y_limit)
-                chart1301.rel_line_to(delta_x_chart1301a, -delta_y_chart1301a)
-
-            chart1301.rel_line_to(10, 0)
-            chart1301.rel_line_to(0, chart1301_height+10)
-            chart1301.rel_line_to(-(chart1301_width+20), 0)
-            chart1301.rel_line_to(0, -(chart1301_height+10))
-            chart1301.close_path()
-            chart1301.stroke()
-
-        if Config.plot_disk_write_speed == 1:
-            chart1301.set_dash([3, 3])
-            chart1301.move_to(chart1301_width*chart_x_axis[0]/(chart_data_history-1), chart1301_height - chart1301_height*disk_write_speed[0]/chart1301_y_limit)
-            for i in range(len(chart_x_axis) - 1):
-                delta_x_chart1301b = (chart1301_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart1301_width * chart_x_axis[i]/(chart_data_history-1))
-                delta_y_chart1301b = (chart1301_height*disk_write_speed[i+1]/chart1301_y_limit) - (chart1301_height*disk_write_speed[i]/chart1301_y_limit)
-                chart1301.rel_line_to(delta_x_chart1301b, -delta_y_chart1301b)
-
-            chart1301.rel_line_to(10, 0)
-            chart1301.rel_line_to(0, chart1301_height+10)
-            chart1301.rel_line_to(-(chart1301_width+20), 0)
-            chart1301.rel_line_to(0, -(chart1301_height+10))
-            chart1301.close_path()
-            chart1301.stroke()
-
-
-    # ----------------------------------- Disk - Plot Disk usage data as a Bar Chart ----------------------------------- 
-    def on_drawingarea1302_draw(drawingarea1302, chart1302):
-
-        try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the Disk module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
-            disk_usage_percent_check = disk_usage_percent
-        except NameError:
-            return
-
-        chart_line_color = Config.chart_line_color_disk_speed_usage
-        chart_background_color = Config.chart_background_color_all_charts
-
-        chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
-        chart_fill_below_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.3 * chart_line_color[3]]
-
-        chart1302_width = Gtk.Widget.get_allocated_width(drawingarea1302)
-        chart1302_height = Gtk.Widget.get_allocated_height(drawingarea1302)
-
-        chart1302.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
-        chart1302.rectangle(0, 0, chart1302_width, chart1302_height)
-        chart1302.fill()
-
-        chart1302.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
-        chart1302.rectangle(0, 0, chart1302_width, chart1302_height)
-        chart1302.stroke()
-        chart1302.set_line_width(1)
-        chart1302.set_source_rgba(chart_fill_below_line_color[0], chart_fill_below_line_color[1], chart_fill_below_line_color[2], chart_fill_below_line_color[3])
-        chart1302.rectangle(0, 0, chart1302_width*disk_usage_percent/100, chart1302_height)
-        chart1302.fill()
-
-
-    # Disk tab GUI functions - connect
-    button1301.connect("clicked", on_button1301_clicked)
-    drawingarea1301.connect("draw", on_drawingarea1301_draw)
-    drawingarea1302.connect("draw", on_drawingarea1302_draw)
-
-
-# ----------------------------------- Disk - Initial Function (contains initial code which which is not wanted to be run in every loop) -----------------------------------
-def disk_initial_func():
-
-    disk_define_data_unit_converter_variables_func()                                          # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
-
-    global disk_list, selected_disk_number                                                    # These variables are defined as global variables because they will be used in "disk_loop_func" function and also they will be used by "disk_get_device_partition_model_name_mount_point_func" function.
-    disk_list = Performance.disk_list
-    selected_disk_number = Performance.selected_disk_number
-
-    # Check if disk exists in the disk list and if disk directory exists in order to prevent errors when disk is removed suddenly when the same disk is selected on the GUI. This error occurs because foreground thread and background thread are different for performance monitoring. Tracking of disk list changes is performed by background thread and there may be a time difference between these two threads. This situtation may cause errors when viewed list is removed suddenly. There may be a better way for preventing these errors/fixing this problem.
-    try:
-        check_value = "/sys/class/block/" + disk_list[selected_disk_number]
-    except:
-        return
-    # Read pci.ids file. Some disks such as NVMe SSDs have "vendor" file with device id content. pci.ids file will be used for getting disk vendor name by using these ids.
-    global pci_ids_output
-    try:                                                                                      # Find disk device model from "pci.ids" file by using vendor id and device id.
-        with open("/usr/share/misc/pci.ids") as reader:                                       # Read "pci.ids" file if it is located in "/usr/share/misc/pci.ids" in order to use it as directory. This directory is used in Debian-like systems.
-            pci_ids_output = reader.read()
-    except FileNotFoundError:
-        with open("/usr/share/hwdata/pci.ids") as reader:                                     # Read "pci.ids" file if it is located in "/usr/share/hwdata/pci.ids" in order to use it as directory. This directory is used in systems other than Debian-like systems.
-            pci_ids_output = reader.read()
-    # Get disk_vendor_model, disk_parent_name, disk_mount_point
-    disk_get_device_partition_model_name_mount_point_func()
-    # Get disk_file_system
-    with open("/proc/mounts") as reader:                                                      # Get file systems for mounted disks
-        proc_mounts_output_lines = reader.read().strip().split("\n")
-        for line in proc_mounts_output_lines:
-            if line.split()[0].strip() == ("/dev/" + disk_list[selected_disk_number]):
-                disk_file_system = line.split()[2].strip()
-                break
-            else:
-                disk_file_system = _tr("[Not mounted]")
-    with open("/proc/swaps") as reader:                                                       # Show "[SWAP]" information for swap disks (if selected swap area is partition (not file))
-        proc_swaps_output_lines = reader.read().strip().split("\n")
-        swap_disk_list = []
-        for line in proc_swaps_output_lines:
-            if line.split()[1].strip() == "partition":
-                swap_disk_list.append(line.split()[0].strip().split("/")[-1])
-    if len(swap_disk_list) > 0 and disk_list[selected_disk_number] in swap_disk_list:
-        disk_file_system = _tr("[SWAP]")
-    if disk_file_system  == "fuseblk":                                                        # Try to get actual file system by using "lsblk" tool if file system has been get as "fuseblk" (this happens for USB drives). Because "/proc/mounts" file contains file system information as in user space. To be able to get the actual file system, root access is needed for reading from some files or "lsblk" tool could be used.
-        try:
-            disk_for_file_system = "/dev/" + disk_list[selected_disk_number]
-            disk_file_system = (subprocess.check_output(["lsblk", "-no", "FSTYPE", disk_for_file_system], shell=False)).decode().strip()
-        except:
             pass
-    # Get if_system_disk
-    if disk_mount_point == "/":
-        if_system_disk = _tr("Yes")
-    else:
-        if_system_disk = _tr("No")
+        self.selected_disk_prev = selected_disk
 
-    # Set Disk tab label texts by using information get
-    label1301.set_text(disk_vendor_model)
-    label1302.set_text(f'{disk_list[selected_disk_number]} ({disk_type})')
-    label1307.set_text(disk_file_system)
-    label1312.set_text(if_system_disk)
+        disk_read_speed = Performance.disk_read_speed
+        disk_write_speed = Performance.disk_write_speed
 
+        performance_disk_data_precision = Config.performance_disk_data_precision
+        performance_disk_data_unit = Config.performance_disk_data_unit
+        performance_disk_speed_bit = Config.performance_disk_speed_bit
 
-# ----------------------------------- Disk - Get Disk Data Function (gets Disk data, shows on the labels on the GUI) -----------------------------------
-def disk_loop_func():
+        Performance.performance_line_charts_draw(self.da_disk_speed, "da_disk_speed")
+        Performance.performance_bar_charts_draw(self.da_disk_usage, "da_disk_usage")
 
-    disk_read_speed = Performance.disk_read_speed
-    disk_write_speed = Performance.disk_write_speed
-
-    performance_disk_speed_data_precision = Config.performance_disk_speed_data_precision
-    performance_disk_usage_data_precision = Config.performance_disk_usage_data_precision
-    performance_disk_speed_data_unit = Config.performance_disk_speed_data_unit
-    performance_disk_usage_data_unit = Config.performance_disk_usage_data_unit
-
-    drawingarea1301.queue_draw()
-    drawingarea1302.queue_draw()
-
-    # Check if disk exists in the disk list and if disk directory exists in order to prevent errors when disk is removed suddenly when the same disk is selected on the GUI. This error occurs because foreground thread and background thread are different for performance monitoring. Tracking of disk list changes is performed by background thread and there may be a time difference between these two threads. This situtation may cause errors when viewed list is removed suddenly. There may be a better way for preventing these errors/fixing this problem.
-    try:
-        if os.path.isdir("/sys/class/block/" + disk_list[selected_disk_number]) == False:
-            return
-    except:
-        return
-    # Get disk_read_time, disk_write_time
-    with open("/proc/diskstats") as reader:
-        proc_diskstats_lines = reader.read().strip().split("\n")
-        for line in proc_diskstats_lines:
-            if line.split()[2].strip() == disk_list[selected_disk_number]:
-                disk_read_time = int(line.split()[6])
-                disk_write_time = int(line.split()[10])
-    # Get disk_size, disk_available, disk_free, disk_used, disk_usage_percent
-    disk_get_device_partition_model_name_mount_point_func()
-    global disk_usage_percent
-    if disk_mount_point != "":
-        statvfs_disk_usage_values = os.statvfs(disk_mount_point)                              # Values are calculated for filesystem size values (as df command does). lsblk command shows values of mass storage.
-        fragment_size = statvfs_disk_usage_values.f_frsize
-        disk_size = statvfs_disk_usage_values.f_blocks * fragment_size
-        disk_available = statvfs_disk_usage_values.f_bavail * fragment_size
-        disk_free = statvfs_disk_usage_values.f_bfree * fragment_size
-        disk_used = disk_size - disk_free
-        #disk_usage_percent = disk_used / disk_size * 100                                     # Gives same result with "lsblk" command
-        disk_usage_percent = disk_used / (disk_available + disk_used) * 100                   # disk_usage_percent value is calculated as "used disk space / available disk space" in terms of filesystem values. This is real usage percent.
-    if disk_mount_point == "":
-        disk_size = _tr("[Not mounted]")
-        disk_available = _tr("[Not mounted]")
-        disk_free = _tr("[Not mounted]")
-        disk_used = _tr("[Not mounted]")
-        disk_usage_percent = 0
-
-    # Set and update Disk tab label texts by using information get
-    label1303.set_text(f'{disk_data_unit_converter_func(disk_read_speed[selected_disk_number][-1], performance_disk_speed_data_unit, performance_disk_speed_data_precision)}/s')
-    label1304.set_text(f'{disk_data_unit_converter_func(disk_write_speed[selected_disk_number][-1], performance_disk_speed_data_unit, performance_disk_speed_data_precision)}/s')
-    label1305.set_text(f'{disk_time_unit_converter_func(disk_read_time)} ms')
-    label1306.set_text(f'{disk_time_unit_converter_func(disk_write_time)} ms')
-    if disk_mount_point != "":
-        label1308.set_text(f'{disk_usage_percent:.0f}%')
-    if disk_mount_point == "":
-        label1308.set_text("-%")
-    label1309.set_text(disk_data_unit_converter_func(disk_available, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
-    label1310.set_text(disk_data_unit_converter_func(disk_used, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
-    label1311.set_text(disk_data_unit_converter_func(disk_size, performance_disk_usage_data_unit, performance_disk_usage_data_precision))
-
-
-# ----------------------------------- Disk Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def disk_initial_thread_func():
-
-    GLib.idle_add(disk_initial_func)
-
-
-# ----------------------------------- Disk Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def disk_loop_thread_func(*args):                                                             # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to prevent running multiple instances of the functions at the same time when a tab is switched off and on again in the update_interval time. Using "return" with "GLib.timeout_add()" is not enough in this repetitive tab switch case. "GLib.idle_add()" is shorter but programmer has less control.
-
-    if MainGUI.radiobutton1.get_active() == True and MainGUI.radiobutton1003.get_active() == True:
-        global disk_glib_source, update_interval                                              # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
-        try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
-            disk_glib_source.destroy()                                                        # Destroy GLib source for preventing it repeating the function.
-        except NameError:
+        # Run "main_gui_device_selection_list" if selected device list is changed since the last loop.
+        disk_list = Performance.disk_list
+        try:                                                                                      
+            if self.disk_list_prev != disk_list:
+                MainWindow.main_gui_device_selection_list()
+        # try-except is used in order to avoid error and also run "main_gui_device_selection_list" if this is first loop of the function.
+        except AttributeError:
             pass
-        update_interval = Config.update_interval
-        disk_glib_source = GLib.timeout_source_new(update_interval * 1000)
-        GLib.idle_add(disk_loop_func)
-        disk_glib_source.set_callback(disk_loop_thread_func)
-        disk_glib_source.attach(GLib.MainContext.default())                                   # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
+        self.disk_list_prev = disk_list
 
+        # Run "main_gui_device_selection_list" if "hide_loop_ramdisk_zram_disks" option is changed since the last loop.
+        hide_loop_ramdisk_zram_disks = Config.hide_loop_ramdisk_zram_disks
+        try:                                                                                      
+            if self.hide_loop_ramdisk_zram_disks_prev != hide_loop_ramdisk_zram_disks:
+                MainWindow.main_gui_device_selection_list()
+        # try-except is used in order to avoid error and also run "main_gui_device_selection_list" if this is first loop of the function.
+        except AttributeError:
+            pass
+        self.hide_loop_ramdisk_zram_disks_prev = hide_loop_ramdisk_zram_disks
 
-# ----------------------------------- Disk Thread Run Function (starts execution of the threads) -----------------------------------
-def disk_thread_run_func():
+        # Update disk usage percentages on disk list between Performance tab sub-tabs.
+        self.get_disk_update_disk_usage_percentages_on_disk_list()
 
-    if "update_interval" not in globals():                                                    # To be able to run initial thread for only one time
-        disk_initial_thread = Thread(target=disk_initial_thread_func, daemon=True)
-        disk_initial_thread.start()
-        disk_initial_thread.join()
-    disk_loop_thread = Thread(target=disk_loop_thread_func, daemon=True)
-    disk_loop_thread.start()
-
-
-# ----------------------------------- Disk - Define Time Unit Converter Variables Function (contains time unit variables) -----------------------------------
-def disk_time_unit_converter_func(time):
-
-    w_r_time_days = time / 24 / 60 / 60 / 1000
-    w_r_time_days_int = int(w_r_time_days)
-    w_r_time_hours = (w_r_time_days - w_r_time_days_int) * 24
-    w_r_time_hours_int = int(w_r_time_hours)
-    w_r_time_minutes = (w_r_time_hours - w_r_time_hours_int) * 60
-    w_r_time_minutes_int = int(w_r_time_minutes)
-    w_r_time_seconds = (w_r_time_minutes - w_r_time_minutes_int) * 60
-    w_r_time_seconds_int = int(w_r_time_seconds)
-    w_r_time_milliseconds = (w_r_time_seconds - w_r_time_seconds_int) * 1000
-    w_r_time_milliseconds_int = int(w_r_time_milliseconds)
-
-    if time < 3600000:                                                                        # Return time in the following format if time is less than 1 hour.
-        return f'{w_r_time_minutes_int:02}:{w_r_time_seconds_int:02}.{w_r_time_milliseconds_int:03}'
-    if time >= 3600000 and time < 86400000:                                                   # Return time in the following format if time is more than 1 hour and less than 1 day.
-        return f'{w_r_time_hours_int:02}:{w_r_time_minutes_int:02}:{w_r_time_seconds_int:02}.{w_r_time_milliseconds_int:03}'
-    if time >= 86400000:                                                                      # Return time in the following format if time is more than 1 day.
-        return f'{w_r_time_days_int:02}:{w_r_time_hours_int:02}:{w_r_time_minutes_int:02}.{w_r_time_seconds_int:02}:{w_r_time_milliseconds_int:03}'
-
-
-# ----------------------------------- Disk - Get disk_vendor_model, disk_parent_name, disk_mount_point Values Function -----------------------------------
-def disk_get_device_partition_model_name_mount_point_func():
-
-    global disk_type, disk_vendor_model, disk_mount_point
-    # Check if disk exists in the disk list and if disk directory exists in order to prevent errors when disk is removed suddenly when the same disk is selected on the GUI. This error occurs because foreground thread and background thread are different for performance monitoring. Tracking of disk list changes is performed by background thread and there may be a time difference between these two threads. This situtation may cause errors when viewed list is removed suddenly. There may be a better way for preventing these errors/fixing this problem.
-    selected_disk_name = disk_list[selected_disk_number]                                      # This definition is made in order to reduce CPU usage because this value is used multiple times in this function.
-    try:
-        if os.path.isdir("/sys/class/block/" + selected_disk_name) == False:
+        # Check if disk exists in the disk list and if disk directory exists in order to prevent errors when disk is removed suddenly when the same disk is selected on the GUI. This error occurs because foreground thread and background thread are different for performance monitoring. Tracking of disk list changes is performed by background thread and there may be a time difference between these two threads. This situtation may cause errors when viewed list is removed suddenly. There may be a better way for preventing these errors/fixing this problem.
+        try:
+            if os.path.isdir("/sys/class/block/" + selected_disk) == False:
+                return
+        except Exception:
             return
-    except:
-        return
-    # Get disk type (Disk or Partition)
-    with open("/sys/class/block/" + selected_disk_name + "/uevent") as reader:
-        sys_class_block_disk_uevent_lines = reader.read().split("\n")
-    for line in sys_class_block_disk_uevent_lines:
-        if "DEVTYPE" in line:
-            disk_type = _tr(line.split("=")[1].capitalize())
-            break
-    # Get parent disk name of the disk
-    disk_parent_name = ""                                                                     # Initial value of "disk_parent_name" variable. This value will be used if disk has no parent disk or disk parent name could not be detected.
-    if disk_type == _tr("Partition"):
-        for check_disk_dir in disk_list:
-            if os.path.isdir("/sys/class/block/" + check_disk_dir + "/" + selected_disk_name) == True:
-                disk_parent_name = check_disk_dir
-    # Get disk vendor and model
-    if disk_type == _tr("Disk"):
-        # Get disk vendor if selected disk is a disk
-        try:
-            with open("/sys/class/block/" + selected_disk_name + "/device/vendor") as reader:
-                disk_vendor = reader.read().strip()
-        except FileNotFoundError:                                                             # Some disks such as NVMe SSDs do not have "vendor" file under "/sys/class/block/" + selected_disk_name + "/device" directory. They have this file under "/sys/class/block/" + selected_disk_name + "/device/device/vendor" directory.
-            try:
-                with open("/sys/class/block/" + selected_disk_name + "/device/device/vendor") as reader:
-                    disk_vendor_id = reader.read().strip().split("x")[-1]
-                if disk_vendor_id in pci_ids_output:                                          # "vendor" information may not be present in the pci.ids file.
-                    rest_of_the_pci_ids_output = pci_ids_output.split(disk_vendor_id)[1]
-                    disk_vendor = rest_of_the_pci_ids_output.split("\n")[0].strip()
-                if disk_vendor_id not in pci_ids_output:
-                    disk_vendor = f'[{_tr("Unknown")}]'
-            except:
-                disk_vendor = f'[{_tr("Unknown")}]'
-        # Get disk model if selected disk is a disk
-        try:
-            with open("/sys/class/block/" + selected_disk_name + "/device/model") as reader:
-                disk_model = reader.read().strip()
-        except:
-            disk_model = f'[{_tr("Unknown")}]'
-        disk_vendor_model = disk_vendor + " - " +  disk_model
-    if disk_type == _tr("Partition"):
-        # Get disk vendor if selected disk is a partition
-        try:
-            with open("/sys/class/block/" + disk_parent_name + "/device/vendor") as reader:
-                disk_vendor = reader.read().strip()
-        except FileNotFoundError:                                                             # Some disks such as NVMe SSDs do not have "vendor" file under "/sys/class/block/" + disk_parent_name + "/device" directory. They have this file under "/sys/class/block/" + disk_parent_name + "/device/device/vendor" directory.
-            try:
-                with open("/sys/class/block/" + disk_parent_name + "/device/device/vendor") as reader:
-                    disk_vendor_id = reader.read().strip().split("x")[-1]
-                if disk_vendor_id in pci_ids_output:                                          # "vendor" information may not be present in the pci.ids file.
-                    rest_of_the_pci_ids_output = pci_ids_output.split(disk_vendor_id)[1]
-                    disk_vendor = rest_of_the_pci_ids_output.split("\n")[0].strip()
-                if disk_vendor_id not in pci_ids_output:
-                    disk_vendor = "-"
-            except:
-                disk_vendor = "-"
-        # Get disk model if selected disk is a partition
-        try:
-            with open("/sys/class/block/" + disk_parent_name + "/device/model") as reader:
-                disk_model = reader.read().strip()
-        except:
-            disk_model = "-"
-        disk_vendor_model = disk_vendor + " - " +  disk_model
-    if "loop" in selected_disk_name:
-        disk_vendor_model = "[Loop Device]"
-    if "zram" in selected_disk_name:
-        disk_vendor_model = _tr("[SWAP]")
-    # Get disk mount point
-    with open("/proc/mounts") as reader:
-        proc_mounts_output_lines = reader.read().strip().split("\n")
-        disk_mount_point = ""
-        for line in proc_mounts_output_lines:
-            if line.split()[0].strip() == ("/dev/" + selected_disk_name):
-                disk_mount_point = bytes(line.split()[1].strip(), "utf-8").decode("unicode_escape")    # String is decoded in order to convert string with escape characters such as "\\040" if they exist.
-                break                                                                         # System disk is listed twice with different mountpoint information on systems which are installed on disks with "btrfs" filesystem. "/" mountpoint information is used by using "break" code.
 
 
-# ----------------------------------- Disk - Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
-def disk_define_data_unit_converter_variables_func():
-
-    global data_unit_list
-
-    # Calculated values are used in order to obtain lower CPU usage, because this dictionary will be used very frequently.
-
-    # Unit Name    Abbreviation    bytes   
-    # byte         B               1
-    # kilobyte     KB              1024
-    # megabyte     MB              1.04858E+06
-    # gigabyte     GB              1.07374E+09
-    # terabyte     TB              1.09951E+12
-    # petabyte     PB              1.12590E+15
-    # exabyte      EB              1.15292E+18
-
-    # Unit Name    Abbreviation    bytes    
-    # bit          b               8
-    # kilobit      Kb              8192
-    # megabit      Mb              8,38861E+06
-    # gigabit      Gb              8,58993E+09
-    # terabit      Tb              8,79609E+12
-    # petabit      Pb              9,00720E+15
-    # exabit       Eb              9,22337E+18
-
-    data_unit_list = [[0, 0, _tr("Auto-Byte")], [1, 1, "B"], [2, 1024, "KiB"], [3, 1.04858E+06, "MiB"], [4, 1.07374E+09, "GiB"],
-                      [5, 1.09951E+12, "TiB"], [6, 1.12590E+15, "PiB"], [7, 1.15292E+18, "EiB"],
-                      [8, 0, _tr("Auto-bit")], [9, 8, "b"], [10, 8192, "Kib"], [11, 8.38861E+06, "Mib"], [12, 8.58993E+09, "Gib"],
-                      [13, 8.79609E+12, "Tib"], [14, 9.00720E+15, "Pib"], [15, 9.22337E+18, "Eib"]]
+        # Get information.
+        disk_read_data, disk_write_data = Libsysmon.get_disk_read_write_data(selected_disk)
+        disk_file_system_information = Libsysmon.get_disk_file_system_information(disk_list)
+        disk_file_system, disk_capacity, disk_used, disk_free, self.disk_usage_percentage, disk_mount_point, encrypted_disk_name  = Libsysmon.get_disk_file_system_capacity_used_free_used_percent_mount_point(disk_file_system_information, disk_list, selected_disk)
 
 
-# ----------------------------------- Disk - Data Unit Converter Function (converts byte and bit data units) -----------------------------------
-def disk_data_unit_converter_func(data, unit, precision):
+        # Show information on labels.
+        self.read_speed_label.config(text=f'{Libsysmon.data_unit_converter("speed", performance_disk_speed_bit, disk_read_speed[selected_disk][-1], performance_disk_data_unit, performance_disk_data_precision)}/s')
+        self.write_speed_label.config(text=f'{Libsysmon.data_unit_converter("speed", performance_disk_speed_bit, disk_write_speed[selected_disk][-1], performance_disk_data_unit, performance_disk_data_precision)}/s')
+        self.read_data_label.config(text=Libsysmon.data_unit_converter("data", "none", disk_read_data, performance_disk_data_unit, performance_disk_data_precision))
+        self.write_data_label.config(text=Libsysmon.data_unit_converter("data", "none", disk_write_data, performance_disk_data_unit, performance_disk_data_precision))
+        if disk_mount_point != "-":
+            self.used_percent_label.config(text=f'{self.disk_usage_percentage:.0f}%')
+        if disk_mount_point == "-":
+            self.used_percent_label.config(text="-%")
+        self.free_label.config(text=Libsysmon.data_unit_converter("data", "none", disk_free, performance_disk_data_unit, performance_disk_data_precision))
+        self.used_label.config(text=Libsysmon.data_unit_converter("data", "none", disk_used, performance_disk_data_unit, performance_disk_data_precision))
+        self.capacity_label.config(text=Libsysmon.data_unit_converter("data", "none", disk_capacity, performance_disk_data_unit, performance_disk_data_precision))
 
-    global data_unit_list
-    if isinstance(data, str) is True:
-        return data
-    if unit >= 8:
-        data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
-    if unit in [0, 8]:                                                                        # "if unit in [0, 8]:" is about %25 faster than "if unit == 0 or unit == 8:".                                                                     # "if unit in [0, 8]" is about %25 faster than "if unit == 0 or unit == 8:".
-        unit_counter = unit + 1
-        while data > 1024:
-            unit_counter = unit_counter + 1
-            data = data/1024
-        unit = data_unit_list[unit_counter][2]
-        if data == 0:
-            precision = 0
-        return f'{data:.{precision}f} {unit}'
 
-    data = data / data_unit_list[unit][1]
-    unit = data_unit_list[unit][2]
-    if data == 0:
-        precision = 0
-    return f'{data:.{precision}f} {unit}'
+    def get_disk_update_disk_usage_percentages_on_disk_list(self):
+        """
+        Update disk usage percentages on the disk list between Performance tab sub-tabs.
+        """
+
+        # Get disk usage percentages.
+        device_list = Performance.disk_list
+        disk_usage_percentage_list = []
+        disk_filesystem_information_list = Libsysmon.get_disk_file_system_information(device_list)
+        for device in device_list:
+            _, _, _, _, disk_usage_percentage, disk_mount_point, _ = Libsysmon.get_disk_file_system_capacity_used_free_used_percent_mount_point(disk_filesystem_information_list, device_list, device)
+            # Append percentage number with no fractions in order to avoid updating the list very frequently.
+            disk_usage_percentage_list.append(f'{disk_usage_percentage:.0f}')
+
+        # Update disk usage percentages on disk list if disk usage percentages are changed since the last loop.
+        try:                                                                                      
+            if self.disk_usage_percentage_list_prev != disk_usage_percentage_list:
+                MainWindow.main_gui_device_selection_list()
+        # Avoid error if this is first loop of the function.
+        except AttributeError:
+            pass
+        self.disk_usage_percentage_list_prev = list(disk_usage_percentage_list)
+
+
+Disk = Disk()
+

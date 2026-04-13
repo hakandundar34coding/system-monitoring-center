@@ -1,0 +1,26 @@
+# ***************************************************************
+# Database:      arm.ids
+# Source:        https://github.com/bp0/armids
+# License:       GNU General Public License v2.0
+# Update time:   12.01.2023
+# Modification:  None
+# ***************************************************************
+
+
+# ***************************************************************
+# Database:      sdcard.ids
+# Source:        https://github.com/bp0/verbose-spork
+# License:       GNU General Public License v2.0
+# Update time:   12.01.2023
+# Modification:  None
+# ***************************************************************
+
+
+# ***************************************************************
+# Database:      20-sdio-vendor-model.hwdb
+# Source:        https://github.com/systemd/systemd
+# License:       GNU General Public License v2.0
+# Update time:   12.01.2023
+# Modification:  None
+# ***************************************************************
+

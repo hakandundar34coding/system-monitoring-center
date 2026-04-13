@@ -1,520 +1,419 @@
-#!/usr/bin/env python3
+import tkinter as tk
+from tkinter import ttk
 
-# ----------------------------------- System - Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
-def system_import_func():
+import subprocess
+import os
+import platform
+import threading
 
-    global Gtk, GLib, Thread, subprocess, os, platform, time, pkg_resources
+from .Config import Config
+from .MainWindow import MainWindow
+from . import Common
+from . import Libsysmon
 
-    import gi
-    gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk, GLib
-    from threading import Thread
-    import subprocess
-    import os
-    import platform
-    import time
-    import pkg_resources
+_tr = Config._tr
 
 
-    global Config, MainGUI
-    import Config, MainGUI
+class System:
+
+    def __init__(self):
+
+        self.name = "System"
+
+        self.tab_gui()
+
+        self.initial_already_run = 0
 
 
-    # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
-    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
-    import locale
-    from locale import gettext as _tr
+    def tab_gui(self):
+        """
+        Generate tab GUI.
+        """
 
-    # Define contstants for language translation support
-    global application_name
-    application_name = "system-monitoring-center"
-    translation_files_path = "/usr/share/locale"
-    system_current_language = os.environ.get("LANG")
+        self.tab_frame = ttk.Frame(MainWindow.system_tab_main_frame)
+        self.tab_frame.grid(row=0, column=0, sticky="nsew", padx=0, pady=0)
+        self.tab_frame.columnconfigure(0, weight=1)
+        self.tab_frame.rowconfigure(1, weight=1)
 
-    # Define functions for language translation support
-    locale.bindtextdomain(application_name, translation_files_path)
-    locale.textdomain(application_name)
-    locale.setlocale(locale.LC_ALL, system_current_language)
+        self.tab_title_frame()
+
+        self.information_frame()
 
 
-# ----------------------------------- System - System GUI Function (the code of this module in order to avoid running them during module import and defines "System" tab GUI objects and functions/signals) -----------------------------------
-def system_gui_func():
+    def tab_title_frame(self):
+        """
+        Generate tab name, os name-version, computer vendor-model labels and refresh button.
+        """
 
-    # System tab GUI objects - get from file
-    builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/SystemTab.ui")
+        # Frame (tab title)
+        frame = ttk.Frame(self.tab_frame)
+        frame.grid(row=0, column=0, sticky="new", padx=0, pady=(0, 10))
+        frame.columnconfigure(2, weight=1)
 
-    # System tab GUI objects
-    global grid8101
-    global button8101
-    global label8101, label8102, label8103, label8104, label8105, label8106, label8107, label8108, label8109, label8110
-    global label8111, label8112, label8113, label8114, label8115, label8116, label8117, label8118, label8119, label8120
-    global label8121, label8122
+        # Label (System)
+        label = Common.tab_title_label(frame, _tr("System"))
 
-    # System tab GUI objects - get
-    grid8101 = builder.get_object('grid8101')
-    button8101 = builder.get_object('button8101')
-    label8101 = builder.get_object('label8101')
-    label8102 = builder.get_object('label8102')
-    label8103 = builder.get_object('label8103')
-    label8104 = builder.get_object('label8104')
-    label8105 = builder.get_object('label8105')
-    label8106 = builder.get_object('label8106')
-    label8107 = builder.get_object('label8107')
-    label8108 = builder.get_object('label8108')
-    label8109 = builder.get_object('label8109')
-    label8110 = builder.get_object('label8110')
-    label8111 = builder.get_object('label8111')
-    label8112 = builder.get_object('label8112')
-    label8113 = builder.get_object('label8113')
-    label8114 = builder.get_object('label8114')
-    label8115 = builder.get_object('label8115')
-    label8116 = builder.get_object('label8116')
-    label8117 = builder.get_object('label8117')
-    label8118 = builder.get_object('label8118')
-    label8119 = builder.get_object('label8119')
-    label8120 = builder.get_object('label8120')
-    label8121 = builder.get_object('label8121')
-    label8122 = builder.get_object('label8122')
+        # Label (OS name-version)
+        self.os_name_version_label = Common.device_vendor_model_label(frame)
+        tooltip = Common.tooltip(self.os_name_version_label, _tr("Operating System (OS)"))
+
+        # Label (computer vendor-model)
+        self.computer_vendor_model_label = Common.device_kernel_name_label(frame)
+        tooltip = Common.tooltip(self.computer_vendor_model_label, _tr("Computer"))
 
 
-    # System tab GUI functions
-    def on_button8101_clicked(widget):                                                        # "Refresh" button
-        system_initial_func()
-        system_loop_func()
+    def information_frame(self):
+        """
+        Generate performance/information labels.
+        """
+
+        # Frame (performance/information labels)
+        performance_info_frame = ttk.Frame(self.tab_frame)
+        performance_info_frame.grid(row=1, column=0, sticky="nsew", padx=6, pady=6)
+        performance_info_frame.columnconfigure((0, 1, 2, 3), weight=1, uniform="equal")
+        #performance_info_frame.rowconfigure((0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12), uniform="equal")
+
+        # Label (CPU)
+        label = Common.static_information_label(performance_info_frame, _tr("CPU") + ":")
+        label.grid(row=0, column=0, sticky="w", padx=0, pady=1)
+        # Label (CPU)
+        self.cpu_label = Common.dynamic_information_label(performance_info_frame)
+        self.cpu_label.grid(row=0, column=1, columnspan=3, sticky="w", padx=(12, 0), pady=1)
+
+        # Label (Memory)
+        label = Common.static_information_label(performance_info_frame, _tr("Memory") + ":")
+        label.grid(row=1, column=0, sticky="w", padx=0, pady=1)
+        # Label (Memory)
+        self.memory_label = Common.dynamic_information_label(performance_info_frame)
+        self.memory_label.grid(row=1, column=1, columnspan=3, sticky="w", padx=(12, 0), pady=1)
+
+        # Label (GPU)
+        label = Common.static_information_label(performance_info_frame, _tr("GPU") + ":")
+        label.grid(row=2, column=0, sticky="w", padx=0, pady=1)
+        # Label (GPU)
+        self.gpu_label = Common.dynamic_information_label(performance_info_frame)
+        self.gpu_label.grid(row=2, column=1, columnspan=3, sticky="w", padx=(12, 0), pady=1)
+
+        # Label (GPU (2))
+        label = Common.static_information_label(performance_info_frame, _tr("GPU") + " (2)" + ":")
+        label.grid(row=3, column=0, sticky="w", padx=0, pady=1)
+        # Label (GPU (2))
+        self.gpu2_label = Common.dynamic_information_label(performance_info_frame)
+        self.gpu2_label.grid(row=3, column=1, columnspan=3, sticky="w", padx=(12, 0), pady=1)
+
+        # Label (Resolution)
+        label = Common.static_information_label(performance_info_frame, _tr("Resolution") + ":")
+        label.grid(row=4, column=0, sticky="w", padx=0, pady=1)
+        # Label (Resolution)
+        self.resolution_label = Common.dynamic_information_label(performance_info_frame)
+        self.resolution_label.grid(row=4, column=1, columnspan=3, sticky="w", padx=(12, 0), pady=1)
+
+        # Separator
+        separator = ttk.Separator(performance_info_frame, orient="horizontal")
+        separator.grid(row=5, column=0, columnspan=4, sticky="ew", padx=0, pady=6)
 
 
-    # System tab GUI functions - connect
-    button8101.connect("clicked", on_button8101_clicked)
+        # Performance information labels
+        # Label - Title (Computer)
+        label = Common.bold_label(performance_info_frame, _tr("Computer"))
+        label.grid(row=6, column=0, columnspan=2, sticky="w", padx=0, pady=5)
+
+        # Label (Vendor)
+        label = Common.static_information_label(performance_info_frame, _tr("Vendor") + ":")
+        label.grid(row=7, column=0, sticky="w", padx=0, pady=1)
+        # Label (Vendor)
+        self.vendor_label = Common.dynamic_information_label(performance_info_frame)
+        self.vendor_label.grid(row=7, column=1, sticky="w", padx=(12, 0), pady=1)
+
+        # Label (Model)
+        label = Common.static_information_label(performance_info_frame, _tr("Model") + ":")
+        label.grid(row=8, column=0, sticky="w", padx=0, pady=1)
+        # Label (Model)
+        self.model_label = Common.dynamic_information_label(performance_info_frame)
+        self.model_label.grid(row=8, column=1, sticky="w", padx=(12, 0), pady=1)
+
+        # Label (Computer Type)
+        label = Common.static_information_label(performance_info_frame, _tr("Computer Type") + ":")
+        label.grid(row=9, column=0, sticky="w", padx=0, pady=1)
+        # Label (Computer Type)
+        self.computer_type_label = Common.dynamic_information_label(performance_info_frame)
+        self.computer_type_label.grid(row=9, column=1, sticky="w", padx=(12, 0), pady=1)
+
+        # Label (Name)
+        label = Common.static_information_label(performance_info_frame, _tr("Name") + ":")
+        label.grid(row=10, column=0, sticky="w", padx=0, pady=1)
+        # Label (Name)
+        self.computer_name_label = Common.dynamic_information_label(performance_info_frame)
+        self.computer_name_label.grid(row=10, column=1, sticky="w", padx=(12, 0), pady=1)
+
+        # Label (Architecture)
+        label = Common.static_information_label(performance_info_frame, _tr("Architecture") + ":")
+        label.grid(row=11, column=0, sticky="w", padx=0, pady=1)
+        # Label (Architecture)
+        self.architecture_label = Common.dynamic_information_label(performance_info_frame)
+        self.architecture_label.grid(row=11, column=1, sticky="w", padx=(12, 0), pady=1)
+
+        # Label (Number Of Monitors)
+        label = Common.static_information_label(performance_info_frame, _tr("Number Of Monitors") + ":")
+        label.grid(row=12, column=0, sticky="w", padx=0, pady=1)
+        # Label (Number Of Monitors)
+        self.number_of_monitors_label = Common.dynamic_information_label(performance_info_frame)
+        self.number_of_monitors_label.grid(row=12, column=1, sticky="w", padx=(12, 0), pady=1)
 
 
-# ----------------------------------- System - Initial Function (gets data and adds into labels) -----------------------------------
-def system_initial_func():
+        # Label - Title (Operating System (OS))
+        label = Common.bold_label(performance_info_frame, _tr("Operating System (OS)"))
+        label.grid(row=6, column=2, columnspan=2, sticky="w", padx=0, pady=5)
 
-    # Get human and root user usernames and UIDs which will be used for determining username when "pkexec_uid" is get.
-    usernames_username_list = []
-    usernames_uid_list = []
-    with open("/etc/passwd") as reader:                                                       # "/etc/passwd" file (also knonw as Linux password database) contains all local user (system + human users) information.
-        etc_passwd_lines = reader.read().strip().split("\n")                                  # "strip()" is used in order to prevent errors due to an empty line at the end of the list.
-    for line in etc_passwd_lines:
-        line_splitted = line.split(":")
-        usernames_username_list.append(line_splitted[0])
-        usernames_uid_list.append(line_splitted[2])
-    # Get current username
-    global current_user_name
-    current_user_name = os.environ.get('SUDO_USER')                                           # Get user name that gets root privileges. Othervise, username is get as "root" when root access is get.
-    if current_user_name is None:                                                             # Get username in the following way if current application has not been run by root privileges.
-        current_user_name = os.environ.get('USER')
-    pkexec_uid = os.environ.get('PKEXEC_UID')
-    if current_user_name == "root" and pkexec_uid != None:                                    # current_user_name is get as "None" if application is run with "pkexec" command. In this case, "os.environ.get('PKEXEC_UID')" is used to be able to get username of which user has run the application with "pkexec" command.
-        current_user_name = usernames_username_list[usernames_uid_list.index(os.environ.get('PKEXEC_UID'))]
+        # Label (Name)
+        label = Common.static_information_label(performance_info_frame, _tr("Name") + ":")
+        label.grid(row=7, column=2, sticky="w", padx=0, pady=1)
+        # Label (Name)
+        self.os_name_label = Common.dynamic_information_label(performance_info_frame)
+        self.os_name_label.grid(row=7, column=3, sticky="w", padx=(12, 0), pady=1)
 
-    # Get os family
-    os_family = platform.system()
-    if os_family == "":
-        os_family = "-"
+        # Label (Version - Code Name)
+        label = Common.static_information_label(performance_info_frame, _tr("Version - Code Name") + ":")
+        label.grid(row=8, column=2, sticky="w", padx=0, pady=1)
+        # Label (Version - Code Name)
+        self.version_codename_label = Common.dynamic_information_label(performance_info_frame)
+        self.version_codename_label.grid(row=8, column=3, sticky="w", padx=(12, 0), pady=1)
 
-    # Get kernel release (base version of kernel)
-    kernel_release = platform.release()
-    if kernel_release == "":
-        kernel_release = "-"
+        # Label (OS Family)
+        label = Common.static_information_label(performance_info_frame, _tr("OS Family") + ":")
+        label.grid(row=9, column=2, sticky="w", padx=0, pady=1)
+        # Label (OS Family)
+        self.os_family_label = Common.dynamic_information_label(performance_info_frame)
+        self.os_family_label.grid(row=9, column=3, sticky="w", padx=(12, 0), pady=1)
 
-    # Get kernel version (package version of kernel))
-    kernel_version = platform.version()
-    if kernel_version == "":
-        kernel_version = "-"
+        # Label (Based On)
+        label = Common.static_information_label(performance_info_frame, _tr("Based On") + ":")
+        label.grid(row=10, column=2, sticky="w", padx=0, pady=1)
+        # Label (Based On)
+        self.based_on_label = Common.dynamic_information_label(performance_info_frame)
+        self.based_on_label.grid(row=10, column=3, sticky="w", padx=(12, 0), pady=1)
 
-    # Get windowing system
-    global windowing_system
-    windowing_system = os.environ.get('XDG_SESSION_TYPE')
-    if windowing_system != None:
-        windowing_system = windowing_system.capitalize()
-    if windowing_system == None:
-        windowing_system = "-"                                                                # Initial value of "windowing_system" variable. This value will be used if "windowing_system" could not be detected.
-        pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]      # Get process PID list. PID values are appended as string values because they are used as string values in various places in the code and this ensures lower CPU usage by avoiding hundreds/thousands of times integer to string conversion.
-        for pid in pid_list:
-            try:                                                                              # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-                with open("/proc/" + pid + "/comm") as reader:
-                    process_name = reader.read().strip()
-            except FileNotFoundError:
-                continue
-            if process_name.lower() == "xorg":
-                windowing_system = "X11"
-                break
-            if process_name.lower() == "xwayland":
-                windowing_system = "Wayland"
-                break
+        # Label (Kernel Release)
+        label = Common.static_information_label(performance_info_frame, _tr("Kernel Release") + ":")
+        label.grid(row=11, column=2, sticky="w", padx=0, pady=1)
+        # Label (Kernel Release)
+        self.kernel_release_label = Common.dynamic_information_label(performance_info_frame)
+        self.kernel_release_label.grid(row=11, column=3, sticky="w", padx=(12, 0), pady=1)
 
-    # Get window manager
-    supported_window_managers_list = ["xfwm4", "mutter", "kwin", "kwin_x11", "cinnamon", "budgie-wm", "openbox", "metacity", "marco", "compiz", "englightenment", "fvwm2", "icewm", "sawfish", "awesome"]
-    global window_manager
-    window_manager = "-"                                                                      # Set an initial string in order to avoid errors in case of undetected current desktop session.
-    if 'pid_list' not in locals():
-        pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]      # Get process PID list. PID values are appended as string values because they are used as string values in various places in the code and this ensures lower CPU usage by avoiding hundreds/thousands of times integer to string conversion.
-    for pid in pid_list:
-        try:                                                                                  # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-            with open("/proc/" + pid + "/comm") as reader:
-                process_name = reader.read().strip()
-        except FileNotFoundError:
-            continue
-        if process_name.lower() in supported_window_managers_list:
+        # Label (Kernel Version)
+        label = Common.static_information_label(performance_info_frame, _tr("Kernel Version") + ":")
+        label.grid(row=12, column=2, sticky="w", padx=0, pady=1)
+        # Label (Kernel Version)
+        self.kernel_version_label = Common.dynamic_information_label(performance_info_frame)
+        self.kernel_version_label.grid(row=12, column=3, sticky="w", padx=(12, 0), pady=1)
+
+        # Separator
+        separator = ttk.Separator(performance_info_frame, orient="horizontal")
+        separator.grid(row=13, column=0, columnspan=4, sticky="ew", padx=0, pady=6)
+
+         # Label - Title (Packages)
+        label = Common.bold_label(performance_info_frame, _tr("Packages"))
+        label.grid(row=14, column=0, columnspan=2, sticky="w", padx=0, pady=5)
+
+        # Label (System)
+        label = Common.static_information_label(performance_info_frame, _tr("System") + ":")
+        label.grid(row=15, column=0, sticky="w", padx=0, pady=1)
+        # Label (System)
+        self.system_packages_label = Common.dynamic_information_label(performance_info_frame)
+        self.system_packages_label.grid(row=15, column=1, sticky="w", padx=(12, 0), pady=1)
+
+        # Label (Flatpak)
+        label = Common.static_information_label(performance_info_frame, _tr("Flatpak") + ":")
+        label.grid(row=16, column=0, sticky="w", padx=0, pady=1)
+        tooltip = Common.tooltip(label, _tr("Number of installed Flatpak applications and runtimes"))
+        # Label (Flatpak)
+        self.flatpak_packages_label = Common.dynamic_information_label(performance_info_frame)
+        self.flatpak_packages_label.grid(row=16, column=1, sticky="w", padx=(12, 0), pady=1)
+
+        # Label (Tkinter Version)
+        label = Common.static_information_label(performance_info_frame, _tr("Tkinter Version") + ":")
+        label.grid(row=17, column=0, sticky="w", padx=0, pady=1)
+        tooltip = Common.tooltip(label, _tr("Version for the currently running software"))
+        # Label (Tkinter Version)
+        self.tk_version_label = Common.dynamic_information_label(performance_info_frame)
+        self.tk_version_label.grid(row=17, column=1, sticky="w", padx=(12, 0), pady=1)
+
+        # Label (Python Version)
+        label = Common.static_information_label(performance_info_frame, _tr("Python Version") + ":")
+        label.grid(row=18, column=0, sticky="w", padx=0, pady=1)
+        tooltip = Common.tooltip(label, _tr("Version for the currently running software"))
+        # Label (Python Version)
+        self.python_version_label = Common.dynamic_information_label(performance_info_frame)
+        self.python_version_label.grid(row=18, column=1, sticky="w", padx=(12, 0), pady=1)
+
+        # There is a separator between rows 6 and 8.
+
+
+       # Label - Title (Graphical User Interface (GUI))
+        label = Common.bold_label(performance_info_frame, _tr("Graphical User Interface (GUI)"))
+        label.grid(row=14, column=2, columnspan=2, sticky="w", padx=0, pady=5)
+
+        # Label (Desktop Environment)
+        label = Common.static_information_label(performance_info_frame, _tr("Desktop Environment") + ":")
+        label.grid(row=15, column=2, sticky="w", padx=0, pady=1)
+        # Label (Desktop Environment)
+        self.desktop_environment_label = Common.dynamic_information_label(performance_info_frame)
+        self.desktop_environment_label.grid(row=15, column=3, sticky="w", padx=(12, 0), pady=1)
+
+        # Label (Windowing System)
+        label = Common.static_information_label(performance_info_frame, _tr("Windowing System") + ":")
+        label.grid(row=16, column=2, sticky="w", padx=0, pady=1)
+        # Label (Windowing System)
+        self.windowing_system_label = Common.dynamic_information_label(performance_info_frame)
+        self.windowing_system_label.grid(row=16, column=3, sticky="w", padx=(12, 0), pady=1)
+
+        # Label (Window Manager)
+        label = Common.static_information_label(performance_info_frame, _tr("Window Manager") + ":")
+        label.grid(row=17, column=2, sticky="w", padx=0, pady=1)
+        # Label (Window Manager)
+        self.window_manager_label = Common.dynamic_information_label(performance_info_frame)
+        self.window_manager_label.grid(row=17, column=3, sticky="w", padx=(12, 0), pady=1)
+
+        # Label (Display Manager)
+        label = Common.static_information_label(performance_info_frame, _tr("Display Manager") + ":")
+        label.grid(row=18, column=2, sticky="w", padx=0, pady=1)
+        # Label (Display Manager)
+        self.display_manager_label = Common.dynamic_information_label(performance_info_frame)
+        self.display_manager_label.grid(row=18, column=3, sticky="w", padx=(12, 0), pady=1)
+
+
+    def initial_func(self):
+        """
+        Initial code which which is not wanted to be run in every loop.
+        """
+
+        self.initial_already_run = 1
+
+
+    def loop_func(self):
+        """
+        Get and show information on the GUI.
+        """
+
+        if self.initial_already_run == 0:
+            self.initial_func()
+
+        # Prevent running rest of the code if System tab is opened again.
+        try:
+            if self.loop_already_run == 1:
+                return
+        except AttributeError:
+            pass
+        self.loop_already_run = 1
+
+        # Get information.
+        os_name, os_version, os_based_on = Libsysmon.get_os_name_version_codename_based_on()
+        os_family = Libsysmon.get_os_family()
+        kernel_release = Libsysmon.get_kernel_release()
+        kernel_version = Libsysmon.get_kernel_version()
+        # Run this function in a separate thread for a more responsive GUI.
+        #threading.Thread(target=self.get_computer_hardware_information, daemon=True).start()
+        cpu_architecture = Libsysmon.get_cpu_architecture()
+        computer_vendor, computer_model, computer_chassis_type = Libsysmon.get_computer_vendor_model_chassis_type()
+        host_name = Libsysmon.get_host_name()
+        number_of_monitors = Libsysmon.get_number_of_monitors()
+        current_python_version = Libsysmon.get_current_python_version()
+        current_tk_version = Libsysmon.get_current_tk_version()
+        windowing_system = Libsysmon.get_windowing_system()
+        current_desktop_environment, current_desktop_environment_version, window_manager, current_display_manager = Libsysmon.get_desktop_environment_and_version_window_manager_display_manager()
+        # Run this function in a separate thread because it may take a long time (2-3 seconds) to get the information on some systems (such as rpm based systems) and it blocks the GUI during this process if a separate thread is not used.
+        threading.Thread(target=self.system_packages_count_func, daemon=True).start()
+        threading.Thread(target=self.flatpak_packages_count_func, daemon=True).start()
+        self.get_computer_hardware_information()
+
+        # Set label texts to show information
+        self.os_name_version_label.config(text=f'{os_name} - {os_version}')
+        self.computer_vendor_model_label.config(text=f'{computer_vendor} - {computer_model}')
+        self.os_name_label.config(text=os_name)
+        self.version_codename_label.config(text=os_version)
+        self.os_family_label.config(text=os_family)
+        self.based_on_label.config(text=os_based_on)
+        self.kernel_release_label.config(text=kernel_release)
+        self.kernel_version_label.config(text=kernel_version)
+        self.desktop_environment_label.config(text=f'{current_desktop_environment} ({current_desktop_environment_version})')
+        self.windowing_system_label.config(text=windowing_system)
+        self.window_manager_label.config(text=window_manager)
+        self.display_manager_label.config(text=current_display_manager)
+        self.vendor_label.config(text=computer_vendor)
+        self.model_label.config(text=computer_model)
+        self.computer_type_label.config(text=computer_chassis_type)
+        self.computer_name_label.config(text=host_name)
+        self.architecture_label.config(text=cpu_architecture)
+        self.number_of_monitors_label.config(text=f'{number_of_monitors}')
+        #self.system_packages_label.config(text=f'{apt_or_rpm_or_pacman_packages_count}')
+        #self.flatpak_packages_label.config(text=f'{flatpak_packages_count}')
+        self.tk_version_label.config(text=current_tk_version)
+        self.python_version_label.config(text=f'{current_python_version}')
+
+        self.initial_already_run = 1
+
+
+    def get_computer_hardware_information(self):
+        """
+        Get some of computer hardware information.
+        """
+
+        # Get CPU vendor-model
+        selected_cpu_core = "cpu0"
+        number_of_logical_cores = Libsysmon.get_number_of_logical_cores()
+        number_of_physical_cores, number_of_cpu_sockets, cpu_model_name = Libsysmon.get_number_of_physical_cores_sockets_cpu_name(selected_cpu_core, number_of_logical_cores)
+
+        # Get RAM and swap memory capacity values
+        performance_memory_data_precision = Config.performance_memory_data_precision
+        performance_memory_data_unit = Config.performance_memory_data_unit
+        memory_info = Libsysmon.get_memory_info()
+        ram_total = memory_info["ram_total"]
+        swap_total = memory_info["swap_total"]
+        ram_capacity_text = Libsysmon.data_unit_converter("data", "none", ram_total, performance_memory_data_unit, performance_memory_data_precision)
+        swap_capacity_text = Libsysmon.data_unit_converter("data", "none", swap_total, 0, 1)
+        memory_capacity_text = ram_capacity_text + " (" + _tr("RAM") + ")  -  " + swap_capacity_text + " (" + _tr("Swap Memory") + ")"
+
+        # Get GPU (boot VGA) vendor-model
+        try:
+            gpu_list, gpu_device_path_list, gpu_device_sub_path_list, default_gpu = Libsysmon.get_gpu_list_and_boot_vga()
+            config_selected_gpu = default_gpu
+            selected_gpu_number, selected_gpu = Libsysmon.gpu_set_selected_gpu(config_selected_gpu, gpu_list, default_gpu)
+            gpu_device_model_name, device_vendor_id = Libsysmon.get_device_model_name_vendor_id(selected_gpu_number, gpu_list, gpu_device_path_list, gpu_device_sub_path_list)
+        except Exception:
+            gpu_device_model_name = "-"
+        #current_resolution, current_refresh_rate = Libsysmon.get_resolution_refresh_rate()
+        current_resolution_refresh_rate = Libsysmon.monitor_resolution_refresh_rate_multiple_text(MainWindow.main_window)
+
+        if len(gpu_list) > 1:
             try:
-                with open("/proc/" + pid + "/status") as reader:                              # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
-                    proc_pid_status_lines = reader.read().split("\n")
-            except FileNotFoundError:
-                continue
-            for line in proc_pid_status_lines:
-                if "Uid:\t" in line:
-                    real_user_id = line.split(":")[1].split()[0].strip()                      # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
-                    process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
-            if process_username == current_user_name:
-                window_manager = process_name.lower()
-                break
+                # Get vendor-model information of another GPU (not boot VGA).
+                for i, gpu in enumerate(gpu_list):
+                    if i != selected_gpu_number:
+                        selected_gpu_number2 = i
+                # Get GPU vendor-model information
+                gpu_device_model_name2, device_vendor_id2 = Libsysmon.get_device_model_name_vendor_id(selected_gpu_number2, gpu_list, gpu_device_path_list, gpu_device_sub_path_list)
+            except Exception:
+                gpu_device_model_name2 = "-"
+        else:
+            gpu_device_model_name2 = "-"
 
-    # Get current desktop environment
-    current_desktop_environment = os.environ.get('XDG_CURRENT_DESKTOP')                       # This command may give Budgie desktop environment as "Budgie:GNOME".
-    supported_desktop_environments_process_list = ["xfce4-session", "gnome-session-b", "cinnamon-session", "mate-session", "plasmashell", "lxqt-session", "lxsession", "budgie-panel"]
-    supported_desktop_environments_list = ["XFCE", "GNOME", "X-Cinnamon", "CINNAMON", "MATE", "KDE", "LXQt", "LXDE", "Budgie", "Deepin"]    # Cinnamon dektop environment accepts both "X-Cinnamon" and "CINNAMON" names in the .desktop files.
-    if current_desktop_environment == None:
-        current_desktop_session = "-"                                                         # Set an initial string in order to avoid errors in case of undetected current desktop session.
-        for pid in pid_list:
-            try:                                                                              # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-                with open("/proc/" + pid + "/comm") as reader:
-                    process_name = reader.read().strip()
-                with open("/proc/" + pid + "/status") as reader:                              # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
-                    proc_pid_status_lines = reader.read().split("\n")
-            except FileNotFoundError:
-                continue
-            if process_name in supported_desktop_environments_process_list:
-                for line in proc_pid_status_lines:
-                    if "Uid:\t" in line:
-                        real_user_id = line.split(":")[1].split()[0].strip()                  # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
-                        process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
-                if process_username == current_user_name:
-                    if process_name == "xfce4-session":
-                        current_desktop_session = "XFCE"
-                        break
-                    if process_name == "gnome-session-b":
-                        current_desktop_session = "GNOME"
-                        break
-                    if process_name == "cinnamon-session":
-                        current_desktop_session = "X-Cinnamon"                                # Cinnamon dektop environment accepts both "X-Cinnamon" and "CINNAMON" names in the .desktop files.
-                        break
-                    if process_name == "mate-session":
-                        current_desktop_session = "MATE"
-                        break
-                    if process_name == "plasmashell":
-                        current_desktop_session = "KDE"
-                        break
-                    if process_name == "lxqt-session":
-                        current_desktop_session = "LXQt"
-                        break
-                    if process_name == "lxsession":
-                        current_desktop_session = "LXDE"
-                        break
-                    if process_name == "budgie-panel":                                        # This control for Budgie desktop have to be made after contrl of "gnome-session-b" process. Because "budgie-panel" process is child process of "gnome-session-b" process.
-                        current_desktop_session = "Budgie"
-                        break
-                    if process_name == "dde-desktop":
-                        current_desktop_session = "Deepin"
-                        break
-                current_desktop_environment = current_desktop_session
-
-    # Get current desktop environment version
-    current_desktop_environment_version = "-"                                                 # Set initial value of the "current_desktop_environment_version". This value will be used if it could not be detected.
-    if current_desktop_environment == "XFCE":
-        try:
-            current_desktop_environment_version_lines = (subprocess.check_output(["xfce4-panel", "--version"], shell=False)).decode().strip().split("\n")
-            for line in current_desktop_environment_version_lines:
-                if "xfce4-panel" in line:
-                    current_desktop_environment_version = line.split(" ")[1]
-        except FileNotFoundError:
-            pass
-    if current_desktop_environment == "GNOME" or current_desktop_environment == "zorin:GNOME" or current_desktop_environment == "ubuntu:GNOME":
-        try:
-            current_desktop_environment_version_lines = (subprocess.check_output(["gnome-shell", "--version"], shell=False)).decode().strip().split("\n")
-            for line in current_desktop_environment_version_lines:
-                if "GNOME Shell" in line:
-                    current_desktop_environment_version = line.split(" ")[-1]
-        except FileNotFoundError:
-            pass
-    if current_desktop_environment == "X-Cinnamon" or current_desktop_environment == "CINNAMON":
-        try:
-            current_desktop_environment_version = (subprocess.check_output(["cinnamon", "--version"], shell=False)).decode().strip().split(" ")[-1]
-        except FileNotFoundError:
-            pass
-    if current_desktop_environment == "MATE":
-        try:
-            current_desktop_environment_version = (subprocess.check_output(["mate-about", "--version"], shell=False)).decode().strip().split(" ")[-1]
-        except FileNotFoundError:
-            pass
-    if current_desktop_environment == "KDE":
-        try:
-            current_desktop_environment_version = (subprocess.check_output(["plasmashell", "--version"], shell=False)).decode().strip()
-        except FileNotFoundError:
-            pass
-    if current_desktop_environment == "LXQt":
-        try:
-            current_desktop_environment_version_lines = (subprocess.check_output(["lxqt-about", "--version"], shell=False)).decode().strip()
-            for line in current_desktop_environment_version_lines:
-                if "liblxqt" in line:
-                    current_desktop_environment_version = line.split()[1].strip()
-        except FileNotFoundError:
-            pass
-    if current_desktop_environment == "Budgie" or current_desktop_environment == "Budgie:GNOME":
-        try:
-            current_desktop_environment_version = (subprocess.check_output(["budgie-desktop", "--version"], shell=False)).decode().strip().split("\n")[0].strip().split(" ")[-1]
-        except FileNotFoundError:
-            pass
-
-    # Get current display manager
-    supported_display_managers_list = ["lightdm", "gdm", "gdm3", "sddm", "xdm", "lxdm"]
-    supported_display_managers_process_list = ["lightdm", "gdm", "gdm3", "sddm", "xdm", "lxdm-binary"]
-    current_display_manager = "-"                                                             # Set an initial string in order to avoid errors in case of undetected current display manager.
-    for pid in pid_list:
-        try:                                                                                  # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-            with open("/proc/" + pid + "/comm") as reader:
-                process_name = reader.read().strip()
-            with open("/proc/" + pid + "/status") as reader:                                  # User name of the process owner is get from "/proc/status" file because it is not present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
-                proc_pid_status_lines = reader.read().split("\n")
-        except FileNotFoundError:
-            continue
-        if process_name in supported_display_managers_process_list:
-            for line in proc_pid_status_lines:
-                if "Uid:\t" in line:
-                    real_user_id = line.split(":")[1].split()[0].strip()                      # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
-                    process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
-            if process_username == "root":                                                    # Display manager processes are owned by root user.
-                if process_name == "lightdm":
-                    current_display_manager = "lightdm"
-                    break
-                if process_name == "gdm":
-                    current_display_manager = "gdm"
-                    break
-                if process_name == "gdm3":
-                    current_display_manager = "gdm3"
-                    break
-                if process_name == "sddm":
-                    current_display_manager = "sddm"
-                    break
-                if process_name == "xdm":
-                    current_display_manager = "xdm"
-                    break
-                if process_name == "lxdm-binary":
-                    current_display_manager = "lxdm"
-                    break
-
-    # Get computer vendor, model, chassis information
-    try:                                                                                      # This information may not be available on some systems such as ARM CPU used motherboards.
-        with open("/sys/devices/virtual/dmi/id/sys_vendor") as reader:
-            computer_vendor = reader.read().strip()
-    except FileNotFoundError:
-        computer_vendor = "-"
-    try:                                                                                      # This information may not be available on some systems such as ARM CPU used motherboards.
-        with open("/sys/devices/virtual/dmi/id/product_name") as reader:
-            computer_model = reader.read().strip()
-    except FileNotFoundError:
-        computer_model = "-"
-    try:                                                                                      # This information may not be available on some systems such as ARM CPU used motherboards.
-        with open("/sys/devices/virtual/dmi/id/chassis_type") as reader:
-            computer_chassis_type_value = reader.read().strip()
-    except FileNotFoundError:
-        computer_chassis_type_value = 2
-
-    # For more information about computer chassis types, see: "https://docs.microsoft.com/en-us/previous-versions/tn-archive/ee156537(v=technet.10)"
-    # "https://superuser.com/questions/877677/programatically-determine-if-an-script-is-being-executed-on-laptop-or-desktop"
-    computer_chassis_types_dict = {1: "Other", 2: "Unknown", 3: "Desktop", 4: "Low Profile Desktop", 5: "Pizza Box", 6: "Mini Tower", 7: "Tower", 8: "Portable", 9: "Laptop",
-                                   10: "Notebook", 11: "Hand Held", 12: "Docking Station", 13: "All in One", 14: "Sub Notebook", 15: "Space-Saving", 16: "Lunch Box",
-                                   17: "Main System Chassis", 18: "Expansion Chassis", 19: "Sub Chassis", 20: "Bus Expansion Chassis", 21: "Peripheral Chassis",
-                                   22: "Storage Chassis", 23: "Rack Mount Chassis", 24: "Sealed-Case PC"}
-    computer_chassis_type = computer_chassis_types_dict[int(computer_chassis_type_value)]
-
-    # Determine package types used on the system. This information will be used for getting number of installed packages on the system.
-    global apt_packages_available, rpm_packages_available, pacman_packages_available, flatpak_packages_available
-    apt_packages_available = "-"                                                              # Initial value of the variable.
-    rpm_packages_available = "-"
-    pacman_packages_available = "-"
-    flatpak_packages_available = "-"
-    try:
-        apt_packages_available = (subprocess.check_output(["dpkg", "--list"], shell=False)).decode().strip().count("\nii  ")
-        if apt_packages_available > 0:
-            apt_packages_available = "yes"
-    except FileNotFoundError:                                                                 # It gives "FileNotFoundError" if first element of the command (program name) can not be found on the system. It gives "subprocess.CalledProcessError" if there are any errors relevant with the parameters (commands later than the first one).
-        apt_packages_available = "no"
-    try:
-        rpm_packages_available = (subprocess.check_output(["rpm", "-qa"], shell=False)).decode().strip().split("\n")
-        rpm_packages_available = len(rpm_packages_available) - rpm_packages_available.count("")    # Differentiate empty line count
-        if rpm_packages_available > 0:
-            rpm_packages_available = "yes"
-    except FileNotFoundError:
-        rpm_packages_available = "no"
-    try:
-        pacman_packages_available = (subprocess.check_output(["pacman", "-Qq"], shell=False)).decode().strip().split("\n")
-        pacman_packages_available = len(pacman_packages_available) - pacman_packages_available.count("")    # Differentiate empty line count
-        if pacman_packages_available > 0:
-            pacman_packages_available = "yes"
-    except FileNotFoundError:
-        pacman_packages_available = "no"
-    try:
-        flatpak_packages_available = (subprocess.check_output(["flatpak", "list"], shell=False)).decode().strip().split("\n")
-        flatpak_packages_available = len(flatpak_packages_available) - flatpak_packages_available.count("")    # Differentiate empty line count
-        if flatpak_packages_available > 0:
-            flatpak_packages_available = "yes"
-    except FileNotFoundError:
-        flatpak_packages_available = "no"
-
-    # Delete global "number_of_installed_rpm_packages" variable before loop function.
-    try:
-        global number_of_installed_rpm_packages
-        del number_of_installed_rpm_packages                                                  # Global "number_of_installed_rpm_packages" variable is deleted in order to get its value if user clicks on "Refresh" button on System tab. Because presence of this variable in "globals()" is contolled on every loop in order to avoid getting its value in every loop (for avoiding very high CPU usage).
-    except NameError:
-        pass
+        self.cpu_label.config(text=cpu_model_name)
+        self.memory_label.config(text=memory_capacity_text)
+        self.gpu_label.config(text=gpu_device_model_name)
+        self.gpu2_label.config(text=gpu_device_model_name2)
+        self.resolution_label.config(text=current_resolution_refresh_rate)
 
 
-    # Set label texts to show information
-    label8102.set_text(f'{computer_vendor} - {computer_model}')
-    label8105.set_text(os_family)
-    label8107.set_text(kernel_release)
-    label8108.set_text(kernel_version)
-    label8109.set_text(f'{current_desktop_environment} ({current_desktop_environment_version})')
-    label8110.set_text(windowing_system)
-    label8111.set_text(window_manager)
-    label8112.set_text(current_display_manager)
-    label8113.set_text(computer_vendor)
-    label8114.set_text(computer_model)
-    label8115.set_text(computer_chassis_type)
+    def system_packages_count_func(self):
+        system_packages_count = Libsysmon.get_installed_system_packages()
+        # Stop and hide spinner and set label text.
+        MainWindow.main_window.after(0, lambda: self.system_packages_label.config(text=system_packages_count))
 
 
-# ----------------------------------- System - Loop Function (updates the system data and labels on the GUI) -----------------------------------
-def system_loop_func():
+    def flatpak_packages_count_func(self):
+        flatpak_packages_count = Libsysmon.get_installed_flatpak_packages()
+        # Stop and hide spinner and set label text.
+        MainWindow.main_window.after(0, lambda: self.flatpak_packages_label.config(text=flatpak_packages_count))
 
-    # Get OS name, version, version code name and OS based on information
-    with open("/etc/os-release") as reader:
-        os_release_output_lines = reader.read().strip().split("\n")
-    for line in os_release_output_lines:
-        if line.startswith("ID="):
-            os_name = line.split("ID=")[1].strip().title()                                    # ".title()" capitalizes each word in the string.
-        if line.startswith("VERSION_ID="):
-            os_version = line.split("VERSION_ID=")[1].strip(' "')
-        if line.startswith("VERSION_CODENAME="):
-            os_version_code_name = line.split("VERSION_CODENAME=")[1].strip(' "')
-        if line.startswith("ID_LIKE="):
-            os_based_on = line.split("ID_LIKE=")[1].strip().title()                           # ".title()" capitalizes each word in the string.
-    if 'os_based_on' not in locals() or os_based_on == "-":                                   # Set variable value as "-" in case of its value is not get so far.
-        os_based_on = "-"
-    if 'os_version' not in locals() or os_version == "-":
-        os_version = "-"
-    if 'os_version_code_name' not in locals() or os_version_code_name == "-":
-        os_version_code_name = "-"
-    if 'os_based_on' in locals() and os_based_on == "Debian":
-        with open("/etc/debian_version") as reader:
-            debian_version = reader.read().strip()
-        os_based_on = os_based_on + " (" + debian_version + ")"
+System = System()
 
-    with open("/proc/sys/kernel/hostname") as reader:
-        host_name = reader.read().strip()
-
-    # Get number of monitors and current monitor
-    current_monitor = "-"                                                                     # Initial value of "current_monitor" variable. This value will be used if "current_monitor" could not be detected ("current_screen" could not be get on system which run Wayland. But could be detected on systems which run X11.)..
-    current_screen = MainGUI.window1.get_screen()
-    number_of_monitors = current_screen.get_n_monitors()
-    if windowing_system.lower() == "x11":
-        current_monitor = current_screen.get_monitor_at_window(current_screen.get_active_window())    # Get the monitor number that most of the gtk.gdk.Window is in.
-
-    # Get system up time
-    with open("/proc/uptime") as reader:
-        sut_read = float(reader.read().split(" ")[0].strip())
-    sut_days = sut_read/60/60/24
-    sut_days_int = int(sut_days)
-    sut_hours = (sut_days -sut_days_int) * 24
-    sut_hours_int = int(sut_hours)
-    sut_minutes = (sut_hours - sut_hours_int) * 60
-    sut_minutes_int = int(sut_minutes)
-    sut_seconds = (sut_minutes - sut_minutes_int) * 60
-    sut_seconds_int = int(sut_seconds)
-
-    global apt_packages_available, rpm_packages_available, pacman_packages_available, flatpak_packages_available
-    number_of_installed_apt_or_rpm_or_pacman_packages = "-"
-    # Get number of installed APT packages
-    if apt_packages_available == "yes":
-        number_of_installed_apt_packages = (subprocess.check_output(["dpkg", "--list"], shell=False)).decode().strip().count("\nii  ")
-        number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_apt_packages} (APT)'
-
-    # Get number of installed RPM packages
-    if rpm_packages_available == "yes":
-        if 'number_of_installed_rpm_packages' not in globals():                               # Number of installed RPM packages is not updated on every loop. Getting number of installed RPM packages consumes very high CPU usage because of the "rpm -qa" command and there is no any other solution for getting this information with low CPU usage.
-            global number_of_installed_rpm_packages
-            number_of_installed_rpm_packages = (subprocess.check_output(["rpm", "-qa"], shell=False)).decode().strip().split("\n")
-            number_of_installed_rpm_packages = len(number_of_installed_rpm_packages) - number_of_installed_rpm_packages.count("")    # Differentiate empty line count
-        number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_rpm_packages} (RPM)'
-
-    # Get number of installed pacman packages
-    if pacman_packages_available == "yes":
-        number_of_installed_pacman_packages = (subprocess.check_output(["pacman", "-Qq"], shell=False)).decode().strip().split("\n")
-        number_of_installed_pacman_packages = len(number_of_installed_pacman_packages) - number_of_installed_pacman_packages.count("")    # Differentiate empty line count
-        number_of_installed_apt_or_rpm_or_pacman_packages = f'{number_of_installed_pacman_packages} (pacman)'
-
-    # Get number of installed Python packages (including built-in packages)
-    number_of_installed_python_packages = len([d.project_name for d in pkg_resources.working_set])
-
-    # Get number of installed Flatpak packages
-    number_of_installed_flatpak_packages = "-"                                                # Initial value of "number_of_installed_flatpak_packages" variable. This value will be used if "number_of_installed_flatpak_packages" could not be detected.
-    if flatpak_packages_available == "yes":
-        try:
-            number_of_installed_flatpak_packages = (subprocess.check_output(["flatpak", "list"], shell=False)).decode().strip().split("\n")
-            number_of_installed_flatpak_packages = len(number_of_installed_flatpak_packages) - number_of_installed_flatpak_packages.count("")    # Differentiate empty line count
-        except FileNotFoundError:                                                             # "try-except" is used in order to prevent errors if Flatpak is uninstalled during run-time of this application.
-            number_of_installed_flatpak_packages = "-"
-
-    # Get if current user has root privileges
-    if os.geteuid() == 0:
-        have_root_access = _tr("(Yes)")
-    else:
-        have_root_access = _tr("(No)")
-
-
-    # Set label texts to show information
-    label8101.set_text(f'{os_name} - {os_version}')
-    label8103.set_text(os_name)
-    label8104.set_text(f'{os_version} - {os_version_code_name}')
-    label8106.set_text(os_based_on)
-    label8116.set_text(host_name)
-    label8117.set_text(f'{number_of_monitors}')
-    label8118.set_text(f'{current_monitor}')
-    label8119.set_text(f'{sut_days_int:02}:{sut_hours_int:02}:{sut_minutes_int:02}:{sut_seconds_int:02}')
-    label8120.set_text(f'{number_of_installed_apt_or_rpm_or_pacman_packages}')
-    label8121.set_text(f'{number_of_installed_python_packages} (Py) - {number_of_installed_flatpak_packages} (Fp)')
-    label8122.set_text(f'{current_user_name} - {have_root_access}')
-
-
-# ----------------------------------- System Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def system_initial_thread_func():
-
-    GLib.idle_add(system_initial_func)
-
-
-# ----------------------------------- System Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def system_loop_thread_func(*args):                                                           # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to prevent running multiple instances of the functions at the same time when a tab is switched off and on again in the update_interval time. Using "return" with "GLib.timeout_add()" is not enough in this repetitive tab switch case. "GLib.idle_add()" is shorter but programmer has less control.
-
-    if MainGUI.radiobutton8.get_active() == True:
-        global system_glib_source, update_interval                                            # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
-        try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
-            system_glib_source.destroy()                                                      # Destroy GLib source for preventing it repeating the function.
-        except NameError:
-            pass
-        update_interval = Config.update_interval
-        system_glib_source = GLib.timeout_source_new(update_interval * 1000)
-        GLib.idle_add(system_loop_func)
-        system_glib_source.set_callback(system_loop_thread_func)
-        system_glib_source.attach(GLib.MainContext.default())                                 # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
-
-
-# ----------------------------------- System Thread Run Function (starts execution of the threads) -----------------------------------
-def system_thread_run_func():
-
-    if "current_user_name" not in globals():                                                  # To be able to run initial thread for only one time
-        system_initial_thread = Thread(target=system_initial_thread_func, daemon=True)
-        system_initial_thread.start()
-        system_initial_thread.join()
-    system_loop_thread = Thread(target=system_loop_thread_func(), daemon=True)
-    system_loop_thread.start()

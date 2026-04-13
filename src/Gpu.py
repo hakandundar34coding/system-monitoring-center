@@ -1,380 +1,536 @@
-#!/usr/bin/env python3
+import tkinter as tk
+from tkinter import ttk
 
-# ----------------------------------- GPU - GPU Tab Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
-def gpu_import_func():
+import os
+import subprocess
+from threading import Thread
 
-    global Gtk, GLib, Gdk, Thread, os, subprocess
+from .Config import Config
+from .Performance import Performance
+from .MainWindow import MainWindow
+from . import Common
+from . import Libsysmon
 
-    import gi
-    gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk, GLib, Gdk
-    from threading import Thread
-    import os
-    import subprocess
-
-
-    global Config, MainGUI, Performance
-    import Config, MainGUI, Performance
+_tr = Config._tr
 
 
-    # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
-    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
-    import locale
-    from locale import gettext as _tr
+class Gpu:
 
-    # Define contstants for language translation support
-    global application_name
-    application_name = "system-monitoring-center"
-    translation_files_path = "/usr/share/locale"
-    system_current_language = os.environ.get("LANG")
+    def __init__(self):
 
-    # Define functions for language translation support
-    locale.bindtextdomain(application_name, translation_files_path)
-    locale.textdomain(application_name)
-    locale.setlocale(locale.LC_ALL, system_current_language)
+        self.name = "Gpu"
+
+        self.tab_gui()
+
+        self.initial_already_run = 0
 
 
-# ----------------------------------- GPU - GPU GUI Function (the code of this module in order to avoid running them during module import and defines "GPU" tab GUI objects and functions/signals) -----------------------------------
-def gpu_gui_func():
+    def tab_gui(self):
+        """
+        Generate tab GUI.
+        """
 
-    # GPU tab GUI objects - get from file
-    builder = Gtk.Builder()
-    builder.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/GpuTab.ui")
+        self.tab_frame = ttk.Frame(MainWindow.gpu_tab_main_frame)
+        self.tab_frame.grid(row=0, column=0, sticky="nsew", padx=0, pady=0)
+        self.tab_frame.columnconfigure(0, weight=1)
+        self.tab_frame.rowconfigure((1, 2), weight=1, uniform="equal")
 
-    # GPU tab GUI objects
-    global grid1501, drawingarea1501, button1501, label1501, label1502
-    global label1503, label1504, label1505, label1506, label1507, label1508, label1509, label1510, label1511, label1512
-    global glarea1501
+        self.tab_title_frame()
 
-    # GPU tab GUI objects - get
-    grid1501 = builder.get_object('grid1501')
-    drawingarea1501 = builder.get_object('drawingarea1501')
-    button1501 = builder.get_object('button1501')
-    label1501 = builder.get_object('label1501')
-    label1502 = builder.get_object('label1502')
-    label1503 = builder.get_object('label1503')
-    label1504 = builder.get_object('label1504')
-    label1505 = builder.get_object('label1505')
-    label1506 = builder.get_object('label1506')
-    label1507 = builder.get_object('label1507')
-    label1508 = builder.get_object('label1508')
-    label1509 = builder.get_object('label1509')
-    label1510 = builder.get_object('label1510')
-    label1511 = builder.get_object('label1511')
-    label1512 = builder.get_object('label1512')
-    glarea1501 = builder.get_object('glarea1501')
+        self.da_frame()
+
+        self.information_frame()
 
 
-    # GPU tab GUI functions
-    def on_button1501_clicked(widget):
-        Performance.performance_get_gpu_list_and_set_selected_gpu_func()                      # Get gpu/graphics card list and set selected gpu
-        if 'GpuMenu' not in globals():
-            global GpuMenu
-            import GpuMenu
-            GpuMenu.gpu_menus_import_func()
-            GpuMenu.gpu_menus_gui_func()
-            GpuMenu.popover1501p.set_relative_to(button1501)                                  # Set widget that popover menu will display at the edge of.
-            GpuMenu.popover1501p.set_position(1)                                              # Show popover menu at the right edge of the caller button.
-        GpuMenu.popover1501p.popup()                                                          # Show GPU tab popover GUI
+    def tab_title_frame(self):
+        """
+        Generate tab name, device name labels.
+        """
+
+        # Grid (tab title)
+        frame = ttk.Frame(self.tab_frame)
+        frame.grid(row=0, column=0, sticky="new", padx=0, pady=(0, 10))
+        """frame.columnconfigure(0, weight=1)
+        frame.rowconfigure(0, weight=1)"""
+
+        # Label (GPU)
+        label = Common.tab_title_label(frame, _tr("GPU"))
+
+        # Label (device vendor-model label)
+        self.device_vendor_model_label = Common.device_vendor_model_label(frame)
+        tooltip = Common.tooltip(self.device_vendor_model_label, _tr("Vendor - Model"))
+
+        # Label (device kernel name)
+        self.device_kernel_name_label = Common.device_kernel_name_label(frame)
+        tooltip = Common.tooltip(self.device_kernel_name_label, _tr("Device Name In Kernel"))
 
 
-    # ----------------------------------- GPU - Plot FPS data as a Line Chart ----------------------------------- 
-    def on_drawingarea1501_draw(widget, chart1501):
+    def da_frame(self):
+        """
+        Generate tab drawingarea and related information labels.
+        """
 
-        chart_data_history = Config.chart_data_history
-        chart_x_axis = list(range(0, chart_data_history))
-        try:                                                                                  # "try-except" is used in order to handle errors because chart signals are connected before running relevant performance thread (in the GPU module) to be able to use GUI labels in this thread. Chart could not get any performance data before running of the relevant performance thread.
-            fps_count_check = fps_count
-        except NameError:
-            return
+        # Frame (drawingarea)
+        frame = ttk.Frame(self.tab_frame)
+        frame.grid(row=1, column=0, sticky="nsew", padx=0, pady=(0, 10))
+        frame.columnconfigure(0, weight=1)
+        frame.rowconfigure(1, weight=1)
 
-        chart_line_color = Config.chart_line_color_fps
-        chart_background_color = Config.chart_background_color_all_charts
+        # Label (drawingarea upper-left)
+        self.da_upper_left_label = Common.da_upper_lower_label(frame, _tr("GPU Usage"))
+        self.da_upper_left_label.grid(row=0, column=0, sticky="w")
 
-        chart_foreground_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.4 * chart_line_color[3]]
-        chart_fill_below_line_color = [chart_line_color[0], chart_line_color[1], chart_line_color[2], 0.15 * chart_line_color[3]]
+        # Label (drawingarea upper-right)
+        label = Common.da_upper_lower_label(frame, "100%")
+        label.grid(row=0, column=1, sticky="e")
 
-        chart1501_width = Gtk.Widget.get_allocated_width(drawingarea1501)
-        chart1501_height = Gtk.Widget.get_allocated_height(drawingarea1501)
+        # Label (for showing graphics)
+        self.da_gpu_usage = Common.drawingarea(frame, "da_gpu_usage")
+        self.da_gpu_usage.grid(row=1, column=0, columnspan=2, sticky="nsew", padx=0, pady=0)
 
-        chart1501.set_source_rgba(chart_background_color[0], chart_background_color[1], chart_background_color[2], chart_background_color[3])
-        chart1501.rectangle(0, 0, chart1501_width, chart1501_height)
-        chart1501.fill()
-
-        chart1501.set_line_width(1)
-        chart1501.set_dash([4, 3])
-        chart1501.set_source_rgba(chart_foreground_color[0], chart_foreground_color[1], chart_foreground_color[2], chart_foreground_color[3])
-        for i in range(3):
-            chart1501.move_to(0, chart1501_height/4*(i+1))
-            chart1501.line_to(chart1501_width, chart1501_height/4*(i+1))
-        for i in range(4):
-            chart1501.move_to(chart1501_width/5*(i+1), 0)
-            chart1501.line_to(chart1501_width/5*(i+1), chart1501_height)
-        chart1501.stroke()
-
-        chart1501_y_limit = 1.1 * (max(fps_count) + 0.0000001)                                # Maximum FPS value is multiplied by 1.1 in order to scale chart when FPS is increased or decreased for preventing the line being out of the chart border.
-
-        chart1501.set_dash([], 0)
-        chart1501.rectangle(0, 0, chart1501_width, chart1501_height)
-        chart1501.stroke()
-
-        chart1501.set_source_rgba(chart_line_color[0], chart_line_color[1], chart_line_color[2], chart_line_color[3])
-        chart1501.move_to(chart1501_width*chart_x_axis[0]/(chart_data_history-1), chart1501_height - chart1501_height*fps_count[0]/chart1501_y_limit)
-        for i in range(len(chart_x_axis) - 1):
-            delta_x_chart1501 = (chart1501_width * chart_x_axis[i+1]/(chart_data_history-1)) - (chart1501_width * chart_x_axis[i]/(chart_data_history-1))
-            delta_y_chart1501 = (chart1501_height*fps_count[i+1]/chart1501_y_limit) - (chart1501_height*fps_count[i]/chart1501_y_limit)
-            chart1501.rel_line_to(delta_x_chart1501, -delta_y_chart1501)
-
-        chart1501.rel_line_to(10, 0)
-        chart1501.rel_line_to(0, chart1501_height+10)
-        chart1501.rel_line_to(-(chart1501_width+20), 0)
-        chart1501.rel_line_to(0, -(chart1501_height+10))
-        chart1501.close_path()
-        chart1501.stroke_preserve()
-        chart1501.set_source_rgba(chart_fill_below_line_color[0], chart_fill_below_line_color[1], chart_fill_below_line_color[2], chart_fill_below_line_color[3])
-        chart1501.fill()
+        # Label (drawingarea lower-right)
+        label = Common.da_upper_lower_label(frame, "0")
+        label.grid(row=2, column=1, sticky="e")
 
 
-    # GPU tab GUI functions - connect
-    button1501.connect("clicked", on_button1501_clicked)
-    drawingarea1501.connect("draw", on_drawingarea1501_draw)
+        # Frame (drawingarea)
+        frame = ttk.Frame(self.tab_frame)
+        frame.grid(row=2, column=0, sticky="nsew", padx=0, pady=(0, 10))
+        frame.columnconfigure(0, weight=1)
+        frame.rowconfigure(1, weight=1)
+
+        # Label (drawingarea upper-left)
+        self.da_upper_left_label = Common.da_upper_lower_label(frame, _tr("GPU Memory"))
+        self.da_upper_left_label.grid(row=0, column=0, sticky="w")
+
+        # Label (drawingarea upper-right)
+        label = Common.da_upper_lower_label(frame, "100%")
+        label.grid(row=0, column=1, sticky="e")
+
+        # Label (for showing graphics)
+        self.da_gpu_memory_usage = Common.drawingarea(frame, "da_gpu_memory_usage")
+        self.da_gpu_memory_usage.grid(row=1, column=0, columnspan=2, sticky="nsew", padx=0, pady=0)
+
+        # Label (drawingarea lower-right)
+        label = Common.da_upper_lower_label(frame, "0")
+        label.grid(row=2, column=1, sticky="e")
 
 
-# ----------------------------------- GPU - Initial Function (contains initial code which which is not wanted to be run in every loop) -----------------------------------
-def gpu_initial_func():
+    def information_frame(self):
+        """
+        Generate performance/information labels.
+        """
 
-    # Import required OpenGL modules for measuring FPS (glarea will be used).
-    if "OpenGL" not in globals():                                                             # Import modules if they have not been imported before. This modeles are imported here because importing them takes about 0.15 seconds on a 4-cored i7-2630QM notebook and this slows application start a bit.
-        import OpenGL
-        # from OpenGL.GL import *                                                             # This code could not be run in a module because of the "*". Need to be imported in a module when "GPU" tab is opened. Because importing this module consumes about 11 MiB of RAM.
-        from OpenGL.GL import glClearColor, glClear, GL_COLOR_BUFFER_BIT, glFlush             # This code is used instead of "from OpenGL.GL import *" to be able to import required module in a function otherwise, module could not be imported in a module because of the "*".
+        # Frame (performance/information labels)
+        performance_info_grid = ttk.Frame(self.tab_frame)
+        performance_info_grid.grid(row=3, column=0, sticky="nsew", padx=0, pady=0)
+        performance_info_grid.columnconfigure((0, 1), weight=1, uniform="equal")
+        performance_info_grid.rowconfigure((0, 1), weight=1, uniform="equal")
+        #performance_info_grid.rowconfigure(0, weight=1)
 
-    # Define initial values for fps_count and frame_latency values
-    global fps_count, frame_latency
-    fps_count = [0] * Config.chart_data_history
-    frame_latency = 0
+        # Styled information widgets (GPU Usage and Video Memory)
+        # Frame (GPU Usage and Video Memory)
+        _frame, self.gpu_usage_label, self.video_memory_label = Common.styled_information_scrolledwindow(performance_info_grid, _tr("GPU Usage"), None, _tr("Video Memory"), None)
+        _frame.grid(row=0, column=0, sticky="nsew", padx=(0, 15), pady=(0, 5))
 
-    # Measure FPS (Rendering is performed by using glarea in order to measure FPS. FPS on drawing area is counted. Lower FPS is obtained depending on the GPU load/performance.)
-    if "frame_list" not in globals():
-        global glarea1501, frame_list
-        frame_list = []
+        # Styled information widgets (Frequency and Temperature)
+        # Frame (Frequency and Temperature)
+        _frame, self.frequency_label, self.temperature_label = Common.styled_information_scrolledwindow(performance_info_grid, _tr("Frequency"), None, _tr("Temperature"), None)
+        _frame.grid(row=1, column=0, sticky="nsew", padx=(0, 15), pady=(5, 0))
 
-        def on_glarea1501_realize(area):
-            area.make_current()
-            if (area.get_error() != None):
-              return
+        # Frame - Right information labels
+        performance_info_right_frame = ttk.Frame(performance_info_grid)
+        performance_info_right_frame.grid(row=0, column=1, rowspan=2, sticky="nsew", padx=0, pady=0)
+        performance_info_right_frame.columnconfigure((0, 1), weight=1, uniform="equal")
 
-        def on_glarea1501_render(area, context):
-            glClearColor(0.5, 0.5, 0.5, 1.0)                                                  # Arbitrary color
-            glClear(GL_COLOR_BUFFER_BIT)
-            glFlush()
-            global frame_list
-            frame_list.append(0)
-            glarea1501.queue_draw()
-            return True
+        # Labels - Right information labels
+        # Label (Min-Max Frequency)
+        label = Common.static_information_label(performance_info_right_frame, _tr("Min-Max Frequency") + ":")
+        label.grid(row=0, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Min-Max Frequency)
+        self.min_max_frequency_label = Common.dynamic_information_label(performance_info_right_frame)
+        self.min_max_frequency_label.grid(row=0, column=1, sticky="w", padx=(4, 0), pady=(0, 4))
 
-        glarea1501.connect('realize', on_glarea1501_realize)
-        glarea1501.connect('render', on_glarea1501_render)
+        # Label (Memory Frequency)
+        label = Common.static_information_label(performance_info_right_frame, _tr("Memory Frequency") + ":")
+        label.grid(row=1, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Memory Frequency)
+        self.memory_frequency_label = Common.dynamic_information_label(performance_info_right_frame)
+        self.memory_frequency_label.grid(row=1, column=1, sticky="w", padx=(4, 0), pady=(0, 4))
 
-    # Get GPU information from another module.
-    Performance.performance_get_gpu_list_and_set_selected_gpu_func()                          # Get gpu/graphics card list and set selected gpu
-    global gpu_vendor_id_list, gpu_device_id_list, selected_gpu_number
-    gpu_vendor_id_list = Performance.gpu_vendor_id_list
-    gpu_device_id_list = Performance.gpu_device_id_list
-    selected_gpu_number = Performance.selected_gpu_number
-    gpu_list = Performance.gpu_list
-    default_gpu = Performance.default_gpu
-    gpu_device_model_name = Performance.gpu_device_model_name
+        # Label (Power Usage)
+        label = Common.static_information_label(performance_info_right_frame, _tr("Power Usage") + ":")
+        label.grid(row=2, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Power Usage)
+        self.power_usage_label = Common.dynamic_information_label(performance_info_right_frame)
+        self.power_usage_label.grid(row=2, column=1, sticky="w", padx=(4, 0), pady=(0, 4))
 
-    # Fill GPU information lists with "-" values for all GPUs. These informations will be get from driver (for example: glxinfo). Values of some GPUs will be left as "-" if information of these GPUs can not be get from drivers.
-    global gpu_vendor_name_in_driver_list, gpu_device_name_in_driver_list, video_memory_list, if_unified_memory_list, direct_rendering_list, opengl_version_list, display_driver_list
-    gpu_vendor_name_in_driver_list = ["-"] * len(gpu_vendor_id_list)
-    gpu_device_name_in_driver_list = ["-"] * len(gpu_vendor_id_list)
-    video_memory_list = ["-"] * len(gpu_vendor_id_list)
-    if_unified_memory_list = ["-"] * len(gpu_vendor_id_list)
-    direct_rendering_list = ["-"] * len(gpu_vendor_id_list)
-    opengl_version_list = ["-"] * len(gpu_vendor_id_list)
-    display_driver_list = ["-"] * len(gpu_vendor_id_list)
+        # Label (Boot VGA)
+        label = Common.static_information_label(performance_info_right_frame, _tr("Boot VGA") + ":")
+        label.grid(row=3, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Driver)
+        self.boot_vga_label = Common.dynamic_information_label(performance_info_right_frame)
+        self.boot_vga_label.grid(row=3, column=1, sticky="w", padx=(4, 0), pady=(0, 4))
 
-    # Get video_memory, if_unified_memory, direct_rendering, opengl_version values of the GPU which is preferred for running this application. "DRI_PRIME=0 application-name" and "DRI_PRIME=1 application-name" could be used for running an application by using internal and external GPUs respectively.
-    glxinfo_for_integrated_gpu = ["env", "DRI_PRIME=0", "glxinfo", "-B"]                      # "env" command is used for running a program in a modified environment. "DRI_PRIME=1 application_name" does not work when "(subprocess.check_output(command, shell=False))" is used in order to prevent shell injection. "DRI_PRIME=1" is environment variable name, it is not an application/package name.
-    glxinfo_for_discrete_gpu = ["env", "DRI_PRIME=1", "glxinfo", "-B"]
-    try:
-        glxinfo_output_integrated_gpu = (subprocess.check_output(glxinfo_for_integrated_gpu, shell=False)).decode().strip()
-    except:
-        glxinfo_output_integrated_gpu = ""
-    try:
-        glxinfo_output_discrete_gpu = (subprocess.check_output(glxinfo_for_discrete_gpu, shell=False)).decode().strip()
-    except:
-        glxinfo_output_discrete_gpu = ""
-    if "libGL error: failed to create dri screen" in glxinfo_output_discrete_gpu or "libGL error: failed to load driver:" in glxinfo_output_discrete_gpu:    # "libGL error: failed to create dri screen\nlibGL error: failed to load driver: nouveau" information may be printed when DRI_PRIME=1 glxinfo -B" command is used if closed sourced driver and GPU configurations are used for NVIDIA cards. Same output contains information of integrated GPU.
-        glxinfo_output_discrete_gpu = "-"
-    glxinfo_output_integrated_gpu_lines = glxinfo_output_integrated_gpu.split("\n")
-    glxinfo_output_discrete_gpu_lines = glxinfo_output_discrete_gpu.split("\n")
-    # Check GPU/driver configuration to be able to get GPU/Graphics Card information from drive without wrong information.
-    # INFORMATION ABOUT GPU/DRIVER CONFIGURATIONS:
-    # "Extended renderer info (GLX_MESA_query_renderer):" information exists in the output of "glxinfo" command if open sourced driver of GPU is used.
-    # "Extended renderer info (GL_NVX_gpu_memory_info):" information exists in the output of "glxinfo" command if closed sourced driver of GPU is used. Both "Extended renderer info (GLX_MESA_query_renderer):" and "Extended renderer info (GLX_MESA_query_renderer):" informations are printed if open sourced driver is used for AMD GPUs.
-    # Vendor and device id numbers (0x[id number]) are not printed in closed sourced drivers. Vendor and device IDs can be get from vendor and device files in "/sys/class/drm/card[card number]/device/" directories.
-    # But IDs from these folders and IDs from drivers can not be matched when closed sourced drivers are used for the selected GPU.
-    # IDs matching can be performed if there is 1 GPU on the system (with open or closed sourced drivers), if there are 2 GPUs (with both open sourced driver or 1 open sourced and 1 closed source driver) on the system.
-    # IDs may be "0xffffffff" for vendor and device on virtual machines. ID matching is performed on these systems because there is 1 GPU on these systems (default configuration).
-    # "libGL error: failed to create dri screen\nlibGL error: failed to load driver: nouveau" lines may be printed if closed sourced drivers are used and some GPU configurations are made on some systems. For example some Asus ROG notebooks with "asusctl" utility.
-    # "prime-run" for NVIDIA GPUs and "progl" for AMD GPUs are used for running applications with discrete GPU if "DRI_PRIME=1" does not work on systems with closed sourced GPU drivers. Usage: "prime-run glxinfo -B", "progl glxinfo -B".
-    # But "prime-run" may not work on some systems (for example some Asus ROG notebooks with "asusctl" utility). More information is needed to know if same situation is valid for "progl".
-    if len(gpu_vendor_id_list) == 1:
-        if ("Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_integrated_gpu):
-            gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, "no_check", "open_sourced")
-        if len(gpu_vendor_id_list) == 1 and ("Extended renderer info (GLX_MESA_query_renderer):" not in glxinfo_output_integrated_gpu) and ("Extended renderer info (GL_NVX_gpu_memory_info):" in glxinfo_output_integrated_gpu):
-            gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, "no_check", "closed_sourced")
-    if len(gpu_vendor_id_list) >= 2:
-        if glxinfo_output_integrated_gpu != glxinfo_output_discrete_gpu:
-            if ("Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_integrated_gpu):
-                gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, "check", "open_sourced")
-            if ("Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_discrete_gpu):
-                gpu_get_information_from_driver_func(glxinfo_output_discrete_gpu_lines, "check", "open_sourced")
-            if len(gpu_vendor_id_list) == 2:
-                if ("Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_integrated_gpu) and ("Extended renderer info (GLX_MESA_query_renderer):" not in glxinfo_output_discrete_gpu):
-                    gpu_get_information_from_driver_func(glxinfo_output_discrete_gpu_lines, "no_check", "closed_sourced")
-                if ("Extended renderer info (GLX_MESA_query_renderer):" in glxinfo_output_discrete_gpu) and ("Extended renderer info (GLX_MESA_query_renderer):" not in glxinfo_output_integrated_gpu):
-                    gpu_get_information_from_driver_func(glxinfo_output_integrated_gpu_lines, "no_check", "closed_sourced")
+        # Label (Driver)
+        label = Common.static_information_label(performance_info_right_frame, _tr("Driver") + ":")
+        label.grid(row=4, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Driver)
+        self.driver_label = Common.dynamic_information_label(performance_info_right_frame)
+        self.driver_label.grid(row=4, column=1, sticky="w", padx=(4, 0), pady=(0, 4))
 
-    # Get if_default_gpu value
-    if gpu_list[selected_gpu_number] == default_gpu:
-        if_default_gpu = _tr("Yes")
-    if gpu_list[selected_gpu_number] != default_gpu:
-        if_default_gpu = _tr("No")
-
-    # Set GPU tab label texts by using information get
-    label1501.set_text(gpu_device_model_name[selected_gpu_number])
-    label1502.set_text(f'{gpu_list[selected_gpu_number]} ({gpu_vendor_name_in_driver_list[selected_gpu_number]} - {gpu_device_name_in_driver_list[selected_gpu_number]})')
-    label1507.set_text(if_default_gpu)
-    label1508.set_text(video_memory_list[selected_gpu_number])
-    label1509.set_text(if_unified_memory_list[selected_gpu_number])
-    label1510.set_text(direct_rendering_list[selected_gpu_number])
-    label1511.set_text(display_driver_list[selected_gpu_number])
-    label1512.set_text(opengl_version_list[selected_gpu_number])
+        # Label (Details...)
+        label = Common.static_information_label(performance_info_right_frame, _tr("Details") + ":")
+        label.grid(row=5, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Show...)
+        self.details_label = Common.clickable_label(performance_info_right_frame, self.on_details_label_released)
+        self.details_label.grid(row=5, column=1, sticky="w", padx=(4, 0), pady=(0, 4))
 
 
-# ----------------------------------- GPU - Get GPU Data Function (gets GPU data, shows on the labels on the GUI) -----------------------------------
-def gpu_loop_func():
+    def on_details_label_released(self, event):
+        """
+        Show GPU details window.
+        """
 
-    global frame_list, fps_count, fps_count_list, frame_latency
-    #glarea1501.queue_draw()
-    fps = len(frame_list) / update_interval
-    del fps_count[0]
-    fps_count.append(fps)
-    frame_latency = 1 / (fps + 0.0000001) * 1000                                              # Frame latency in milliseconds
-    frame_list = []
+        widget = event.widget
 
-    drawingarea1501.queue_draw()
-
-    # Get current resolution and current refresh rate
-    current_screen = Gdk.Screen.get_default()
-    current_resolution = str(current_screen.get_width()) + "x" + str(current_screen.get_height())
-
-    try:
-        current_monitor_number = current_screen.get_monitor_at_window(current_screen.get_active_window())
-        current_display = Gdk.Display.get_default()
-        current_refresh_rate = f'{(current_display.get_monitor(current_monitor_number).get_refresh_rate() / 1000):.2f} Hz'
-    except:
-        current_refresh_rate = "[" + "Unknown" + "]"
+        self.gpu_details_window_gui()
+        self.gpu_details_info_get()
+        self.gpu_details_update()
 
 
-    # Set and update GPU tab label texts by using information get
-    label1503.set_text(f'{fps_count[-1]:.0f}')
-    label1504.set_text(f'{frame_latency:.1f} ms')
-    label1505.set_text(current_refresh_rate)
-    label1506.set_text(f'{current_resolution}')
+    def gpu_details_window_gui(self):
+        """
+        GPU details window GUI.
+        """
+
+        # Window
+        self.gpu_details_window, frame = Common.window(MainWindow.main_window, _tr("GPU"))
+
+        # Information labels
+        # Label (Vendor - Model)
+        label = Common.static_information_label(frame, _tr("Vendor - Model"))
+        label.grid(row=0, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Vendor - Model)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=0, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (Vendor - Model)
+        self.gpu_details_vendor_model_label = Common.dynamic_information_label_wrap(frame)
+        self.gpu_details_vendor_model_label.grid(row=0, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (GPU)
+        label = Common.static_information_label(frame, _tr("GPU"))
+        label.grid(row=1, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (GPU)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=1, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (GPU)
+        self.gpu_details_gpu_label = Common.dynamic_information_label_wrap(frame)
+        self.gpu_details_gpu_label.grid(row=1, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (PCIe Address)
+        label = Common.static_information_label(frame, _tr("PCIe Address"))
+        label.grid(row=2, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (PCIe Address)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=2, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (PCIe Address)
+        self.gpu_details_pcie_address_label = Common.dynamic_information_label_wrap(frame)
+        self.gpu_details_pcie_address_label.grid(row=2, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (GPU Interface)
+        label = Common.static_information_label(frame, _tr("GPU Interface"))
+        label.grid(row=3, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (GPU Interface)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=3, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (GPU Interface)
+        self.gpu_details_gpu_interface_label = Common.dynamic_information_label_wrap(frame)
+        self.gpu_details_gpu_interface_label.grid(row=3, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (Connection Speed)
+        label = Common.static_information_label(frame, _tr("Connection Speed"))
+        label.grid(row=4, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Connection Speed)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=4, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (Connection Speed)
+        self.gpu_details_link_speed_label = Common.dynamic_information_label_wrap(frame)
+        self.gpu_details_link_speed_label.grid(row=4, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (GPU Usage)
+        label = Common.static_information_label(frame, _tr("GPU Usage"))
+        label.grid(row=5, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (GPU Usage)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=5, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (GPU Usage)
+        self.gpu_details_gpu_usage_label = Common.dynamic_information_label_wrap(frame)
+        self.gpu_details_gpu_usage_label.grid(row=5, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (GPU Memory)
+        label = Common.static_information_label(frame, _tr("GPU Memory"))
+        label.grid(row=6, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (GPU Memory)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=6, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (GPU Memory)
+        self.gpu_details_gpu_memory_label = Common.dynamic_information_label_wrap(frame)
+        self.gpu_details_gpu_memory_label.grid(row=6, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (Frequency)
+        label = Common.static_information_label(frame, _tr("Frequency"))
+        label.grid(row=7, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Frequency)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=7, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (Frequency)
+        self.gpu_details_frequency_label = Common.dynamic_information_label_wrap(frame)
+        self.gpu_details_frequency_label.grid(row=7, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (Min-Max Frequency)
+        label = Common.static_information_label(frame, _tr("Min-Max Frequency"))
+        label.grid(row=8, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Min-Max Frequency)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=8, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (Min-Max Frequency)
+        self.gpu_details_min_max_frequency_label = Common.dynamic_information_label_wrap(frame)
+        self.gpu_details_min_max_frequency_label.grid(row=8, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (Memory Frequency)
+        label = Common.static_information_label(frame, _tr("Memory Frequency"))
+        label.grid(row=9, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Memory Frequency)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=9, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (Memory Frequency)
+        self.gpu_details_memory_frequency_label = Common.dynamic_information_label_wrap(frame)
+        self.gpu_details_memory_frequency_label.grid(row=9, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (Temperature)
+        label = Common.static_information_label(frame, _tr("Temperature"))
+        label.grid(row=10, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Temperature)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=10, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (Temperature)
+        self.gpu_details_temperature_label = Common.dynamic_information_label_wrap(frame)
+        self.gpu_details_temperature_label.grid(row=10, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (Power Usage)
+        label = Common.static_information_label(frame, _tr("Power Usage"))
+        label.grid(row=11, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Power Usage)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=11, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (Power Usage)
+        self.gpu_details_power_usage_label = Common.dynamic_information_label_wrap(frame)
+        self.gpu_details_power_usage_label.grid(row=11, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (Boot VGA)
+        label = Common.static_information_label(frame, _tr("Boot VGA"))
+        label.grid(row=12, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Boot VGA)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=12, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (Boot VGA)
+        self.gpu_details_boot_vga_label = Common.dynamic_information_label_wrap(frame)
+        self.gpu_details_boot_vga_label.grid(row=12, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (Driver)
+        label = Common.static_information_label(frame, _tr("Driver"))
+        label.grid(row=13, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Driver)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=13, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (Driver)
+        self.gpu_details_driver_label = Common.dynamic_information_label_wrap(frame)
+        self.gpu_details_driver_label.grid(row=13, column=2, sticky="w", padx=0, pady=(0, 4))
+
+        # Label (Connections)
+        label = Common.static_information_label(frame, _tr("Connections"))
+        label.grid(row=14, column=0, sticky="w", padx=0, pady=(0, 4))
+        # Label (Connections)
+        label = Common.static_information_label(frame, ":")
+        label.grid(row=14, column=1, sticky="w", padx=4, pady=(0, 4))
+        # Label (Connections)
+        self.gpu_details_connections_label = Common.dynamic_information_label_wrap(frame)
+        self.gpu_details_connections_label.grid(row=14, column=2, sticky="w", padx=0, pady=(0, 4))
 
 
-# ----------------------------------- GPU - Get Information From Driver Function (gets GPU information from driver) -----------------------------------
-def gpu_get_information_from_driver_func(output_to_search_gpu_information_from_driver, check_vendor_device_id_match, check_driver_open_sourced):
+    def gpu_details_info_get(self):
+        """
+        Get GPU details information.
+        """
 
-    # Define initial values of the variables. These values will be used if values can not be get.
-    gpu_vendor_in_driver = "-"
-    gpu_device_in_driver = "-"
-    gpu_vendor_name_in_driver = "-"
-    gpu_device_name_in_driver = "-"
-    video_memory = "-"
-    if_unified_memory = "-"
-    direct_rendering = "-"
-    opengl_version = "-"
-    display_driver = "-"
-    # Get GPU/Graphic Card information
-    if check_driver_open_sourced == "open_sourced":
-        for line in output_to_search_gpu_information_from_driver:
-            if line.strip().startswith("Vendor:"):
-                gpu_vendor_id_in_driver = line.split()[-1].strip("()").split("x")[1].strip()
-            if line.strip().startswith("Device:"):
-                gpu_device_id_in_driver = line.split()[-1].strip("()").split("x")[1].strip()
-    for i in range(len(gpu_vendor_id_list)):
-        if gpu_vendor_id_in_driver != gpu_vendor_id_list[i] and gpu_device_id_in_driver != gpu_device_id_list[i].lstrip("0") and check_vendor_device_id_match == "check":    # Check if GPU from the "glxinfo" command and GPU from "/sys/class/drm/card[number]/device/device" file are same. Outputs from "DRI_PRIME=0 glxinfo -B" and "DRI_PRIME=1 glxinfo -B" commands may be reversed sometimes (very rare). ".lstrip("0")" is used in order to remove "0" (if exists) at the beginning at the device id. Checking GPU vendor and device id match between "/sys/class/drm/card[number]/device/..." files and driver is skipped if "check_vendor_device_id_match" value is "check". This check is not performed if there is only 1 GPU/Graphics Card on the system.
-            continue
-        for line in output_to_search_gpu_information_from_driver:
-            if line.strip().startswith("OpenGL vendor string:"):
-                gpu_vendor_name_in_driver = line.split(":")[1].strip()
-                continue
-            if line.strip().startswith("OpenGL renderer string:"):
-                gpu_device_name_in_driver = line.split(":")[1].strip()
-                continue
-            if check_driver_open_sourced == "open_sourced":
-                if line.strip().startswith("Video memory:"):
-                    video_memory = line.split(":")[1].strip()
-                    continue
-                if line.strip().startswith("Unified memory:"):
-                    if_unified_memory = _tr(line.split(":")[1].strip().capitalize())          # "_tr()" is used in order to translate ("yes" or "no" values are get from this line) the strings.
-                    continue
-            if check_driver_open_sourced == "closed_sourced":
-                if line.strip().startswith("Dedicated video memory:"):
-                    video_memory = line.split(":")[1].strip()
-                    if_unified_memory = _tr("No")                                             # "_tr()" is used in order to translate ("yes" or "no" values are get from this line) the strings.
-                    continue
-            if line.strip().startswith("direct rendering:"):
-                direct_rendering = _tr(line.split(":")[1].strip())                            # "_tr()" is used in order to translate ("yes" or "no" values are get from this line) the strings.
-                continue
-            if line.strip().startswith("OpenGL version string:"):
-                opengl_version, display_driver = line.split(":")[1].strip().split(" ", 1)     # "split(" ", 1" is for splitting string by first space character
-                continue
-        # Replace "-" values in the list with the values which are get from "glxinfo" output. Information of the selected GPU will be get from this list by using "selected_gpu_number" value. To be able to match GPU information from "/sys/class/drm/card[number]" and GPU information from "glxinfo" command are used. None of these informations contain the information of "integrated/discrete GPU". This matching is performed by using vendor and device ids.
-        global gpu_vendor_name_in_driver_list, gpu_device_name_in_driver_list, video_memory_list, if_unified_memory_list, direct_rendering_list, opengl_version_list, display_driver_list
-        gpu_vendor_name_in_driver_list[i] = gpu_vendor_name_in_driver
-        gpu_device_name_in_driver_list[i] = gpu_device_name_in_driver
-        video_memory_list[i] = video_memory
-        if_unified_memory_list[i] = if_unified_memory
-        direct_rendering_list[i] = direct_rendering
-        opengl_version_list[i] = opengl_version
-        display_driver_list[i] = display_driver
+        # Get information
+        selected_gpu_number = self.selected_gpu_number
+        selected_gpu = self.selected_gpu
+        gpu_list = self.gpu_list
+        gpu_device_path_list = self.gpu_device_path_list
+        gpu_device_sub_path_list = self.gpu_device_sub_path_list
+        gpu_device_path = gpu_device_path_list[selected_gpu_number]
+
+        gpu_pci_address = Libsysmon.get_gpu_pci_address(selected_gpu_number, gpu_list, gpu_device_path_list, gpu_device_sub_path_list)
+        gpu_current_link_speed = Libsysmon.get_gpu_current_link_speed(gpu_device_path)
+        gpu_max_link_speed = Libsysmon.get_gpu_max_link_speed(gpu_device_path)
+        gpu_interface = Libsysmon.get_gpu_interface(gpu_device_path)
+        gpu_connections = Libsysmon.get_gpu_connections(gpu_device_path, selected_gpu)
+
+        # Set GPU Details window title
+        self.gpu_details_window.title(_tr("GPU") + ": " + selected_gpu)
+
+        # Set label text by using GPU data
+        self.gpu_details_vendor_model_label.config(text=self.gpu_information_share_dict["gpu_device_model_name"])
+        self.gpu_details_gpu_label.config(text=selected_gpu)
+        self.gpu_details_pcie_address_label.config(text=gpu_pci_address)
+        self.gpu_details_gpu_interface_label.config(text=gpu_interface)
+        self.gpu_details_link_speed_label.config(text=gpu_current_link_speed + " / " + gpu_max_link_speed)
+        self.gpu_details_gpu_usage_label.config(text=self.gpu_information_share_dict2["gpu_load"])
+        self.gpu_details_gpu_memory_label.config(text=self.gpu_information_share_dict2["gpu_memory_used"] + " / " + self.gpu_information_share_dict2["gpu_memory_capacity"])
+        self.gpu_details_frequency_label.config(text=self.gpu_information_share_dict2["gpu_current_frequency"])
+        self.gpu_details_min_max_frequency_label.config(text=self.gpu_information_share_dict2["gpu_min_frequency"] + " - " + self.gpu_information_share_dict2["gpu_max_frequency"])
+        self.gpu_details_memory_frequency_label.config(text=self.gpu_information_share_dict2["gpu_memory_current_frequency"] + " / " + self.gpu_information_share_dict2["gpu_memory_max_frequency"])
+        self.gpu_details_temperature_label.config(text=self.gpu_information_share_dict2["gpu_temperature"])
+        self.gpu_details_power_usage_label.config(text=self.gpu_information_share_dict2["gpu_power_current"] + " / " + self.gpu_information_share_dict2["gpu_power_max"])
+        self.gpu_details_boot_vga_label.config(text=self.gpu_information_share_dict["if_default_gpu"])
+        self.gpu_details_driver_label.config(text=self.gpu_information_share_dict["gpu_driver_name"])
+        self.gpu_details_connections_label.config(text=gpu_connections)
 
 
-# ----------------------------------- GPU Initial Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def gpu_initial_thread_func():
+    def gpu_details_update(self, *args):
+        """
+        Update GPU information on the GPU details window.
+        """
 
-    GLib.idle_add(gpu_initial_func)
+        if self.gpu_details_window.state() == "normal":
+            self.gpu_details_info_get()
+            self.gpu_details_window.after(int(Config.update_interval*1000), self.gpu_details_update)
 
 
-# ----------------------------------- GPU Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def gpu_loop_thread_func(*args):                                                              # "*args" is used in order to prevent "" warning and obtain a repeated function by using "GLib.timeout_source_new()". "GLib.timeout_source_new()" is used instead of "GLib.timeout_add()" to be able to prevent running multiple instances of the functions at the same time when a tab is switched off and on again in the update_interval time. Using "return" with "GLib.timeout_add()" is not enough in this repetitive tab switch case. "GLib.idle_add()" is shorter but programmer has less control.
+    def initial_func(self):
+        """
+        Initial code which which is not wanted to be run in every loop.
+        """
 
-    if MainGUI.radiobutton1.get_active() == True and MainGUI.radiobutton1005.get_active() == True:
-        global gpu_glib_source, update_interval                                               # GLib source variable name is defined as global to be able to destroy it if tab is switched back in update_interval time.
-        try:                                                                                  # "try-except" is used in order to prevent errors if this is first run of the function.
-            gpu_glib_source.destroy()                                                         # Destroy GLib source for preventing it repeating the function.
-        except NameError:
+        # Define initial values
+        self.chart_data_history = Config.chart_data_history
+        self.gpu_load_list = [0] * self.chart_data_history
+        self.gpu_memory_list = [0] * self.chart_data_history
+
+        # Get information
+        gpu_list, gpu_device_path_list, gpu_device_sub_path_list, default_gpu = Libsysmon.get_gpu_list_and_boot_vga()
+        selected_gpu_number, selected_gpu = Libsysmon.gpu_set_selected_gpu(Config.selected_gpu, gpu_list, default_gpu)
+        if_default_gpu = Libsysmon.get_default_gpu(selected_gpu_number, gpu_list, default_gpu)
+        gpu_device_model_name, device_vendor_id = Libsysmon.get_device_model_name_vendor_id(selected_gpu_number, gpu_list, gpu_device_path_list, gpu_device_sub_path_list)
+        gpu_driver_name = Libsysmon.get_driver_name(selected_gpu_number, gpu_list, gpu_device_path_list, gpu_device_sub_path_list)
+
+        self.default_gpu = default_gpu
+        self.selected_gpu_number = selected_gpu_number
+        self.selected_gpu = selected_gpu
+        self.gpu_list = gpu_list
+        self.gpu_device_path_list = gpu_device_path_list
+        self.gpu_device_sub_path_list = gpu_device_sub_path_list
+        self.device_vendor_id = device_vendor_id
+
+        self.gpu_information_share_dict = {
+                                           "gpu_device_model_name" : gpu_device_model_name,
+                                           "if_default_gpu" : if_default_gpu,
+                                           "gpu_driver_name" : gpu_driver_name,
+                                           }
+
+        # Set GPU tab label texts by using information get
+        self.device_vendor_model_label.config(text=gpu_device_model_name)
+        self.device_kernel_name_label.config(text=f'{self.gpu_list[self.selected_gpu_number]}')
+        self.boot_vga_label.config(text=if_default_gpu)
+        self.driver_label.config(text=gpu_driver_name)
+
+        self.initial_already_run = 1
+
+
+    def loop_func(self):
+        """
+        Get and show information on the GUI on every loop.
+        """
+
+        if self.initial_already_run == 0:
+            self.initial_func()
+
+        default_gpu = self.default_gpu
+        selected_gpu_number = self.selected_gpu_number
+        selected_gpu = self.selected_gpu
+        gpu_list = self.gpu_list
+        gpu_device_path_list = self.gpu_device_path_list
+        gpu_device_sub_path_list = self.gpu_device_sub_path_list
+        device_vendor_id = self.device_vendor_id
+
+        # Run "initial_func" if "initial_already_run variable is "0" which means all settings
+        # of the application is reset and initial function has to be run in order to avoid errors.
+        # This check is required only for GPU tab (not required for other Performance tab sub-tabs).
+        if self.initial_already_run == 0:
+            self.initial_func()
+
+        # Get information.
+        gpu_pci_address = Libsysmon.get_gpu_pci_address(selected_gpu_number, gpu_list, gpu_device_path_list, gpu_device_sub_path_list)
+        gpu_load_memory_frequency_power_dict = Libsysmon.get_gpu_load_memory_frequency_power(gpu_pci_address, device_vendor_id, selected_gpu_number, gpu_list, gpu_device_path_list, gpu_device_sub_path_list)
+
+        gpu_load = gpu_load_memory_frequency_power_dict["gpu_load"]
+        gpu_memory_used = gpu_load_memory_frequency_power_dict["gpu_memory_used"]
+        gpu_memory_capacity = gpu_load_memory_frequency_power_dict["gpu_memory_capacity"]
+        gpu_current_frequency = gpu_load_memory_frequency_power_dict["gpu_current_frequency"]
+        gpu_min_frequency = gpu_load_memory_frequency_power_dict["gpu_min_frequency"]
+        gpu_max_frequency = gpu_load_memory_frequency_power_dict["gpu_max_frequency"]
+        gpu_memory_current_frequency = gpu_load_memory_frequency_power_dict["gpu_memory_current_frequency"]
+        gpu_memory_min_frequency = gpu_load_memory_frequency_power_dict["gpu_memory_min_frequency"]
+        gpu_memory_max_frequency = gpu_load_memory_frequency_power_dict["gpu_memory_max_frequency"]
+        gpu_temperature = gpu_load_memory_frequency_power_dict["gpu_temperature"]
+        gpu_power_current = gpu_load_memory_frequency_power_dict["gpu_power_current"]
+        gpu_power_max = gpu_load_memory_frequency_power_dict["gpu_power_max"]
+
+        gpu_load = gpu_load.split()[0]
+        if gpu_load == "-":
+            self.gpu_load_list.append(0)
+        else:
+            self.gpu_load_list.append(float(gpu_load))
+            gpu_load = f'{gpu_load} %'
+        del self.gpu_load_list[0]
+
+        gpu_memory_usage_percentage = Libsysmon.get_gpu_memory_usage_percentage(gpu_memory_used, gpu_memory_capacity)
+        self.gpu_memory_list.append(gpu_memory_usage_percentage)
+        del self.gpu_memory_list[0]
+
+        try:
+            gpu_temperature = float(gpu_temperature)
+            gpu_temperature = f'{gpu_temperature:.0f} °C'
+        except ValueError:
             pass
-        update_interval = Config.update_interval
-        gpu_glib_source = GLib.timeout_source_new(update_interval * 1000)
-        GLib.idle_add(gpu_loop_func)
-        gpu_glib_source.set_callback(gpu_loop_thread_func)
-        gpu_glib_source.attach(GLib.MainContext.default())                                    # Attach GLib.Source to MainContext. Therefore it will be part of the main loop until it is destroyed. A function may be attached to the MainContext multiple times.
+
+        Performance.performance_line_charts_draw(self.da_gpu_usage, "da_gpu_usage")
+        Performance.performance_line_charts_draw(self.da_gpu_memory_usage, "da_gpu_memory_usage")
+
+        self.gpu_information_share_dict2 = dict(gpu_load_memory_frequency_power_dict)
+
+        # Run "main_gui_device_selection_list" if selected device list is changed since the last loop.
+        gpu_list = self.gpu_list
+        try:                                                                                      
+            if self.gpu_list_prev != gpu_list:
+                MainWindow.main_gui_device_selection_list()
+        # Avoid error if this is first loop of the function.
+        except AttributeError:
+            MainWindow.main_gui_device_selection_list()
+        self.gpu_list_prev = list(gpu_list)
 
 
-# ----------------------------------- GPU Thread Run Function (starts execution of the threads) -----------------------------------
-def gpu_thread_run_func():
+        # Set and update GPU tab label texts by using information get
+        self.gpu_usage_label.config(text=gpu_load)
+        self.video_memory_label.config(text=f'{gpu_memory_used} / {gpu_memory_capacity}')
+        self.frequency_label.config(text=gpu_current_frequency)
+        self.temperature_label.config(text=gpu_temperature)
+        self.min_max_frequency_label.config(text=f'{gpu_min_frequency} - {gpu_max_frequency}')
+        self.power_usage_label.config(text=gpu_power_current + " / " + gpu_power_max)
+        #self.memory_frequency_label.config(text=f'{gpu_memory_current_frequency} / {gpu_memory_max_frequency}')
 
-    if "update_interval" not in globals():                                                    # To be able to run initial thread for only one time
-        gpu_initial_thread = Thread(target=gpu_initial_thread_func, daemon=True)
-        gpu_initial_thread.start()
-        gpu_initial_thread.join()
-    gpu_loop_thread = Thread(target=gpu_loop_thread_func, daemon=True)
-    gpu_loop_thread.start()
+
+Gpu = Gpu()
+

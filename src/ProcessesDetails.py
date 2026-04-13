@@ -1,694 +1,878 @@
-#!/usr/bin/env python3
+import tkinter as tk
+from tkinter import ttk
 
-# ----------------------------------- Processes - Processes Details Import Function (contains import code of this module in order to avoid running them during module import) -----------------------------------
-def processes_details_import_func():
+import os
+import time
+import subprocess
+from datetime import datetime
 
-    global Gtk, GLib, os, Thread, time, datetime
+from .Config import Config
+from .Processes import Processes
+from .Performance import Performance
+from .MainWindow import MainWindow
+from . import Common
+from . import Libsysmon
 
-    import gi
-    gi.require_version('Gtk', '3.0')
-    from gi.repository import Gtk, GLib
-    import os
-    from threading import Thread
-    import time
-    from datetime import datetime
-
-
-    global Config, Processes, MainGUI
-    import Config, Processes, MainGUI
+_tr = Config._tr
 
 
-    # Import locale and gettext modules for defining translation texts which will be recognized by gettext application (will be run by programmer externally) and exported into a ".pot" file. 
-    global _tr                                                                                # This arbitrary variable will be recognized by gettext application for extracting texts to be translated
-    import locale
-    from locale import gettext as _tr
+class ProcessesDetails:
 
-    # Define contstants for language translation support
-    global application_name
-    application_name = "system-monitoring-center"
-    translation_files_path = "/usr/share/locale"
-    system_current_language = os.environ.get("LANG")
+    def __init__(self, selected_process_pid):
 
-    # Define functions for language translation support
-    locale.bindtextdomain(application_name, translation_files_path)
-    locale.textdomain(application_name)
-    locale.setlocale(locale.LC_ALL, system_current_language)
+        self.window_gui()
+
+        self.initial_already_run = 0
+
+        # Get selected_process_pid for using it for the current process object instance.
+        self.selected_process_pid = selected_process_pid
 
 
-# ----------------------------------- Processes - Processes Details Window GUI Function (the code of this module in order to avoid running them during module import and defines "Processes Details" window GUI objects and functions/signals) -----------------------------------
-def processes_details_gui_function():
+    def window_gui(self):
+        """
+        Generate window GUI.
+        """
 
-    # Processes Details window GUI objects
-    global builder2101w, window2101w, notebook2101w
-    global label2101w, label2102w, label2103w, label2104w, label2105w, label2106w, label2107w, label2108w, label2109w, label2110w
-    global label2111w, label2112w, label2113w, label2114w, label2115w, label2116w, label2117w, label2118w, label2119w, label2120w
-    global label2121w, label2122w, label2123w, label2124w, label2125w, label2126w, label2127w, label2128w, label2129w, label2130w
-    global label2131w, label2132w, label2133w, label2134w, label2135w, label2136w, label2137w
+        # Window (Process Details)
+        self.process_details_window, self.frame = Common.window(MainWindow.main_window, _tr("Process Details"))
+        # Restore default grab setting in order to remove blocking main window (Processes tab).
+        self.process_details_window.grab_release()
 
+        # Notebook
+        self.notebook = ttk.Notebook(self.frame)
+        self.notebook.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
+        self.notebook.bind("<<NotebookTabChanged>>", self.on_notebook_tab_changed)
 
-    # Processes Details window GUI objects - get
-    builder2101w = Gtk.Builder()
-    builder2101w.add_from_file(os.path.dirname(os.path.realpath(__file__)) + "/../ui/ProcessesDetailsWindow.ui")
+        # Summary Tab
+        self.frame_summary_tab = tk.Frame(self.notebook)
+        self.notebook.add(self.frame_summary_tab, text=_tr("Summary"))
 
-    window2101w = builder2101w.get_object('window2101w')
+        # CPU Tab
+        self.frame_cpu_tab = tk.Frame(self.notebook)
+        self.notebook.add(self.frame_cpu_tab, text=_tr("CPU"))
 
-    notebook2101w = builder2101w.get_object('notebook2101w')
+        # Memory Tab
+        self.frame_memory_tab = tk.Frame(self.notebook)
+        self.notebook.add(self.frame_memory_tab, text=_tr("Memory"))
 
-    # Process Details window "Summary" tab GUI objects
-    label2101w = builder2101w.get_object('label2101w')
-    label2102w = builder2101w.get_object('label2102w')
-    label2103w = builder2101w.get_object('label2103w')
-    label2104w = builder2101w.get_object('label2104w')
-    label2105w = builder2101w.get_object('label2105w')
-    label2106w = builder2101w.get_object('label2106w')
-    label2107w = builder2101w.get_object('label2107w')
-    label2108w = builder2101w.get_object('label2108w')
-    label2109w = builder2101w.get_object('label2109w')
-    label2110w = builder2101w.get_object('label2110w')
-    label2111w = builder2101w.get_object('label2111w')
-    label2112w = builder2101w.get_object('label2112w')
-    label2113w = builder2101w.get_object('label2113w')
-    label2114w = builder2101w.get_object('label2114w')
-    label2115w = builder2101w.get_object('label2115w')
+        # Disk Tab
+        self.frame_disk_tab = tk.Frame(self.notebook)
+        self.notebook.add(self.frame_disk_tab, text=_tr("Disk"))
 
-    # Process Details window "CPU and RAM" tab GUI objects
-    label2116w = builder2101w.get_object('label2116w')
-    label2117w = builder2101w.get_object('label2117w')
-    label2118w = builder2101w.get_object('label2118w')
-    label2119w = builder2101w.get_object('label2119w')
-    label2120w = builder2101w.get_object('label2120w')
-    label2121w = builder2101w.get_object('label2121w')
-    label2122w = builder2101w.get_object('label2122w')
-    label2123w = builder2101w.get_object('label2123w')
-    label2124w = builder2101w.get_object('label2124w')
-    label2125w = builder2101w.get_object('label2125w')
-    label2126w = builder2101w.get_object('label2126w')
-    label2127w = builder2101w.get_object('label2127w')
+        # File Tab
+        self.frame_files_tab = tk.Frame(self.notebook)
+        self.notebook.add(self.frame_files_tab, text=_tr("File"))
 
-    # Process Details window "Disk and Path" tab GUI objects
-    label2128w = builder2101w.get_object('label2128w')
-    label2129w = builder2101w.get_object('label2129w')
-    label2130w = builder2101w.get_object('label2130w')
-    label2131w = builder2101w.get_object('label2131w')
-    label2132w = builder2101w.get_object('label2132w')
-    label2133w = builder2101w.get_object('label2133w')
-    label2134w = builder2101w.get_object('label2134w')
-    label2135w = builder2101w.get_object('label2135w')
-    label2136w = builder2101w.get_object('label2136w')
-    label2137w = builder2101w.get_object('label2137w')
+        self.summary_tab_gui()
+        self.cpu_tab_gui()
+        self.memory_tab_gui()
+        self.disk_tab_gui()
+        self.file_tab_gui()
+
+        self.gui_signals()
 
 
-    # Processes Details window GUI functions
-    def on_window2101w_delete_event(widget, event):
-        window2101w.hide()
-        return True
+    def summary_tab_gui(self):
+        """
+        Generate "Summary" tab GUI objects.
+        """
 
-    def on_window2101w_show(widget):
-        processes_details_gui_reset_function()                                                # Call this function in order to reset Processes Details window. Data from previous process remains visible (for a short time) until getting and showing new process data if window is closed and opened for an another process. Also last selected tab remains same because window is made hidden when close button is clicked.
-        processes_details_tab_switch_control_func()
+        self.frame_summary_tab.columnconfigure(0, weight=1)
+        #self.frame_summary_tab.rowconfigure(0, weight=1)
+
+        frame = tk.Frame(self.frame_summary_tab)
+        frame.grid(row=0, column=0, sticky="nsew", padx=15, pady=15)
+        frame.columnconfigure(2, weight=1)
+        frame.rowconfigure(0, weight=1)
+
+        # Label (Name)
+        label = Common.static_information_label(frame, text=_tr("Name"))
+        label.grid(row=0, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Name)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=0, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (Name)
+        self.name_label = Common.dynamic_information_label_wrap(frame)
+        self.name_label.grid(row=0, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (PID)
+        label = Common.static_information_label(frame, text=_tr("PID"))
+        label.grid(row=1, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (PID)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=1, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (PID)
+        self.pid_label = Common.dynamic_information_label_wrap(frame)
+        self.pid_label.grid(row=1, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Status)
+        label = Common.static_information_label(frame, text=_tr("Status"))
+        label.grid(row=2, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Status)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=2, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (Status)
+        self.status_label = Common.dynamic_information_label_wrap(frame)
+        self.status_label.grid(row=2, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (User)
+        label = Common.static_information_label(frame, text=_tr("User"))
+        label.grid(row=3, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (User)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=3, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (User)
+        self.user_label = Common.dynamic_information_label_wrap(frame)
+        self.user_label.grid(row=3, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Priority)
+        label = Common.static_information_label(frame, text=_tr("Priority"))
+        label.grid(row=4, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Priority)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=4, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (Priority)
+        self.priority_label = Common.dynamic_information_label_wrap(frame)
+        self.priority_label.grid(row=4, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (CPU)
+        label = Common.static_information_label(frame, text=_tr("CPU"))
+        label.grid(row=5, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (CPU)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=5, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (CPU)
+        self.cpu_label = Common.dynamic_information_label_wrap(frame)
+        self.cpu_label.grid(row=5, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Memory (RSS))
+        label = Common.static_information_label(frame, text=_tr("Memory (RSS)"))
+        label.grid(row=6, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Memory (RSS))
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=6, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (Memory (RSS))
+        self.memory_rss_label = Common.dynamic_information_label_wrap(frame)
+        self.memory_rss_label.grid(row=6, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Read Speed)
+        label = Common.static_information_label(frame, text=_tr("Read Speed"))
+        label.grid(row=7, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Read Speed)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=7, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (Read Speed)
+        self.read_speed_label = Common.dynamic_information_label_wrap(frame)
+        self.read_speed_label.grid(row=7, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Write Speed)
+        label = Common.static_information_label(frame, text=_tr("Write Speed"))
+        label.grid(row=8, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Write Speed)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=8, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (Write Speed)
+        self.write_speed_label = Common.dynamic_information_label_wrap(frame)
+        self.write_speed_label.grid(row=8, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Start Time)
+        label = Common.static_information_label(frame, text=_tr("Start Time"))
+        label.grid(row=9, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Start Time)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=9, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (Start Time)
+        self.start_time_label = Common.dynamic_information_label_wrap(frame)
+        self.start_time_label.grid(row=9, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Path)
+        label = Common.static_information_label(frame, text=_tr("Path"))
+        label.grid(row=10, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Path)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=10, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (Path)
+        self.path_label = Common.dynamic_information_label_wrap(frame)
+        self.path_label.grid(row=10, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (PPID)
+        label = Common.static_information_label(frame, text=_tr("PPID"))
+        label.grid(row=11, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (PPID)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=11, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (PPID)
+        self.ppid_label = Common.dynamic_information_label_wrap(frame)
+        self.ppid_label.grid(row=11, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (UID)
+        label = Common.static_information_label(frame, text=_tr("UID"))
+        label.grid(row=12, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (UID)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=12, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (UID)
+        self.uid_label = Common.dynamic_information_label_wrap(frame)
+        self.uid_label.grid(row=12, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (GID)
+        label = Common.static_information_label(frame, text=_tr("GID"))
+        label.grid(row=13, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (GID)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=13, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (GID)
+        self.gid_label = Common.dynamic_information_label_wrap(frame)
+        self.gid_label.grid(row=13, column=2, sticky="nsew", padx=0, pady=4)
 
 
-    # Processes Details window GUI functions - connect
-    window2101w.connect("delete-event", on_window2101w_delete_event)
-    window2101w.connect("show", on_window2101w_show)
+    def cpu_tab_gui(self):
+        """
+        Generate "CPU" tab GUI objects.
+        """
+
+        self.frame_cpu_tab.columnconfigure(0, weight=1)
+        self.frame_cpu_tab.rowconfigure(0, weight=1)
+
+        frame = tk.Frame(self.frame_cpu_tab)
+        frame.grid(row=0, column=0, sticky="nsew", padx=15, pady=15)
+        frame.columnconfigure(2, weight=1)
+        frame.rowconfigure(0, weight=1)
+
+        # Frame (drawingarea)
+        drawingarea_grid = ttk.Frame(frame)
+        drawingarea_grid.grid(row=0, column=0, columnspan=3, sticky="nsew", padx=0, pady=(0, 10))
+        drawingarea_grid.columnconfigure(0, weight=1)
+        drawingarea_grid.rowconfigure(1, weight=1)
+
+        # Label (drawingarea upper-left)
+        self.da_upper_left_label = Common.da_upper_lower_label(drawingarea_grid, _tr("CPU Usage (Average)"))
+        self.da_upper_left_label.grid(row=0, column=0, sticky="w")
+
+        # Label (drawingarea upper-right)
+        self.drawingarea_cpu_limit_label = Common.da_upper_lower_label(drawingarea_grid, "100%")
+        self.drawingarea_cpu_limit_label.grid(row=0, column=1, sticky="e")
+
+        # Label (for showing graphics)
+        self.processes_details_da_cpu_usage = Common.drawingarea(drawingarea_grid, "processes_details_da_cpu_usage")
+        self.processes_details_da_cpu_usage.grid(row=1, column=0, columnspan=2, sticky="nsew", padx=0, pady=0)
+
+        # Label (drawingarea lower-right)
+        label = Common.da_upper_lower_label(drawingarea_grid, "0")
+        label.grid(row=2, column=1, sticky="e")
+
+        # Label (CPU)
+        label = Common.static_information_label(frame, text=_tr("CPU"))
+        label.grid(row=1, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (CPU)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=1, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (CPU)
+        self.cpu_label2 = Common.dynamic_information_label_wrap(frame)
+        self.cpu_label2.grid(row=1, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Threads)
+        label = Common.static_information_label(frame, text=_tr("Threads"))
+        label.grid(row=2, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Threads)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=2, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (Threads)
+        self.threads_label = Common.dynamic_information_label_wrap(frame)
+        self.threads_label.grid(row=2, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Threads (TID))
+        label = Common.static_information_label(frame, text=_tr("Threads (TID)"))
+        label.grid(row=3, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Threads (TID))
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=3, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (Threads (TID))
+        self.tid_label = Common.dynamic_information_label_wrap(frame)
+        self.tid_label.grid(row=3, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Used CPU Core(s))
+        label = Common.static_information_label(frame, text=_tr("Used CPU Core(s)"))
+        label.grid(row=4, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Used CPU Core(s))
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=4, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (Used CPU Core(s))
+        self.used_cpu_cores_label = Common.dynamic_information_label_wrap(frame)
+        self.used_cpu_cores_label.grid(row=4, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (CPU Times)
+        label = Common.static_information_label(frame, text=_tr("CPU Times"))
+        label.grid(row=5, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (CPU Times)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=5, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (CPU Times)
+        self.cpu_times_label = Common.dynamic_information_label_wrap(frame)
+        self.cpu_times_label.grid(row=5, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Context Switches)
+        label = Common.static_information_label(frame, text=_tr("Context Switches"))
+        label.grid(row=6, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Context Switches)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=6, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (Context Switches)
+        self.context_switches_label = Common.dynamic_information_label_wrap(frame)
+        self.context_switches_label.grid(row=6, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (CPU Affinity)
+        label = Common.static_information_label(frame, text=_tr("CPU Affinity"))
+        label.grid(row=7, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (CPU Affinity)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=7, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (CPU Affinity)
+        self.cpu_affinity_label = Common.dynamic_information_label_wrap(frame)
+        self.cpu_affinity_label.grid(row=7, column=2, sticky="nsew", padx=0, pady=4)
 
 
-# ----------------------------------- Processes - Processes Details Window GUI Reset Function (resets Processes Details window) -----------------------------------
-def processes_details_gui_reset_function():
+    def memory_tab_gui(self):
+        """
+        Generate "Memory" tab GUI objects.
+        """
 
-    notebook2101w.set_current_page(0)                                                         # Set fist page (Summary tab) of the notebook
-    label2101w.set_text("--")
-    label2102w.set_text("--")
-    label2103w.set_text("--")
-    label2104w.set_text("--")
-    label2105w.set_text("--")
-    label2106w.set_text("--")
-    label2107w.set_text("--")
-    label2108w.set_text("--")
-    label2109w.set_text("--")
-    label2110w.set_text("--")
-    label2111w.set_text("--")
-    label2112w.set_text("--")
-    label2113w.set_text("--")
-    label2114w.set_text("--")
-    label2115w.set_text("--")
-    label2116w.set_text("--")
-    label2117w.set_text("--")
-    label2118w.set_text("--")
-    label2119w.set_text("--")
-    label2120w.set_text("--")
-    label2121w.set_text("--")
-    label2122w.set_text("--")
-    label2123w.set_text("--")
-    label2124w.set_text("--")
-    label2125w.set_text("--")
-    label2126w.set_text("--")
-    label2127w.set_text("--")
-    label2128w.set_text("--")
-    label2129w.set_text("--")
-    label2130w.set_text("--")
-    label2131w.set_text("--")
-    label2132w.set_text("--")
-    label2133w.set_text("--")
-    label2134w.set_text("--")
-    label2135w.set_text("--")
-    label2136w.set_text("--")
-    label2137w.set_text("--")
+        self.frame_memory_tab.columnconfigure(0, weight=1)
+        self.frame_memory_tab.rowconfigure(0, weight=1)
+
+        frame = tk.Frame(self.frame_memory_tab)
+        frame.grid(row=0, column=0, sticky="nsew", padx=15, pady=15)
+        frame.columnconfigure(2, weight=1)
+        frame.rowconfigure(0, weight=1)
+
+        # Frame (drawingarea)
+        drawingarea_grid = ttk.Frame(frame)
+        drawingarea_grid.grid(row=0, column=0, columnspan=3, sticky="nsew", padx=0, pady=(0, 10))
+        drawingarea_grid.columnconfigure(0, weight=1)
+        drawingarea_grid.rowconfigure(1, weight=1)
+
+        # Label (drawingarea upper-left)
+        self.da_upper_left_label = Common.da_upper_lower_label(drawingarea_grid, _tr("RAM Usage"))
+        self.da_upper_left_label.grid(row=0, column=0, sticky="w")
+
+        # Label (drawingarea upper-right)
+        self.drawingarea_memory_limit_label = Common.da_upper_lower_label(drawingarea_grid, "100%")
+        self.drawingarea_memory_limit_label.grid(row=0, column=1, sticky="e")
+
+        # Label (for showing graphics)
+        self.processes_details_da_memory_usage = Common.drawingarea(drawingarea_grid, "processes_details_da_memory_usage")
+        self.processes_details_da_memory_usage.grid(row=1, column=0, columnspan=2, sticky="nsew", padx=0, pady=0)
+
+        # Label (drawingarea lower-right)
+        label = Common.da_upper_lower_label(drawingarea_grid, "0")
+        label.grid(row=2, column=1, sticky="e")
+
+        # Label (Memory)
+        label = Common.static_information_label(frame, text=_tr("Memory"))
+        label.grid(row=1, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Memory)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=1, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (CMemory)
+        self.memory_label = Common.dynamic_information_label_wrap(frame)
+        self.memory_label.grid(row=1, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Memory (RSS))
+        label = Common.static_information_label(frame, text=_tr("Memory (RSS)"))
+        label.grid(row=2, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Memory (RSS))
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=2, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (CMemory (RSS))
+        self.memory_rss_label2 = Common.dynamic_information_label_wrap(frame)
+        self.memory_rss_label2.grid(row=2, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Memory (VMS))
+        label = Common.static_information_label(frame, text=_tr("Memory (VMS)"))
+        label.grid(row=3, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Memory (VMS))
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=3, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (CMemory (VMS))
+        self.memory_vms_label = Common.dynamic_information_label_wrap(frame)
+        self.memory_vms_label.grid(row=3, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Memory (Shared))
+        label = Common.static_information_label(frame, text=_tr("Memory (Shared)"))
+        label.grid(row=4, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Memory (Shared))
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=4, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (CMemory (Shared)PU)
+        self.memory_shared_label = Common.dynamic_information_label_wrap(frame)
+        self.memory_shared_label.grid(row=4, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Memory (USS))
+        label = Common.static_information_label(frame, text=_tr("Memory (USS)"))
+        label.grid(row=5, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Memory (USS))
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=5, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (CMemory (USS))
+        self.memory_uss_label = Common.dynamic_information_label_wrap(frame)
+        self.memory_uss_label.grid(row=5, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Swap Memory)
+        label = Common.static_information_label(frame, text=_tr("Swap Memory"))
+        label.grid(row=6, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Swap Memory)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=6, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (Swap Memory)
+        self.swap_memory_label = Common.dynamic_information_label_wrap(frame)
+        self.swap_memory_label.grid(row=6, column=2, sticky="nsew", padx=0, pady=4)
 
 
-# ----------------------------------- Processes - Processes Details Tab Switch Control Function (controls if tab is switched and updates data on the last opened tab immediately without waiting end of the update interval. Signals of notebook for tab switching is not useful because it performs the action and after that it switches the tab. Data updating function does not recognizes tab switch due to this reason.) -----------------------------------
-def processes_details_tab_switch_control_func():
+    def disk_tab_gui(self):
+        """
+        Generate "Disk" tab GUI objects.
+        """
 
-    global previous_page
-    if 'previous_page' not in globals():                                                      # For avoiding errors in the first loop of the control
-        previous_page = None
-        current_page = None
-    current_page = notebook2101w.get_current_page()
-    if current_page != previous_page and previous_page != None:                               # Check if tab is switched
-        process_details_foreground_func()                                                     # Update the data on the tab
-    previous_page = current_page
-    if window2101w.get_visible() == True:
-        GLib.timeout_add(200, processes_details_tab_switch_control_func)                      # Check is performed in every 200 ms which is small enough for immediate update and not very frequent for avoiding high CPU usages.
+        self.frame_disk_tab.columnconfigure(0, weight=1)
+        self.frame_disk_tab.rowconfigure(0, weight=1)
+
+        frame = tk.Frame(self.frame_disk_tab)
+        frame.grid(row=0, column=0, sticky="nsew", padx=15, pady=15)
+        frame.columnconfigure(2, weight=1)
+        frame.rowconfigure(0, weight=1)
+
+        # Frame (drawingarea)
+        drawingarea_grid = ttk.Frame(frame)
+        drawingarea_grid.grid(row=0, column=0, columnspan=3, sticky="nsew", padx=0, pady=(0, 10))
+        drawingarea_grid.columnconfigure(0, weight=1)
+        drawingarea_grid.rowconfigure(1, weight=1)
+
+        # Label (drawingarea upper-left)
+        self.da_upper_left_label = Common.da_upper_lower_label(drawingarea_grid, _tr("Read Speed") + " (-) & " + _tr("Write Speed") + " (-  -)")
+        self.da_upper_left_label.grid(row=0, column=0, sticky="w")
+
+        # Label (drawingarea upper-right)
+        self.drawingarea_disk_limit_label = Common.da_upper_lower_label(drawingarea_grid, "--")
+        self.drawingarea_disk_limit_label.grid(row=0, column=1, sticky="e")
+
+        # Label (for showing graphics)
+        self.processes_details_da_disk_speed = Common.drawingarea(drawingarea_grid, "processes_details_da_disk_speed")
+        self.processes_details_da_disk_speed.grid(row=1, column=0, columnspan=2, sticky="nsew", padx=0, pady=0)
+
+        # Label (drawingarea lower-right)
+        label = Common.da_upper_lower_label(drawingarea_grid, "0")
+        label.grid(row=2, column=1, sticky="e")
+
+        # Label (Read Speed)
+        label = Common.static_information_label(frame, text=_tr("Read Speed"))
+        label.grid(row=1, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Read Speed)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=1, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (Read Speed)
+        self.read_speed_label2 = Common.dynamic_information_label_wrap(frame)
+        self.read_speed_label2.grid(row=1, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Write Speed)
+        label = Common.static_information_label(frame, text=_tr("Write Speed"))
+        label.grid(row=2, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Write Speed)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=2, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (Write Speed)
+        self.write_speed_label2 = Common.dynamic_information_label_wrap(frame)
+        self.write_speed_label2.grid(row=2, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Read Data)
+        label = Common.static_information_label(frame, text=_tr("Read Data"))
+        label.grid(row=3, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Read Data)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=3, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (Read Data)
+        self.read_data_label = Common.dynamic_information_label_wrap(frame)
+        self.read_data_label.grid(row=3, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Written Data)
+        label = Common.static_information_label(frame, text=_tr("Written Data"))
+        label.grid(row=4, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Written Data)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=4, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (Written Data)
+        self.written_data_label = Common.dynamic_information_label_wrap(frame)
+        self.written_data_label.grid(row=4, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Read Count)
+        label = Common.static_information_label(frame, text=_tr("Read Count"))
+        label.grid(row=5, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Read Count)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=5, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (Read Count)
+        self.read_count_label = Common.dynamic_information_label_wrap(frame)
+        self.read_count_label.grid(row=5, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Write Count)
+        label = Common.static_information_label(frame, text=_tr("Write Count"))
+        label.grid(row=6, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Write Count)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=6, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (Write Count)
+        self.write_count_label = Common.dynamic_information_label_wrap(frame)
+        self.write_count_label.grid(row=6, column=2, sticky="nsew", padx=0, pady=4)
 
 
-# ----------------------------------- Processes - Processes Details Function (the code of this module in order to avoid running them during module import and defines "Processes" tab GUI objects and functions/signals) -----------------------------------
-def process_details_initial_func():
+    def file_tab_gui(self):
+        """
+        Generate "File" tab GUI objects.
+        """
 
-    processes_details_define_data_unit_converter_variables_func()                             # This function is called in order to define data unit conversion variables before they are used in the function that is called from following code.
+        self.frame_files_tab.columnconfigure(0, weight=1)
+        #self.frame_files_tab.rowconfigure(0, weight=1)
 
-    global process_status_list, global_process_cpu_times_prev, disk_read_write_data_prev, fd_mode_dict
-    process_status_list = Processes.process_status_list
-    global_process_cpu_times_prev = []
-    disk_read_write_data_prev = []
-    fd_mode_dict = {32768: "r", 32769: "w", 33793: "a", 32770: "w+", 33794: "a+"}
+        frame = tk.Frame(self.frame_files_tab)
+        frame.grid(row=0, column=0, sticky="nsew", padx=15, pady=15)
+        frame.columnconfigure(2, weight=1)
+        frame.rowconfigure(0, weight=1)
 
-    # Get system boot time
-    global system_boot_time
-    with open("/proc/stat") as reader:
-        stat_lines = reader.read().split("\n")
-    for line in stat_lines:
-        if "btime " in line:
-            system_boot_time = int(line.split()[1].strip())
+        # Label (Path)
+        label = Common.static_information_label(frame, text=_tr("Path"))
+        label.grid(row=0, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Path)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=0, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (Path)
+        self.path_label2 = Common.dynamic_information_label_wrap(frame)
+        self.path_label2.grid(row=0, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Current Working Directory)
+        label = Common.static_information_label(frame, text=_tr("Current Working Directory"))
+        label.grid(row=1, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Current Working Directory)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=1, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (Current Working Directory)
+        self.cwd_label = Common.dynamic_information_label_wrap(frame)
+        self.cwd_label.grid(row=1, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Command Line)
+        label = Common.static_information_label(frame, text=_tr("Command Line"))
+        label.grid(row=2, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Command Line)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=2, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (Command Line)
+        self.commandline_label = Common.dynamic_information_label_wrap(frame)
+        self.commandline_label.grid(row=2, column=2, sticky="nsew", padx=0, pady=4)
+
+        # Label (Opened Files)
+        label = Common.static_information_label(frame, text=_tr("Opened Files"))
+        label.grid(row=3, column=0, sticky="nsew", padx=0, pady=4)
+        # Label (Opened Files)
+        label = Common.static_information_label(frame, text=":")
+        label.grid(row=3, column=1, sticky="nsew", padx=5, pady=4)
+        # Label (Opened Files)
+        self.opened_files_label = Common.dynamic_information_label_wrap(frame)
+        self.opened_files_label.grid(row=3, column=2, sticky="nsew", padx=0, pady=4)
 
 
-# ----------------------------------- Processes - Processes Details Foreground Function (updates the process data on the "Processes Details" window) -----------------------------------
-def process_details_foreground_func():
+    def gui_signals(self):
+        """
+        Connect GUI signals.
+        """
 
-    processes_cpu_usage_percent_precision = Config.processes_cpu_usage_percent_precision
-    processes_ram_swap_data_precision = Config.processes_ram_swap_data_precision
-    processes_ram_swap_data_unit = Config.processes_ram_swap_data_unit
-    processes_disk_speed_data_precision = Config.processes_disk_speed_data_precision
-    processes_disk_speed_data_unit = Config.processes_disk_speed_data_unit
+        # Window signals
+        self.process_details_window.after(1, self.on_details_window_show)
+        self.process_details_window.protocol('WM_DELETE_WINDOW', self.on_details_window_close_request)
 
-    global global_process_cpu_times_prev, disk_read_write_data_prev
-    global system_boot_time
 
-    # Get human and root user usernames and UIDs only one time at the per loop in order to avoid running it per process loop (it is different than main loop = processes_loop_func) which increases CPU consumption.
-    usernames_username_list = []
-    usernames_uid_list = []
-    with open("/etc/passwd") as reader:                                                       # "/etc/passwd" file (also knonw as Linux password database) contains all local user (system + human users) information.
-        etc_passwd_lines = reader.read().strip().split("\n")                                  # "strip()" is used in order to prevent errors due to an empty line at the end of the list.
-    for line in etc_passwd_lines:
-        line_splitted = line.split(":")
-        usernames_username_list.append(line_splitted[0])
-        usernames_uid_list.append(line_splitted[2])
+    def on_notebook_tab_changed(self, event):
+        """
+        In order to prevent empty graphs, run loop function when tab selection changed.
+        """
 
-    global selected_process_pid
-    selected_process_pid = Processes.selected_process_pid                                     # Get "selected_process_pid" from module "ProcessesGUI".
+        self.process_details_run_func()
 
-    number_of_clock_ticks = Processes.number_of_clock_ticks
-    global_cpu_time_all = time.time() * number_of_clock_ticks                                 # global_cpu_time_all value is get just before "/proc/[PID]/stat file is read in order to measure global an process specific CPU times at the same time (nearly) for ensuring accurate process CPU usage percent. global_cpu_time_all value is get by using time module of Python instead of reading "/proc/stat" file for faster processing.
-    try:                                                                                      # Process may be ended. "try-catch" is used for avoiding errors in this situation.
-        with open("/proc/" + selected_process_pid + "/stat") as reader:                       # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
-            proc_pid_stat_lines = reader.read()
-    except FileNotFoundError:
-        window2101w.hide()
-        processes_no_such_process_error_dialog()
-        return
-    proc_pid_stat_lines_split = proc_pid_stat_lines.split()
-    first_parentheses = proc_pid_stat_lines.find("(")                                         # Process name is in parantheses and name may include whitespaces (may also include additinl parantheses). First parantheses "(" index is get by using "find()".
-    second_parentheses = proc_pid_stat_lines.rfind(")")                                       # Last parantheses ")" index is get by using "find()".
-    process_name_from_stat = proc_pid_stat_lines[first_parentheses+1:second_parentheses]      # Process name is get from string by using the indexes get previously.
-    selected_process_name = process_name_from_stat
-    if len(selected_process_name) == 15:                                                      # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character (not all process cmdlines have this) in order to obtain full process name.
+
+    def on_details_window_close_request(self):
+        """
+        Called when window is closed.
+        """
+
+        self.process_details_window.after_cancel(self.loop_id)
+        global processes_details_object_list
+        processes_details_object_list.remove(self)
+        self.process_details_window.destroy()
+        self = None
+
+
+    def on_details_window_show(self):
+        """
+        Run code after window is shown.
+        """
+
         try:
-            with open("/proc/" + selected_process_pid + "/cmdline") as reader:
-                process_cmdline = reader.read()
-            selected_process_name = process_cmdline.split("/")[-1].split("\x00")[0]           # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()".
-        except FileNotFoundError:                                                             # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
-            window2101w.hide()
-            processes_no_such_process_error_dialog()
-            return
-        if selected_process_name.startswith(process_name_from_stat) == False:
-            selected_process_name = process_cmdline.split(" ")[0].split("\x00")[0].strip()    # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()".
-            if selected_process_name.startswith(process_name_from_stat) == False:
-                selected_process_name = process_cmdline.split("\x00")[0].split("/")[-1].strip()
-                if selected_process_name.startswith(process_name_from_stat) == False:
-                    selected_process_name = process_name_from_stat                            # Root access is needed for reading "cmdline" file of the some processes. Otherwise it gives "" as output. Process name from "stat" file of the process is used is this situation. Also process name from "stat" file is used if name from "cmdline" does not start with name from "stat" file.
-    selected_process_icon = "system-monitoring-center-process-symbolic"                       # Initial value of the "selected_process_icon". This icon will be shown for processes of which icon could not be found in default icon theme.
-    if selected_process_name in Processes.application_exec_list:                              # Use process icon name from application file if process name is found in application exec list
-        selected_process_icon = Processes.application_icon_list[Processes.application_exec_list.index(selected_process_name)]
-
-    window2101w.set_title(_tr("Process Details: ") + selected_process_name + " - (" + "PID: " + selected_process_pid + ")")    # Set window title
-    window2101w.set_icon_name(selected_process_icon)                                          # Set ProcessesDetails window icon
-
-
-    # Show and update process details on the "Summary" tab
-    if notebook2101w.get_current_page() == 0:
-        # Get process status
-        selected_process_status = process_status_list[proc_pid_stat_lines_split[-50]]         # Get process status
-        # Get process user name
-        try:                                                                                  # Process may be ended. "try-catch" is used for avoiding errors in this situation.
-            with open("/proc/" + selected_process_pid + "/status") as reader:                 # User name of the process owner is get from "/proc/status" file because it is present in "/proc/stat" file. As a second try, count number of online logical CPU cores by reading from /proc/cpuinfo file.
-                proc_pid_status_lines = reader.read().split("\n")
-        except FileNotFoundError:
-            window2101w.hide()
-            processes_no_such_process_error_dialog()
-            return
-        for line in proc_pid_status_lines:
-            if "Uid:\t" in line:
-                real_user_id = line.split(":")[1].split()[0].strip()                          # There are 4 values in the Uid line and first one (real user id = RUID) is get from this file.
-                try:
-                    selected_process_username = usernames_username_list[usernames_uid_list.index(real_user_id)]
-                except ValueError:
-                    selected_process_username = real_user_id
-        # Get process nice
-        selected_process_nice = int(proc_pid_stat_lines_split[-34])
-        # Calculate CPU usage percent of the selected process
-        process_cpu_time = int(proc_pid_stat_lines_split[-39]) + int(proc_pid_stat_lines_split[-38])   # Get process cpu time in user mode (utime + stime)
-        global_process_cpu_times = [global_cpu_time_all, process_cpu_time]
-        if global_process_cpu_times_prev == []:
-            process_cpu_time_prev = process_cpu_time                                          # There is no "process_cpu_time_prev" value and get it from "process_cpu_time"  if this is first loop of the process
-            global_cpu_time_all_prev = global_process_cpu_times[0] - 1                        # Subtract "1" CPU time (a negligible value) if this is first loop of the process
-        if global_process_cpu_times_prev != []:
-            global_cpu_time_all_prev, process_cpu_time_prev = global_process_cpu_times_prev
-        process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
-        global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
-        selected_process_cpu_percent = process_cpu_time_difference / global_cpu_time_difference * 100 / Processes.number_of_logical_cores
-        global_process_cpu_times_prev = global_process_cpu_times
-        # Get RAM (RSS) data
-        selected_process_memory_rss = int(proc_pid_stat_lines_split[-29]) * Processes.memory_page_size    # Get process RSS (resident set size) memory pages and multiply with memory_page_size in order to convert the value into bytes.
-        # Get disk read data, disk write data
-        try:                                                                                  # Root access is needed for reading "/proc/[PID]/io" file else it gives error. "try-except" is used in order to avoid this error if user has no root privileges.
-            with open("/proc/" + selected_process_pid + "/io") as reader:
-                proc_pid_io_lines = reader.read().split("\n")
-            selected_process_read_bytes = int(proc_pid_io_lines[4].split(":")[1])
-            selected_process_write_bytes = int(proc_pid_io_lines[5].split(":")[1])
-        except PermissionError:
-            selected_process_read_bytes = 0
-            selected_process_write_bytes = 0
-        # Get disk read speed, disk write speed
-        disk_read_write_data = [selected_process_read_bytes, selected_process_write_bytes]
-        if disk_read_write_data_prev == []:
-            selected_process_read_bytes_prev = selected_process_read_bytes                    # Make process_read_bytes_prev equal to process_read_bytes for giving "0" disk read speed value if this is first loop of the process
-        else:
-            selected_process_read_bytes_prev = disk_read_write_data_prev[0]
-        selected_process_read_speed = (selected_process_read_bytes - int(selected_process_read_bytes_prev)) / update_interval    # Append process_read_bytes which will be used as "process_read_bytes_prev" value in the next loop and also append disk read speed. 
-        if disk_read_write_data_prev == []:
-            selected_process_write_bytes_prev = selected_process_write_bytes                  # Make process_write_bytes_prev equal to process_write_bytes for giving "0" disk write speed value if this is first loop of the process
-        else:
-            selected_process_write_bytes_prev = disk_read_write_data_prev[1]
-        selected_process_write_speed = (selected_process_write_bytes - int(selected_process_write_bytes_prev)) / update_interval    # Append process_read_bytes which will be used as "process_read_bytes_prev" value in the next loop and also append disk read speed. 
-        disk_read_write_data_prev = disk_read_write_data
-        # Get process start time
-        try:
-            with open("/proc/" + selected_process_pid + "/stat") as reader:
-                proc_pid_stat_lines = int(reader.read().split()[-31])                         # Elapsed time between system boot and process start time (measured in clock ticks and need to be divided by sysconf(_SC_CLK_TCK) for converting into wall clock time)
-        except:
-            window2101w.hide()
-            processes_no_such_process_error_dialog()
-            return
-        selected_process_start_time = (proc_pid_stat_lines / number_of_clock_ticks) + system_boot_time
-        # Get process ppid
-        selected_process_ppid = int(proc_pid_stat_lines_split[-49])                           # Get process PPID
-        # Get process exe
-        try:                                                                                  # Executable path of some of the processes may not be get without root privileges or may not be get due to the reason of some of the processes may not have a exe file. "try-except" is used to be able to avoid errors due to these reasons.
-            selected_process_exe = os.path.realpath("/proc/" + pid + "/exe")
-        except:
-            selected_process_exe = "-"
-        # Get parent processes name and PIDs
-        parent_process_names_pids = []
-        current_ppid = selected_process_pid                                                   # Define "current_ppid" as "selected_process_pid". They are not same thing for the initial value but it is defined as initial value for proper working of the ppid loop code.
-        while current_ppid != 0:
-            with open("/proc/" + str(current_ppid) + "/stat") as reader:
-                current_ppid = int(reader.read().split()[-49])
-            if current_ppid != 0:
-                with open("/proc/" + str(current_ppid) + "/stat") as reader:
-                    proc_pid_stat_lines = reader.read()
-                first_parentheses = proc_pid_stat_lines.find("(")                             # Process name is in parantheses and name may include whitespaces (may also include additinl parantheses). First parantheses "(" index is get by using "find()".
-                second_parentheses = proc_pid_stat_lines.rfind(")")                           # Last parantheses ")" index is get by using "find()".
-                process_name_from_stat = proc_pid_stat_lines[first_parentheses+1:second_parentheses]    # Process name is get from string by using the indexes get previously.
-                process_name = process_name_from_stat
-                if len(process_name) >= 15:                                                   # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character (not all process cmdlines have this) in order to obtain full process name. "=15" is enough but this limit may be increased in the next releases of the kernel. ">=15" is used in order to handle this possible change.
-                    with open("/proc/" + str(current_ppid) + "/cmdline") as reader:
-                        process_name = ''.join(reader.read().split("/")[-1].split("\x00"))    # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()" and joined again without these characters.
-                    if process_name.startswith(process_name_from_stat) == False:
-                        process_name = process_name_from_stat
-                parent_process_names_pids.append(f'{process_name} (PID: {current_ppid})')
-        # Get child process names and PIDs
-        pid_list = [filename for filename in os.listdir("/proc/") if filename.isdigit()]
-        ppid_list = []
-        for pid in pid_list[:]:                                                               # "[:]" is used for iterating over copy of the list because element are removed during iteration. Otherwise incorrect operations (incorrect element removal) are performed on the list.
-            try:                                                                              # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-                with open("/proc/" + pid + "/stat") as reader:                                # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
-                    proc_pid_stat_lines = reader.read()
-            except FileNotFoundError:                                                         # Removed pid from "pid_list" and skip to next loop (pid) if process is ended just after pid_list is generated.
-                pid_list.remove(pid)
-                continue
-            proc_pid_stat_lines_split = proc_pid_stat_lines.split()
-            ppid_list.append(proc_pid_stat_lines_split[-49])
-        selected_process_child_process_pids = []
-        for i, ppid in enumerate(ppid_list):
-            if ppid == selected_process_pid:
-                selected_process_child_process_pids.append(pid_list[i])
-        selected_process_child_process_names = []
-        for pid in selected_process_child_process_pids:
-            try:                                                                              # Process may be ended just after pid_list is generated. "try-catch" is used for avoiding errors in this situation.
-                with open("/proc/" + pid + "/stat") as reader:                                # Similar information with the "/proc/stat" file is also in the "/proc/status" file but parsing this file is faster since data in this file is single line and " " delimited.  For information about "/proc/stat" psedo file, see "https://man7.org/linux/man-pages/man5/proc.5.html".
-                    proc_pid_stat_lines = reader.read()
-            except FileNotFoundError:                                                         # Removed pid from "selected_process_child_process_pids" and skip to next loop (pid) if process is ended just after selected_process_child_process_pids is generated.
-                selected_process_child_process_pids.remove(pid)
-                continue
-            first_parentheses = proc_pid_stat_lines.find("(")                                 # Process name is in parantheses and name may include whitespaces (may also include additinl parantheses). First parantheses "(" index is get by using "find()".
-            second_parentheses = proc_pid_stat_lines.rfind(")")                               # Last parantheses ")" index is get by using "find()".
-            process_name_from_stat = proc_pid_stat_lines[first_parentheses+1:second_parentheses]  # Process name is get from string by using the indexes get previously.
-            process_name = process_name_from_stat
-            if len(process_name) == 15:                                                       # Linux kernel trims process names longer than 16 (TASK_COMM_LEN, see: https://man7.org/linux/man-pages/man5/proc.5.html) characters (it is counted as 15). "/proc/[PID]/cmdline/" file is read and it is split by the last "/" character (not all process cmdlines have this) in order to obtain full process name.
-                try:
-                    with open("/proc/" + pid + "/cmdline") as reader:
-                        process_name = reader.read().split("/")[-1].split("\x00")[0]          # Some process names which are obtained from "cmdline" contain "\x00" and these are trimmed by using "split()".
-                except FileNotFoundError:                                                     # Removed pid from "selected_process_child_process_pids" and skip to next loop (pid) if process is ended just after selected_process_child_process_pids is generated.
-                    selected_process_child_process_pids.remove(pid)
-                    continue
-                if process_name.startswith(process_name_from_stat) == False:
-                    process_name = process_name_from_stat                                     # Root access is needed for reading "cmdline" file of the some processes. Otherwise it gives "" as output. Process name from "stat" file of the process is used is this situation. Also process name from "stat" file is used if name from "cmdline" does not start with name from "stat" file.
-            selected_process_child_process_names.append(process_name)
-        child_process_names_pids = []
-        for i, pid in enumerate(selected_process_child_process_pids):
-            child_process_names_pids.append(f'{selected_process_child_process_names[i]} (PID: {pid})')
-        # Get real, effective and saved UIDs
-        for line in proc_pid_status_lines:
-            if "Uid:\t" in line:
-                line_split = line.split(":")[1].split()
-                selected_process_uid_real = line_split[0].strip()                             # There are 4 values in the Uid line (real, effective, user, filesystem UIDs)
-                selected_process_uid_effective = line_split[1].strip()
-                selected_process_uid_saved = line_split[2].strip()
-        # Get real, effective and saved GIDs
-        for line in proc_pid_status_lines:
-            if "Gid:\t" in line:
-                line_split = line.split(":")[1].split()
-                selected_process_gid_real = line_split[0].strip()                             # There are 4 values in the Gid line (real, effective, user, filesystem GIDs)
-                selected_process_gid_effective = line_split[1].strip()
-                selected_process_gid_saved = line_split[2].strip()
-        # Set label text by using process data
-        label2101w.set_text(selected_process_name)
-        label2102w.set_text(f'{selected_process_pid}')
-        label2103w.set_text(selected_process_status)
-        label2104w.set_text(selected_process_username)
-        label2105w.set_text(f'{selected_process_nice}')
-        label2106w.set_text(f'{selected_process_cpu_percent:.{processes_cpu_usage_percent_precision}f} %')
-        label2107w.set_text(f'{processes_details_data_unit_converter_func(selected_process_memory_rss, processes_ram_swap_data_unit, processes_ram_swap_data_precision)}')
-        if selected_process_read_bytes != "-" and selected_process_write_bytes != "-":
-            label2108w.set_text(f'{processes_details_data_unit_converter_func(selected_process_read_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)} / {processes_details_data_unit_converter_func(selected_process_write_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
-        if selected_process_read_bytes == "-" and selected_process_write_bytes == "-":
-            label2108w.set_text("- / -")
-        label2109w.set_text(datetime.fromtimestamp(selected_process_start_time).strftime("%d.%m.%Y %H:%M:%S"))
-        label2110w.set_text(selected_process_exe)
-        label2111w.set_text(f'{selected_process_ppid}')
-        if parent_process_names_pids != []:
-            label2112w.set_text(',\n'.join(parent_process_names_pids))
-        if parent_process_names_pids == []:
-            label2112w.set_text("-")
-        if child_process_names_pids != []:
-            label2113w.set_text(',\n'.join(child_process_names_pids))
-        if child_process_names_pids == []:
-            label2113w.set_text("-")
-        label2114w.set_text(f'Real: {selected_process_uid_real}, Effective: {selected_process_uid_effective}, Saved: {selected_process_uid_saved}')
-        label2115w.set_text(f'Real: {selected_process_gid_real}, Effective: {selected_process_gid_effective}, Saved: {selected_process_gid_saved}')
-
-
-    # Show and update process details on the "CPU and Memory" tab
-    if notebook2101w.get_current_page() == 1:
-        # Calculate CPU usage percent of the selected process
-        process_cpu_time = int(proc_pid_stat_lines_split[-39]) + int(proc_pid_stat_lines_split[-38])   # Get process cpu time in user mode (utime + stime)
-        global_process_cpu_times = [global_cpu_time_all, process_cpu_time]
-        if global_process_cpu_times_prev == []:
-            process_cpu_time_prev = process_cpu_time                                          # There is no "process_cpu_time_prev" value and get it from "process_cpu_time"  if this is first loop of the process
-            global_cpu_time_all_prev = global_process_cpu_times[0] - 1                        # Subtract "1" CPU time (a negligible value) if this is first loop of the process
-        if global_process_cpu_times_prev != []:
-            global_cpu_time_all_prev, process_cpu_time_prev = global_process_cpu_times_prev
-        process_cpu_time_difference = process_cpu_time - process_cpu_time_prev
-        global_cpu_time_difference = global_cpu_time_all - global_cpu_time_all_prev
-        selected_process_cpu_percent = process_cpu_time_difference / global_cpu_time_difference * 100 / Processes.number_of_logical_cores
-        global_process_cpu_times_prev = global_process_cpu_times
-        # Get number of threads of the process
-        selected_process_num_threads = proc_pid_stat_lines_split[-33]                         # Get process number of threads value
-        # Get threads of the process
-        selected_process_threads = [filename for filename in os.listdir("/proc/" + selected_process_pid + "/task/") if filename.isdigit()]    # Get process thread list (TIDs).
-        # Get the last CPU core number which process executed on
-        selected_process_cpu_num = proc_pid_stat_lines_split[-14]
-        # Get CPU cores that process run allowed on
-        try:                                                                                  # Process may be ended. "try-catch" is used for avoiding errors in this situation.
-            with open("/proc/" + selected_process_pid + "/status") as reader:
-                proc_pid_status_lines = reader.read().split("\n")
-        except FileNotFoundError:
-            window2101w.hide()
-            processes_no_such_process_error_dialog()
-            return
-        for line in proc_pid_status_lines:
-            if "Cpus_allowed_list:" in line:
-                selected_process_cpus_allowed = line.split(":")[1].strip()
-        # Get CPU times of the process
-        selected_process_cpu_times_user = proc_pid_stat_lines_split[-39]
-        selected_process_cpu_times_kernel = proc_pid_stat_lines_split[-38]
-        selected_process_cpu_times_children_user = proc_pid_stat_lines_split[-37]
-        selected_process_cpu_times_children_kernel = proc_pid_stat_lines_split[-36]
-        selected_process_cpu_times_io_wait = proc_pid_stat_lines_split[-11]
-        for line in proc_pid_status_lines:
-            if "voluntary_ctxt_switches:" in line:
-                selected_process_num_ctx_switches_voluntary = line.split(":")[1].strip()
-        for line in proc_pid_status_lines:
-            if "nonvoluntary_ctxt_switches:" in line:
-                selected_process_num_ctx_switches_nonvoluntary = line.split(":")[1].strip()
-        # Get RAM (RSS) data
-        selected_process_memory_rss = int(proc_pid_stat_lines_split[-29]) * Processes.memory_page_size    # Get process RSS (resident set size) memory pages and multiply with memory_page_size in order to convert the value into bytes.
-        # Get RAM (VMS) data
-        selected_process_memory_vms = int(proc_pid_stat_lines_split[-30])                     # Get process VMS (virtual memory size) memory (this value is in bytes unit).
-        # Get RAM (Shared) data
-        with open("/proc/" + selected_process_pid + "/statm") as reader:                                   
-            selected_process_memory_shared = int(reader.read().split()[2]) * Processes.memory_page_size    # Get shared memory pages and multiply with memory_page_size in order to convert the value into bytes.
-        # Get USS (Unique Set Size) and swap memory data of the pprocess
-        try:
-            private_clean = 0
-            private_dirty = 0
-            memory_swap = 0
-            with open("/proc/" + selected_process_pid + "/smaps") as reader:
-                proc_pid_smaps_lines = reader.read().split("\n")
-            for line in proc_pid_smaps_lines:
-                if "Private_Clean:" in line:
-                    private_clean = private_clean + int(line.split(":")[1].split()[0].strip())
-                if "Private_Dirty:" in line:
-                    private_dirty = private_dirty + int(line.split(":")[1].split()[0].strip())
-                if line.startswith("Swap:"):
-                    memory_swap = memory_swap + int(line.split(":")[1].split()[0].strip())
-            selected_process_memory_uss = (private_clean + private_dirty) * 1024              # Kilobytes value converted into bytes value (there is a negligible deviation in bytes unit)
-            selected_process_memory_swap = memory_swap * 1024                                 # Kilobytes value converted into bytes value (there is a negligible deviation in bytes unit)
-        except:
-            selected_process_memory_uss = "-"
-            selected_process_memory_swap = "-"
-        # Set label text by using process data
-        label2116w.set_text(f'{selected_process_cpu_percent:.{processes_cpu_usage_percent_precision}f} %')
-        label2117w.set_text(f'{selected_process_num_threads}')
-        label2118w.set_text(',\n'.join(selected_process_threads))
-        label2119w.set_text(f'{selected_process_cpu_num}')
-        label2120w.set_text(selected_process_cpus_allowed)
-        label2121w.set_text(f'User: {selected_process_cpu_times_user}, System: {selected_process_cpu_times_kernel}, Children User: {selected_process_cpu_times_children_user}, Children System: {selected_process_cpu_times_children_kernel}, IO Wait: {selected_process_cpu_times_io_wait}')
-        label2122w.set_text(f'Voluntary: {selected_process_num_ctx_switches_voluntary}, Involuntary: {selected_process_num_ctx_switches_nonvoluntary}')
-        label2123w.set_text(f'{processes_details_data_unit_converter_func(selected_process_memory_rss, processes_ram_swap_data_unit, processes_ram_swap_data_precision)}')
-        label2124w.set_text(f'{processes_details_data_unit_converter_func(selected_process_memory_vms, processes_ram_swap_data_unit, processes_ram_swap_data_precision)}')
-        label2125w.set_text(f'{processes_details_data_unit_converter_func(selected_process_memory_shared, processes_ram_swap_data_unit, processes_ram_swap_data_precision)}')
-        if selected_process_memory_uss != "-" and selected_process_memory_swap != "-":
-            label2126w.set_text(f'{processes_details_data_unit_converter_func(selected_process_memory_uss, processes_ram_swap_data_unit, processes_ram_swap_data_precision)}')
-            label2127w.set_text(f'{processes_details_data_unit_converter_func(selected_process_memory_swap, processes_ram_swap_data_unit, processes_ram_swap_data_precision)}')
-        if selected_process_memory_uss == "-" and selected_process_memory_swap == "-":
-            label2126w.set_text(selected_process_memory_uss)
-            label2127w.set_text(selected_process_memory_swap)
-
-
-    # Show and update process details on the "Disk and Path" tab
-    if notebook2101w.get_current_page() == 2:
-        # Get disk read data, disk write data, read count, write count of the process
-        try:                                                                                  # Root access is needed for reading "/proc/[PID]/io" file else it gives error. "try-except" is used in order to avoid this error if user has no root privileges.
-            with open("/proc/" + selected_process_pid + "/io") as reader:
-                proc_pid_io_lines = reader.read().split("\n")
-            selected_process_read_bytes = int(proc_pid_io_lines[4].split(":")[1])
-            selected_process_write_bytes = int(proc_pid_io_lines[5].split(":")[1])
-            selected_process_read_count = int(proc_pid_io_lines[2].split(":")[1])
-            selected_process_write_count = int(proc_pid_io_lines[3].split(":")[1])
-        except PermissionError:
-            selected_process_read_bytes = 0
-            selected_process_write_bytes = 0
-            selected_process_read_count = 0
-            selected_process_write_count = 0
-        # Get disk read speed, disk write speed
-        disk_read_write_data = [selected_process_read_bytes, selected_process_write_bytes]
-        if disk_read_write_data_prev == []:
-            selected_process_read_bytes_prev = selected_process_read_bytes                    # Make process_read_bytes_prev equal to process_read_bytes for giving "0" disk read speed value if this is first loop of the process
-        else:
-            selected_process_read_bytes_prev = disk_read_write_data_prev[0]
-        selected_process_read_speed = (selected_process_read_bytes - int(selected_process_read_bytes_prev)) / update_interval    # Append process_read_bytes which will be used as "process_read_bytes_prev" value in the next loop and also append disk read speed. 
-        if disk_read_write_data_prev == []:
-            selected_process_write_bytes_prev = selected_process_write_bytes                  # Make process_write_bytes_prev equal to process_write_bytes for giving "0" disk write speed value if this is first loop of the process
-        else:
-            selected_process_write_bytes_prev = disk_read_write_data_prev[1]
-        selected_process_write_speed = (selected_process_write_bytes - int(selected_process_write_bytes_prev)) / update_interval    # Append process_read_bytes which will be used as "process_read_bytes_prev" value in the next loop and also append disk read speed. 
-        disk_read_write_data_prev = disk_read_write_data
-        # Get process exe
-        try:                                                                                  # Executable path of some of the processes may not be get without root privileges or may not be get due to the reason of some of the processes may not have a exe file. "try-except" is used to be able to avoid errors due to these reasons.
-            selected_process_exe = os.path.realpath("/proc/" + selected_process_pid + "/exe")
-        except:
-            selected_process_exe = "-"
-        # Get process cwd
-        try:
-            selected_process_cwd = os.readlink("/proc/" + selected_process_pid + "/cwd")
-        except (PermissionError, FileNotFoundError) as multiple_exception:                    # "PermissionError" is used for processes that require root privileges for "cwd data". "FileNotFoundError" is used for zombie processes which do not have a readable "cwd" file (it has the file but it is a broken link).
-            selected_process_cwd = "-"
-        # Get process cmdline
-        with open("/proc/" + selected_process_pid + "/cmdline") as reader:
-            selected_process_cmdline = reader.read().split("\x00")
-        if selected_process_cmdline == [""]:
-            selected_process_cmdline = "-"
-        # Get open files of the process
-        selected_process_open_files = []
-        try:
-            files_in_fd = [filename for filename in os.listdir("/proc/" + selected_process_pid + "/fd")]
-            for file in files_in_fd:
-                try:
-                    path = os.readlink("/proc/" + selected_process_pid + "/fd/" + file)
-                    if os.path.isfile(path) == True:
-                        selected_process_open_files_path = path
-                        selected_process_open_files_fd = file
-                        with open("/proc/" + selected_process_pid + "/fdinfo/" + file) as reader:
-                            proc_pid_fdinfo_lines = reader.read().split("\n")
-                        for fdinfo in proc_pid_fdinfo_lines:
-                            if "pos:" in fdinfo:
-                                selected_process_open_files_position = fdinfo.split(":")[1].strip()            # File offset (for more information, see: https://man7.org/linux/man-pages/man5/proc.5.html)
-                            if "flags:" in fdinfo:
-                                selected_process_open_files_flags = int(fdinfo.split(":")[1].strip(), 8)       # Convert octal value into decimal integer. Flags is file access mode and file status mode  (for more information, see: https://man7.org/linux/man-pages/man5/proc.5.html).
-                                try:
-                                    selected_process_open_files_mode = fd_mode_dict[selected_process_open_files_flags]
-                                except KeyError:
-                                    selected_process_open_files_mode = selected_process_open_files_flags       # It gives error for Python process with "557057" file decriptor mode. No information is found for "557057" file descriptor mode integer value so far. Integer value is shown in this situation.
-                        selected_process_open_files.append(f'Path: {selected_process_open_files_path}, File Descriptor: {selected_process_open_files_fd}, Position: {selected_process_open_files_position}, Mode: {selected_process_open_files_mode}, Flags: {selected_process_open_files_flags}')
-                except FileNotFoundError:
-                    continue
-        except PermissionError:
+            # Delete "update_interval" variable in order to let the code to run initial function.
+            # Otherwise, data from previous process (if it was viewed) will be used.
+            del self.update_interval
+        except AttributeError:
             pass
-        if selected_process_open_files == []:
-            selected_process_open_files = "-"
-        # Set label text by using process data
-        if selected_process_read_bytes != "-" and selected_process_write_bytes != "-":
-            label2128w.set_text(f'{processes_details_data_unit_converter_func(selected_process_read_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
-            label2129w.set_text(f'{processes_details_data_unit_converter_func(selected_process_write_speed, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
-            label2130w.set_text(f'{processes_details_data_unit_converter_func(selected_process_read_bytes, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
-            label2131w.set_text(f'{processes_details_data_unit_converter_func(selected_process_write_bytes, processes_disk_speed_data_unit, processes_disk_speed_data_precision)}')
-            label2132w.set_text(f'{selected_process_read_count}')
-            label2133w.set_text(f'{selected_process_write_count}')
-        if selected_process_read_bytes == "-" and selected_process_write_bytes == "-":
-            label2128w.set_text("-")
-            label2129w.set_text("-")
-            label2130w.set_text("-")
-            label2131w.set_text("-")
-            label2132w.set_text("-")
-            label2133w.set_text("-")
-        label2134w.set_text(selected_process_exe)
-        label2135w.set_text(selected_process_cwd)
-        label2136w.set_text(',\n'.join(selected_process_cmdline))
+
+        # Delete first row of the grid and widget in it if it is a label.
+        # This widget can be a label if a process is ended when its window is opened.
+        # An information label is added into the first row of the grid in this situation
+        # and it stays here if a window of another process is opened.
+        """widget_in_first_row = self.main_grid.get_child_at(0, 0)
+        widget_name_in_first_row = widget_in_first_row.get_name()
+        if widget_name_in_first_row == "GtkLabel":
+            self.main_grid.remove_row(0)
+            widget_in_first_row.destroy()"""
+
+        # This value is checked for repeating the function for getting the process data.
+        self.update_window_value = 1
+
+        self.process_details_run_func()
+
+
+    def initial_func(self):
+        """
+        Initial code which which is not wanted to be run in every loop.
+        """
+
+        chart_data_history = Config.chart_data_history
+
+        self.process_cpu_usage_list = [0] * chart_data_history
+        self.process_ram_usage_list = [0] * chart_data_history
+        self.process_disk_read_speed_list = [0] * chart_data_history
+        self.process_disk_write_speed_list = [0] * chart_data_history
+
+        self.system_boot_time = Libsysmon.get_system_boot_time()
+
+        pid_list_prev = []
+        self.piter_dict = {}
+        self.selected_data_rows_prev = {}
+        self.rows_additional_data_dict_prev = {}
+        self.rows_data_dict_prev = {}
+        self.row_id_list_prev = []
+
+        self.initial_already_run = 1
+
+
+    def loop_func(self):
+        """
+        Get and show information on the GUI on every loop.
+        """
+
+        # Run initial function of the module if this is the first loop of the module.
+        if self.initial_already_run == 0:
+            self.initial_func()
+
+        processes_cpu_precision = Config.processes_cpu_precision
+        processes_memory_data_precision = Config.processes_memory_data_precision
+        processes_memory_data_unit = Config.processes_memory_data_unit
+        processes_disk_data_precision = Config.processes_disk_data_precision
+        processes_disk_data_unit = Config.processes_disk_data_unit
+        processes_disk_speed_bit = Config.processes_disk_speed_bit
+
+        # Get "selected_process_pid"
+        selected_process_pid = self.selected_process_pid
+
+        # Get information
+        self.username_uid_dict = Libsysmon.get_username_uid_dict()
+
+        processes_cpu_divide_by_core = Config.processes_cpu_divide_by_core
+        process_list = [selected_process_pid]
+        processes_of_user = "all"
+        hide_kernel_threads = 0
+        if processes_cpu_divide_by_core == 1:
+            cpu_usage_divide_by_cores = "yes"
+        elif processes_cpu_divide_by_core == 0:
+            cpu_usage_divide_by_cores = "no"
+        detail_level = "high"
+        rows_data_dict, self.rows_additional_data_dict = Libsysmon.get_processes_information(process_list, processes_of_user, hide_kernel_threads, cpu_usage_divide_by_cores, detail_level, self.rows_data_dict_prev, self.rows_additional_data_dict_prev, self.system_boot_time, self.username_uid_dict)
+        self.row_id_list = list(rows_data_dict.keys())
+        #self.row_id_list = [str(x) for x in self.row_id_list]
+        pid_list = self.rows_additional_data_dict["pid_list"]
+        ppid_list = self.rows_additional_data_dict["ppid_list"]
+        username_list = self.rows_additional_data_dict["username_list"]
+        cmdline_list = self.rows_additional_data_dict["cmdline_list"]
+
+        try:
+            row_data_dict = rows_data_dict[selected_process_pid]
+        except KeyError:
+            self.update_window_value = 0
+            self.process_details_process_end_label_func()
+            return
+
+        process_name = row_data_dict["name"]
+        cpu_usage = row_data_dict["cpu_usage"]
+        memory_rss = row_data_dict["memory_rss"]
+        disk_read_speed = row_data_dict["read_speed"]
+        disk_write_speed = row_data_dict["write_speed"]
+        read_data = row_data_dict["read_data"]
+        written_data = row_data_dict["written_data"]
+        memory_uss = row_data_dict["memory_uss"]
+        memory_swap = row_data_dict["memory_swap"]
+
+        fd_ls_output, task_ls_output = Libsysmon.get_fd_task_ls_output(selected_process_pid)
+        if task_ls_output == "-":
+            self.update_window_value = 0
+            self.process_details_process_end_label_func()
+            return
+
+        selected_process_threads = Libsysmon.get_process_tids(task_ls_output)
+        selected_process_exe, selected_process_cwd, selected_process_open_files = Libsysmon.get_process_exe_cwd_open_files(selected_process_pid, fd_ls_output)
+
+        self.rows_data_dict_prev = dict(rows_data_dict)
+        self.row_id_list_prev = self.row_id_list
+        self.rows_additional_data_dict_prev = dict(self.rows_additional_data_dict)
+
+        # Stop running functions in order to prevent errors.
+        try:
+            if self.update_window_value == 0:
+                return
+        except AttributeError:
+            pass
+
+        # Set window title
+        self.process_details_window.title(_tr("Process Details") + ": " + process_name + " - (" + _tr("PID") + ": " + str(selected_process_pid) + ")")
+
+        # Update data lists for graphs.
+        self.process_cpu_usage_list.append(cpu_usage)
+        del self.process_cpu_usage_list[0]
+        self.process_ram_usage_list.append(memory_rss)
+        del self.process_ram_usage_list[0]
+        self.process_disk_read_speed_list.append(disk_read_speed)
+        del self.process_disk_read_speed_list[0]
+        self.process_disk_write_speed_list.append(disk_write_speed)
+        del self.process_disk_write_speed_list[0]
+
+        # Update graphs.
+        Performance.performance_line_charts_draw(self.processes_details_da_cpu_usage, "processes_details_da_cpu_usage")
+        Performance.performance_line_charts_draw(self.processes_details_da_memory_usage, "processes_details_da_memory_usage")
+        Performance.performance_line_charts_draw(self.processes_details_da_disk_speed, "processes_details_da_disk_speed")
+
+        # Show information on labels (Summary tab).
+        self.name_label.config(text=process_name)
+        self.pid_label.config(text=f'{selected_process_pid}')
+        self.status_label.config(text=_tr(row_data_dict["status"]))
+        self.user_label.config(text=row_data_dict["username"])
+        self.priority_label.config(text=f'{row_data_dict["nice"]}')
+        self.cpu_label.config(text=f'{cpu_usage:.{processes_cpu_precision}f} %')
+        self.memory_rss_label.config(text=f'{Libsysmon.data_unit_converter("data", "none", memory_rss, processes_memory_data_unit, processes_memory_data_precision)}')
+        if read_data != "-":
+            self.read_speed_label.config(text=f'{Libsysmon.data_unit_converter("speed", processes_disk_speed_bit, disk_read_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
+        if read_data == "-":
+            self.read_speed_label.config(text="-")
+        if written_data != "-":
+            self.write_speed_label.config(text=f'{Libsysmon.data_unit_converter("speed", processes_disk_speed_bit, disk_write_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
+        if written_data == "-":
+            self.write_speed_label.set_label("-")
+        self.start_time_label.config(text=datetime.fromtimestamp(row_data_dict["start_time"]).strftime("%d.%m.%Y %H:%M:%S"))
+        self.path_label.config(text=selected_process_exe)
+        self.ppid_label.config(text=f'{row_data_dict["ppid"]}')
+        self.uid_label.config(text=f'Real: {row_data_dict["uid_real"]}, Effective: {row_data_dict["uid_effective"]}, Saved: {row_data_dict["uid_saved"]}')
+        self.gid_label.config(text=f'Real: {row_data_dict["gid_real"]}, Effective: {row_data_dict["gid_effective"]}, Saved: {row_data_dict["gid_saved"]}')
+
+        # Show information on labels (CPU tab).
+        self.cpu_label2.config(text=f'{cpu_usage:.{processes_cpu_precision}f} %')
+        self.threads_label.config(text=f'{row_data_dict["number_of_threads"]}')
+        self.tid_label.config(text=', '.join(selected_process_threads))
+        self.used_cpu_cores_label.config(text=f'{row_data_dict["cpu_numbers"]}')
+        self.cpu_times_label.config(text=f'User: {row_data_dict["cpu_time_user"]}, System: {row_data_dict["cpu_time_kernel"]}, Children User: {row_data_dict["cpu_time_children_user"]}, Children System: {row_data_dict["cpu_time_children_kernel"]}, IO Wait: {row_data_dict["cpu_time_io_wait"]}')
+        self.context_switches_label.config(text=f'Voluntary: {row_data_dict["ctx_switches_voluntary"]}, Involuntary: {row_data_dict["ctx_switches_nonvoluntary"]}')
+        self.cpu_affinity_label.config(text=row_data_dict["cpu_affinity"])
+
+        # Show information on labels (Memory tab).
+        self.memory_label.config(text=f'{Libsysmon.data_unit_converter("data", "none", row_data_dict["memory"], processes_memory_data_unit, processes_memory_data_precision)}')
+        self.memory_rss_label2.config(text=f'{Libsysmon.data_unit_converter("data", "none", memory_rss, processes_memory_data_unit, processes_memory_data_precision)}')
+        self.memory_vms_label.config(text=f'{Libsysmon.data_unit_converter("data", "none", row_data_dict["memory_vms"], processes_memory_data_unit, processes_memory_data_precision)}')
+        self.memory_shared_label.config(text=f'{Libsysmon.data_unit_converter("data", "none", row_data_dict["memory_shared"], processes_memory_data_unit, processes_memory_data_precision)}')
+        if memory_uss != "-" and memory_swap != "-":
+            self.memory_uss_label.config(text=f'{Libsysmon.data_unit_converter("data", "none", memory_uss, processes_memory_data_unit, processes_memory_data_precision)}')
+            self.swap_memory_label.config(text=f'{Libsysmon.data_unit_converter("data", "none", memory_swap, processes_memory_data_unit, processes_memory_data_precision)}')
+        if memory_uss == "-" and memory_swap == "-":
+            self.memory_uss_label.config(text=memory_uss)
+            self.swap_memory_label.config(text=memory_swap)
+
+        # Show information on labels (Disk tab).
+        if read_data != "-" and written_data != "-":
+            self.read_speed_label2.config(text=f'{Libsysmon.data_unit_converter("speed", processes_disk_speed_bit, disk_read_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
+            self.write_speed_label2.config(text=f'{Libsysmon.data_unit_converter("speed", processes_disk_speed_bit, disk_write_speed, processes_disk_data_unit, processes_disk_data_precision)}/s')
+            self.read_data_label.config(text=f'{Libsysmon.data_unit_converter("data", "none", read_data, processes_disk_data_unit, processes_disk_data_precision)}')
+            self.written_data_label.config(text=f'{Libsysmon.data_unit_converter("data", "none", written_data, processes_disk_data_unit, processes_disk_data_precision)}')
+            self.read_count_label.config(text=f'{row_data_dict["read_count"]}')
+            self.write_count_label.config(text=f'{row_data_dict["write_count"]}')
+        if read_data == "-" and written_data == "-":
+            self.read_speed_label2.config(text="-")
+            self.write_speed_label2.config(text="-")
+            self.read_data_label.config(text="-")
+            self.written_data_label.config(text="-")
+            self.read_count_label.config(text="-")
+            self.write_count_label.config(text="-")
+
+        # Show information on labels (Path tab).
+        self.path_label2.config(text=selected_process_exe)
+        self.cwd_label.config(text=selected_process_cwd)
+        self.commandline_label.config(text=row_data_dict["command_line"])
         if selected_process_open_files != "-":
-            label2137w.set_text(',\n'.join(selected_process_open_files))
+            self.opened_files_label.config(text=',\n'.join(selected_process_open_files))
         if selected_process_open_files == "-":
-            label2137w.set_text("-")
+            self.opened_files_label.config(text="-")
 
 
-# ----------------------------------- Processes - Processes Details Loop Thread Function (runs the code in the function as threaded in order to avoid blocking/slowing down GUI operations and other operations) -----------------------------------
-def process_details_loop_func():
+    def process_details_run_func(self):
+        """
+        Run initial and loop functions of process details window.
+        """
 
-    if window2101w.get_visible() is True:
-        GLib.idle_add(process_details_foreground_func)
-        global update_interval
-        update_interval = Config.update_interval
-        GLib.timeout_add(update_interval * 1000, process_details_loop_func)
+        if self.initial_already_run == 0:
+            self.initial_func()
 
+        try:
+            self.process_details_window.after_cancel(self.loop_id)
+        except AttributeError:
+            pass
 
-# ----------------------------------- Processes Details Foreground Thread Run Function (starts execution of the threads) -----------------------------------
-def process_details_foreground_thread_run_func():
+        self.loop_func()
 
-    processes_details_initial_thread = Thread(target=process_details_initial_func, daemon=True)
-    processes_details_initial_thread.start()
-    processes_details_initial_thread.join()
-    processes_details_loop_thread = Thread(target=process_details_loop_func, daemon=True)
-    processes_details_loop_thread.start()
+        self.loop_id = self.process_details_window.after(int(Config.update_interval*1000), self.process_details_run_func)
 
 
-# ----------------------------------- Processes - Processes Details Define Data Unit Converter Variables Function (contains data unit variables) -----------------------------------
-def processes_details_define_data_unit_converter_variables_func():
+    def process_details_process_end_label_func(self):
+        """
+        Show information label below window titlebar if the process is ended.
+        """
 
-    global data_unit_list
-
-    # Calculated values are used in order to obtain lower CPU usage, because this dictionary will be used very frequently.
-
-    # Unit Name    Abbreviation    bytes   
-    # byte         B               1
-    # kilobyte     KB              1024
-    # megabyte     MB              1.04858E+06
-    # gigabyte     GB              1.07374E+09
-    # terabyte     TB              1.09951E+12
-    # petabyte     PB              1.12590E+15
-    # exabyte      EB              1.15292E+18
-
-    # Unit Name    Abbreviation    bytes    
-    # bit          b               8
-    # kilobit      Kb              8192
-    # megabit      Mb              8,38861E+06
-    # gigabit      Gb              8,58993E+09
-    # terabit      Tb              8,79609E+12
-    # petabit      Pb              9,00720E+15
-    # exabit       Eb              9,22337E+18
-
-    data_unit_list = [[0, 0, _tr("Auto-Byte")], [1, 1, "B"], [2, 1024, "KiB"], [3, 1.04858E+06, "MiB"], [4, 1.07374E+09, "GiB"],
-                      [5, 1.09951E+12, "TiB"], [6, 1.12590E+15, "PiB"], [7, 1.15292E+18, "EiB"],
-                      [8, 0, _tr("Auto-bit")], [9, 8, "b"], [10, 8192, "Kib"], [11, 8.38861E+06, "Mib"], [12, 8.58993E+09, "Gib"],
-                      [13, 8.79609E+12, "Tib"], [14, 9.00720E+15, "Pib"], [15, 9.22337E+18, "Eib"]]
+        # Label
+        label_process_end_warning = tk.Label(self.frame, text=_tr("This process is not running anymore."), bg="red", wraplength=400, justify="center")
+        label_process_end_warning.grid(row=0, column=0, sticky="nsew", padx=5, pady=5)
+        self.notebook.grid(row=1)
 
 
-# ----------------------------------- Processes - Processes Details Data Unit Converter Function (converts byte and bit data units) -----------------------------------
-def processes_details_data_unit_converter_func(data, unit, precision):
+    def process_details_show_process_details():
+        """
+        Generate object for every process because more than one process window can be opened on Processes tab.
+        """
 
-    global data_unit_list
-    if unit >= 8:
-        data = data * 8                                                                       # Source data is byte and a convertion is made by multiplicating with 8 if preferenced unit is bit.
-    if unit in [0, 8]:                                                                        # "if unit in [0, 8]:" is about %25 faster than "if unit == 0 or unit == 8:".
-        unit_counter = unit + 1
-        while data > 1024:
-            unit_counter = unit_counter + 1
-            data = data/1024
-        unit = data_unit_list[unit_counter][2]
-        if data == 0:
-            precision = 0
-        return f'{data:.{precision}f} {unit}'
+        # Determine max. number of Process Details windows.
+        if Libsysmon.get_environment_type() == "flatpak":
+            max_number_of_windows = 3
+        else:
+            max_number_of_windows = 8
 
-    data = data / data_unit_list[unit][1]
-    unit = data_unit_list[unit][2]
-    if data == 0:
-        precision = 0
-    return f'{data:.{precision}f} {unit}'
+        for selected_process_pid in Processes.selected_process_pid_list:
+            # Prevent opening more than 8 (3 for Flatpak environment) windows in order to avoid very high CPU usage.
+            if len(processes_details_object_list) == max_number_of_windows:
+                break
+            try:
+                processes_details_object_list.append(ProcessesDetails(selected_process_pid))
+            # Prevent errors if Enter key is pressed without selecting a process.
+            except AttributeError:
+                return
+            #processes_details_object_list[-1].process_details_window.set_visible(True)
 
+processes_details_object_list = []
 
-# ----------------------------------- Processes - Processes No Such Process Error Dialog Function (shows an error dialog and stops updating the "Process Details window" when the process is not alive anymore) -----------------------------------
-def processes_no_such_process_error_dialog():
-
-    error_dialog2101w = Gtk.MessageDialog(transient_for=MainGUI.window1, title=_tr("Error"), flags=0, message_type=Gtk.MessageType.ERROR,
-    buttons=Gtk.ButtonsType.CLOSE, text=_tr("Process Is Not Running Anymore"), )
-    error_dialog2101w.format_secondary_text(_tr("Following process is not running anymore \nand process details window is closed automatically:\n  ") + selected_process_name + _tr(" (PID: ") + selected_process_pid + _tr(")"), )
-    error_dialog2101w.run()
-    error_dialog2101w.destroy()

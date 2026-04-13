@@ -1,21 +1,16 @@
 #!/usr/bin/env python3
 
-import sys
-import gi
-gi.require_version('Gtk', '3.0')
-from gi.repository import Gio, Gtk
+import tkinter as tk
+from tkinter import ttk
 
-from MainGUI import window1
+application_id="io.github.hakandundar34coding.system-monitoring-center"
 
-class Application(Gtk.Application):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, application_id="com.github.hakand34.system-monitoring-center", flags=Gio.ApplicationFlags.NON_UNIQUE, **kwargs)
-        self.window = None
+localedir = None
+def main(_localedir):
+    global localedir
+    localedir = _localedir
 
-    def do_activate(self):
-        self.window = window1
+from .MainWindow import MainWindow
+main_window = MainWindow.main_window
+main_window.mainloop()
 
-
-if __name__ == "__main__":
-    app = Application()
-    app.run(sys.argv)

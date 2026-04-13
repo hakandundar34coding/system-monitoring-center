@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC
+ "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
+
+<policyconfig>
+
+  <vendor>System Monitoring Center</vendor>
+  <vendor_url>https://github.com/hakandundar34coding/system-monitoring-center</vendor_url>
+
+  <action id="io.github.hakandundar34coding.system-monitoring-center">
+    <description>System Monitoring Center Authentication</description>
+    <message>Authentication is required to run System Monitoring Center</message>
+    <message xml:lang="tr">Sistem Gözlem Merkezi için yetkilendirme gerekiyor</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/bin/system-monitoring-center</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
+</policyconfig>
