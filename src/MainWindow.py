@@ -535,7 +535,7 @@ class MainWindow():
                             "pl": "ski007, K0RR, sdorpl, Artur Wdowik",
                             "pt_BR": "Bruno do Nascimento",
                             "pt_PT": "Hugo Carvalho, Ricardo Simões",
-                            "ru_RU": "badcast, akorny",
+                            "ru_RU": "badcast, akorny, krotesk",
                             "tr": "Hakan Dündar",
                             "zh_CN": "yuzh496",
                             "zh_TW": "csc-chicken"
