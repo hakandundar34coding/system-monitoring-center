@@ -12,7 +12,7 @@
 | pl             | Polish                 | 68%        |
 | pt_BR          | Portuguese (Brazilian) | 72%        |
 | pt_PT          | Portuguese (Portugal)  | 89%        |
-| ru_RU          | Russian                | 90%        |
+| ru_RU          | Russian                | 100%       |
 | tr             | Turkish                | 100%       |
 | zh_CN          | Chinese (Simplified)   | 90%        |
 | zh_TW          | Chinese (Traditional)  | 71%        |

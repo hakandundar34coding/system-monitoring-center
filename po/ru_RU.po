@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: system-monitoring-center\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-09 18:17+0300\n"
-"PO-Revision-Date: 2026-04-13 14:32+0500\n"
+"PO-Revision-Date: 2026-04-21 13:52+0300\n"
 "Last-Translator: Dmitriy Q <atsip-help@yandex.ru>\n"
 "Language-Team: TranslAster\n"
 "Language: ru_RU\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.6\n"
 
 #: data/io.github.hakandundar34coding.system-monitoring-center.desktop.in:2
 #: src/MainWindow.py:97 src/MainWindow.py:570
@@ -1303,6 +1303,3 @@ msgstr "Менеджер отображения"
 #: src/UsersDetails.py:33
 msgid "User Details"
 msgstr "Сведения о пользователе"
-
-#~ msgid "Graph Color"
-#~ msgstr "Цвет Графа"
