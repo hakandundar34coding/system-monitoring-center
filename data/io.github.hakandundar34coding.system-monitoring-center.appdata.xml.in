@@ -107,6 +107,14 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="3.4.0" date="2026-05-02">
+      <description>
+        <ul>
+          <li>New: Non-blocking code for Services tab loading</li>
+          <li>Updated translations (Russian, Spanish, Turkish)</li>
+        </ul>
+      </description>
+    </release>
     <release version="3.3.0" date="2026-04-04">
       <description>
         <ul>

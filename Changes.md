@@ -1,5 +1,9 @@
 # System Monitoring Center
 
+### v3.4.0 (02.05.2026)
+  * New: Non-blocking code for Services tab loading
+  * Updated translations (Russian, Spanish, Turkish)
+
 ### v3.3.0 (04.04.2026)
   * New: number of installed XBPS packages (System)
   * Minor changes for number of installed packages

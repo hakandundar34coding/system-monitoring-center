@@ -1,3 +1,10 @@
+system-monitoring-center (3.4.0) unstable; urgency=medium
+
+  * New: Non-blocking code for Services tab loading
+  * Updated translations (Russian, Spanish, Turkish)
+
+ -- Hakan Dündar <hakandundar34@gmail.com>  Sat, 02 May 2026 12:00:00 +0300
+
 system-monitoring-center (3.3.0) unstable; urgency=medium
 
   * New: number of installed XBPS packages (System)
