@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: System Monitoring Center\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-18 14:45+0300\n"
-"PO-Revision-Date: 2026-02-18 14:48+0300\n"
+"PO-Revision-Date: 2026-06-06 00:00+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese\n"
 "Language: pt_PT\n"
@@ -69,7 +69,7 @@ msgstr "CPU"
 
 #: src/Cpu.py:57 src/Disk.py:285 src/Gpu.py:61 src/Gpu.py:212 src/Network.py:60
 msgid "Vendor - Model"
-msgstr ""
+msgstr "Fabricante - Modelo"
 
 #: src/Cpu.py:61 src/Disk.py:64 src/Gpu.py:65 src/Network.py:64
 msgid "Device Name In Kernel"
@@ -94,7 +94,7 @@ msgstr "Frequência"
 
 #: src/Cpu.py:111
 msgid "Processes-Threads"
-msgstr ""
+msgstr "Processos-Threads"
 
 #: src/Cpu.py:111
 msgid "Up Time"
@@ -106,11 +106,11 @@ msgstr "Frequência Mín-Máx"
 
 #: src/Cpu.py:128
 msgid "Cache (L1d-L1i)"
-msgstr ""
+msgstr "Cache (L1d-L1i)"
 
 #: src/Cpu.py:135
 msgid "Cache (L2-L3)"
-msgstr ""
+msgstr "Cache (L2-L3)"
 
 #: src/Cpu.py:142
 msgid "CPU Sockets"
@@ -141,7 +141,7 @@ msgstr "Disco"
 
 #: src/Disk.py:60
 msgid "Vendor-Model"
-msgstr ""
+msgstr "Fabricante-Modelo"
 
 #: src/Disk.py:79 src/Disk.py:109 src/MainWindow.py:188 src/Processes.py:688
 #: src/ProcessesDetails.py:159 src/ProcessesDetails.py:451
@@ -235,7 +235,7 @@ msgstr "Memória GPU"
 
 #: src/Gpu.py:133
 msgid "Video Memory"
-msgstr ""
+msgstr "Memória de vídeo"
 
 #: src/Gpu.py:138 src/Gpu.py:312
 msgid "Temperature"
@@ -267,7 +267,7 @@ msgstr "Interface da GPU"
 
 #: src/Gpu.py:252
 msgid "Connection Speed"
-msgstr ""
+msgstr "Velocidade de ligação"
 
 #: src/Gpu.py:352
 msgid "Connections"
@@ -298,15 +298,15 @@ msgstr "Fabricante"
 
 #: src/Libsysmon.py:2068 src/Libsysmon.py:2088
 msgid "Form Factor"
-msgstr "Form Factor"
+msgstr "Fator de forma"
 
 #: src/Libsysmon.py:2069 src/Libsysmon.py:2089
 msgid "Locator"
-msgstr "Locator"
+msgstr "Localizador"
 
 #: src/Libsysmon.py:2070 src/Libsysmon.py:2090
 msgid "Bank Locator"
-msgstr "Bank Locator"
+msgstr "Localizador do banco"
 
 #: src/Libsysmon.py:2128 src/Processes.py:85 src/Processes.py:677
 #: src/ProcessesDetails.py:89 src/Services.py:317 src/ServicesDetails.py:60
@@ -371,11 +371,11 @@ msgstr ""
 
 #: src/MainWindow.py:133
 msgid "Refresh"
-msgstr ""
+msgstr "Atualizar"
 
 #: src/MainWindow.py:141 src/SettingsWindow.py:41
 msgid "Settings"
-msgstr ""
+msgstr "Definições"
 
 #: src/MainWindow.py:149 src/MainWindow.py:554
 msgid "About"
@@ -447,17 +447,19 @@ msgstr "Sensores"
 
 #: src/MainWindow.py:551
 msgid "Translated by"
-msgstr ""
+msgstr "Traduzido por"
 
 #: src/MainWindow.py:574
 msgid "Web Page"
-msgstr ""
+msgstr "Página web"
 
 #: src/MainWindow.py:586
 msgid ""
 "This program comes with absolutely no warranty.\n"
 "See the GNU General Public License, version 3 or later for details."
 msgstr ""
+"Este programa não tem absolutamente nenhuma garantia.\n"
+"Consulte a Licença Pública Geral GNU, versão 3 ou posterior para obter detalhes."
 
 #: src/MainWindow.py:955
 msgid "CPU core selection affects only frequency and cache memory information."
@@ -480,7 +482,7 @@ msgstr "Disponível"
 
 #: src/Memory.py:135 src/Memory.py:187
 msgid "Cached"
-msgstr ""
+msgstr "Em cache"
 
 #: src/Memory.py:142
 msgid "Hardware"
@@ -508,7 +510,7 @@ msgstr "Tipo de ligação"
 
 #: src/Network.py:131
 msgid "Connected-SSID"
-msgstr ""
+msgstr "SSID ligado"
 
 #: src/Network.py:138
 msgid "Link Quality"
@@ -571,11 +573,11 @@ msgstr "Definir afinidade da CPU"
 
 #: src/Processes.py:136
 msgid "Expand All"
-msgstr ""
+msgstr "Expandir tudo"
 
 #: src/Processes.py:137
 msgid "Collapse All"
-msgstr ""
+msgstr "Minimizar tudo"
 
 #: src/Processes.py:201
 msgid "Change priority of these processes"
@@ -631,6 +633,8 @@ msgid ""
 "Change priority of these process:\n"
 "(Smaller value means higher process priority)"
 msgstr ""
+"Alterar a prioridade destes processos:\n"
+"(Um valor mais pequeno significa uma prioridade de processo mais elevada)"
 
 #: src/Processes.py:679 src/ProcessesDetails.py:119 src/SettingsWindow.py:1225
 #: src/SettingsWindow.py:1546 src/Users.py:182 src/UsersDetails.py:50
@@ -701,27 +705,27 @@ msgstr "A executar"
 
 #: src/Processes.py:709
 msgid "Sleeping"
-msgstr ""
+msgstr "Em suspensão"
 
 #: src/Processes.py:709
 msgid "Waiting"
-msgstr ""
+msgstr "À espera"
 
 #: src/Processes.py:709
 msgid "Idle"
-msgstr ""
+msgstr "Inativo"
 
 #: src/Processes.py:709
 msgid "Zombie"
-msgstr ""
+msgstr "Zombie"
 
 #: src/Processes.py:709
 msgid "Stopped"
-msgstr ""
+msgstr "Parado"
 
 #: src/Processes.py:709 src/Services.py:338
 msgid "Dead"
-msgstr "Parado"
+msgstr "Morto"
 
 #: src/ProcessesDetails.py:37 src/ProcessesDetails.py:738
 msgid "Process Details"
@@ -777,7 +781,7 @@ msgstr "Dispositivo"
 
 #: src/Sensors.py:87
 msgid "Sensor Name"
-msgstr ""
+msgstr "Nome do sensor"
 
 #: src/Sensors.py:88
 msgid "Current Value"
@@ -970,7 +974,7 @@ msgstr "Terminado"
 
 #: src/Services.py:338
 msgid "Not-found"
-msgstr ""
+msgstr "Não encontrado"
 
 #: src/ServicesDetails.py:33
 msgid "Service Details"
@@ -1113,13 +1117,13 @@ msgstr "Mostrar dados como potências de"
 #: src/SettingsWindow.py:991 src/SettingsWindow.py:1182
 #: src/SettingsWindow.py:1199
 msgid "1024"
-msgstr ""
+msgstr "1024"
 
 #: src/SettingsWindow.py:775 src/SettingsWindow.py:866
 #: src/SettingsWindow.py:995 src/SettingsWindow.py:1186
 #: src/SettingsWindow.py:1203
 msgid "1000"
-msgstr ""
+msgstr "1000"
 
 #: src/SettingsWindow.py:841 src/SettingsWindow.py:970
 msgid "Selected Device"
@@ -1140,11 +1144,11 @@ msgstr "Ocultar ciclo, disco ram, discos zram"
 
 #: src/SettingsWindow.py:1071
 msgid "°C"
-msgstr ""
+msgstr "°C"
 
 #: src/SettingsWindow.py:1075
 msgid "°F"
-msgstr ""
+msgstr "°F"
 
 #: src/SettingsWindow.py:1133
 msgid "View"
@@ -1160,7 +1164,7 @@ msgstr "Mostrar processos de todos os utilizadores"
 
 #: src/SettingsWindow.py:1151
 msgid "Hide kernel threads"
-msgstr ""
+msgstr "Ocultar threads do kernel"
 
 #: src/SettingsWindow.py:1156
 msgid "Show processes as tree"
@@ -1192,7 +1196,7 @@ msgstr "Terminal"
 
 #: src/SettingsWindow.py:1739
 msgid "Sub State"
-msgstr ""
+msgstr "Sub-estado"
 
 #: src/System.py:58 src/System.py:165
 msgid "Operating System (OS)"
@@ -1224,7 +1228,7 @@ msgstr "Número de monitores"
 
 #: src/System.py:176
 msgid "Version - Code Name"
-msgstr ""
+msgstr "Versão - Nome de código"
 
 #: src/System.py:183
 msgid "OS Family"
@@ -1256,7 +1260,7 @@ msgstr "Número de tempos de execução e aplicações Flatpak instaladas"
 
 #: src/System.py:234
 msgid "Tkinter Version"
-msgstr ""
+msgstr "Versão do Tkinter"
 
 #: src/System.py:236 src/System.py:244
 msgid "Version for the currently running software"
@@ -1288,7 +1292,7 @@ msgstr "Gestor de visualização"
 
 #: src/UsersDetails.py:33
 msgid "User Details"
-msgstr ""
+msgstr "Detalhes do utilizador"
 
 #~ msgid "Graph Color"
 #~ msgstr "Cor do gráfico"
