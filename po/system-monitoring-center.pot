@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-09 18:17+0300\n"
+"POT-Creation-Date: 2026-11-13 16:23+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,7 +60,8 @@ msgstr ""
 msgid "CPU"
 msgstr ""
 
-#: src/Cpu.py:57 src/Disk.py:285 src/Gpu.py:61 src/Gpu.py:212 src/Network.py:60
+#: src/Cpu.py:57 src/Disk.py:60 src/Disk.py:285 src/Gpu.py:61 src/Gpu.py:212
+#: src/Network.py:60
 msgid "Vendor - Model"
 msgstr ""
 
@@ -130,10 +131,6 @@ msgstr ""
 #: src/ProcessesDetails.py:60 src/SettingsWindow.py:72
 #: src/SettingsWindow.py:889 src/SettingsWindow.py:1196
 msgid "Disk"
-msgstr ""
-
-#: src/Disk.py:60
-msgid "Vendor-Model"
 msgstr ""
 
 #: src/Disk.py:79 src/Disk.py:109 src/MainWindow.py:196 src/Processes.py:686

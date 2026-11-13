@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-05 13:04+0300\n"
-"PO-Revision-Date: 2026-04-05 13:06+0300\n"
+"POT-Creation-Date: 2026-11-13 16:23+0300\n"
+"PO-Revision-Date: 2026-11-13 16:27+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
@@ -63,7 +63,8 @@ msgstr "Ara..."
 msgid "CPU"
 msgstr "MİB"
 
-#: src/Cpu.py:57 src/Disk.py:285 src/Gpu.py:61 src/Gpu.py:212 src/Network.py:60
+#: src/Cpu.py:57 src/Disk.py:60 src/Disk.py:285 src/Gpu.py:61 src/Gpu.py:212
+#: src/Network.py:60
 msgid "Vendor - Model"
 msgstr "Firma - Model"
 
@@ -134,10 +135,6 @@ msgstr "MİB Kullanımı (Çekirdek Başına)"
 #: src/SettingsWindow.py:889 src/SettingsWindow.py:1196
 msgid "Disk"
 msgstr "Disk"
-
-#: src/Disk.py:60
-msgid "Vendor-Model"
-msgstr "Firma-Model"
 
 #: src/Disk.py:79 src/Disk.py:109 src/MainWindow.py:196 src/Processes.py:686
 #: src/ProcessesDetails.py:159 src/ProcessesDetails.py:451

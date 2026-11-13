@@ -57,7 +57,7 @@ class Disk:
 
         # Label (device vendor-model label)
         self.device_vendor_model_label = Common.device_vendor_model_label(frame)
-        tooltip = Common.tooltip(self.device_vendor_model_label, _tr("Vendor-Model"))
+        tooltip = Common.tooltip(self.device_vendor_model_label, _tr("Vendor - Model"))
 
         # Label (device kernel name)
         self.device_kernel_name_label = Common.device_kernel_name_label(frame)

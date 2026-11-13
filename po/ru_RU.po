@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: system-monitoring-center\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-09 18:17+0300\n"
-"PO-Revision-Date: 2026-04-21 13:52+0300\n"
+"POT-Creation-Date: 2026-11-13 16:23+0300\n"
+"PO-Revision-Date: 2026-11-13 16:36+0300\n"
 "Last-Translator: Dmitriy Q <atsip-help@yandex.ru>\n"
 "Language-Team: TranslAster\n"
 "Language: ru_RU\n"
@@ -64,7 +64,8 @@ msgstr "Поиск..."
 msgid "CPU"
 msgstr "ЦП"
 
-#: src/Cpu.py:57 src/Disk.py:285 src/Gpu.py:61 src/Gpu.py:212 src/Network.py:60
+#: src/Cpu.py:57 src/Disk.py:60 src/Disk.py:285 src/Gpu.py:61 src/Gpu.py:212
+#: src/Network.py:60
 msgid "Vendor - Model"
 msgstr "Поставщик - Модель"
 
@@ -135,10 +136,6 @@ msgstr "Использования ЦП (для каждого ядра)"
 #: src/SettingsWindow.py:889 src/SettingsWindow.py:1196
 msgid "Disk"
 msgstr "Диск"
-
-#: src/Disk.py:60
-msgid "Vendor-Model"
-msgstr "Поставщик-Модель"
 
 #: src/Disk.py:79 src/Disk.py:109 src/MainWindow.py:196 src/Processes.py:686
 #: src/ProcessesDetails.py:159 src/ProcessesDetails.py:451
