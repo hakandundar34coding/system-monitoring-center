@@ -4689,12 +4689,6 @@ def get_services_information():
     for service in service_list:
         unit_files_command.append(service)
 
-    # Get number of online logical CPU cores (this operation is repeated in every loop because 
-    # number of online CPU cores may be changed by user and this may cause wrong calculation of
-    # CPU usage percentage data of the processes even if this is a very rare situation.)
-    number_of_logical_cores = get_number_of_logical_cores()
-    number_of_logical_cores = 1
-
     # Do not use multiprocessing with Python 3.14 and higher versions. Multiple GUI instances are opened.
     try:
         systemctl_show_command_lines = (subprocess.check_output(unit_files_command, shell=False)).decode().strip().split("\n\n")
