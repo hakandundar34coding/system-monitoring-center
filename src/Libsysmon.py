@@ -4629,7 +4629,7 @@ def get_services_information():
     in this case. On newer distributions "/usr/lib/systemd/system/" is a symlink to "/lib/systemd/system/".
     On ARM systems, also "/usr/lib/systemd/system/" folder may be used after installling some applications. In this situation
     this folder will be a real path. There may be user services in "/home/[USERNAME]/.config/systemd/user/" folder.
-    Service list information is get by using multiprocessing. systemd may not support this for providing service information.
+    Service list information is not get by using multiprocessing. systemd may not support this for providing service information.
     This shortened time for getting service information and did not printed errors and did not give incorrect service information during tests.
     """
 
@@ -4693,24 +4693,14 @@ def get_services_information():
     # number of online CPU cores may be changed by user and this may cause wrong calculation of
     # CPU usage percentage data of the processes even if this is a very rare situation.)
     number_of_logical_cores = get_number_of_logical_cores()
+    number_of_logical_cores = 1
 
     # Do not use multiprocessing with Python 3.14 and higher versions. Multiple GUI instances are opened.
-    minor_version = int(get_current_python_version().split(".")[1])
-    if minor_version > 13:
+    try:
         systemctl_show_command_lines = (subprocess.check_output(unit_files_command, shell=False)).decode().strip().split("\n\n")
-    else:
-        # Get services bu using single process (instead of multiprocessing) if the system has 1 or 2 CPU cores.
-        if number_of_logical_cores < 3:
-            # Get service data per service file in one attempt in order to obtain lower CPU usage.
-            # Because information from all service files will be get by one commandline operation and will be parsed later.
-            try:
-                systemctl_show_command_lines = (subprocess.check_output(unit_files_command, shell=False)).decode().strip().split("\n\n")
-            # Prevent errors if "systemd" is not used on the system.
-            except Exception:
-                return
-        # Get services bu using multiple processes (multiprocessing) if the system has more than 2 CPU cores.
-        else:
-            systemctl_show_command_lines = start_processes_func(number_of_logical_cores, unit_files_command)
+    # Prevent errors if "systemd" is not used on the system.
+    except Exception:
+        return
 
     # Get service information by processing command output
     services_data_dict = {}
@@ -4757,117 +4747,6 @@ def get_services_information():
         services_data_dict[service_name] = service_data_dict
 
     return services_data_dict
-
-
-def get_core_count_for_getting_services(number_of_logical_cores):
-    """
-    Get number of CPU cores to be used at the same time for getting service data.
-    """
-
-    # 1 or 2 CPU cores are not used in order to avoid reducing performance of other processes or the system.
-    # Using more than 5 CPU cores does not improve performance noticeably on a 4 physical (8 logical) core system.
-    if number_of_logical_cores == 3:
-        number_of_cpu_cores_used = 2
-    if number_of_logical_cores in [4, 5, 6, 7]:
-        number_of_cpu_cores_used = number_of_logical_cores - 2
-    if number_of_logical_cores > 7:
-        number_of_cpu_cores_used = 5
-
-    return number_of_cpu_cores_used
-
-
-def split_unit_files_command_output(number_of_cpu_cores_used, unit_files_command):
-    """
-    Split service list into [number_of_cpu_cores_used] lists for using them to get service data by using multiprocessing.
-    """
-
-    # Get service list and unit file command parameters. "+1" for list slice index, "+2" for 2 elements after "systemctl" parameter to obtain index of element which starts with "--property=".
-    index_to_split_list = unit_files_command.index("systemctl") + 1 + 2
-    service_list = unit_files_command[index_to_split_list:]
-    unit_files_command = unit_files_command[:index_to_split_list]
-
-    # Get number of services per process.
-    number_of_services_per_process = len(service_list) // number_of_cpu_cores_used
-    remaining_services = len(service_list) % number_of_cpu_cores_used
-
-    # Split service list per process.
-    service_list_split = []
-    for i in range(number_of_cpu_cores_used):
-        service_list_split.append(service_list[i*number_of_services_per_process:(i+1)*number_of_services_per_process])
-
-    # Add the remaining services into the last list.
-    if remaining_services != 0:
-        for service in service_list[-remaining_services:]:
-            service_list_split[-1].append(service)
-
-    # Also add the command parameters to the beginning of the all service lists to use them as commands.
-    unit_files_command_split = []
-    for service_list_data in service_list_split:
-        unit_files_command_scratch = list(unit_files_command)
-        for service in service_list_data:
-            unit_files_command_scratch.append(service)
-        unit_files_command_split.append(unit_files_command_scratch)
-
-    return unit_files_command_split
-
-
-def get_service_data(queue1, i, unit_files_command_split):
-    """
-    Get service data by using multiprocessing.
-    """
-
-    try:
-        systemctl_show_command_lines_split = (subprocess.check_output(unit_files_command_split, shell=False)).decode().strip().split("\n\n")
-    # Prevent errors if "systemd" is not used on the system.
-    except Exception:
-        pass
-
-    # Put the service data (and process number) into queue in order to get it, reorder and merge them by using the main process. It is a FIFO queue and data can be get in the same order which they are put into the queue.
-    # Nested "[}" required for putting the data as a list.
-    queue1.put([[i, systemctl_show_command_lines_split]])
-
-
-def start_processes_func(number_of_logical_cores, unit_files_command):
-    """
-    Run the required functions and start processes to get the service data by using multiprocessing.
-    """
-
-    # Import modules in this function because entire module is run separately by the all processes if multiprocessing is used.
-    import multiprocessing
-
-    # Get the required data.
-    number_of_cpu_cores_used = get_core_count_for_getting_services(number_of_logical_cores)
-    unit_files_command_split = split_unit_files_command_output(number_of_cpu_cores_used, unit_files_command)
-
-    # Define a queue for getting the data from the processes.
-    queue1 = multiprocessing.Queue()
-
-    # Generate processes and their argments (queue, process number for reordering the output, command per process).
-    process_list = [multiprocessing.Process(target=get_service_data, args=(queue1, i, unit_files_command_split[i]), daemon=True) for i in range(number_of_cpu_cores_used)]
-
-    # Start the processes.
-    for process in process_list:
-        process.start()
-
-    # Wait for processes to finish.
-    for process in process_list:
-        process.join()
-
-    # Get all the data in the queue (until it is empty).
-    queue_data_list = []
-    while queue1.empty() == False:
-        queue_data_list = queue_data_list + queue1.get()
-
-    # Reorder the data by using the process numbers. Because processes may not be finish the works in the start order.
-    queue_data_list = sorted(queue_data_list)
-
-    # Merge the process data and obtain a single list.
-    systemctl_show_command_lines = []
-    for data1 in queue_data_list:
-        for service in data1[1]:
-            systemctl_show_command_lines.append(service)
-
-    return systemctl_show_command_lines
 
 
 def get_service_detailed_information(service_name):
