@@ -107,7 +107,7 @@
     </screenshot>
   </screenshots>
   <releases>
-      <release version="3.5.1" date="2026-11-14">
+      <release version="3.5.0" date="2026-11-14">
       <description>
         <ul>
           <li>Improvements for Tk version detection</li>
