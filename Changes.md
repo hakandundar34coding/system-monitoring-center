@@ -1,5 +1,11 @@
 # System Monitoring Center
 
+### v3.5.0 (14.11.2026)
+  * Improvements for Tk version detection
+  * Updated Portuguese translations
+  * Minor improvements (Flatpak, translations, etc.)
+  * Fix: Services are not get if multiprocessing is used on some systems
+
 ### v3.4.1 (25.05.2026)
   * Fix: GPU load for AMD GPUs (GPU)
   * Fix: GPU memory frequency (GPU)

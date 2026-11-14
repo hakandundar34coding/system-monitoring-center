@@ -107,6 +107,16 @@
     </screenshot>
   </screenshots>
   <releases>
+      <release version="3.5.1" date="2026-11-14">
+      <description>
+        <ul>
+          <li>Improvements for Tk version detection</li>
+          <li>Updated Portuguese translations</li>
+          <li>Minor improvements (Flatpak, translations, etc.)</li>
+          <li>Fix: Services are not get if multiprocessing is used on some systems</li>
+        </ul>
+      </description>
+    </release>
       <release version="3.4.1" date="2026-05-25">
       <description>
         <ul>
