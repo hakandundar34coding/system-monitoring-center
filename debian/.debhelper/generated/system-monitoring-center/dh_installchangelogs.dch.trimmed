@@ -1,3 +1,12 @@
+system-monitoring-center (3.5.0) unstable; urgency=medium
+
+  * Improvements for Tk version detection
+  * Updated Portuguese translations
+  * Minor improvements (Flatpak, translations, etc.)
+  * Fix: Services are not get if multiprocessing is used on some systems
+
+ -- Hakan Dündar <hakandundar34@gmail.com>  Sat, 14 Nov 2026 13:00:00 +0300
+
 system-monitoring-center (3.4.1) unstable; urgency=medium
 
   * Fix: GPU load for AMD GPUs (GPU)
