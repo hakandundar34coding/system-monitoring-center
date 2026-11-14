@@ -5091,13 +5091,15 @@ def get_current_python_version():
     return current_python_version
 
 
-def get_current_tk_version():
+def get_current_tk_version(main_window):
     """
     Get Tk version which is used for this application.
     """
 
     import tkinter as tk
-    current_tk_version = tk.TkVersion
+    #current_tk_version = tk.TkVersion     # Gets tk version as major and minor version.
+
+    current_tk_version = main_window.tk.call("info", "patchlevel")
 
     return current_tk_version
 

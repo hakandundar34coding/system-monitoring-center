@@ -318,7 +318,7 @@ class System:
         host_name = Libsysmon.get_host_name()
         number_of_monitors = Libsysmon.get_number_of_monitors()
         current_python_version = Libsysmon.get_current_python_version()
-        current_tk_version = Libsysmon.get_current_tk_version()
+        current_tk_version = Libsysmon.get_current_tk_version(MainWindow.main_window)
         windowing_system = Libsysmon.get_windowing_system()
         current_desktop_environment, current_desktop_environment_version, window_manager, current_display_manager = Libsysmon.get_desktop_environment_and_version_window_manager_display_manager()
         # Run this function in a separate thread because it may take a long time (2-3 seconds) to get the information on some systems (such as rpm based systems) and it blocks the GUI during this process if a separate thread is not used.
